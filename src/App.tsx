@@ -1,4 +1,5 @@
 import { Button } from './components/ui/button'
+import { SliderApp } from './components/ui/slider'
 
 export function App() {
   return (
@@ -8,6 +9,9 @@ export function App() {
       </Button>
       <div>
         <Button variant="secondary">hello2</Button>
+      </div>
+      <div>
+        <SliderApp />
       </div>
     </div>
   )
