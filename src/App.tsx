@@ -4,7 +4,7 @@ export function App() {
   return (
     <div>
       hello friend
-      <TabSwitcher />
+      <TabSwitcher values={['qwe', 'wer', 'rty', 'tyu']} />
     </div>
   )
 }
