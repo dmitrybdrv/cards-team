@@ -1,23 +1,13 @@
 import { FC } from 'react'
 
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
+import { clsx } from 'clsx'
 
-import s from './tab-switcher.module.scss'
+import s from './tabSwitcher.module.scss'
+import { Props } from './tabSwitcher.types.ts'
 
-type ValueType = {
-  value: string
-  title?: string
-  disabled?: boolean
-}
-
-type Props = {
-  onChange?: (value: string) => void
-  values: ValueType[]
-  defaultValue?: string
-  disabled?: boolean
-}
 export const TabSwitcher: FC<Props> = props => {
-  const { onChange, values, disabled = false, defaultValue } = props
+  const { onChange, values, disabled = false, defaultValue, className } = props
   const mappedItems = values.map((value, index) => {
     return (
       <ToggleGroup.Item
@@ -35,7 +25,7 @@ export const TabSwitcher: FC<Props> = props => {
     <ToggleGroup.Root
       disabled={disabled}
       type={'single'}
-      className={s.ToggleGroup}
+      className={clsx(s.ToggleGroup, className)}
       onValueChange={onChange}
       defaultValue={defaultValue}
     >

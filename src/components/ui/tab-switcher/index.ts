@@ -1,1 +1,1 @@
-export * from './tab-switcher'
+export * from './tabSwitcher.tsx'
