@@ -10,6 +10,17 @@ const meta = {
     onChange: {
       action: 'Changed value',
       type: 'function',
+      description: 'Callback handler change value',
+    },
+    values: {
+      description:
+        'Array values type: {value: string (uniq), title?: string = value, disabled?: boolean = false}',
+    },
+    disabled: {
+      description: 'Applied for all items',
+    },
+    defaultValue: {
+      description: 'Default value for choose item by render',
     },
   },
 } satisfies Meta<typeof TabSwitcher>
