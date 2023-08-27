@@ -6,9 +6,6 @@ button {
   margin: 10px;
   display: inline-flex;
   align-items: center;
-  //background-color: var(--mauve-6);
-  //border-radius: 4px;
-  //box-shadow: 0 2px 10px var(--black-a7);
 }
 
 .ToggleItem {
@@ -24,36 +21,41 @@ button {
   padding: 6px 24px;
   border: 1px solid var(--color-dark-300);
   border-right: none;
-}
 
-.ToggleItem:first-child {
-  border-radius: 2px 0 0 2px;
-}
+  &:first-child {
+    border-radius: 2px 0 0 2px;
+  }
 
-.ToggleItem:last-child {
-  border-radius: 0 2px 2px 0;
-  border-right: 1px solid var(--color-dark-300);
+  &:last-child {
+    border-radius: 0 2px 2px 0;
+    border-right: 1px solid var(--color-dark-300);
+  }
 }
 
 //hover
 .ToggleItem:not(
  .ToggleItem[data-state='on'],
  .ToggleItem[data-disabled],
- :focus):hover {
-  color: var(--color-light-900);
+ :focus
+ ):hover {
   background-color: var(--color-dark-300);
+  color: var(--color-light-900);
   border-color: var(--color-dark-100);
+
+  & + .ToggleItem:not(:focus) {
+    border-left: 1px solid var(--color-dark-100);
+  }
+}
+
+.ToggleItem:not(.ToggleItem[data-state='on']):focus:hover {
+  background-color: var(--color-dark-300);
 }
 
 .ToggleItem:not(
-  :focus,
-  .ToggleItem[data-state='on'],
-  .ToggleItem[data-disabled]
-  ):hover + .ToggleItem:not(:focus) {
-  border-left: 1px solid var(--color-dark-100);
-}
-
-.ToggleItem:not(:focus):first-child:hover + .ToggleItem:not(:focus) {
+ .ToggleItem[data-state='on'],
+ .ToggleItem[data-disabled],
+ :focus
+ ):first-child:hover + .ToggleItem:not(:focus) {
   border-left: 1px solid var(--color-dark-100);
 }
 
@@ -61,17 +63,20 @@ button {
 .ToggleItem[data-state='on'] {
   background-color: var(--color-accent-500);
   border-color: var(--color-accent-500);
+
+  & + .ToggleItem:not(:focus) {
+    border-left-color: var(--color-accent-500);
+  }
 }
 
 //focus
 .ToggleItem:focus {
-  //border-width: 1px;
   border-color: var(--color-info-900);
   outline: 1px solid var(--color-info-900);
   z-index: 5;
 }
 
-.ToggleItem:not(.ToggleItem[data-state='on']):focus {
+.ToggleItem:not(.ToggleItem[data-state='on'], :hover):focus {
   background-color: var(--color-dark-700);
 }
 
@@ -82,6 +87,7 @@ button {
 .ToggleItem:focus + .ToggleItem {
   border-left: none;
 }
+
 
 .ToggleItem[data-disabled] {
   color: var(--color-dark-300);

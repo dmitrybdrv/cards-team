@@ -1,10 +1,19 @@
-import { TabSwitcher } from './components/ui/tab-switcher/tab-switcher.tsx'
+import { TabSwitcher } from './components/ui'
 
 export function App() {
   return (
     <div>
       hello friend
-      <TabSwitcher values={['qwe', 'wer', 'rty', 'tyu']} />
+      <TabSwitcher
+        defaultValue={'s'}
+        values={[
+          { value: 'qwe' },
+          { value: 'wer', title: 'newTitle' },
+          { value: 'rty', disabled: true },
+          { value: 'tyu' },
+        ]}
+        onChange={value => console.log(value)}
+      />
     </div>
   )
 }
