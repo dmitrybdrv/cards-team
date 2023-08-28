@@ -8,7 +8,7 @@ import {
 } from 'react'
 
 import s from './textField.module.scss'
-import { getPlaceHolder, getType } from './textField.utils.ts'
+import { getPlaceHolder } from './textField.utils.ts'
 
 type TextFieldProps = {
   firstIcon?: ReactNode
@@ -30,9 +30,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     const placeHolder = getPlaceHolder(rest.placeholder, type)
 
-    const typeVariant = getType(isShowPassword, type)
-
-    console.log(typeVariant)
+    // const typeVariant = getType(isShowPassword, type)
+    //
+    // console.log(typeVariant)
 
     const Trgdrg = type === 'password' && !isShowPassword ? 'password' : 'text'
 
