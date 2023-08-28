@@ -22,7 +22,7 @@ export const CheckBox: FC<CheckBoxProps> = ({
 }) => {
   const checkBoxContent = checkBoxReturner(defaultChecked, disabled)
 
-  const checkboxStyle = `${s.checkboxRoot} ${s.className}`
+  const checkboxStyle = `${s.checkboxRoot} ${className}`
 
   return (
     <div className={s.checkBoxContainer}>
