@@ -7,8 +7,10 @@ import {
   useState,
 } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from './textField.module.scss'
-import { getPlaceHolder } from './textField.utils.ts'
+import { getPlaceHolder, getType } from './textField.utils.ts'
 
 type TextFieldProps = {
   firstIcon?: ReactNode
@@ -21,43 +23,54 @@ type TextFieldProps = {
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   ({ id, firstIcon, secondIcon, type = 'text', label, error, onEnterHandler, ...rest }, ref) => {
-    const inputStyle = `${s.input} ${rest.className ? rest.className : ''} ${error ? s.error : ''}`
-    const [isShowPassword, setIsShowPassword] = useState(false)
+    const [isShowPassword, setIsShowPassword] = useState(true)
 
     const onShowIcon = () => {
       setIsShowPassword(!isShowPassword)
     }
 
+    const inputStyle = clsx(
+      s.input,
+      rest.className,
+      error && s.error,
+      rest.name === 'password' && s.passwordInput,
+      rest.name === 'search' && s.searchInput
+    )
+
     const placeHolder = getPlaceHolder(rest.placeholder, type)
 
-    // const typeVariant = getType(isShowPassword, type)
-    //
-    // console.log(typeVariant)
+    const typeVariant = getType(isShowPassword, type)
 
-    const Trgdrg = type === 'password' && !isShowPassword ? 'password' : 'text'
+    const isShowIcon =
+      (rest.name === 'password' && (
+        <span className={s.passwordIcon} onClick={onShowIcon}>
+          <img
+            src={
+              isShowPassword ? (firstIcon as unknown as string) : (secondIcon as unknown as string)
+            }
+            alt="icon"
+          />
+        </span>
+      )) ||
+      (type === 'search' && (
+        <span className={s.searchIcon}>
+          <img src={firstIcon as unknown as string} alt="icon" />
+        </span>
+      ))
 
     return (
       <div className={s.textFieldContainer}>
-        {label && (
-          <label className={s.label} htmlFor={id} aria-disabled={rest.disabled}>
-            {label}
-          </label>
-        )}
-        {type === 'search' && <span className={s.searchIcon}>{firstIcon}</span>}
+        {isShowIcon}
         <input
           id={id}
           ref={ref}
-          type={Trgdrg}
+          type={typeVariant}
           onKeyDown={onEnterHandler}
           className={inputStyle}
           placeholder={placeHolder}
           {...rest}
         />
-        {type === 'password' && (
-          <span onClick={onShowIcon} className={s.passwordIcon}>
-            {isShowPassword ? firstIcon : secondIcon}
-          </span>
-        )}
+        {isShowIcon}
         {error && <span className={s.errorText}>{error}</span>}
       </div>
     )
