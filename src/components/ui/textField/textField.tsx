@@ -7,6 +7,8 @@ import {
   useState,
 } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from './textField.module.scss'
 import { getPlaceHolder } from './textField.utils.ts'
 
@@ -21,7 +23,8 @@ type TextFieldProps = {
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   ({ id, firstIcon, secondIcon, type = 'text', label, error, onEnterHandler, ...rest }, ref) => {
-    const inputStyle = `${s.input} ${rest.className ? rest.className : ''} ${error ? s.error : ''}`
+    // const inputStyle = `${s.input} ${rest.className ? rest.className : ''} ${error ? s.error : ''}`
+    const inputStyle = clsx(s.input, rest.className, error && s.error)
     const [isShowPassword, setIsShowPassword] = useState(false)
 
     const onShowIcon = () => {
