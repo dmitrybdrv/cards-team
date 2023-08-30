@@ -1,26 +1,25 @@
-import { TextField } from './components/ui'
-import open from './components/ui/checkbox/DisabledSelected.svg'
-import closed from './components/ui/checkbox/DisabledUnselect.svg'
+import { Button, TextField } from './components/ui'
+import { Label } from './components/ui/label/label.tsx'
+import closed from './components/ui/textField/closedEye.svg'
+import open from './components/ui/textField/openEye.svg'
+import search from './components/ui/textField/searchIcon.svg'
 
 export function App() {
   return (
-    <div style={{ margin: '50px' }}>
-      <div style={{ width: '284px' }}>
-        <TextField type={'text'} />
-      </div>
-      <div style={{ width: '284px' }}>
-        <TextField
-          type={'password'}
-          firstIcon={<div>{open}</div>}
-          secondIcon={<div>{closed}</div>}
-        />
-      </div>
-      <div style={{ width: '284px' }}>
-        <TextField type={'email'} />
-      </div>
-      <div style={{ width: '284px' }}>
-        <TextField type={'search'} />
-      </div>
-    </div>
+    <form style={{ margin: '50px', width: '284px' }}>
+      <Label label={'Password'}>
+        <TextField type={'password'} name={'password'} firstIcon={open} secondIcon={closed} />
+      </Label>
+      <Label label={'Search'}>
+        <TextField type={'search'} name={'search'} firstIcon={open} secondIcon={closed} />
+      </Label>
+      <Label label={'Search'}>
+        <TextField type={'search'} name={'search'} firstIcon={search} />
+      </Label>
+      <Label label={'Text'}>
+        <TextField type={'text'} name={'text'} />
+      </Label>
+      <Button type={'submit'}>Send</Button>
+    </form>
   )
 }
