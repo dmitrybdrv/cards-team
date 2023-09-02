@@ -9,6 +9,8 @@ import {
 
 import { clsx } from 'clsx'
 
+import closed from './closedEye.svg'
+import openEye from './openEye.svg'
 import s from './textField.module.scss'
 import { getPlaceHolder, getType } from './textField.utils.ts'
 
@@ -44,12 +46,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const isShowIcon =
       (rest.name === 'password' && (
         <span className={s.passwordIcon} onClick={onShowIcon}>
-          <img
-            src={
-              isShowPassword ? (firstIcon as unknown as string) : (secondIcon as unknown as string)
-            }
-            alt="icon"
-          />
+          <img src={isShowPassword ? openEye : closed} alt="icon" />
         </span>
       )) ||
       (type === 'search' && (
