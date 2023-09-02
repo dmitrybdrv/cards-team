@@ -1,16 +1,14 @@
-import { useState } from 'react'
-
-import s from './app.module.scss'
-import { CheckBox } from './components/ui'
+import { Button, TextField } from './components/ui'
 
 export function App() {
-  const [checked, setChecked] = useState(false)
-
-  console.log(setChecked)
-
   return (
-    <div>
-      <CheckBox defaultChecked={checked} onChange={() => {}} className={s.test} />
-    </div>
+    <form style={{ margin: '50px', width: '284px' }}>
+      <TextField type={'password'} name={'password'} label={'Password'} />
+      <TextField type={'search'} name={'search'} label={'Search'} />
+      <TextField type={'text'} name={'text'} label={'Text'} />
+      <div>
+        <Button type={'submit'}>Send</Button>
+      </div>
+    </form>
   )
 }
