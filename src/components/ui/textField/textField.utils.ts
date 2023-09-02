@@ -39,7 +39,3 @@ export const getPlaceHolder = (placeholder: string | undefined, type: HTMLInputT
     return placeholder
   }
 }
-
-export const getCapitalLetter = (str: string | undefined) => {
-  return str ? str[0].toUpperCase() + str.slice(1) : ''
-}

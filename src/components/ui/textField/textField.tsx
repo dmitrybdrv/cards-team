@@ -1,34 +1,25 @@
-import {
-  ChangeEvent,
-  ComponentPropsWithoutRef,
-  forwardRef,
-  KeyboardEvent,
-  ReactNode,
-  useState,
-} from 'react'
+import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import { clsx } from 'clsx'
 
-import { ReactComponent as ClosedEyeIcon } from './closedEye.svg'
-import { ReactComponent as OpenEyeIcon } from './openEye.svg'
+import { ReactComponent as ClosedEyeIcon } from '../../../common/assets/icons/closedEye.svg'
+import { ReactComponent as OpenEyeIcon } from '../../../common/assets/icons/openEye.svg'
+import { ReactComponent as SearchIcon } from '../../../common/assets/icons/searchIcon.svg'
+
 import s from './textField.module.scss'
-import { getCapitalLetter, getPlaceHolder, getType } from './textField.utils.ts'
+import { getPlaceHolder, getType } from './textField.utils.ts'
 
 type TextFieldProps = {
-  firstIcon?: ReactNode
-  secondIcon?: ReactNode
   label?: string
-  onChangeHandler?: (eve: ChangeEvent<HTMLInputElement>) => void
-  onEnterHandler?: (eve: KeyboardEvent<HTMLInputElement>) => void
   error?: string
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ id, firstIcon, secondIcon, type = 'text', label, error, onEnterHandler, ...rest }, ref) => {
+  ({ type = 'text', label, error, ...rest }, ref) => {
     const [isShowPassword, setIsShowPassword] = useState(true)
 
     const onShowIcon = () => {
-      setIsShowPassword(!isShowPassword)
+      !rest.disabled && setIsShowPassword(!isShowPassword)
     }
 
     const inputStyle = clsx(
@@ -46,26 +37,21 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const SvgComponent = isShowPassword ? OpenEyeIcon : ClosedEyeIcon
 
     const isShowIcon =
-      (rest.name === 'password' && (
-        <SvgComponent className={clsx(s.passwordIcon, s.eyeIcon)} onClick={onShowIcon} />
-      )) ||
-      (type === 'search' && (
-        <span className={s.searchIcon}>
-          <img src={firstIcon as unknown as string} alt="icon" />
-        </span>
-        // <ClosedEyeIcon className={clsx(s.passwordIcon, s.openEye)} onClick={onShowIcon} />
-      ))
+      (rest.name === 'password' && <SvgComponent className={s.eyeIcon} onClick={onShowIcon} />) ||
+      (type === 'search' && <SearchIcon className={s.searchIcon} />)
 
     return (
       <>
-        {label && <label htmlFor={rest.name}>{getCapitalLetter(rest.name)}</label>}
+        {label && (
+          <label htmlFor={rest.name} className={s.label} aria-disabled={rest.disabled}>
+            {label}
+          </label>
+        )}
         <div className={s.textFieldContainer}>
-          {/*{isShowIcon}*/}
           <input
             id={rest.name}
             ref={ref}
             type={typeVariant}
-            onKeyDown={onEnterHandler}
             className={inputStyle}
             placeholder={placeHolder}
             {...rest}
