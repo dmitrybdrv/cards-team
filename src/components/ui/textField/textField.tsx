@@ -9,10 +9,10 @@ import {
 
 import { clsx } from 'clsx'
 
-import closed from './closedEye.svg'
-import openEye from './openEye.svg'
+import { ReactComponent as ClosedEyeIcon } from './closedEye.svg'
+import { ReactComponent as OpenEyeIcon } from './openEye.svg'
 import s from './textField.module.scss'
-import { getPlaceHolder, getType } from './textField.utils.ts'
+import { getCapitalLetter, getPlaceHolder, getType } from './textField.utils.ts'
 
 type TextFieldProps = {
   firstIcon?: ReactNode
@@ -43,33 +43,37 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     const typeVariant = getType(isShowPassword, type)
 
+    const SvgComponent = isShowPassword ? OpenEyeIcon : ClosedEyeIcon
+
     const isShowIcon =
       (rest.name === 'password' && (
-        <span className={s.passwordIcon} onClick={onShowIcon}>
-          <img src={isShowPassword ? openEye : closed} alt="icon" />
-        </span>
+        <SvgComponent className={clsx(s.passwordIcon, s.eyeIcon)} onClick={onShowIcon} />
       )) ||
       (type === 'search' && (
         <span className={s.searchIcon}>
           <img src={firstIcon as unknown as string} alt="icon" />
         </span>
+        // <ClosedEyeIcon className={clsx(s.passwordIcon, s.openEye)} onClick={onShowIcon} />
       ))
 
     return (
-      <div className={s.textFieldContainer}>
-        {isShowIcon}
-        <input
-          id={id}
-          ref={ref}
-          type={typeVariant}
-          onKeyDown={onEnterHandler}
-          className={inputStyle}
-          placeholder={placeHolder}
-          {...rest}
-        />
-        {isShowIcon}
-        {error && <span className={s.errorText}>{error}</span>}
-      </div>
+      <>
+        {label && <label htmlFor={rest.name}>{getCapitalLetter(rest.name)}</label>}
+        <div className={s.textFieldContainer}>
+          {/*{isShowIcon}*/}
+          <input
+            id={rest.name}
+            ref={ref}
+            type={typeVariant}
+            onKeyDown={onEnterHandler}
+            className={inputStyle}
+            placeholder={placeHolder}
+            {...rest}
+          />
+          {isShowIcon}
+          {error && <span className={s.errorText}>{error}</span>}
+        </div>
+      </>
     )
   }
 )

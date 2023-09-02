@@ -28,18 +28,25 @@
       color: var(--color-dark-100);
     }
 
-    &:disabled + .passwordIcon {
-      filter: invert(28%) sepia(5%) saturate(21%) hue-rotate(317deg) brightness(99%) contrast(93%);
+    &:disabled {
+      border-color: var(--color-dark-300);
+
+      & + .eyeIcon {
+        fill: var(--color-dark-300)
+      }
+      &::placeholder {
+        color: var(--color-dark-300)
+      }
     }
   }
 
-  .input:hover {
+  .input:not(:disabled):hover {
     background: var(--color-dark-700);
   }
 
-  .input:not(:disabled):active {
+  .input:not(:disabled, :focus-visible):active {
     border-radius: 2px;
-    outline: 1px solid var(--color-light-100);
+    border: 1px solid var(--color-light-100);
 
     &::placeholder {
       color: var(--color-light-100);
@@ -48,7 +55,8 @@
 
   .input:focus-visible {
     border-radius: 2px;
-    outline: 2px solid var(--color-info-700);
+    border-color: var(--color-info-700);
+    outline: 1px solid var(--color-info-700);
 
     &::placeholder {
       color: var(--color-dark-100);
@@ -59,6 +67,10 @@
     position: absolute;
     top: 5px;
     right: 12px;
+  }
+
+  .eyeIcon {
+    fill: var(--color-light-100);
   }
 
   .passwordInput {

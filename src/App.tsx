@@ -7,15 +7,13 @@ import search from './components/ui/textField/searchIcon.svg'
 export function App() {
   return (
     <form style={{ margin: '50px', width: '284px' }}>
-      <Label label={'Password'}>
-        <TextField
-          type={'password'}
-          name={'password'}
-          firstIcon={open}
-          secondIcon={closed}
-          disabled
-        />
-      </Label>
+      <TextField
+        type={'password'}
+        name={'password'}
+        firstIcon={open}
+        secondIcon={closed}
+        label={'Password'}
+      />
       <Label label={'Search'}>
         <TextField type={'search'} name={'search'} firstIcon={search} />
       </Label>
