@@ -8,10 +8,13 @@ export function App() {
   return (
     <form style={{ margin: '50px', width: '284px' }}>
       <Label label={'Password'}>
-        <TextField type={'password'} name={'password'} firstIcon={open} secondIcon={closed} />
-      </Label>
-      <Label label={'Search'}>
-        <TextField type={'search'} name={'search'} firstIcon={open} secondIcon={closed} />
+        <TextField
+          type={'password'}
+          name={'password'}
+          firstIcon={open}
+          secondIcon={closed}
+          disabled
+        />
       </Label>
       <Label label={'Search'}>
         <TextField type={'search'} name={'search'} firstIcon={search} />
