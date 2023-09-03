@@ -1,14 +1,9 @@
-import { Button, TextField } from './components/ui'
+import { SignUp } from './features/signUp/signUp.tsx'
 
 export function App() {
   return (
-    <form style={{ margin: '50px', width: '284px' }}>
-      <TextField type={'password'} name={'password'} label={'Password'} />
-      <TextField type={'search'} name={'search'} label={'Search'} />
-      <TextField type={'text'} name={'text'} label={'Text'} />
-      <div>
-        <Button type={'submit'}>Send</Button>
-      </div>
-    </form>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <SignUp />
+    </div>
   )
 }
