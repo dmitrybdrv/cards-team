@@ -1,8 +1,8 @@
-import { SignUp } from './features/signUp/signUp.tsx'
+import { SignUp } from './features'
 
 export function App() {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div>
       <SignUp />
     </div>
   )

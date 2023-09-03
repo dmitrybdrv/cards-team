@@ -5,9 +5,9 @@ export const signUpSchema = z
     email: z.string().email(),
     password: z
       .string()
-      .min(6, { message: 'Password must be at least 6 characters' })
-      .max(30, { message: 'Password should be less 30 characters' }),
-    confirmPassword: z.string(),
+      .min(6, { message: 'Password should be at least 6 characters' })
+      .max(30, { message: 'Password should be not more 30 characters' }),
+    confirmPassword: z.string().nonempty('Should be equal Password field'),
   })
   .refine(data => data.password === data.confirmPassword, {
     path: ['confirmPassword'],

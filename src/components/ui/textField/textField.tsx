@@ -42,7 +42,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       (type === 'search' && <SearchIcon className={s.searchIcon} />)
 
     return (
-      <div className={className}>
+      <div className={clsx(s.inputWrapper, className)}>
         {label && (
           <label htmlFor={rest.name} aria-disabled={rest.disabled}>
             <Typography variant={'body2'} className={s.label}>
@@ -50,18 +50,16 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             </Typography>
           </label>
         )}
-        <div className={s.textFieldContainer}>
-          <input
-            id={rest.name}
-            ref={ref}
-            type={typeVariant}
-            className={inputStyle}
-            placeholder={placeHolder}
-            {...rest}
-          />
-          {isShowIcon}
-          {error && <span className={s.errorText}>{error.message}</span>}
-        </div>
+        <input
+          id={rest.name}
+          ref={ref}
+          type={typeVariant}
+          className={inputStyle}
+          placeholder={placeHolder}
+          {...rest}
+        />
+        {isShowIcon}
+        {error && <span className={s.errorText}>{error.message}</span>}
       </div>
     )
   }

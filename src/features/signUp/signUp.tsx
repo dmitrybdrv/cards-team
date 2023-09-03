@@ -5,12 +5,7 @@ import { signUpSchema } from '../../common/utils'
 import { Button, Card, TextField, Typography } from '../../components/ui'
 
 import s from './signUp.module.scss'
-
-type SignUpProps = {
-  email: string
-  password: string
-  confirmPassword: string
-}
+import { SignUpProps } from './signUp.types.ts'
 
 export const SignUp = ({}) => {
   const {
