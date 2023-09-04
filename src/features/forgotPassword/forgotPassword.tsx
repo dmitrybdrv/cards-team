@@ -1,28 +1,27 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { signUpSchema } from '../../common/utils'
+import { forgotPasswordSchema } from '../../common/utils'
 import { Button, Card, TextField, Typography } from '../../components/ui'
 import s from '../commonFeatures.module.scss'
-import { SignUpProps } from '../commonFeatures.types.ts'
+import { ForgotPasswordProps } from '../commonFeatures.types.ts'
 
-export const SignUp = ({}) => {
+export const ForgotPassword = ({}) => {
   const {
     clearErrors,
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<SignUpProps>({
+  } = useForm<ForgotPasswordProps>({
     defaultValues: {
       email: '',
-      password: '',
-      confirmPassword: '',
     },
-    resolver: zodResolver(signUpSchema),
-    mode: 'onTouched',
+    resolver: zodResolver(forgotPasswordSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
   })
 
-  const onSubmit: SubmitHandler<SignUpProps> = (data: SignUpProps) => {
+  const onSubmit: SubmitHandler<ForgotPasswordProps> = (data: ForgotPasswordProps) => {
     console.log(data)
   }
 
@@ -30,7 +29,7 @@ export const SignUp = ({}) => {
     <Card className={s.formWrapper}>
       <form onSubmit={handleSubmit(onSubmit)} className={s.signUpContainer}>
         <Typography variant={'large'} className={s.header}>
-          Sign Up
+          Forgot your password?
         </Typography>
 
         <TextField
@@ -46,43 +45,20 @@ export const SignUp = ({}) => {
           }}
         />
 
-        <TextField
-          {...register('password')}
-          error={errors.password}
-          label={'Password'}
-          type={'password'}
-          className={s.txf}
-          onChange={() => {
-            if (!isValid) {
-              clearErrors('password')
-            }
-          }}
-        />
-
-        <TextField
-          {...register('confirmPassword')}
-          error={errors.confirmPassword}
-          label={'Confirm Password'}
-          placeholder={'Confirm Password'}
-          type={'password'}
-          className={s.txf}
-          onChange={() => {
-            if (!isValid) {
-              clearErrors('confirmPassword')
-            }
-          }}
-        />
+        <Typography variant={'body2'} className={s.footnote}>
+          Enter your Email address and we will send you further instructions
+        </Typography>
 
         <Button fullWidth={true} className={s.btn}>
-          <Typography variant={'subtitle2'}>Sign Up</Typography>
+          <Typography variant={'subtitle2'}>Send instructions</Typography>
         </Button>
 
         <Typography variant={'body2'} className={s.footnote}>
-          Already have an account?
+          Did you remember your password?
         </Typography>
 
         <Typography variant={'link1'} href={'#'}>
-          Sign In
+          Try logging in
         </Typography>
       </form>
     </Card>

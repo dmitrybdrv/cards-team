@@ -1,1 +1,1 @@
-export * from './signUp.schemValidation.ts'
+export * from './schemValidation.ts'
