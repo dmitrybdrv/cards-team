@@ -57,6 +57,7 @@
 }
 
 .errorText {
+  user-select: none;
   display: flow-root;
   height: 0;
   color: var(--color-danger-300);
