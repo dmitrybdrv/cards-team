@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from './typography.module.scss'
 import { tagMapping, VariantStyle } from './typography.types.ts'
 
@@ -21,7 +23,7 @@ export function Typography<T extends ElementType = ElementType>({
   const Component = tagMapping[variant]
 
   return (
-    <Component className={s[variant]} {...rest}>
+    <Component className={clsx(s[variant], className)} {...rest}>
       {children}
     </Component>
   )

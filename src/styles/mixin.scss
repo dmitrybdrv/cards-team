@@ -1,6 +1,5 @@
 @mixin buttonLayout($padding, $bg, $boxShadow) {
   display: inline-flex;
-  gap: 10px;
   align-items: center;
   justify-content: center;
 
@@ -13,6 +12,8 @@
 }
 
 @mixin typography($fontSize, $fontWeight, $lineHeight) {
+  margin: 0;
+
   font-family: Roboto, sans-serif;
   font-size: $fontSize;
   font-weight: $fontWeight;
