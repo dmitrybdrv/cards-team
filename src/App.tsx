@@ -1,9 +1,10 @@
-import { SignUp } from './features'
+import { SignIn } from './features'
 
 export function App() {
   return (
     <div>
-      <SignUp />
+      {/*<SignUp />*/}
+      <SignIn />
     </div>
   )
 }
