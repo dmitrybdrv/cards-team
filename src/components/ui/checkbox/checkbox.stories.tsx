@@ -16,11 +16,22 @@ const meta = {
       type: 'function',
       description: 'Колбэк обработки события чекбокса',
     },
-    defaultChecked: {
-      description: 'boolean Значение определяющее стартовое состояние чекбокса',
+    checked: {
+      description: 'boolean Значение определяющее состояние чекбокса',
+      control: { type: 'boolean' },
     },
     className: {
-      description: 'Стили',
+      description: 'Стили для чебокса',
+    },
+    label: {
+      description: 'Описание к чекбоксу. Не имеет tab',
+      control: { type: 'string' },
+    },
+    name: {
+      description: 'Имя чекбокса',
+    },
+    required: {
+      description: 'Придает чекбоксу обязательное значение',
     },
   },
 } satisfies Meta<typeof CheckBox>
@@ -28,25 +39,25 @@ const meta = {
 export default meta
 
 export const Default = () => {
-  const [check, setCheck] = useState(false)
+  const [check, setCheck] = useState(true)
 
-  return <CheckBox onChange={setCheck} defaultChecked={check} />
+  return <CheckBox onChange={setCheck} checked={check} />
 }
 
 export const Unselected = () => {
-  const [check, setCheck] = useState(true)
+  const [check, setCheck] = useState(false)
 
-  return <CheckBox onChange={setCheck} className={s.checkboxRoot} defaultChecked={check} />
+  return <CheckBox onChange={setCheck} className={s.checkboxRoot} checked={check} />
 }
 
 export const Disabled = () => {
-  const [check, setCheck] = useState(false)
+  const [check, setCheck] = useState(true)
 
-  return <CheckBox onChange={setCheck} className={s.checkboxRoot} defaultChecked={check} disabled />
+  return <CheckBox onChange={setCheck} className={s.checkboxRoot} checked={check} disabled />
 }
 
 export const DisabledUnchecked = () => {
-  const [check, setCheck] = useState(true)
+  const [check, setCheck] = useState(false)
 
-  return <CheckBox onChange={setCheck} className={s.checkboxRoot} defaultChecked={check} disabled />
+  return <CheckBox onChange={setCheck} className={s.checkboxRoot} checked={check} disabled />
 }
