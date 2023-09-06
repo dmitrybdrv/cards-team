@@ -22,7 +22,7 @@ export const ForgotPassword = ({}) => {
   })
 
   const onSubmit: SubmitHandler<ForgotPasswordProps> = (data: ForgotPasswordProps) => {
-    console.log(data)
+    console.log('some data: ', data)
   }
 
   return (
