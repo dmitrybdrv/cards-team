@@ -2,7 +2,6 @@ import { ComponentPropsWithoutRef, FC } from 'react'
 
 import { ChevronDownIcon } from '@radix-ui/react-icons'
 import * as Select from '@radix-ui/react-select'
-import { clsx } from 'clsx'
 
 import { Typography } from '../typography'
 
@@ -10,15 +9,14 @@ import s from './select.module.scss'
 
 type Props = {
   values: string[]
-  variant?: 'primary' | 'active' | 'hover' | 'focus'
   label?: string
 } & ComponentPropsWithoutRef<'select'>
 
-export const SelectC: FC<Props> = ({ values, variant = 'primary', label, ...rest }) => {
+export const SelectC: FC<Props> = ({ values, label, ...rest }) => {
   const items = values.map((item, i) => {
     return (
       <>
-        <Select.Item className={clsx(s[variant])} key={i} value={item}>
+        <Select.Item className={s.selectItem} key={i} value={item}>
           <Select.ItemText>{item}</Select.ItemText>
         </Select.Item>
       </>
@@ -27,22 +25,22 @@ export const SelectC: FC<Props> = ({ values, variant = 'primary', label, ...rest
 
   return (
     <div className={s.selectContainer}>
-      <Select.Root>
-        {label && (
-          <label htmlFor={rest.name} aria-disabled={rest.disabled}>
-            <Typography variant={'body2'} className={s.label}>
-              {label}
-            </Typography>
-          </label>
-        )}
-        <Select.Trigger className="SelectTrigger" aria-label="Food">
+      {label && (
+        <label htmlFor={rest.name} aria-disabled={rest.disabled}>
+          <Typography variant={'body2'} className={s.label}>
+            {label}
+          </Typography>
+        </label>
+      )}
+      <Select.Root open={true}>
+        <Select.Trigger className={s.selectTrigger} aria-label="Food">
           <Select.Value placeholder="Select-box" />
           <Select.Icon className="SelectIcon">
             <ChevronDownIcon />
           </Select.Icon>
         </Select.Trigger>
-        <Select.Content className="SelectContent">
-          <Select.Viewport className="SelectViewport">{items}</Select.Viewport>
+        <Select.Content sticky={'always'} position={'popper'} className={s.selectContent}>
+          <Select.Viewport className={s.selectViewport}>{items}</Select.Viewport>
         </Select.Content>
       </Select.Root>
     </div>

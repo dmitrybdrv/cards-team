@@ -14,27 +14,51 @@
   background: var(--color-dark-900);
 }
 
+.selectRoot {
+}
+
 .selectContainer {
+  width: 300px;
+}
+
+.selectContent {
+  width: var(--radix-select-trigger-width);
+}
+
+//.selectItem {
+//  width: 100%;
+//}
+
+.selectTrigger {
   @include typography(var(--font-size-m), var(--font-weight-regular), var(--line-height-m));
 
-  flex-shrink: 0;
-
-  width: 210px;
-  height: 36px;
-  padding-left: 12px;
+  width: 100%;
+  padding: 6px 12px;
 
   background: transparent;
-  border: 1px solid var(--dark-300);
+  border: 1px solid var(--color-dark-300);
   border-radius: 2px;
 }
 
+.selectViewport {
+  width: 100%;
+}
+
+.label {
+  color: var(--color-dark-100);
+}
+
+.label:hover {
+  color: red;
+}
+
 .active {
-  stroke: var(--dark-100);
+  stroke: var(--color-dark-100);
   stroke-width: 1px;
 }
 
 .hover {
-  background: var(--dark-500);
+  background: var(--color-dark-500);
   border: 1px solid var(--dark-100);
   border-radius: 2px;
 }
