@@ -1,0 +1,59 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css';
+
+@import '../../../styles/mixin';
+
+.arrow {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  width: 16px;
+  height: 16px;
+
+  color: var(--color-light-100);
+
+  background: var(--color-dark-900);
+}
+
+.body1 {
+  @include select-body(16px, var(--light-100));
+}
+
+.body2 {
+  @include select-body(14px, var(--dark-100));
+}
+
+.primary {
+  @include select-body(16px, var(--light-100));
+
+  flex-shrink: 0;
+
+  width: 210px;
+  height: 36px;
+
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+}
+
+.active {
+  flex-shrink: 0;
+
+  width: 210px;
+  height: 36px;
+
+  background: blue;
+
+  stroke: var(--dark-100);
+  stroke-width: 1px;
+}
+
+.hover {
+  background: green;
+}
+
+.focus {
+  background: yellow;
+}
