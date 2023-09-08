@@ -1,3 +1,5 @@
+import { SelectC } from './components/ui/select'
+
 export function App() {
-  return <div>hello</div>
+  return <SelectC variant={'hover'} label={'Select-box'} values={['apple', 'orange', 'kiwi']} />
 }
