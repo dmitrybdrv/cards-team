@@ -14,9 +14,6 @@
   background: var(--color-dark-900);
 }
 
-.selectRoot {
-}
-
 .selectContainer {
   width: 300px;
 }
@@ -24,11 +21,6 @@
 .selectContent {
   width: var(--radix-select-trigger-width);
 }
-+
-
-//.selectItem {
-//  width: 100%;
-//}
 
 .selectTrigger {
   @include typography(var(--font-size-m), var(--font-weight-regular), var(--line-height-m));
