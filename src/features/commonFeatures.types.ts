@@ -3,3 +3,5 @@ export type SignUpProps = {
   password: string
   confirmPassword: string
 }
+
+export type ForgotPasswordProps = Pick<SignUpProps, 'email'>

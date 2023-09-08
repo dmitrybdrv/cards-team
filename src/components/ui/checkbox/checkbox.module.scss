@@ -4,53 +4,44 @@ button {
 
 .checkBoxContainer {
   position: relative;
-  width: 24px;
-  height: 24px;
+  display: flex;
+  align-items: center;
+}
 
-  .checkboxRoot {
-    cursor: pointer;
+.checkboxRoot {
+  cursor: pointer;
+  inset: 0;
 
-    position: absolute;
-    inset: 0;
+  &:disabled {
+    cursor: unset;
 
+    & + .label {
+      color: var(--color-dark-100);
+    }
+  }
+
+  &:focus-visible .selected {
+    background: var(--color-dark-100);
+    border-radius: 50%;
+  }
+
+  &:not(:disabled) .selected:hover {
     width: 30px;
     height: 30px;
-
-    &:focus-visible {
-      background: var(--color-dark-100);
-      border-radius: 50%;
-    }
-
-    .selected {
-      position: absolute;
-      inset: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &:hover {
-        background: var(--color-dark-500);
-        border-radius: 50%;
-      }
-    }
-
-    .unselected {
-      position: absolute;
-      inset: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &:hover {
-        background: var(--color-dark-500);
-        border-radius: 50%;
-      }
-    }
+    background: var(--color-dark-500);
+    border-radius: 50%;
   }
+}
 
-  .checkboxRoot:disabled {
-    cursor: unset;
-  }
+.selected {
+  width: 30px;
+  height: 30px;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  margin-left: 2px;
 }

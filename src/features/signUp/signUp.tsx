@@ -3,15 +3,15 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { signUpSchema } from '../../common/utils'
 import { Button, Card, TextField, Typography } from '../../components/ui'
-
-import s from './signUp.module.scss'
-import { SignUpProps } from './signUp.types.ts'
+import s from '../commonFeatures.module.scss'
+import { SignUpProps } from '../commonFeatures.types.ts'
 
 export const SignUp = ({}) => {
   const {
+    clearErrors,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignUpProps>({
     defaultValues: {
       email: '',
@@ -39,6 +39,11 @@ export const SignUp = ({}) => {
           label={'Email'}
           placeholder={'Email'}
           className={s.txf}
+          onChange={() => {
+            if (!isValid) {
+              clearErrors('email')
+            }
+          }}
         />
 
         <TextField
@@ -47,6 +52,11 @@ export const SignUp = ({}) => {
           label={'Password'}
           type={'password'}
           className={s.txf}
+          onChange={() => {
+            if (!isValid) {
+              clearErrors('password')
+            }
+          }}
         />
 
         <TextField
@@ -56,6 +66,11 @@ export const SignUp = ({}) => {
           placeholder={'Confirm Password'}
           type={'password'}
           className={s.txf}
+          onChange={() => {
+            if (!isValid) {
+              clearErrors('confirmPassword')
+            }
+          }}
         />
 
         <Button fullWidth={true} className={s.btn}>
