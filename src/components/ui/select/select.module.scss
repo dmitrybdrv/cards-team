@@ -1,62 +1,56 @@
 @import '../../../styles/mixin';
 
-.arrow {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-
-  width: 16px;
-  height: 16px;
-
-  color: var(--color-light-100);
-
-  background: var(--color-dark-900);
-}
-
 .selectContainer {
-  width: 300px;
+  width: inherit;
+  padding: 12px;
 }
 
 .selectContent {
   width: var(--radix-select-trigger-width);
 }
 
+.selectContent:hover {
+  border: 1px solid var(--color-dark-100);
+  border-radius: 2px;
+}
+
 .selectTrigger {
   @include typography(var(--font-size-m), var(--font-weight-regular), var(--line-height-m));
 
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  width: 13%;
   padding: 6px 12px;
 
   background: transparent;
   border: 1px solid var(--color-dark-300);
   border-radius: 2px;
+
+  &:hover {
+    background: var(--color-dark-500);
+    border: 1px solid var(--color-dark-100);
+    border-radius: 2px;
+  }
+
+  &:focus {
+    border: 1px solid var(--color-info-700);
+    border-radius: 2px;
+  }
 }
 
 .selectViewport {
   width: 100%;
+
+  & div:hover {
+    background: var(--color-accent-900);
+
+    & span {
+      color: var(--color-accent-300);
+    }
+  }
 }
 
 .label {
   color: var(--color-dark-100);
-}
-
-.label:hover {
-  color: red;
-}
-
-.active {
-  stroke: var(--color-dark-100);
-  stroke-width: 1px;
-}
-
-.hover {
-  background: var(--color-dark-500);
-  border: 1px solid var(--dark-100);
-  border-radius: 2px;
-}
-
-.focus {
-  border: 2px solid var(--info-700);
-  border-radius: 2px;
 }

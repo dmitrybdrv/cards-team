@@ -1,22 +1,27 @@
-import { ComponentPropsWithoutRef, FC } from 'react'
+import { ComponentPropsWithoutRef, FC, useState } from 'react'
 
-import { ChevronDownIcon } from '@radix-ui/react-icons'
 import * as Select from '@radix-ui/react-select'
 
+import { ArrowDown } from '../../../common/assets/icons/arrowDown.tsx'
+import { ArrowUp } from '../../../common/assets/icons/arrowUp.tsx'
 import { Typography } from '../typography'
 
 import s from './select.module.scss'
 
 type Props = {
   values: string[]
+  isDisabled?: boolean
   label?: string
 } & ComponentPropsWithoutRef<'select'>
 
-export const SelectC: FC<Props> = ({ values, label, ...rest }) => {
+export const SelectC: FC<Props> = ({ values, label, isDisabled = false, ...rest }) => {
+  const [showSelect, setShowSelect] = useState(false)
+
+  const isShowArrow = (showSelect && <ArrowUp />) || (!showSelect && <ArrowDown />)
   const items = values.map((item, i) => {
     return (
       <>
-        <Select.Item className={s.selectItem} key={i} value={item}>
+        <Select.Item key={i} value={item}>
           <Select.ItemText>{item}</Select.ItemText>
         </Select.Item>
       </>
@@ -32,14 +37,17 @@ export const SelectC: FC<Props> = ({ values, label, ...rest }) => {
           </Typography>
         </label>
       )}
-      <Select.Root open={true}>
+      <Select.Root onOpenChange={setShowSelect} disabled={isDisabled}>
         <Select.Trigger className={s.selectTrigger} aria-label="Food">
           <Select.Value placeholder="Select-box" />
-          <Select.Icon className="SelectIcon">
-            <ChevronDownIcon />
-          </Select.Icon>
+          <Select.Icon className="selectIcon">{isShowArrow}</Select.Icon>
         </Select.Trigger>
-        <Select.Content sticky={'always'} position={'popper'} className={s.selectContent}>
+        <Select.Content
+          collisionPadding={0}
+          sticky={'always'}
+          position={'popper'}
+          className={s.selectContent}
+        >
           <Select.Viewport className={s.selectViewport}>{items}</Select.Viewport>
         </Select.Content>
       </Select.Root>
