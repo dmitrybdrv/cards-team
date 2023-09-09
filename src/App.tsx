@@ -1,10 +1,11 @@
-import { SignIn } from './features'
+import { ForgotPassword, SignIn, SignUp } from './features'
 
 export function App() {
   return (
     <div>
-      {/*<SignUp />*/}
+      <SignUp />
       <SignIn />
+      <ForgotPassword />
     </div>
   )
 }
