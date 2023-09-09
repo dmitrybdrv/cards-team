@@ -1,8 +1,8 @@
 .formWrapper {
-  margin-top: 36px;
+  margin: 36px auto;
 }
 
-.signUpContainer {
+.formContainer {
   width: 348px;
   padding: 33px 0;
   text-align: center;
@@ -20,10 +20,16 @@
 }
 
 .btn {
-  margin: 60px 0 20px;
+  margin: 60px 0 20px 0;
 }
 
 .footnote {
-  margin: 20px 0;
+  margin-bottom: 11px;
   color: var(--color-light-900);
+}
+
+.footnoteExtra {
+  margin-top: 20px;
+  text-align: justify;
+  color: var(--color-dark-100);
 }

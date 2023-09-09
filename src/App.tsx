@@ -1,3 +1,11 @@
+import { ForgotPassword, SignIn, SignUp } from './features'
+
 export function App() {
-  return <div>hello</div>
+  return (
+    <div>
+      <SignUp />
+      <SignIn />
+      <ForgotPassword />
+    </div>
+  )
 }

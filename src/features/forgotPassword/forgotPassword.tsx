@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { clsx } from 'clsx'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { forgotPasswordSchema } from '../../common/utils'
@@ -27,7 +28,7 @@ export const ForgotPassword = ({}) => {
 
   return (
     <Card className={s.formWrapper}>
-      <form onSubmit={handleSubmit(onSubmit)} className={s.signUpContainer}>
+      <form onSubmit={handleSubmit(onSubmit)} className={s.formContainer}>
         <Typography variant={'large'} className={s.header}>
           Forgot your password?
         </Typography>
@@ -45,8 +46,8 @@ export const ForgotPassword = ({}) => {
           }}
         />
 
-        <Typography variant={'body2'} className={s.footnote}>
-          Enter your Email address and we will send you further instructions
+        <Typography variant={'body2'} className={clsx(s.footnote, s.footnoteExtra)}>
+          Enter your email address and we will send you further instructions
         </Typography>
 
         <Button fullWidth={true} className={s.btn}>
