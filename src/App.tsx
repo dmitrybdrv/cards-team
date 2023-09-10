@@ -1,6 +1,11 @@
-import { SelectC } from './components/ui/select'
-import s from './components/ui/select/select.module.scss'
+import { ForgotPassword, SignIn, SignUp } from './features'
 
 export function App() {
-  return <SelectC className={s.app} label={'Select-box'} values={['apple', 'orange', 'kiwi']} />
+  return (
+    <div>
+      <SignIn />
+      <SignUp />
+      <ForgotPassword />
+    </div>
+  )
 }

@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import s from './checkbox.module.scss'
 import { checkBoxReturner } from './checkbox.utils.tsx'
 
-type CheckBoxProps = {
+export type CheckBoxProps = {
   disabled?: boolean
   className?: string
   label?: string
@@ -28,13 +28,13 @@ export const CheckBox: FC<CheckBoxProps> = ({
 }) => {
   const checkBoxContent = checkBoxReturner(checked, disabled)
 
-  const checkboxStyle = clsx(s.checkboxRoot, className)
+  const checkBoxContainer = clsx(s.checkBoxContainer, className)
   const htmlId = id || rest.name || Math.random().toString()
 
   return (
-    <div className={s.checkBoxContainer}>
+    <div className={checkBoxContainer}>
       <Checkbox.Root
-        className={checkboxStyle}
+        className={s.checkboxRoot}
         onCheckedChange={onChange}
         disabled={disabled}
         checked={checked}
