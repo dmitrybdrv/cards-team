@@ -1,27 +1,24 @@
-import { ComponentPropsWithoutRef, FC, useState } from 'react'
+import { FC, useState } from 'react'
 
 import * as Select from '@radix-ui/react-select'
+import { clsx } from 'clsx'
 
 import { ArrowDown } from '../../../common/assets/icons/arrowDown.tsx'
 import { ArrowUp } from '../../../common/assets/icons/arrowUp.tsx'
 import { Typography } from '../typography'
 
 import s from './select.module.scss'
+import { Props } from './select.types.ts'
 
-type Props = {
-  values: string[]
-  isDisabled?: boolean
-  label?: string
-} & ComponentPropsWithoutRef<'select'>
-
-export const SelectC: FC<Props> = ({ values, label, isDisabled = false, ...rest }) => {
+export const SelectC: FC<Props> = props => {
+  const { values, label, isDisabled = false, className, ...rest } = props
   const [showSelect, setShowSelect] = useState(false)
 
   const isShowArrow = (showSelect && <ArrowUp />) || (!showSelect && <ArrowDown />)
   const items = values.map((item, i) => {
     return (
       <>
-        <Select.Item key={i} value={item}>
+        <Select.Item className={s.selectItem} key={i} value={item}>
           <Select.ItemText>{item}</Select.ItemText>
         </Select.Item>
       </>
@@ -29,7 +26,7 @@ export const SelectC: FC<Props> = ({ values, label, isDisabled = false, ...rest 
   })
 
   return (
-    <div className={s.selectContainer}>
+    <div className={clsx(s.selectContainer, className)}>
       {label && (
         <label htmlFor={rest.name} aria-disabled={rest.disabled}>
           <Typography variant={'body2'} className={s.label}>
@@ -54,22 +51,3 @@ export const SelectC: FC<Props> = ({ values, label, isDisabled = false, ...rest 
     </div>
   )
 }
-
-// export type SelectItemProps = {
-//   children: ReactNode
-//   value: string
-//   variant: 'primary' | 'active' | 'hover' | 'focus'
-//   className?: string
-// } & React.RefAttributes<HTMLDivElement>
-//
-// const SelectItem: React.FC<SelectItemProps> = React.forwardRef(
-//   ({ children, className, variant = 'primary', ...props }, forwardedRef) => {
-//     return (
-//       <Select.Item className={classnames('SelectItem', className)} {...props} ref={forwardedRef}>
-//         <Select.ItemText>{children}</Select.ItemText>
-//         <Select.ItemIndicator className="SelectItemIndicator">
-//           <CheckIcon />
-//         </Select.ItemIndicator>
-//       </Select.Item>
-//     )
-//   }

@@ -1,15 +1,16 @@
 @import '../../../styles/mixin';
 
 .selectContainer {
-  width: inherit;
+  width: auto;
   padding: 12px;
+}
+
+.app {
+  width: 210px;
 }
 
 .selectContent {
   width: var(--radix-select-trigger-width);
-}
-
-.selectContent:hover {
   border: 1px solid var(--color-dark-100);
   border-radius: 2px;
 }
@@ -17,10 +18,12 @@
 .selectTrigger {
   @include typography(var(--font-size-m), var(--font-weight-regular), var(--line-height-m));
 
+  cursor: pointer;
+
   display: flex;
   justify-content: space-between;
 
-  width: 13%;
+  width: 100%;
   padding: 6px 12px;
 
   background: transparent;
@@ -37,10 +40,18 @@
     border: 1px solid var(--color-info-700);
     border-radius: 2px;
   }
+
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 .selectViewport {
   width: 100%;
+
+  & div:focus-visible {
+    outline: none;
+  }
 
   & div:hover {
     background: var(--color-accent-900);
@@ -53,4 +64,8 @@
 
 .label {
   color: var(--color-dark-100);
+}
+
+.selectItem {
+  padding: 6px 12px;
 }
