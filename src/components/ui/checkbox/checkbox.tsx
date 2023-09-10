@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import s from './checkbox.module.scss'
 import { checkBoxReturner } from './checkbox.utils.tsx'
 
-type CheckBoxProps = {
+export type CheckBoxProps = {
   disabled?: boolean
   className?: string
   label?: string

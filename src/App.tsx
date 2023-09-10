@@ -3,8 +3,8 @@ import { ForgotPassword, SignIn, SignUp } from './features'
 export function App() {
   return (
     <div>
-      <SignUp />
       <SignIn />
+      <SignUp />
       <ForgotPassword />
     </div>
   )
