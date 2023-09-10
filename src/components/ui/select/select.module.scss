@@ -50,6 +50,8 @@
   width: 100%;
 
   & div:focus-visible {
+    color: var(--color-accent-300);
+    background: var(--color-accent-900);
     outline: none;
   }
 
