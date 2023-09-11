@@ -1,15 +1,17 @@
 import { useState } from 'react'
 
-import avatarPlacehodler from '../../common/assets/img/avatarPlaceholder.png'
 import { Card, Typography } from '../../components/ui'
 import cs from '../commonFeatures.module.scss'
 
 import { EditNameForm, EditNameFormType } from './EditNameForm.tsx'
 import s from './personalInformation.module.scss'
+import { PersonalPhoto } from './PersonalPhoto.tsx'
 import { ShowInfo } from './ShowInfo.tsx'
 
 export const PersonalInformation = ({}) => {
   const [isShowMode, setIsShowMode] = useState(true)
+  //mock value
+  const photoUrl = ''
   const userName = 'UserName'
   const userEmail = 'user@mail.com'
 
@@ -17,7 +19,20 @@ export const PersonalInformation = ({}) => {
 
   const editNameIconHandler = () => setIsShowMode(false)
 
+  const updatePhotoCallBack = (file: File) => {
+    const reader = new FileReader()
+
+    reader.onloadend = () => {
+      const file64 = reader.result as string
+
+      //dispatch thunk updatePhoto
+      console.log('file64: ', file64)
+    }
+    reader.readAsDataURL(file)
+  }
+
   const updateUserNameCallBack = (data: EditNameFormType) => {
+    //dispatch thunk updateUserName
     console.log(data)
     setIsShowMode(true)
   }
@@ -27,9 +42,11 @@ export const PersonalInformation = ({}) => {
       <Typography variant={'large'} className={cs.header}>
         Personal Information
       </Typography>
-      <div className={s.avatarBox}>
-        <img src={avatarPlacehodler} alt="avatar" className={s.avatarImg} width={96} height={96} />
-      </div>
+      <PersonalPhoto
+        isShowMode={isShowMode}
+        photoSrc={photoUrl}
+        updatePhoto={updatePhotoCallBack}
+      />
       {isShowMode ? (
         <ShowInfo
           userEmail={userEmail}
