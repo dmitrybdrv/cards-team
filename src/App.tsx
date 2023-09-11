@@ -1,11 +1,9 @@
-import { ForgotPassword, SignIn, SignUp } from './features'
+import { PersonalInformation } from './features/personalInformation/PersonalInformation.tsx'
 
 export function App() {
   return (
     <div>
-      <SignIn />
-      <SignUp />
-      <ForgotPassword />
+      <PersonalInformation />
     </div>
   )
 }

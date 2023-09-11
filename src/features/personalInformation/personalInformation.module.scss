@@ -1,0 +1,54 @@
+.cardWrapper {
+  margin: 36px auto;
+  padding: 36px 25px;
+}
+
+.avatarBox {
+  margin-top: 24px;
+  margin-bottom: 6px;
+}
+
+.avatarImg {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+
+.userNameBox {
+  position: relative;
+}
+
+.userName {
+  word-break: break-all;
+}
+
+.editUserNameIcon {
+  position: absolute;
+  right: -25px;
+  top: 11px;
+  cursor: pointer;
+}
+
+.userMail {
+  color: var(--color-dark-100);
+  margin-bottom: 13px;
+}
+
+.logoutImg {
+  margin-right: 10px;
+  color: var(--color-light-100);
+}
+
+.logoutBtn {
+  padding: 6px 22px;
+}
+
+//form
+.form {
+  width: 100%;
+  padding-bottom: 60px;
+}
+
+.txf {
+  margin-bottom: 36px;
+}
