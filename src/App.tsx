@@ -1,11 +1,9 @@
-import { ForgotPassword, SignIn, SignUp } from './features'
+import { CheckEmail } from './features/check-email'
 
 export function App() {
   return (
     <div>
-      <SignIn />
-      <SignUp />
-      <ForgotPassword />
+      <CheckEmail />
     </div>
   )
 }
