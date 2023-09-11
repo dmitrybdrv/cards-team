@@ -20,7 +20,7 @@
 }
 
 .btn {
-  margin: 60px 0 20px 0;
+  margin: 60px 0 20px;
 }
 
 .footnote {
@@ -30,6 +30,16 @@
 
 .footnoteExtra {
   margin-top: 20px;
-  text-align: justify;
   color: var(--color-dark-100);
+  text-align: justify;
+}
+
+.footnoteTextCenter {
+  margin-top: 20px;
+  color: var(--color-dark-100);
+  text-align: center;
+}
+
+.emailIcon {
+  margin-top: 25px;
 }
