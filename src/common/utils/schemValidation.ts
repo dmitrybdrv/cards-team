@@ -26,3 +26,7 @@ export const signUpSchema = z
 export const forgotPasswordSchema = z.object({
   email: zEmail,
 })
+
+export const updateNameSchema = z.object({
+  name: z.string(),
+})
