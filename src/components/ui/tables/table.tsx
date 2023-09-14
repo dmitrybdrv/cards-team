@@ -1,8 +1,10 @@
+import s from './table.module.scss'
+
 export const Table = ({}) => {
   return (
-    <table>
+    <table className={s.table}>
       <thead>
-        <tr>
+        <tr className={s.tableHead}>
           <th>Name</th>
           <th>Cards</th>
           <th>Last Updated</th>
@@ -20,6 +22,20 @@ export const Table = ({}) => {
         {/*    <td>icons...</td>*/}
         {/*  </tr>*/}
         {/*))}*/}
+        <tr className={s.tableRow}>
+          <td>title</td>
+          <td>cardsCount</td>
+          <td>updated</td>
+          <td>createdBy</td>
+          <td>icons...</td>
+        </tr>
+        <tr>
+          <td>title</td>
+          <td>cardsCount</td>
+          <td>updated</td>
+          <td>createdBy</td>
+          <td>icons...</td>
+        </tr>
       </tbody>
     </table>
   )

@@ -1,11 +1,9 @@
-import { CheckEmail } from './features/check-email'
-import { PersonalInformation } from './features/personalInformation/PersonalInformation.tsx'
+import { Table } from './components/ui/tables/table.tsx'
 
 export function App() {
   return (
     <div>
-      <PersonalInformation />
-      <CheckEmail />
+      <Table />
     </div>
   )
 }

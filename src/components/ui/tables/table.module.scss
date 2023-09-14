@@ -1,0 +1,13 @@
+.table {
+  border: 1px solid var(--color-dark-500);
+  min-width: max-content;
+  border-collapse: collapse;
+}
+
+.tableHead {
+  background-color: var(--color-dark-500);
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--color-dark-500);
+}
