@@ -11,6 +11,7 @@ button {
   .radioGroupRoot {
     display: flex;
     align-items: center;
+    width: fit-content;
 
     .radioGroupItem {
       cursor: pointer;
@@ -45,6 +46,10 @@ button {
         .iconSelect {
           color: var(--color-accent-900);
         }
+
+        &:hover::after {
+          display: none;
+        }
       }
 
       &:not(:disabled):focus-visible::after {
@@ -75,11 +80,13 @@ button {
     }
 
     .label {
+      cursor: pointer;
       position: sticky;
       padding: 0 12px;
     }
 
     .label[aria-disabled='true'] {
+      cursor: unset;
       color: var(--color-light-900);
     }
   }

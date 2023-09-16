@@ -34,7 +34,7 @@ export const Radio = forwardRef<HTMLInputElement, Props>(
               ref={ref}
               {...rest}
             >
-              <RadioGroup.Item value={el.value} className={s.radioGroupItem}>
+              <RadioGroup.Item value={el.value} className={s.radioGroupItem} id={el.id}>
                 {radioGroupContent}
               </RadioGroup.Item>
               <label htmlFor={el.id}>
