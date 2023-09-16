@@ -1,4 +1,5 @@
 import s from './table.module.scss'
+import { TBody } from './TBody.tsx'
 
 export const Table = ({}) => {
   return (
@@ -12,37 +13,7 @@ export const Table = ({}) => {
           <th></th>
         </tr>
       </thead>
-      <TableBody />
+      <TBody />
     </table>
-  )
-}
-
-export const TableBody = ({}) => {
-  return (
-    <tbody>
-      {/*{data.map(item => (*/}
-      {/*  <tr key={item.title}>*/}
-      {/*    <td>{item.title}</td>*/}
-      {/*    <td>{item.cardsCount}</td>*/}
-      {/*    <td>{item.updated}</td>*/}
-      {/*    <td>{item.createdBy}</td>*/}
-      {/*    <td>icons...</td>*/}
-      {/*  </tr>*/}
-      {/*))}*/}
-      <tr className={s.tableRow}>
-        <td>title</td>
-        <td>cardsCount</td>
-        <td>updated</td>
-        <td>createdBy</td>
-        <td>icons...</td>
-      </tr>
-      <tr>
-        <td>title</td>
-        <td>cardsCount</td>
-        <td>updated</td>
-        <td>createdBy</td>
-        <td>icons...</td>
-      </tr>
-    </tbody>
   )
 }
