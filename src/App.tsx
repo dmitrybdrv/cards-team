@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 
 import { useForm } from 'react-hook-form'
@@ -47,5 +48,16 @@ export function App() {
       <Radio {...register('gender')} data={data} value={item} onChange={setItem} />
       <button type={'submit'}>Send</button>
     </form>
+import { PersonalInformation } from './features/personalInformation/PersonalInformation.tsx'
+
+import { CheckEmail } from './features/check-email'
+
+
+export function App() {
+  return (
+    <div>
+      <PersonalInformation />
+      <CheckEmail />
+    </div>
   )
 }

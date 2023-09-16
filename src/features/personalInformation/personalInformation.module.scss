@@ -1,0 +1,83 @@
+.cardWrapper {
+  margin: 36px auto;
+  padding: 36px 25px;
+}
+
+//PersonalPhoto
+.photoBox {
+  margin-top: 24px;
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.photoImg {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: block;
+}
+
+//update photo
+.updatePhotoBox {
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-dark-300);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+
+  input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+//UserName
+.userNameBox {
+  position: relative;
+}
+
+.userName {
+  word-break: break-all;
+}
+
+.editUserNameIcon {
+  position: absolute;
+  right: -25px;
+  top: 11px;
+  cursor: pointer;
+}
+
+.userMail {
+  color: var(--color-dark-100);
+  margin-bottom: 13px;
+}
+
+//logout button
+.logoutImg {
+  margin-right: 10px;
+  color: var(--color-light-100);
+}
+
+.logoutBtn {
+  padding: 6px 22px;
+}
+
+//form
+.form {
+  width: 100%;
+  padding-bottom: 60px;
+}
+
+.txf {
+  margin-bottom: 36px;
+}

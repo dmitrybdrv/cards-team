@@ -27,7 +27,7 @@ export const SignUp = ({}) => {
 
   return (
     <Card className={s.formWrapper}>
-      <form onSubmit={handleSubmit(onSubmit)} className={s.signUpContainer}>
+      <form onSubmit={handleSubmit(onSubmit)} className={s.formContainer}>
         <Typography variant={'large'} className={s.header}>
           Sign Up
         </Typography>
