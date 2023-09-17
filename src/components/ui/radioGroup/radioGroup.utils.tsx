@@ -1,5 +1,5 @@
-import { RadioGroupSelectIndicator } from '../../../assets/icons/RadioGroupSelectIndicator.tsx'
-import { RadioGroupUnselectIndicator } from '../../../assets/icons/RadioGroupUnselect.tsx'
+import { ReactComponent as RadioGroupSelectIndicator } from '../../../assets/icons/radio_button_checked.svg'
+import { ReactComponent as RadioGroupUnselectIndicator } from '../../../assets/icons/radio_button_unchecked.svg'
 
 import s from './radioGroup.module.scss'
 
