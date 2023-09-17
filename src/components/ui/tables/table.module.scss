@@ -1,0 +1,47 @@
+@import '../../../styles/mixin';
+
+.table {
+  border: 1px solid var(--color-dark-500);
+  border-collapse: collapse;
+  @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
+  text-align: left;
+
+  th, td {
+    padding: 6px 24px;
+    min-height: 36px;
+    min-width: 200px;
+  }
+
+}
+
+.tableHead {
+  background-color: var(--color-dark-500);
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--color-dark-500);
+}
+
+.tdIcons {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  svg {
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
+
+.tdRating {
+  display: flex;
+  align-items: center;
+
+  svg:not(:last-child) {
+    margin-right: 10px;
+  }
+}
