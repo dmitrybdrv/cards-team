@@ -1,21 +1,28 @@
 import { useState } from 'react'
 
-import { Card, Typography } from '../../components/ui'
-import cs from '../commonFeatures.module.scss'
+import { Card, Typography } from '../../../ui'
+import cs from '../forms.module.scss'
+import { EditNameFormType } from '../forms.types.ts'
 
-import { EditNameForm, EditNameFormType } from './EditNameForm.tsx'
+import { EditNameForm } from './EditNameForm.tsx'
 import s from './personalInformation.module.scss'
 import { PersonalPhoto } from './PersonalPhoto.tsx'
 import { ShowInfo } from './ShowInfo.tsx'
 
-export const PersonalInformation = ({}) => {
+type Props = {
+  updatePhoto: (file64: string) => void
+  updateUserName: (userName: string) => void
+  logout: () => void
+}
+
+export const PersonalInformation = ({ updatePhoto, updateUserName, logout }: Props) => {
   const [isShowMode, setIsShowMode] = useState(true)
   //mock value
   const photoUrl = ''
   const userName = 'UserName'
   const userEmail = 'user@mail.com'
 
-  const logoutCallBack = () => console.log('logout')
+  // const logoutCallBack = () => logout()
 
   const editNameIconHandler = () => setIsShowMode(false)
 
@@ -26,14 +33,14 @@ export const PersonalInformation = ({}) => {
       const file64 = reader.result as string
 
       //dispatch thunk updatePhoto
-      console.log('file64: ', file64)
+      updatePhoto(file64)
     }
     reader.readAsDataURL(file)
   }
 
   const updateUserNameCallBack = (data: EditNameFormType) => {
     //dispatch thunk updateUserName
-    console.log(data)
+    updateUserName(data.name)
     setIsShowMode(true)
   }
 
@@ -52,7 +59,7 @@ export const PersonalInformation = ({}) => {
           userEmail={userEmail}
           userName={userName}
           editNameIconHandler={editNameIconHandler}
-          logoutHandler={logoutCallBack}
+          logoutHandler={logout}
         />
       ) : (
         <EditNameForm defaultNameValue={userName} submitHandler={updateUserNameCallBack} />

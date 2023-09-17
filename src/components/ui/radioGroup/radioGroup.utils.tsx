@@ -1,5 +1,5 @@
-import { RadioGroupSelectIndicator } from '../../../common/assets/icons/RadioGroupSelectIndicator.tsx'
-import { RadioGroupUnselectIndicator } from '../../../common/assets/icons/RadioGroupUnselect.tsx'
+import { RadioGroupSelectIndicator } from '../../../assets/icons/RadioGroupSelectIndicator.tsx'
+import { RadioGroupUnselectIndicator } from '../../../assets/icons/RadioGroupUnselect.tsx'
 
 import s from './radioGroup.module.scss'
 

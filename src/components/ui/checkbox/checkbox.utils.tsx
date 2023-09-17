@@ -1,7 +1,7 @@
-import DefaultSelected from '../../../common/assets/icons/DefaultSelected.svg'
-import DefaultUnselected from '../../../common/assets/icons/DefaultUnselected.svg'
-import DisabledSelect from '../../../common/assets/icons/DisabledSelected.svg'
-import DisabledUnselected from '../../../common/assets/icons/DisabledUnselect.svg'
+import DefaultSelected from '../../../assets/icons/DefaultSelected.svg'
+import DefaultUnselected from '../../../assets/icons/DefaultUnselected.svg'
+import DisabledSelect from '../../../assets/icons/DisabledSelected.svg'
+import DisabledUnselected from '../../../assets/icons/DisabledUnselect.svg'
 
 import s from './checkbox.module.scss'
 

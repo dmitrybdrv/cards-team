@@ -1,27 +1,23 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-import { signInSchema } from '../../common/utils'
-import { Button, Card, TextField, Typography } from '../../components/ui'
-import { ControlledCheckbox } from '../../components/ui/checkbox/ControlledCheckbox.tsx'
-import cs from '../commonFeatures.module.scss'
+import { signInSchema } from '../../../../common/utils'
+import { Button, Card, TextField, Typography } from '../../../ui'
+import { ControlledCheckbox } from '../../../ui/checkbox/ControlledCheckbox.tsx'
+import cs from '../forms.module.scss'
+import { FormPropsType, SignInType } from '../forms.types.ts'
 
 import s from './signIn.module.scss'
-import { FormValues } from './signIn.types.ts'
 
-export const SignIn = ({}) => {
+export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
   const {
     formState: { errors },
     register,
     handleSubmit,
     control,
-  } = useForm<FormValues>({
+  } = useForm<SignInType>({
     resolver: zodResolver(signInSchema),
   })
-
-  const onSubmit = (data: FormValues) => {
-    console.log(data)
-  }
 
   //need links!
   const forgotPasswordLink = '#'

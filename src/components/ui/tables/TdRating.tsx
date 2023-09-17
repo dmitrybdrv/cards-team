@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
-import { ReactComponent as EmptyStar } from '../../../common/assets/icons/emptyStar.svg'
-import { ReactComponent as FillStar } from '../../../common/assets/icons/fillStar.svg'
+import { ReactComponent as EmptyStar } from '../../../assets/icons/emptyStar.svg'
+import { ReactComponent as FillStar } from '../../../assets/icons/fillStar.svg'
 
 import s from './table.module.scss'
 

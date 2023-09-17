@@ -1,8 +1,8 @@
 import { clsx } from 'clsx'
 
-import { EmailIcon } from '../../common/assets/icons/email-icon.tsx'
-import { Button, Card, Typography } from '../../components/ui'
-import s from '../commonFeatures.module.scss'
+import { EmailIcon } from '../../../../assets/icons/email-icon.tsx'
+import { Button, Card, Typography } from '../../../ui'
+import s from '../forms.module.scss'
 
 export const CheckEmail = () => {
   return (

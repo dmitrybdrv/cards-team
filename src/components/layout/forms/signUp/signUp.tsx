@@ -1,17 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
-import { signUpSchema } from '../../common/utils'
-import { Button, Card, TextField, Typography } from '../../components/ui'
-import s from '../commonFeatures.module.scss'
-import { SignUpProps } from '../commonFeatures.types.ts'
+import { signUpSchema } from '../../../../common/utils'
+import { Button, Card, TextField, Typography } from '../../../ui'
+import s from '../forms.module.scss'
+import { FormPropsType, MainFormType } from '../forms.types.ts'
 
-export const SignUp = ({}) => {
+export const SignUp = ({ onSubmit }: FormPropsType<MainFormType>) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpProps>({
+  } = useForm<MainFormType>({
     defaultValues: {
       email: '',
       password: '',
@@ -20,10 +20,6 @@ export const SignUp = ({}) => {
     resolver: zodResolver(signUpSchema),
     mode: 'onTouched',
   })
-
-  const onSubmit: SubmitHandler<SignUpProps> = (data: SignUpProps) => {
-    console.log(data)
-  }
 
   return (
     <Card className={s.formWrapper}>
