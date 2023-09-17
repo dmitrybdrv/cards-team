@@ -8,10 +8,9 @@ import { SignUpProps } from '../commonFeatures.types.ts'
 
 export const SignUp = ({}) => {
   const {
-    clearErrors,
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<SignUpProps>({
     defaultValues: {
       email: '',
@@ -39,11 +38,6 @@ export const SignUp = ({}) => {
           label={'Email'}
           placeholder={'Email'}
           className={s.txf}
-          onChange={() => {
-            if (!isValid) {
-              clearErrors('email')
-            }
-          }}
         />
 
         <TextField
@@ -52,11 +46,6 @@ export const SignUp = ({}) => {
           label={'Password'}
           type={'password'}
           className={s.txf}
-          onChange={() => {
-            if (!isValid) {
-              clearErrors('password')
-            }
-          }}
         />
 
         <TextField
@@ -66,11 +55,6 @@ export const SignUp = ({}) => {
           placeholder={'Confirm Password'}
           type={'password'}
           className={s.txf}
-          onChange={() => {
-            if (!isValid) {
-              clearErrors('confirmPassword')
-            }
-          }}
         />
 
         <Button fullWidth={true} className={s.btn}>
