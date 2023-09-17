@@ -3,7 +3,6 @@ import { ComponentPropsWithoutRef, ElementType, forwardRef } from 'react'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { clsx } from 'clsx'
 
-import { DataType } from '../../../App.tsx'
 import { Typography } from '../typography'
 
 import s from './radioGroup.module.scss'
