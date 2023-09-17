@@ -1,5 +1,6 @@
 import s from './table.module.scss'
 import { TdIcons } from './tdIcons.tsx'
+import { TdRating } from './TdRating.tsx'
 
 export const TBody = ({}) => {
   return (
@@ -24,7 +25,7 @@ export const TBody = ({}) => {
         <td>title</td>
         <td>cardsCount</td>
         <td>updated</td>
-        <td>createdBy</td>
+        <TdRating rating={4} />
         <TdIcons
           onPlay={() => console.log('play')}
           onEdit={() => console.log('edit')}
