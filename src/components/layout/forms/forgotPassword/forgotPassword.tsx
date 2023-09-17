@@ -1,19 +1,19 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
-import { forgotPasswordSchema } from '../../common/utils'
-import { Button, Card, TextField, Typography } from '../../components/ui'
-import s from '../commonFeatures.module.scss'
-import { ForgotPasswordProps } from '../commonFeatures.types.ts'
+import { forgotPasswordSchema } from '../../../../common/utils'
+import { Button, Card, TextField, Typography } from '../../../ui'
+import s from '../forms.module.scss'
+import { ForgotPasswordType, FormPropsType } from '../forms.types.ts'
 
-export const ForgotPassword = ({}) => {
+export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) => {
   const {
     clearErrors,
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<ForgotPasswordProps>({
+  } = useForm<ForgotPasswordType>({
     defaultValues: {
       email: '',
     },
@@ -21,10 +21,6 @@ export const ForgotPassword = ({}) => {
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
-
-  const onSubmit: SubmitHandler<ForgotPasswordProps> = (data: ForgotPasswordProps) => {
-    console.log('some data: ', data)
-  }
 
   return (
     <Card className={s.formWrapper}>

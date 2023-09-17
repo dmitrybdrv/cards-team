@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react'
 
-import { ReactComponent as EditPen } from '../../common/assets/icons/editPen.svg'
-import photoPlacehodler from '../../common/assets/img/avatarPlaceholder.png'
+import { ReactComponent as EditPen } from '../../../../assets/icons/editPen.svg'
+import photoPlacehodler from '../../../../assets/img/avatarPlaceholder.png'
 
 import s from './personalInformation.module.scss'
 

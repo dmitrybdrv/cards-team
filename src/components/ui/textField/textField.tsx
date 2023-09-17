@@ -3,9 +3,9 @@ import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 import { clsx } from 'clsx'
 import { FieldError } from 'react-hook-form'
 
-import { ReactComponent as ClosedEyeIcon } from '../../../common/assets/icons/closedEye.svg'
-import { ReactComponent as OpenEyeIcon } from '../../../common/assets/icons/openEye.svg'
-import { ReactComponent as SearchIcon } from '../../../common/assets/icons/searchIcon.svg'
+import { ReactComponent as ClosedEyeIcon } from '../../../assets/icons/closedEye.svg'
+import { ReactComponent as OpenEyeIcon } from '../../../assets/icons/openEye.svg'
+import { ReactComponent as SearchIcon } from '../../../assets/icons/searchIcon.svg'
 import { Typography } from '../typography'
 
 import s from './textField.module.scss'
@@ -50,16 +50,23 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             </Typography>
           </label>
         )}
-        <input
-          id={rest.name}
-          ref={ref}
-          type={typeVariant}
-          className={inputStyle}
-          placeholder={placeHolder}
-          {...rest}
-        />
-        {isShowIcon}
-        {error && <span className={s.errorText}>{error.message}</span>}
+        <div className={s.inputWrapper}>
+          <input
+            id={rest.name}
+            ref={ref}
+            type={typeVariant}
+            className={inputStyle}
+            placeholder={placeHolder}
+            {...rest}
+          />
+          {isShowIcon}
+        </div>
+        {error && (
+          // <span className={s.errorText}>{error.message}</span>
+          <Typography variant={'caption'} className={s.errorText}>
+            {error.message}
+          </Typography>
+        )}
       </div>
     )
   }

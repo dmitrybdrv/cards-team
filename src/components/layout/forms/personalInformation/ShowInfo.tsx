@@ -1,6 +1,6 @@
-import { ReactComponent as EditPen } from '../../common/assets/icons/editPen.svg'
-import logoutIcon from '../../common/assets/icons/logout.svg'
-import { Button, Typography } from '../../components/ui'
+import { ReactComponent as EditPen } from '../../../../assets/icons/editPen.svg'
+import logoutIcon from '../../../../assets/icons/logout.svg'
+import { Button, Typography } from '../../../ui'
 
 import s from './personalInformation.module.scss'
 
