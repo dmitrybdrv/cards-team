@@ -5,6 +5,8 @@ import { Button, Card, Typography } from '../../../ui'
 import s from '../forms.module.scss'
 
 export const CheckEmail = () => {
+  const typographyStyle = clsx(s.footnote, s.footnoteTextCenter)
+
   return (
     <Card className={s.formWrapper}>
       <form className={s.formContainer}>
@@ -14,7 +16,7 @@ export const CheckEmail = () => {
         <div className={s.emailIcon}>
           <EmailIcon />
         </div>
-        <Typography variant={'body2'} className={clsx(s.footnote, s.footnoteTextCenter)}>
+        <Typography variant={'body2'} className={typographyStyle}>
           We have sent an Email with instructions to example@mail.com
         </Typography>
         <Button fullWidth={true} className={s.btn}>

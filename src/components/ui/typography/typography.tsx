@@ -22,8 +22,10 @@ export function Typography<T extends ElementType = ElementType>({
 }: TypographyType<T>) {
   const Component = tagMapping[variant]
 
+  const typographyStyle = clsx(s[variant], className)
+
   return (
-    <Component className={clsx(s[variant], className)} {...rest}>
+    <Component className={typographyStyle} {...rest}>
       {children}
     </Component>
   )

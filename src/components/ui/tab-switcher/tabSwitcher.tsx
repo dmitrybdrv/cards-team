@@ -21,11 +21,13 @@ export const TabSwitcher: FC<Props> = props => {
     )
   })
 
+  const toggleStyle = clsx(s.ToggleGroup, className)
+
   return (
     <ToggleGroup.Root
       disabled={disabled}
       type={'single'}
-      className={clsx(s.ToggleGroup, className)}
+      className={toggleStyle}
       onValueChange={onChange}
       defaultValue={defaultValue}
     >

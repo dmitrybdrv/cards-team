@@ -3,14 +3,14 @@ import { ComponentPropsWithoutRef, ElementType, forwardRef } from 'react'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { clsx } from 'clsx'
 
-import { DataType } from '../../../App.tsx'
 import { Typography } from '../typography'
 
 import s from './radioGroup.module.scss'
 import { radioGroupReturner } from './radioGroup.utils.tsx'
 
 type Props = {
-  data: DataType
+  //TODO пофиксить тип ANY в зависимости от приходящих данных
+  data: Array<any>
   value: string
   onChange: (value: string) => void
   position?: 'horiz' | 'vert'
