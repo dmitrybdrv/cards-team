@@ -9,7 +9,8 @@ import s from './radioGroup.module.scss'
 import { radioGroupReturner } from './radioGroup.utils.tsx'
 
 type Props = {
-  data: Array<{ label: string; value: string; id: string }>
+  //TODO пофиксить тип ANY в зависимости от приходящих данных
+  data: Array<any>
   value: string
   onChange: (value: string) => void
   position?: 'horiz' | 'vert'

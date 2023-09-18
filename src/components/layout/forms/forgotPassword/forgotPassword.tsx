@@ -9,10 +9,9 @@ import { ForgotPasswordType, FormPropsType } from '../forms.types.ts'
 
 export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) => {
   const {
-    clearErrors,
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<ForgotPasswordType>({
     defaultValues: {
       email: '',
@@ -21,6 +20,8 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   })
+
+  const typographyStyle = clsx(s.footnote, s.footnoteExtra)
 
   return (
     <Card className={s.formWrapper}>
@@ -35,14 +36,9 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
           label={'Email'}
           placeholder={'Email'}
           className={s.txf}
-          onChange={() => {
-            if (!isValid) {
-              clearErrors('email')
-            }
-          }}
         />
 
-        <Typography variant={'body2'} className={clsx(s.footnote, s.footnoteExtra)}>
+        <Typography variant={'body2'} className={typographyStyle}>
           Enter your email address and we will send you further instructions
         </Typography>
 
