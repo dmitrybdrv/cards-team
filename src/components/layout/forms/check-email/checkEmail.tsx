@@ -1,6 +1,6 @@
 import { clsx } from 'clsx'
 
-import { EmailIcon } from '../../../../assets/icons/email-icon.tsx'
+import { ReactComponent as EmailIcon } from '../../../../assets/icons/EmailIcon.svg'
 import { Button, Card, Typography } from '../../../ui'
 import s from '../forms.module.scss'
 
