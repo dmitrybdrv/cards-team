@@ -1,9 +1,3 @@
-import { Header } from './components/ui'
-
 export function App() {
-  return (
-    <div>
-      <Header />
-    </div>
-  )
+  return <div>hello</div>
 }
