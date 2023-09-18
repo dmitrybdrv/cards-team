@@ -1,19 +1,17 @@
-import s from './table.module.scss'
-import { TBody } from './TBody.tsx'
+import { ComponentPropsWithoutRef, FC } from 'react'
 
-export const Table = ({}) => {
+import { clsx } from 'clsx'
+
+import s from './table.module.scss'
+
+type Props = ComponentPropsWithoutRef<'table'>
+
+export const Table: FC<Props> = ({ children, className, ...rest }) => {
+  const tableStyle = clsx(s.table, className)
+
   return (
-    <table className={s.table}>
-      <thead>
-        <tr className={s.tableHead}>
-          <th>Name</th>
-          <th>Cards</th>
-          <th>Last Updated</th>
-          <th>Created by</th>
-          <th></th>
-        </tr>
-      </thead>
-      <TBody />
+    <table className={tableStyle} {...rest}>
+      {children}
     </table>
   )
 }
