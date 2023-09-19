@@ -4,10 +4,12 @@ import { clsx } from 'clsx'
 
 import s from './table.module.scss'
 
-type Props = ComponentPropsWithoutRef<'table'>
+type Props = {
+  variant: 'packs' | 'cards'
+} & ComponentPropsWithoutRef<'table'>
 
-export const Table: FC<Props> = ({ children, className, ...rest }) => {
-  const tableStyle = clsx(s.table, className)
+export const Table: FC<Props> = ({ variant, children, className, ...rest }) => {
+  const tableStyle = clsx(s.table, className, s[variant])
 
   return (
     <table className={tableStyle} {...rest}>

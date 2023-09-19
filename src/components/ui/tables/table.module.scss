@@ -12,9 +12,17 @@
   th, td {
     padding: 6px 24px;
     min-height: 36px;
-    min-width: 200px;
   }
 
+  th {
+    min-width: 200px;
+  }
+}
+//set width columns for packs table
+.packs {
+  th:nth-child(2) {
+    min-width: 100px;
+  }
 }
 
 .tableHead {
@@ -47,4 +55,15 @@
   svg:not(:last-child) {
     margin-right: 10px;
   }
+}
+
+//tdCell
+.tdCell {
+
+}
+
+.tdImg {
+  width: 120px;
+  height: 48px;
+  object-fit: cover;
 }

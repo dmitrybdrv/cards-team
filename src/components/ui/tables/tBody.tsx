@@ -1,6 +1,6 @@
 import s from './table.module.scss'
 import { TdIcons } from './tdIcons.tsx'
-import { TdRating } from './TdRating.tsx'
+import { TdRating } from './tdRating.tsx'
 
 export const TBody = ({}) => {
   return (

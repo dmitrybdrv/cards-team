@@ -5,7 +5,7 @@ export function App() {
   return (
     <div>
       Packs list without cover
-      <Table>
+      <Table variant={'packs'}>
         <thead>
           <tr className={s.tableHead}>
             <th>Name</th>
@@ -31,7 +31,7 @@ export function App() {
       <br />
       <br />
       My pack
-      <Table>
+      <Table variant={'cards'}>
         <thead>
           <tr className={s.tableHead}>
             {/*TODO Q and A need width 300px*/}
@@ -42,6 +42,13 @@ export function App() {
             <th></th>
           </tr>
         </thead>
+        <tr>
+          <td>title</td>
+          <td>cardsCount</td>
+          <td>updated</td>
+          <TdRating rating={4} />
+          <TdIcons onEdit={() => console.log('edit')} onDelete={() => console.log('delete')} />
+        </tr>
         <tr>
           <td>title</td>
           <td>cardsCount</td>
