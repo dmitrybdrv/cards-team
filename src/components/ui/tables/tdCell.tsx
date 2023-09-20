@@ -15,6 +15,7 @@ export const TdCell: FC<TdCellProps> = ({ title, img, video, className, ...rest 
 
   return (
     <td className={tdStyle} {...rest}>
+      {video && <video src={video} width={120} height={48}></video>}
       {img && <img src={img} alt="#" width={120} height={48} className={s.tdImg} />}
       <span>{title}</span>
     </td>

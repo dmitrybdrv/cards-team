@@ -31,10 +31,9 @@ export function App() {
       <br />
       <br />
       My pack
-      <Table variant={'cards'}>
+      <Table variant={'myCards'}>
         <thead>
           <tr className={s.tableHead}>
-            {/*TODO Q and A need width 300px*/}
             <th>Question</th>
             <th>Answer</th>
             <th>Last Updated</th>
@@ -42,14 +41,14 @@ export function App() {
             <th></th>
           </tr>
         </thead>
-        <tr>
+        <tr className={s.tableRow}>
           <td>title</td>
           <td>cardsCount</td>
           <td>updated</td>
           <TdRating rating={4} />
           <TdIcons onEdit={() => console.log('edit')} onDelete={() => console.log('delete')} />
         </tr>
-        <tr>
+        <tr className={s.tableRow}>
           <td>title</td>
           <td>cardsCount</td>
           <td>updated</td>
@@ -57,7 +56,31 @@ export function App() {
           <TdIcons onEdit={() => console.log('edit')} onDelete={() => console.log('delete')} />
         </tr>
       </Table>
-      {/*TODO friends pack*/}
+      <br />
+      <br />
+      Friends pack
+      <Table variant={'cards'}>
+        <thead>
+          <tr className={s.tableHead}>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Last Updated</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tr className={s.tableRow}>
+          <td>title</td>
+          <td>cardsCount</td>
+          <td>updated</td>
+          <TdRating rating={4} />
+        </tr>
+        <tr className={s.tableRow}>
+          <td>title</td>
+          <td>cardsCount</td>
+          <td>updated</td>
+          <TdRating rating={4} />
+        </tr>
+      </Table>
     </div>
   )
 }

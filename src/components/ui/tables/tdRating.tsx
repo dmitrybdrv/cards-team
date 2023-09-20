@@ -10,8 +10,8 @@ type Props = ComponentPropsWithoutRef<'td'> & {
 }
 
 export const TdRating: FC<Props> = ({ rating = 5, ...rest }) => {
-  const viewStar = new Array(5).fill(<FillStar />).map((e, i) => {
-    return i >= rating ? <EmptyStar /> : e
+  const viewStar = new Array(5).fill(null).map((_e, i) => {
+    return i >= rating ? <EmptyStar key={i} /> : <FillStar key={i} />
   })
 
   return (

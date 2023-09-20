@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 import s from './table.module.scss'
 
 type Props = {
-  variant: 'packs' | 'cards'
+  variant: 'packs' | 'cards' | 'myCards'
 } & ComponentPropsWithoutRef<'table'>
 
 export const Table: FC<Props> = ({ variant, children, className, ...rest }) => {
