@@ -1,5 +1,7 @@
+import testImg from './assets/img/avatarPlaceholder.png'
 import { Table, TdIcons, TdRating } from './components/ui'
 import s from './components/ui/tables/table.module.scss'
+import { TdCell } from './components/ui/tables/tdCell.tsx'
 
 export function App() {
   return (
@@ -16,7 +18,10 @@ export function App() {
           </tr>
         </thead>
         <tr className={s.tableRow}>
-          <td>title</td>
+          <TdCell img={testImg}>
+            title titletitletitletitletitletitletitle titletitle titletitletitle titletitletitle
+            titletitletitle titletitletitletitletitletitle titletitletitle
+          </TdCell>
           <td>cardsCount</td>
           <td>updated</td>
           <td>createdBy</td>
@@ -27,7 +32,6 @@ export function App() {
           />
         </tr>
       </Table>
-      {/*TODO Packs list with cover*/}
       <br />
       <br />
       My pack
