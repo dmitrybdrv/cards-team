@@ -1,3 +1,9 @@
+import { DropDown } from './components/ui/drop-down'
+
 export function App() {
-  return <div>hello</div>
+  return (
+    <div>
+      <DropDown />
+    </div>
+  )
 }
