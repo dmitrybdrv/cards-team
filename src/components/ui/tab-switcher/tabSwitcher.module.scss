@@ -32,11 +32,7 @@ button {
 }
 
 //hover
-.ToggleItem:not(
- .ToggleItem[data-state='on'],
- .ToggleItem[data-disabled],
- :focus
- ):hover {
+.ToggleItem:not(.ToggleItem[data-state='on'], .ToggleItem[data-disabled], :focus):hover {
   background-color: var(--color-dark-300);
   color: var(--color-light-900);
   border-color: var(--color-dark-100);
@@ -50,11 +46,8 @@ button {
   background-color: var(--color-dark-300);
 }
 
-.ToggleItem:not(
- .ToggleItem[data-state='on'],
- .ToggleItem[data-disabled],
- :focus
- ):first-child:hover + .ToggleItem:not(:focus) {
+.ToggleItem:not(.ToggleItem[data-state='on'],
+ .ToggleItem[data-disabled], :focus):first-child:hover + .ToggleItem:not(:focus) {
   border-left: 1px solid var(--color-dark-100);
 }
 
@@ -86,7 +79,6 @@ button {
 .ToggleItem:focus + .ToggleItem {
   border-left: none;
 }
-
 
 .ToggleItem[data-disabled] {
   color: var(--color-dark-300);
