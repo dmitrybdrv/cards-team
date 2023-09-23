@@ -13,8 +13,8 @@ export const TdCell: FC<TdCellProps> = ({ children, img, video, ...rest }) => {
   return (
     <td {...rest}>
       <div className={s.tdCell}>
-        {video && <video src={video} width={120} height={48}></video>}
-        {img && <img src={img} alt="#" width={120} height={48} className={s.tdImg} />}
+        {video && !img && <video src={video} width={120} height={48}></video>}
+        {img && !video && <img src={img} alt="#" width={120} height={48} className={s.tdImg} />}
         <span className={s.tdCellTitle} title={titleContent}>
           {children}
         </span>
