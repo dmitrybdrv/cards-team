@@ -2,11 +2,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
 
-import { Button, Card, TextField, Typography } from '../../../ui'
 import s from '../forms.module.scss'
 import { ForgotPasswordType, FormPropsType } from '../forms.types.ts'
 
 import { forgotPasswordSchema } from '@/common/utils'
+import { Button, Card, TextField, Typography } from '@/components/ui'
 
 export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) => {
   const {
@@ -18,8 +18,7 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
       email: '',
     },
     resolver: zodResolver(forgotPasswordSchema),
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+    mode: 'onSubmit',
   })
 
   const typographyStyle = clsx(s.footnote, s.footnoteExtra)

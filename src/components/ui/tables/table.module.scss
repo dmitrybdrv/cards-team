@@ -8,7 +8,8 @@
   @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
   text-align: left;
 
-  th, td {
+  th,
+  td {
     padding: 6px 24px;
     min-height: 36px;
     width: min-content;
@@ -36,8 +37,10 @@
 }
 
 //set width columns for my cards table
-.myCards, .cards {
-  th:first-child, th:nth-child(2) {
+.myCards,
+.cards {
+  th:first-child,
+  th:nth-child(2) {
     min-width: 300px;
   }
 }
