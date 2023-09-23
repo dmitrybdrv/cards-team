@@ -10,7 +10,7 @@ import s from './header.module.scss'
 type Props = {
   isLoggedIn: boolean
 }
-//TODO test
+//*
 export const Header: FC<Props> = ({ isLoggedIn }) => {
   return (
     <header className={s.headerContainer}>
