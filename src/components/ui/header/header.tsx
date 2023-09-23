@@ -7,17 +7,27 @@ import { Typography } from '../typography'
 
 import s from './header.module.scss'
 
-type HeaderType = {}
+type Props = {
+  isLoggedIn: boolean
+}
 
-export const Header: FC<HeaderType> = ({}) => {
+export const Header: FC<Props> = ({ isLoggedIn }) => {
   return (
     <header className={s.headerContainer}>
       <Logo className={s.headerLogo} />
       <div className={s.headerAvatar}>
-        <Button variant={'link'} className={s.captionLink}>
-          <Typography variant={'subtitle1'}>Ivan</Typography>
-        </Button>
-        <img src={ava} alt="ava" className={s.layoutAvatar} />
+        {isLoggedIn ? (
+          <>
+            <Button variant={'link'} className={s.captionLink}>
+              <Typography variant={'subtitle1'}>Ivan</Typography>
+            </Button>
+            <img src={ava} alt="ava" className={s.layoutAvatar} />
+          </>
+        ) : (
+          <Button variant={'primary'} href={'#'} as={'a'} style={{ textDecoration: 'none' }}>
+            Sign in
+          </Button>
+        )}
       </div>
     </header>
   )
