@@ -1,8 +1,9 @@
 import { clsx } from 'clsx'
 
-import { ReactComponent as EmailIcon } from '../../../../assets/icons/EmailIcon.svg'
 import { Button, Card, Typography } from '../../../ui'
 import s from '../forms.module.scss'
+
+import { ReactComponent as EmailIcon } from '@/assets/icons/emailIcon.svg'
 
 export const CheckEmail = () => {
   const typographyStyle = clsx(s.footnote, s.footnoteTextCenter)

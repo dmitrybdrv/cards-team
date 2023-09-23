@@ -1,17 +1,17 @@
 import { FC } from 'react'
 
 import ava from '../../../assets/img/ava.jpg'
-import { ReactComponent as Logo } from '../../../assets/img/Logo.svg'
 import { Typography } from '../typography'
 
 import s from './header.module.scss'
 
+import { ReactComponent as Logo } from '@/assets/img/logo.svg'
 import { Button } from '@/components/ui'
 
 type Props = {
   isLoggedIn: boolean
 }
-//*
+
 export const Header: FC<Props> = ({ isLoggedIn }) => {
   return (
     <header className={s.headerContainer}>

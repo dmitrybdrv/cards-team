@@ -46,8 +46,8 @@ button {
   background-color: var(--color-dark-300);
 }
 
-.ToggleItem:not(.ToggleItem[data-state='on'],
- .ToggleItem[data-disabled], :focus):first-child:hover + .ToggleItem:not(:focus) {
+.ToggleItem:not(.ToggleItem[data-state='on'], .ToggleItem[data-disabled], :focus):first-child:hover
+  + .ToggleItem:not(:focus) {
   border-left: 1px solid var(--color-dark-100);
 }
 

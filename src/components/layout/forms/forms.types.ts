@@ -5,6 +5,7 @@ export type MainFormType = {
 }
 
 export type ForgotPasswordType = Pick<MainFormType, 'email'>
+export type CreatePasswordType = Pick<MainFormType, 'password'>
 export type SignInType = Omit<MainFormType, 'confirmPassword'> & {
   rememberMe: boolean
 }
