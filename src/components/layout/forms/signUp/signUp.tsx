@@ -1,10 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-import { signUpSchema } from '../../../../common/utils'
 import { Button, Card, TextField, Typography } from '../../../ui'
 import s from '../forms.module.scss'
 import { FormPropsType, MainFormType } from '../forms.types.ts'
+
+import { signUpSchema } from '@/common/utils'
 
 export const SignUp = ({ onSubmit }: FormPropsType<MainFormType>) => {
   const {
