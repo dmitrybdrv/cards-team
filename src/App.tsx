@@ -1,9 +1,9 @@
-import { DropDown } from './components/ui/drop-down'
+import { Dropdown } from './components'
 
 export function App() {
   return (
     <div>
-      <DropDown />
+      <Dropdown>{<button>dsf</button>}</Dropdown>
     </div>
   )
 }
