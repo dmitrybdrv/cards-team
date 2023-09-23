@@ -2,10 +2,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
 
-import { forgotPasswordSchema } from '../../../../common/utils'
 import { Button, Card, TextField, Typography } from '../../../ui'
 import s from '../forms.module.scss'
 import { ForgotPasswordType, FormPropsType } from '../forms.types.ts'
+
+import { forgotPasswordSchema } from '@/common/utils'
 
 export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) => {
   const {

@@ -7,12 +7,12 @@
   @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
   text-align: left;
 
-  th, td {
+  th,
+  td {
     padding: 6px 24px;
     min-height: 36px;
     min-width: 200px;
   }
-
 }
 
 .tableHead {

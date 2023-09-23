@@ -1,13 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-import { signInSchema } from '../../../../common/utils'
 import { Button, Card, TextField, Typography } from '../../../ui'
 import { ControlledCheckbox } from '../../../ui/checkbox/ControlledCheckbox.tsx'
 import cs from '../forms.module.scss'
 import { FormPropsType, SignInType } from '../forms.types.ts'
 
 import s from './signIn.module.scss'
+
+import { signInSchema } from '@/common/utils'
 
 export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
   const {

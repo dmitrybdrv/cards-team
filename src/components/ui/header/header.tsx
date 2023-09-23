@@ -2,10 +2,11 @@ import { FC } from 'react'
 
 import ava from '../../../assets/img/ava.jpg'
 import { ReactComponent as Logo } from '../../../assets/img/Logo.svg'
-import { Button } from '../button'
 import { Typography } from '../typography'
 
 import s from './header.module.scss'
+
+import { Button } from '@/components/ui'
 
 type Props = {
   isLoggedIn: boolean
