@@ -1,11 +1,12 @@
 import { CSSProperties, ReactNode, useState, FC, ComponentPropsWithoutRef } from 'react'
 
 import * as DropdownMenuRadix from '@radix-ui/react-dropdown-menu'
+import * as Separator from '@radix-ui/react-separator'
 import { clsx } from 'clsx'
 import { AnimatePresence, motion, MotionProps, Variants } from 'framer-motion'
 
-import { More } from '../../../assets'
-import { Typography } from '../typography'
+import { IconWrapper } from '../../../assets/icon-wrapper'
+import { AvaDropDown } from '../../../assets/icons-component'
 
 import s from './drop-down.module.scss'
 
@@ -59,34 +60,36 @@ export const Dropdown = ({ children, trigger, align = 'end', className, style }:
       <DropdownMenuRadix.Trigger asChild>
         {trigger ?? (
           <button className={classNames.button}>
-            <More />
+            <IconWrapper icon={<AvaDropDown />}></IconWrapper>
           </button>
         )}
       </DropdownMenuRadix.Trigger>
       <AnimatePresence>
         {open && (
           <DropdownMenuRadix.Portal forceMount>
-            <DropdownMenuRadix.Content
-              asChild
-              forceMount
-              className={classNames.content}
-              align={align}
-              sideOffset={8}
-              style={style}
-              onClick={event => event.stopPropagation()}
-            >
-              <motion.div
-                animate={open ? 'open' : 'closed'}
-                initial="closed"
-                exit="closed"
-                variants={menu}
+            <div>
+              <DropdownMenuRadix.Content
+                asChild
+                forceMount
+                className={classNames.content}
+                align={align}
+                sideOffset={8}
+                style={style}
+                onClick={event => event.stopPropagation()}
               >
-                <DropdownMenuRadix.Arrow className={classNames.arrowBox} asChild>
-                  <div className={classNames.arrow} />
-                </DropdownMenuRadix.Arrow>
-                <div className={classNames.itemsBox}>{children}</div>
-              </motion.div>
-            </DropdownMenuRadix.Content>
+                <motion.div
+                  animate={open ? 'open' : 'closed'}
+                  initial="closed"
+                  exit="closed"
+                  variants={menu}
+                >
+                  <DropdownMenuRadix.Arrow className={classNames.arrowBox} asChild>
+                    <div className={classNames.arrow} />
+                  </DropdownMenuRadix.Arrow>
+                  <div className={classNames.itemsBox}>{children}</div>
+                </motion.div>
+              </DropdownMenuRadix.Content>
+            </div>
           </DropdownMenuRadix.Portal>
         )}
       </AnimatePresence>
@@ -103,33 +106,33 @@ export type ToolbarItemProps = {
   style?: CSSProperties
 }
 
-export const ToolbarItem: FC<ToolbarItemProps> = ({
-  children,
-  disabled,
-  onSelect,
-  className,
-  style,
-}) => {
-  const classNames = {
-    item: clsx(s.item, className),
-  }
-
-  return (
-    <DropdownMenuRadix.Item
-      className={classNames.item}
-      disabled={disabled}
-      onSelect={onSelect}
-      style={style}
-      asChild
-    >
-      <motion.div {...item}>{children}</motion.div>
-    </DropdownMenuRadix.Item>
-  )
-}
+// export const ToolbarItem: FC<ToolbarItemProps> = ({
+//   children,
+//   disabled,
+//   onSelect,
+//   className,
+//   style,
+// }) => {
+//   const classNames = {
+//     item: clsx(s.item, className),
+//   }
+//
+//   return (
+//     <DropdownMenuRadix.Item
+//       className={classNames.item}
+//       disabled={disabled}
+//       onSelect={onSelect}
+//       style={style}
+//       asChild
+//     >
+//       <motion.div {...item}>{children}</motion.div>
+//     </DropdownMenuRadix.Item>
+//   )
+// }
 
 export type ToolbarItemWithIconProps = Omit<ToolbarItemProps, 'children'> & {
   icon: ReactNode
-  text: string
+  text: ReactNode
 } & ComponentPropsWithoutRef<'div'>
 
 export const ToolbarItemWithIcon: FC<ToolbarItemWithIconProps> = ({
@@ -157,8 +160,11 @@ export const ToolbarItemWithIcon: FC<ToolbarItemWithIconProps> = ({
       {...rest}
     >
       <motion.div {...item}>
-        <div className={classNames.itemIcon}>{icon}</div>
-        <Typography variant={'body2'}>{text}</Typography>
+        <div className={s.itemBox}>
+          <div className={classNames.itemIcon}>{icon}</div>
+          {text}
+        </div>
+        <Separator.Root className={s.separatorRoot} />
       </motion.div>
     </DropdownMenuRadix.Item>
   )

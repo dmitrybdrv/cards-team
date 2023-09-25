@@ -1,3 +1,12 @@
+.separatorRoot {
+  width: 100%;
+  height: 1px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+
+  background-color: var(--color-dark-100);
+}
+
 .button {
   cursor: pointer;
 
@@ -19,11 +28,12 @@
   position: relative;
 
   min-width: 134px;
-  padding: 10px 0;
+  margin-top: 10px;
+  padding: 12px 0;
 
-  background-color: var(--color-bg-element);
-  border: 1px solid var(--color-border-input-primary);
-  border-radius: var(--border-radius-s);
+  background-color: var(--color-dark-500);
+  border: 1 solid var(--color-dark-100);
+  border-radius: 4px;
 }
 
 .itemsBox {
@@ -33,8 +43,8 @@
 }
 
 .arrowBox {
-  fill: var(--color-bg-element);
-  stroke: var(--color-border-input-primary);
+  fill: var(--color-dark-500);
+  stroke: var(--color-dark-500);
   stroke-width: 2px;
 }
 
@@ -47,26 +57,27 @@
   width: 6px;
   height: 6px;
 
-  background-color: var(--color-bg-element);
-  border: 1px solid var(--color-border-input-primary);
+  background-color: var(--color-dark-500);
+  border: 1px solid var(--color-dark-500);
   border-top: none;
   border-left: none;
 }
 
+.itemBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .item {
   cursor: pointer;
-
-  display: flex;
   gap: 12px;
-  align-items: center;
-
-  height: 36px;
   padding: 0 16px;
-
-  font-size: var(--font-size-s);
-  line-height: var(--line-height-m);
-
   outline: none;
+
+  &:last-child .separatorRoot {
+    display: none;
+  }
 
   &:hover:enabled,
   &:focus:enabled {
@@ -87,4 +98,5 @@
 
   width: 24px;
   height: 24px;
+  margin-right: 12px;
 }

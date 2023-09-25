@@ -3,8 +3,8 @@ import { FC, useState } from 'react'
 import * as Select from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
-import { ReactComponent as ArrowDown } from '../../../assets/icons/ArrowDown.svg'
-import { ReactComponent as ArrowUp } from '../../../assets/icons/ArrowUp.svg'
+import { ReactComponent as ArrowDown } from '../../../assets/icons/arrowDown.svg'
+import { ReactComponent as ArrowUp } from '../../../assets/icons/arrowUp.svg'
 import { Typography } from '../typography'
 
 import s from './select.module.scss'
