@@ -12,10 +12,11 @@ import { ReactComponent as ArrowDown } from '@/assets/icons/arrowDown.svg'
 import { ReactComponent as ArrowUp } from '@/assets/icons/arrowUp.svg'
 
 export const SelectC: FC<Props> = props => {
-  const { values, label, isDisabled = false, className, ...rest } = props
+  const { values, startValue, label, isDisabled = false, className, ...rest } = props
   const [showSelect, setShowSelect] = useState(false)
 
   const isShowArrow = (showSelect && <ArrowUp />) || (!showSelect && <ArrowDown />)
+  const startSelectValue = startValue || values[0]
   const items = values.map((item, i) => {
     return (
       <>
@@ -37,7 +38,7 @@ export const SelectC: FC<Props> = props => {
       )}
       <Select.Root onOpenChange={setShowSelect} disabled={isDisabled}>
         <Select.Trigger className={s.selectTrigger} aria-label="Food">
-          <Select.Value placeholder="Select-box" />
+          <Select.Value placeholder={startSelectValue} />
           <Select.Icon className="selectIcon">{isShowArrow}</Select.Icon>
         </Select.Trigger>
         <Select.Content
