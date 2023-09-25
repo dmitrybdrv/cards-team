@@ -1,4 +1,3 @@
-import { ReactComponent as EditPen } from '../../../../assets/icons/editPen.svg'
 import logoutIcon from '../../../../assets/icons/logout.svg'
 import { Button, Typography } from '../../../ui'
 

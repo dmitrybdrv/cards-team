@@ -3,13 +3,12 @@ import { FC, useState } from 'react'
 import * as Select from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
+import { ReactComponent as ArrowDown } from '../../../assets/icons/arrowDown.svg'
+import { ReactComponent as ArrowUp } from '../../../assets/icons/arrowUp.svg'
 import { Typography } from '../typography'
 
 import s from './select.module.scss'
 import { Props } from './select.types.ts'
-
-import { ReactComponent as ArrowDown } from '@/assets/icons/arrowDown.svg'
-import { ReactComponent as ArrowUp } from '@/assets/icons/arrowUp.svg'
 
 export const SelectC: FC<Props> = props => {
   const { values, label, isDisabled = false, className, ...rest } = props
