@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { SignIn } from './signIn.tsx'
 
 const meta = {
-  title: 'Features/SignIn',
+  title: 'Components/Forms/SignIn',
   component: SignIn,
   tags: ['autodocs'],
 } satisfies Meta<typeof SignIn>
