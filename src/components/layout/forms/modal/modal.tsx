@@ -12,7 +12,17 @@ type Props = {
   description: string
 }
 
-export const Modal: FC<Props> = ({ isOpen, onOpenChange, title, description, children }) => {
+type CompoundModalType = {
+  BModal: FC
+}
+
+export const Modal: FC<Props> & CompoundModalType = ({
+  isOpen,
+  onOpenChange,
+  title,
+  description,
+  children,
+}) => {
   return (
     <Dialog.Root defaultOpen={false} open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger>{children}</Dialog.Trigger>
@@ -28,3 +38,5 @@ export const Modal: FC<Props> = ({ isOpen, onOpenChange, title, description, chi
     </Dialog.Root>
   )
 }
+
+Modal.BModal = Dialog.Trigger
