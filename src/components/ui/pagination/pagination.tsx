@@ -11,10 +11,14 @@ export const Pagination = ({}) => {
       <div>
         <ArrowLeft className={s.arrowLeft} />
       </div>
-      <div>
+      <div className={s.showPerPageWrapper}>
         <Typography variant={'body2'}>Показать</Typography>
         <div className={s.selectWrapper}>
-          <SelectC values={perPageCountVariant} startValue={perPageCountVariant[4]} />
+          <SelectC
+            values={perPageCountVariant}
+            startValue={perPageCountVariant[4]}
+            className={s.select}
+          />
         </div>
         <Typography variant={'body2'}>на странице</Typography>
       </div>
