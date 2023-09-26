@@ -1,3 +1,5 @@
+@import '../../../styles/mixin';
+
 .wrapper {
   margin: 10px;
 }
@@ -8,12 +10,26 @@
 
 .selectWrapper {
   width: 50px;
-  height: 24px;
 }
 
 .select {
-  width: 50px;
-  height: 24px;
+  @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-s));
+
+  margin-right: 5px;
+  margin-left: 5px;
+
+  button {
+    @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-s));
+
+    box-sizing: border-box;
+    width: 54px;
+    height: 24px;
+    padding: 0 6px;
+
+    svg {
+      margin-top: 1.5px;
+    }
+  }
 }
 
 .showPerPageWrapper {
