@@ -6,8 +6,9 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
-import { SignIn } from '@/components'
-import { ErrorPage } from '@/components/layout/forms/error-page/error-page.tsx'
+import { ForgotPassword, SignIn, SignUp } from '@/components'
+import { CreateNewPassword } from '@/components/layout/forms'
+import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -15,8 +16,20 @@ const publicRoutes: RouteObject[] = [
     element: <SignIn onSubmit={() => {}} />,
   },
   {
+    path: '/signup',
+    element: <SignUp onSubmit={() => {}} />,
+  },
+  {
+    path: '/reset-password',
+    element: <ForgotPassword onSubmit={() => {}} />,
+  },
+  {
+    path: '/create-password',
+    element: <CreateNewPassword onSubmit={() => {}} />,
+  },
+  {
     path: '/404',
-    element: <ErrorPage />,
+    element: <Error404 />,
   },
   {
     path: '*',
@@ -26,7 +39,11 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <div>hello</div>,
+    element: <div>my pack</div>,
+  },
+  {
+    path: '/packs-list',
+    element: <div>packs list</div>,
   },
 ]
 
@@ -40,7 +57,7 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const isAuthenticated = true
+  const isAuthenticated = false
 
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }

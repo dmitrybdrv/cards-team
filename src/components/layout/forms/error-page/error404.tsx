@@ -2,7 +2,7 @@ import s from './error-page.module.scss'
 
 import { Button } from '@/components'
 
-export const ErrorPage = () => {
+export const Error404 = () => {
   return (
     <div className={s.container}>
       <img src="" alt="" />
