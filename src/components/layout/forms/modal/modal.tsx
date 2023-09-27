@@ -5,38 +5,51 @@ import * as Dialog from '@radix-ui/react-dialog'
 import s from './modal.module.scss'
 
 type Props = {
-  children?: ReactNode
   isOpen: boolean
   onOpenChange: (open: boolean) => void
-  title: string
-  description: string
+  children: ReactNode
 }
 
-type CompoundModalType = {
-  BModal: FC
+type ModalCompoundComponents = {
+  Trigger: FC<{ children: ReactNode }>
+  Portal: FC<{ children: ReactNode[] }>
+  Title: FC<{ children: ReactNode }>
+  Description: FC<{ children: ReactNode }>
+  Close: FC
 }
 
-export const Modal: FC<Props> & CompoundModalType = ({
-  isOpen,
-  onOpenChange,
-  title,
-  description,
-  children,
-}) => {
+export const Modal: FC<Props> & ModalCompoundComponents = ({ isOpen, onOpenChange, children }) => {
   return (
     <Dialog.Root defaultOpen={false} open={isOpen} onOpenChange={onOpenChange}>
-      <Dialog.Trigger>{children}</Dialog.Trigger>
-
-      <Dialog.Portal className={s.modalContainer}>
-        <Dialog.Overlay className={s.dialogOverlay} />
-        <Dialog.Content className={s.dialogContent}>
-          <Dialog.Title className={s.dialogTitle}>{title}</Dialog.Title>
-          <Dialog.Description className={s.dialogDescription}>{description}</Dialog.Description>
-          <Dialog.Close />
-        </Dialog.Content>
-      </Dialog.Portal>
+      {children}
     </Dialog.Root>
   )
 }
 
-Modal.BModal = Dialog.Trigger
+Modal.Trigger = ({ children }) => {
+  return <Dialog.Trigger>{children}</Dialog.Trigger>
+}
+
+Modal.Portal = ({ children }) => {
+  return (
+    <Dialog.Portal className={s.dialogContent}>
+      <Dialog.Overlay className={s.dialogOverlay} />
+      <Dialog.Content>
+        <Dialog.Title>{children}</Dialog.Title>
+        <Dialog.Description>{children}</Dialog.Description>
+      </Dialog.Content>
+    </Dialog.Portal>
+  )
+}
+
+Modal.Title = ({ children }) => {
+  return <Dialog.Title className={s.dialogTitle}>{children}</Dialog.Title>
+}
+
+Modal.Description = ({ children }) => {
+  return <Dialog.Description className={s.dialogDescription}>{children}</Dialog.Description>
+}
+
+Modal.Close = () => {
+  return <Dialog.Close />
+}
