@@ -4,8 +4,12 @@
   margin: 10px;
 }
 
-.arrowLeft {
-  fill: #0a6638;
+.arrowLeft, .arrowRight {
+  fill: var(--color-dark-100);
+}
+
+.arrowRight {
+  transform: rotate(180deg);
 }
 
 .selectWrapper {
