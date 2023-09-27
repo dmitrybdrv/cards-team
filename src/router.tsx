@@ -7,11 +7,20 @@ import {
 } from 'react-router-dom'
 
 import { SignIn } from '@/components'
+import { ErrorPage } from '@/components/layout/forms/error-page/error-page.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
     element: <SignIn onSubmit={() => {}} />,
+  },
+  {
+    path: '/404',
+    element: <ErrorPage />,
+  },
+  {
+    path: '*',
+    element: <Navigate to={'/404'} />,
   },
 ]
 const privateRoutes: RouteObject[] = [
