@@ -5,10 +5,10 @@ import * as Separator from '@radix-ui/react-separator'
 import { clsx } from 'clsx'
 import { AnimatePresence, motion, MotionProps, Variants } from 'framer-motion'
 
-import { IconWrapper } from '../../../assets/icon-wrapper'
-import { AvaDropDown } from '../../../assets/icons-component'
+import s from './dropdown.module.scss'
 
-import s from './drop-down.module.scss'
+import { IconWrapper } from '@/assets/icon-wrapper'
+import { AvaDropDown } from '@/assets/icons-component'
 
 export type ToolbarProps = {
   /** Use TooltipItem components as children.*/
@@ -105,30 +105,6 @@ export type ToolbarItemProps = {
   className?: string
   style?: CSSProperties
 }
-
-// export const ToolbarItem: FC<ToolbarItemProps> = ({
-//   children,
-//   disabled,
-//   onSelect,
-//   className,
-//   style,
-// }) => {
-//   const classNames = {
-//     item: clsx(s.item, className),
-//   }
-//
-//   return (
-//     <DropdownMenuRadix.Item
-//       className={classNames.item}
-//       disabled={disabled}
-//       onSelect={onSelect}
-//       style={style}
-//       asChild
-//     >
-//       <motion.div {...item}>{children}</motion.div>
-//     </DropdownMenuRadix.Item>
-//   )
-// }
 
 export type ToolbarItemWithIconProps = Omit<ToolbarItemProps, 'children'> & {
   icon: ReactNode
