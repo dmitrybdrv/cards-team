@@ -9,7 +9,7 @@ import {
 import { ForgotPassword, SignIn, SignUp } from '@/components'
 import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
-import {Decks} from "@/pages/decks.tsx";
+import { Decks } from '@/pages/decks.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -40,7 +40,11 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <div><Decks/></div>,
+    element: (
+      <div>
+        <Decks />
+      </div>
+    ),
   },
   {
     path: '/packs-list',
