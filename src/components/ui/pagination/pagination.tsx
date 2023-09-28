@@ -13,17 +13,20 @@ type Props = {
   maxCountShowBtn?: number
 }
 
-export const Pagination: FC<Props> = ({ totalItems, maxCountShowBtn = 5 }) => {
+export const Pagination: FC<Props> = ({ totalItems = 0, maxCountShowBtn = 5 }) => {
   const perPageCountVariant = ['10', '20', '30', '50', '100']
 
   const onChangeSelectHandle = (value: string) => console.log(value)
   const pageButtons: ReactNode[] = []
-  const minItems = maxCountShowBtn > totalItems ? totalItems : maxCountShowBtn
+  const showItemsCount = maxCountShowBtn > totalItems ? totalItems : maxCountShowBtn
 
-  for (let i = 0; i < minItems; i++) {
-    pageButtons.push(<button>{i}</button>)
+  for (let i = 1; i <= showItemsCount; i++) {
+    pageButtons.push(
+      <button key={i} className={s.pageButton}>
+        <Typography variant={'body2'}>{i}</Typography>
+      </button>
+    )
   }
-  // new Array(5).fill(<button value={'1'} title={'1'} />)
 
   return (
     <div className={s.wrapper}>

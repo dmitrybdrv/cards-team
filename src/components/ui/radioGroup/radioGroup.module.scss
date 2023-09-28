@@ -1,12 +1,12 @@
-button {
-  all: unset;
-}
-
 .radioGroupContainer {
   user-select: none;
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  button {
+    all: unset;
+  }
 
   .radioGroupRoot {
     display: flex;
