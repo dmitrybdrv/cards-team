@@ -10,7 +10,6 @@ export const Decks = () => {
   })
   const [createDeck, { isLoading }] = useCreateDeckMutation()
 
-  console.log(decks)
   if (decks.isLoading) return <div>Loading...</div>
   if (decks.isError) return <div>Error!!!!</div>
 
