@@ -9,6 +9,7 @@ import {
 import { ForgotPassword, SignIn, SignUp } from '@/components'
 import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
+import {Decks} from "@/pages/decks.tsx";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -39,7 +40,7 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <div>my pack</div>,
+    element: <div><Decks/></div>,
   },
   {
     path: '/packs-list',
@@ -57,7 +58,7 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const isAuthenticated = false
+  const isAuthenticated = true
 
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }
