@@ -1,5 +1,5 @@
 import { baseApi } from '@/services/base-api.ts'
-import { DecksParams, DecksResponse } from '@/services/decks/types.ts'
+import { DecksParams, DecksResponse } from '@/services/decks/decks.types.ts'
 
 export const decksApi = baseApi.injectEndpoints({
   endpoints: builder => ({

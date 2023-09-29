@@ -1,5 +1,5 @@
 import { SignUp } from '@/components'
-import { useSignUpMutation } from '@/services/auth.ts'
+import { useSignUpMutation } from '@/services/auth/auth.service.ts'
 
 export const SignUpPage = () => {
   const [signUp] = useSignUpMutation()
