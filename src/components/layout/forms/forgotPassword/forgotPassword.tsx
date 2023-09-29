@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
 import s from '../forms.module.scss'
-import { ForgotPasswordType, FormPropsType } from '../forms.types.ts'
 
 import { forgotPasswordSchema } from '@/common/utils'
+import { ForgotPasswordType, FormPropsType } from '@/components'
 import { Button, Card, TextField, Typography } from '@/components/ui'
 
 export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) => {
