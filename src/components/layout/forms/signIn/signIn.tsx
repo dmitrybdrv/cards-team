@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { Button, Card, TextField, Typography } from '../../../ui'
 import { ControlledCheckbox } from '../../../ui/checkbox/ControlledCheckbox.tsx'
@@ -19,10 +20,6 @@ export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
   } = useForm<SignInType>({
     resolver: zodResolver(signInSchema),
   })
-
-  //need links!
-  const forgotPasswordLink = '#'
-  const signUpLink = '#'
 
   return (
     <Card className={cs.formWrapper}>
@@ -57,8 +54,10 @@ export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
         />
 
         <Typography variant={'body2'} className={s.forgotPasswordWrapper}>
-          <a className={s.forgotPasswordLink} href={forgotPasswordLink}>
-            Forgot Password?
+          <a className={s.forgotPasswordLink}>
+            <Link className={s.linkWrapper} to={'/reset-password'}>
+              Forgot Password?
+            </Link>
           </a>
         </Typography>
 
@@ -70,8 +69,10 @@ export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
           Don&apos;t have an account?
         </Typography>
 
-        <Typography variant={'link1'} href={signUpLink}>
-          Sign Un
+        <Typography variant={'link1'}>
+          <Link className={s.linkWrapper} to={'/sign-up'}>
+            Sign Up
+          </Link>
         </Typography>
       </form>
     </Card>

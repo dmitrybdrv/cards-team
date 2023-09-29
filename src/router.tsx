@@ -6,11 +6,12 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
-import { ForgotPassword,  SignUp } from '@/components'
+import { ForgotPassword } from '@/components'
 import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
 import { Decks } from '@/pages/decks.tsx'
-import {SignInPage} from "@/pages/sign-in.tsx";
+import { SignInPage } from '@/pages/sign-in-page.tsx'
+import { SignUpPage } from '@/pages/sign-up-page.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -18,8 +19,8 @@ const publicRoutes: RouteObject[] = [
     element: <SignInPage />,
   },
   {
-    path: '/signup',
-    element: <SignUp onSubmit={() => {}} />,
+    path: '/sign-up',
+    element: <SignUpPage />,
   },
   {
     path: '/reset-password',

@@ -1,11 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { Button, Card, TextField, Typography } from '../../../ui'
 import s from '../forms.module.scss'
-import { FormPropsType, MainFormType } from '../forms.types.ts'
 
 import { signUpSchema } from '@/common/utils'
+import { FormPropsType, MainFormType } from '@/components'
 
 export const SignUp = ({ onSubmit }: FormPropsType<MainFormType>) => {
   const {
@@ -62,8 +63,10 @@ export const SignUp = ({ onSubmit }: FormPropsType<MainFormType>) => {
           Already have an account?
         </Typography>
 
-        <Typography variant={'link1'} href={'#'}>
-          Sign In
+        <Typography variant={'link1'}>
+          <Link className={s.linkWrapper} to={'/login'}>
+            Sign In
+          </Link>
         </Typography>
       </form>
     </Card>

@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import s from '../forms.module.scss'
 import { ForgotPasswordType, FormPropsType } from '../forms.types.ts'
@@ -51,7 +52,9 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
         </Typography>
 
         <Typography variant={'link1'} href={'#'}>
-          Try logging in
+          <Link className={s.linkWrapper} to={'/login'}>
+            Try logging in
+          </Link>
         </Typography>
       </form>
     </Card>
