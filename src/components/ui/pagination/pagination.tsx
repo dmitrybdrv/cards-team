@@ -1,8 +1,10 @@
 import { FC, ReactNode } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from './pagination.module.scss'
 
-import { ReactComponent as ArrowLeft } from '@/assets/icons/arrowLeft.svg'
+import { ReactComponent as Arrow } from '@/assets/icons/arrowLeft.svg'
 import { SelectC, Typography } from '@/components/ui'
 
 type Props = {
@@ -21,8 +23,10 @@ export const Pagination: FC<Props> = ({ totalItems = 0, maxCountShowBtn = 5 }) =
   const showItemsCount = maxCountShowBtn > totalItems ? totalItems : maxCountShowBtn
 
   for (let i = 1; i <= showItemsCount; i++) {
+    const buttonStyle = clsx(s.pageButton, i % 2 === 0 && s.even)
+
     pageButtons.push(
-      <button key={i} className={s.pageButton}>
+      <button key={i} className={buttonStyle}>
         <Typography variant={'body2'}>{i}</Typography>
       </button>
     )
@@ -30,9 +34,13 @@ export const Pagination: FC<Props> = ({ totalItems = 0, maxCountShowBtn = 5 }) =
 
   return (
     <div className={s.wrapper}>
-      <ArrowLeft className={s.arrowLeft} />
+      <div className={s.arrowWrapper}>
+        <Arrow className={s.arrowLeft} />
+      </div>
       <div className={s.pageButtons}>{pageButtons}</div>
-      <ArrowLeft className={s.arrowRight} />
+      <div className={s.arrowWrapper}>
+        <Arrow className={s.arrowRight} />
+      </div>
       <div className={s.showPerPageWrapper}>
         <Typography variant={'body2'}>Показать</Typography>
         <SelectC
