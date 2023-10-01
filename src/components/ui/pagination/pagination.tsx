@@ -15,19 +15,20 @@ type Props = {
   maxCountShowBtn?: number
 }
 
-export const Pagination: FC<Props> = ({ totalItems = 0, maxCountShowBtn = 5 }) => {
+export const Pagination: FC<Props> = ({ maxCountShowBtn = 5, totalPages = 0 }) => {
   const perPageCountVariant = ['10', '20', '30', '50', '100']
 
   const onChangeSelectHandle = (value: string) => console.log(value)
   const pageButtons: ReactNode[] = []
-  const showItemsCount = maxCountShowBtn > totalItems ? totalItems : maxCountShowBtn
+  const showItemsCount = maxCountShowBtn > totalPages ? totalPages : maxCountShowBtn
 
   for (let i = 1; i <= showItemsCount; i++) {
     const buttonStyle = clsx(s.pageButton, i % 2 === 0 && s.even)
 
     pageButtons.push(
       <button key={i} className={buttonStyle}>
-        <Typography variant={'body2'}>{i}</Typography>
+        {i}
+        {/*<Typography variant={'body2'}>{i}</Typography>*/}
       </button>
     )
   }
@@ -37,7 +38,10 @@ export const Pagination: FC<Props> = ({ totalItems = 0, maxCountShowBtn = 5 }) =
       <div className={s.arrowWrapper}>
         <Arrow className={s.arrowLeft} />
       </div>
+      <div className={s.dots}>...</div>
       <div className={s.pageButtons}>{pageButtons}</div>
+      <div className={s.dots}>...</div>
+      <div className={s.totalPages}>{totalPages}</div>
       <div className={s.arrowWrapper}>
         <Arrow className={s.arrowRight} />
       </div>
