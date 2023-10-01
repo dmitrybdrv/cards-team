@@ -1,4 +1,4 @@
-import { Typography } from '../typography'
+import { Typography } from '@/components'
 
 export const TextSeparator = () => {
   return (
