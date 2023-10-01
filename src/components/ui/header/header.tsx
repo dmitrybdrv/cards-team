@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
 import ava from '../../../assets/img/ava.jpg'
-import { Typography } from '../typography'
 
 import s from './header.module.scss'
 
 import { ReactComponent as Logo } from '@/assets/img/logo.svg'
+import { Typography } from '@/components'
 import { Button } from '@/components/ui'
 
 type Props = {
