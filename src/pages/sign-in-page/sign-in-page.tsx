@@ -5,9 +5,10 @@ import { useGetMeQuery, useLoginMutation } from '@/services/auth/auth.service.ts
 
 export const SignInPage = () => {
   const [login] = useLoginMutation()
-  const { data: me } = useGetMeQuery()
+  const { data: me, isLoading: isMeLoading} = useGetMeQuery()
 
-  if (me) return <Navigate to={'/'} />
+  if(isMeLoading) return <div>Loading...</div>
+  if (me && me?.success !== false) return <Navigate to={'/'} />
 
   return <SignIn onSubmit={login} />
 }

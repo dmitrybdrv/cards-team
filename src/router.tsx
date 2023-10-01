@@ -70,7 +70,7 @@ export const Router = () => {
 
 function PrivateRoutes() {
   const { data: me, isLoading: isMeLoading } = useGetMeQuery()
-  const isAuthenticated = !!me
+  const isAuthenticated = me && me?.success !== false
 
   if (isMeLoading) return <div>Loading...</div>
 
