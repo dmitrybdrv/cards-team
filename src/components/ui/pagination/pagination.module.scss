@@ -25,7 +25,7 @@
   transform: rotate(180deg);
 }
 
-.pageButton, .totalPages, .dots {
+.pageButton, .totalPages, .dots, .firstPage {
   @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
   all: unset;
   width: 24px;
@@ -35,13 +35,14 @@
   margin-left: 12px;
   text-align: center;
   border-radius: 2px;
+  outline: 1px solid #8c61ff;
 }
 
 .totalPages {
   margin-right: 12px;
 }
 
-.even {
+.currentPage {
   background-color: var(--color-light-100);
   color: var(--color-dark-900);
 }
