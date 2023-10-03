@@ -20,19 +20,22 @@ export const Pagination: FC<Props> = ({ maxCountShowBtn = 5, totalPages = 0, cur
 
   const onChangeSelectHandle = (value: string) => console.log(value)
   const pageButtons: ReactNode[] = []
-  const showItemsCount = maxCountShowBtn > totalPages ? totalPages : maxCountShowBtn
 
-  // если currentPage < maxCountShowBtn
-  for (let i = 2; i <= showItemsCount; i++) {
+  const portionCount = Math.ceil((totalPages - maxCountShowBtn) / (maxCountShowBtn - 2)) + 1
+
+  console.log(portionCount)
+  const firstPortionItems = maxCountShowBtn > totalPages ? totalPages : maxCountShowBtn
+  //Как расчитать сколько эелементов в последней порции?
+  const lastPortionItems = portionCount > 1 ? totalPages - maxCountShowBtn : null
+
+  // render items for first portion
+  for (let i = 2; i <= firstPortionItems; i++) {
     pageButtons.push(
       <button key={i} className={s.pageButton}>
         {i}
       </button>
     )
   }
-  //Как сделать отрисовку кнопок за пределами maxCountShowBtn? С точками по бокам
-  //с помощью порций?
-
   //is show first dots
   const showFirstDots = currentPage > maxCountShowBtn && <div className={s.dots}>...</div>
   // Styles
