@@ -21,12 +21,44 @@ export const Pagination: FC<Props> = ({ maxCountShowBtn = 5, totalPages = 0, cur
   const onChangeSelectHandle = (value: string) => console.log(value)
   const pageButtons: ReactNode[] = []
 
-  const portionCount = Math.ceil((totalPages - maxCountShowBtn) / (maxCountShowBtn - 2)) + 1
-
-  console.log(portionCount)
+  // const portionCount = Math.ceil((totalPages - maxCountShowBtn) / (maxCountShowBtn - 2)) + 1
+  //
   const firstPortionItems = maxCountShowBtn > totalPages ? totalPages : maxCountShowBtn
-  //Как расчитать сколько эелементов в последней порции?
-  const lastPortionItems = portionCount > 1 ? totalPages - maxCountShowBtn : null
+  // //Как расчитать сколько эелементов в последней порции?
+  // const lastPortionItems =
+  //   portionCount > 1
+  //     ? totalPages - maxCountShowBtn - (portionCount - 2) * (maxCountShowBtn - 2)
+  //     : null
+
+  // console.log('portionCount: ', portionCount, 'lastPortionItems: ', lastPortionItems)
+
+  const getPortion = (totalPages: number, maxCountShowBtn: number, minCountShowBtn: number) => {
+    const result = []
+    let maxPortion = []
+    let portion = []
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (i <= maxCountShowBtn) {
+        maxPortion.push(i)
+        if (i === maxCountShowBtn) {
+          result.push([...maxPortion])
+          maxPortion = []
+        }
+      } else {
+        if (portion.length <= minCountShowBtn) {
+          portion.push(i)
+          if (portion.length === minCountShowBtn || i === totalPages) {
+            result.push([...portion])
+            portion = []
+          }
+        }
+      }
+    }
+
+    return result
+  }
+
+  console.log(getPortion(13, 5, 3))
 
   // render items for first portion
   for (let i = 2; i <= firstPortionItems; i++) {
