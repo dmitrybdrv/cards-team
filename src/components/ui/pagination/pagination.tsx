@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useState } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -19,38 +19,32 @@ export const Pagination: FC<Props> = ({ maxCountShowBtn = 5, totalPages = 0, cur
   const perPageCountVariant = ['10', '20', '30', '50', '100']
 
   const onChangeSelectHandle = (value: string) => console.log(value)
-  const pageButtons: ReactNode[] = []
-
-  // const portionCount = Math.ceil((totalPages - maxCountShowBtn) / (maxCountShowBtn - 2)) + 1
-  //
-  const firstPortionItems = maxCountShowBtn > totalPages ? totalPages : maxCountShowBtn
-  // //Как расчитать сколько эелементов в последней порции?
-  // const lastPortionItems =
-  //   portionCount > 1
-  //     ? totalPages - maxCountShowBtn - (portionCount - 2) * (maxCountShowBtn - 2)
-  //     : null
-
-  // console.log('portionCount: ', portionCount, 'lastPortionItems: ', lastPortionItems)
 
   const getPortion = (totalPages: number, maxCountShowBtn: number, minCountShowBtn: number) => {
     const result = []
-    let maxPortion = []
+    const firstPortion = []
+    const lastPortion = []
     let portion = []
 
     for (let i = 1; i <= totalPages; i++) {
       if (i <= maxCountShowBtn) {
-        maxPortion.push(i)
+        firstPortion.push(i)
         if (i === maxCountShowBtn) {
-          result.push([...maxPortion])
-          maxPortion = []
+          result.push(firstPortion)
         }
       } else {
         if (portion.length <= minCountShowBtn) {
           portion.push(i)
-          if (portion.length === minCountShowBtn || i === totalPages) {
+          if (portion.length === minCountShowBtn) {
             result.push([...portion])
             portion = []
           }
+        }
+      }
+      if (i + maxCountShowBtn > totalPages) {
+        lastPortion.push(i)
+        if (i === totalPages) {
+          result.length > 1 ? (result[result.length - 1] = lastPortion) : result.push(lastPortion)
         }
       }
     }
@@ -58,37 +52,54 @@ export const Pagination: FC<Props> = ({ maxCountShowBtn = 5, totalPages = 0, cur
     return result
   }
 
-  console.log(getPortion(13, 5, 3))
+  // console.log(getPortion(4, 5, 3))
 
-  // render items for first portion
-  for (let i = 2; i <= firstPortionItems; i++) {
-    pageButtons.push(
-      <button key={i} className={s.pageButton}>
-        {i}
+  const portions = getPortion(13, 5, 3)
+
+  // [[1, 2, 3, 4, 5], [6, 7, 8], [9, 10, 11, 12, 13]]
+  const startPortion = portions.findIndex(portion => portion.includes(currentPage))
+  const [currentPortion, setCurrentPortion] = useState(startPortion)
+  // const clickRightArrowHandler = () =>
+  //   setCurrentPortion(prevState => {
+  //     const newCurrentPortion = currentPortion + 1
+  //
+  //     return newCurrentPortion > portions.length - 1 ? prevState : newCurrentPortion
+  //   })
+
+  // зарефакторить стили, клики на стрелки переключает страницу---_!
+
+  const renderButtons = portions[currentPortion].map(num => {
+    const buttonStyle = clsx(s.pageButton, currentPage === num && s.currentPage)
+
+    return (
+      <button key={num} className={buttonStyle}>
+        {num}
       </button>
     )
-  }
-  //is show first dots
-  const showFirstDots = currentPage > maxCountShowBtn && <div className={s.dots}>...</div>
-  // Styles
-  const firstPageStyle = clsx(s.firstPage, currentPage === 1 && s.currentPage)
+  })
+  // is show first/last button
+  const firstButtonStyle = clsx(s.firstPage, currentPage === 0 && s.currentPage)
+  const renderFirstButton = currentPortion > 0 && <div className={firstButtonStyle}>1</div>
+  const renderLastButton = currentPortion < portions.length - 1 && (
+    <div className={s.lastPage}>{totalPages}</div>
+  )
+
+  //is show dots
+  const dots = <div className={s.dots}>...</div>
+  const renderFirstDots = currentPortion > 0 && dots
+  const renderLastDots = currentPortion < portions.length - 1 && dots
 
   return (
     <div className={s.wrapper}>
       <div className={s.arrowWrapper}>
         <Arrow className={s.arrowLeft} />
       </div>
-      {/*First page*/}
-      <div className={firstPageStyle}>1</div>
-      {/*First dots*/}
-      {showFirstDots}
-      {/*Buttons*/}
-      <div className={s.pageButtons}>{pageButtons}</div>
-      {/*Last dots*/}
-      <div className={s.dots}>...</div>
-      {/*Last page*/}
-      <div className={s.totalPages}>{totalPages}</div>
-      <div className={s.arrowWrapper}>
+      {renderFirstButton}
+      {renderFirstDots}
+      <div className={s.pageButtons}>{renderButtons}</div>
+      {renderLastDots}
+      {renderLastButton}
+      <div className={s.arrowWrapper} onClick={clickRightArrowHandler}>
         <Arrow className={s.arrowRight} />
       </div>
       <div className={s.showPerPageWrapper}>
