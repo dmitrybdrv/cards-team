@@ -1,8 +1,11 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-const baseQuery = fetchBaseQuery({ baseUrl: '/' })
+const baseQuery = fetchBaseQuery(
+    { baseUrl: 'https://api.flashcards.andrii.es',
+      credentials: 'include',
+    })
 
-export const baseQueryWithReauth: BaseQueryFn<
+export const baseQueryWithReAuth: BaseQueryFn<
   string | FetchArgs,
   unknown,
   FetchBaseQueryError
@@ -11,11 +14,13 @@ export const baseQueryWithReauth: BaseQueryFn<
 
   if (result.error && result.error.status === 401) {
     // try to get a new token
-    const refreshResult = await baseQuery('/refreshToken', api, extraOptions)
+    const refreshResult = await baseQuery({
+        url: '/v1/auth/refresh-token',
+        method: 'POST',
+    },
+        api, extraOptions)
 
-    if (refreshResult.data) {
-      // store the new token
-      api.dispatch(tokenReceived(refreshResult.data))
+    if (refreshResult?.meta?.response?.status === 204) {
       // retry the initial query
       result = await baseQuery(args, api, extraOptions)
     }
