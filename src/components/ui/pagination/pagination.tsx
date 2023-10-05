@@ -9,9 +9,9 @@ import { SelectC, Typography } from '@/components/ui'
 import { getCurrentPortion, getPortion } from '@/components/ui/pagination/utils'
 
 type Props = {
-  currentPage?: number
+  currentPage: number
   itemsPerPage?: number
-  totalPages?: number
+  totalPages: number
   totalItems?: number
   maxCountShowBtn?: number
   minCountShowBtn?: number
@@ -31,51 +31,61 @@ export const Pagination: FC<Props> = ({
   const currentPortion = getCurrentPortion(currentPage, portions)
   //callBacks
   const clickRightArrowHandler = () => changePage(currentPage + 1)
+  const clickLeftArrowHandler = () => changePage(currentPage - 1)
   const onChangeSelectHandle = (value: string) => console.log(value)
   const onClickPageButton = (page: number) => () => changePage(page)
 
-  //TODO arrows click handler
+  const renderButton = (value: number, buttonStyle: string) => {
+    return (
+      <button key={value} className={buttonStyle} tabIndex={0} onClick={onClickPageButton(value)}>
+        {value}
+      </button>
+    )
+  }
 
   const renderButtons = portions[currentPortion].map(num => {
     const buttonStyle = clsx(s.pageButton, currentPage === num && s.currentPage)
 
-    return (
-      <button key={num} className={buttonStyle} tabIndex={0} onClick={onClickPageButton(num)}>
-        {num}
-      </button>
-    )
+    return renderButton(num, buttonStyle)
   })
+
   // is show first/last button
   const firstButtonStyle = clsx(s.pageButton, currentPage === 1 && s.currentPage)
-  const renderFirstButton = currentPortion > 0 && (
-    <button className={firstButtonStyle} tabIndex={0} onClick={onClickPageButton(1)}>
-      1
-    </button>
-  )
-  const renderLastButton = currentPortion < portions.length - 1 && (
-    <button className={s.pageButton} tabIndex={0} onClick={onClickPageButton(totalPages)}>
-      {totalPages}
-    </button>
-  )
+  const renderFirstButton = currentPortion > 0 && renderButton(1, firstButtonStyle)
+  const renderLastButton =
+    currentPortion < portions.length - 1 && renderButton(totalPages, s.pageButton)
 
   //is show dots
   const dots = <div className={s.dots}>...</div>
   const renderFirstDots = currentPortion > 0 && dots
   const renderLastDots = currentPortion < portions.length - 1 && dots
 
+  //is disabled arrows
+  const isDisabledArrowLeft = currentPage === 1
+  const isDisabledArrowRight = currentPage === totalPages
+
   return (
     <div className={s.wrapper}>
-      <div className={s.arrowWrapper}>
+      <button
+        className={s.arrowWrapper}
+        disabled={isDisabledArrowLeft}
+        onClick={clickLeftArrowHandler}
+      >
         <Arrow className={s.arrowLeft} />
-      </div>
+      </button>
       {renderFirstButton}
       {renderFirstDots}
       <div className={s.pageButtons}>{renderButtons}</div>
       {renderLastDots}
       {renderLastButton}
-      <div className={s.arrowWrapper} onClick={clickRightArrowHandler}>
+      <button
+        className={s.arrowWrapper}
+        onClick={clickRightArrowHandler}
+        tabIndex={0}
+        disabled={isDisabledArrowRight}
+      >
         <Arrow className={s.arrowRight} />
-      </div>
+      </button>
       <div className={s.showPerPageWrapper}>
         <Typography variant={'body2'}>Показать</Typography>
         <SelectC

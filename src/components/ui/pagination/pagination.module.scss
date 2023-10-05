@@ -10,22 +10,40 @@
 }
 
 .arrowWrapper {
+  all: unset;
+
   cursor: pointer;
 
   display: flex;
+  align-items: center;
+  justify-content: center;
 
-  width: 16px;
+  width: 12px;
   height: 16px;
-  padding: 5px 4px;
+  padding: 4px;
+
+  background-color: transparent;
+  border-radius: 2px;
+
+  &:focus {
+    outline: 2px solid var(--color-info-900);
+  }
 
   &:not(:first-child) {
     margin-left: 12px;
   }
-}
 
-.arrowLeft,
-.arrowRight {
-  fill: var(--color-dark-100);
+  * {
+    fill: var(--color-light-100);
+  }
+
+  &[disabled] {
+    cursor: auto;
+
+    * {
+      fill: var(--color-dark-100);
+    }
+  }
 }
 
 .arrowRight {
@@ -48,6 +66,7 @@
 
   background-color: transparent;
   border-radius: 2px;
+
   //outline: 1px solid #8c61ff;
 
   &:not(.dots) {
