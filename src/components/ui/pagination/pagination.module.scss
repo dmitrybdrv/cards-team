@@ -17,6 +17,10 @@
   width: 16px;
   height: 16px;
   padding: 5px 4px;
+
+  &:not(:first-child) {
+    margin-left: 12px;
+  }
 }
 
 .arrowLeft,
@@ -29,9 +33,7 @@
 }
 
 .pageButton,
-.lastPage,
-.dots,
-.firstPage {
+.dots {
   @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
 
   all: unset;
@@ -46,11 +48,19 @@
 
   background-color: transparent;
   border-radius: 2px;
-  outline: 1px solid #8c61ff;
-}
+  //outline: 1px solid #8c61ff;
 
-.lastPage {
-  margin-right: 12px;
+  &:not(.dots) {
+    cursor: pointer;
+  }
+
+  &:not(.dots):focus {
+    outline: 2px solid var(--color-info-900);
+  }
+
+  &:not(.dots, .currentPage):hover {
+    background-color: var(--color-dark-500);
+  }
 }
 
 .currentPage {
