@@ -1,11 +1,11 @@
-button {
-  all: unset;
-}
-
 .checkBoxContainer {
   position: relative;
   display: flex;
   align-items: center;
+
+  button {
+    all: unset;
+  }
 }
 
 .checkboxRoot {

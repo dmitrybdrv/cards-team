@@ -1,0 +1,118 @@
+@import '../../../styles/mixin';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  margin: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.arrowWrapper {
+  all: unset;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 12px;
+  height: 16px;
+  padding: 4px;
+
+  background-color: transparent;
+  border-radius: 2px;
+
+  &:focus {
+    outline: 2px solid var(--color-info-900);
+  }
+
+  &:not(:first-child) {
+    margin-left: 12px;
+  }
+
+  * {
+    fill: var(--color-light-100);
+  }
+
+  &[disabled] {
+    cursor: auto;
+
+    * {
+      fill: var(--color-dark-100);
+    }
+  }
+}
+
+.arrowRight {
+  transform: rotate(180deg);
+}
+
+.pageButton,
+.dots {
+  @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
+
+  all: unset;
+
+  min-width: 20px;
+  height: 24px;
+  margin-left: 12px;
+  padding: 0 2px;
+
+  color: var(--color-light-100);
+  text-align: center;
+
+  background-color: transparent;
+  border-radius: 2px;
+
+  &:not(.dots) {
+    cursor: pointer;
+  }
+
+  &:not(.dots):focus {
+    outline: 2px solid var(--color-info-900);
+  }
+
+  &:not(.dots, .currentPage):hover {
+    background-color: var(--color-dark-500);
+  }
+}
+
+.currentPage {
+  color: var(--color-dark-900);
+  background-color: var(--color-light-100);
+}
+
+//select
+.select {
+  @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-s));
+
+  margin-right: 5px;
+  margin-left: 5px;
+  background-color: var(--color-dark-700);
+
+  div[data-radix-select-viewport] {
+    background-color: var(--color-dark-700);
+  }
+
+  button {
+    @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-s));
+
+    box-sizing: border-box;
+    width: 54px;
+    height: 24px;
+    padding: 0 6px;
+
+    svg {
+      margin-top: 1.5px;
+    }
+  }
+}
+
+.showPerPageWrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+}

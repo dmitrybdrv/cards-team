@@ -11,22 +11,23 @@ import s from './select.module.scss'
 import { Props } from './select.types.ts'
 
 export const SelectC: FC<Props> = props => {
-  const { values, label, isDisabled = false, className, ...rest } = props
+  const { onValueChange, values, startValue, label, isDisabled = false, className, ...rest } = props
   const [showSelect, setShowSelect] = useState(false)
 
   const isShowArrow = (showSelect && <ArrowUp />) || (!showSelect && <ArrowDown />)
+  const startSelectValue = startValue || values[0]
   const items = values.map((item, i) => {
     return (
-      <>
-        <Select.Item className={s.selectItem} key={i} value={item}>
-          <Select.ItemText>{item}</Select.ItemText>
-        </Select.Item>
-      </>
+      <Select.Item className={s.selectItem} key={i} value={item}>
+        <Select.ItemText>{item}</Select.ItemText>
+      </Select.Item>
     )
   })
 
+  const selectStyle = clsx(className, s.selectContainer)
+
   return (
-    <div className={clsx(s.selectContainer, className)}>
+    <div className={selectStyle}>
       {label && (
         <label htmlFor={rest.name} aria-disabled={rest.disabled}>
           <Typography variant={'body2'} className={s.label}>
@@ -34,10 +35,10 @@ export const SelectC: FC<Props> = props => {
           </Typography>
         </label>
       )}
-      <Select.Root onOpenChange={setShowSelect} disabled={isDisabled}>
-        <Select.Trigger className={s.selectTrigger} aria-label="Food">
-          <Select.Value placeholder="Select-box" />
-          <Select.Icon className="selectIcon">{isShowArrow}</Select.Icon>
+      <Select.Root onOpenChange={setShowSelect} disabled={isDisabled} onValueChange={onValueChange}>
+        <Select.Trigger className={s.selectTrigger}>
+          <Select.Value placeholder={startSelectValue} />
+          <Select.Icon className={s.selectIcon}>{isShowArrow}</Select.Icon>
         </Select.Trigger>
         <Select.Content
           collisionPadding={0}
