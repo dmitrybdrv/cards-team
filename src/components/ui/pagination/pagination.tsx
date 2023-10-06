@@ -6,24 +6,28 @@ import s from './pagination.module.scss'
 
 import { ReactComponent as Arrow } from '@/assets/icons/arrowLeft.svg'
 import { SelectC, Typography } from '@/components/ui'
-import { getCurrentPortion, getPortion } from '@/components/ui/pagination/utils'
+import { getCurrentPortion, getPortion } from '@/components/ui/pagination/pagination.utils.tsx'
 
 type Props = {
   currentPage: number
-  itemsPerPage?: number
   totalPages: number
-  totalItems?: number
   maxCountShowBtn?: number
   minCountShowBtn?: number
+  itemsPerPage: number
   changePage: (newPage: number) => void
+  changeItemsPerPage: (items: number) => void
+  className?: string
 }
 
 export const Pagination: FC<Props> = ({
   minCountShowBtn = 3,
   maxCountShowBtn = 5,
-  totalPages = 0,
-  currentPage = 1,
+  totalPages,
+  currentPage,
   changePage,
+  changeItemsPerPage,
+  itemsPerPage,
+  className,
 }) => {
   const perPageCountVariant = ['10', '20', '30', '50', '100']
 
@@ -32,7 +36,7 @@ export const Pagination: FC<Props> = ({
   //callBacks
   const clickRightArrowHandler = () => changePage(currentPage + 1)
   const clickLeftArrowHandler = () => changePage(currentPage - 1)
-  const onChangeSelectHandle = (value: string) => console.log(value)
+  const onChangeSelectHandle = (value: string) => changeItemsPerPage(Number(value))
   const onClickPageButton = (page: number) => () => changePage(page)
 
   const renderButton = (value: number, buttonStyle: string) => {
@@ -64,8 +68,11 @@ export const Pagination: FC<Props> = ({
   const isDisabledArrowLeft = currentPage === 1
   const isDisabledArrowRight = currentPage === totalPages
 
+  //styles
+  const wrapperStyle = clsx(s.wrapper, className)
+
   return (
-    <div className={s.wrapper}>
+    <div className={wrapperStyle}>
       <button
         className={s.arrowWrapper}
         disabled={isDisabledArrowLeft}
@@ -90,7 +97,7 @@ export const Pagination: FC<Props> = ({
         <Typography variant={'body2'}>Показать</Typography>
         <SelectC
           values={perPageCountVariant}
-          startValue={perPageCountVariant[4]}
+          startValue={itemsPerPage.toString()}
           className={s.select}
           onValueChange={onChangeSelectHandle}
         />
