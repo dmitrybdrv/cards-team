@@ -1,4 +1,4 @@
-import { LoginArgs, LoginResponse } from './auth.types.ts'
+import { LoginArgs, LoginResponse, SingUpArgs, SingUpResponse } from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
 
@@ -31,7 +31,7 @@ export const authService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Me'],
     }),
-    signUp: builder.mutation<any, { email: string; password: string }>({
+    signUp: builder.mutation<SingUpResponse, SingUpArgs>({
       query: params => ({
         url: 'v1/auth/sign-up',
         method: 'POST',

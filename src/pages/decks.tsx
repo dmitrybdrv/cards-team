@@ -1,7 +1,11 @@
 import { useState } from 'react'
 
 import { Button } from '@/components'
-import { useCreateDeckMutation, useGetDecksQuery } from '@/services/decks/decks.service.ts'
+import {
+  useCreateDeckMutation,
+  useDeleteDecksMutation,
+  useGetDecksQuery,
+} from '@/services/decks/decks.service.ts'
 
 export const Decks = () => {
   const [itemsPerPage, setItemPerPage] = useState(10)
@@ -9,6 +13,7 @@ export const Decks = () => {
     itemsPerPage,
   })
   const [createDeck, { isLoading }] = useCreateDeckMutation()
+  const [deleteDeck] = useDeleteDecksMutation()
 
   if (decks.isLoading) return <div>Loading...</div>
   if (decks.isError) return <div>Error!!!!</div>
@@ -56,6 +61,15 @@ export const Decks = () => {
                 <td>{deck.cardsCount}</td>
                 <td>{deck.updated}</td>
                 <td>{deck.author.name}</td>
+                <td>
+                  <Button
+                    onClick={() => {
+                      deleteDeck({ id: deck.id })
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </td>
               </tr>
             )
           })}
