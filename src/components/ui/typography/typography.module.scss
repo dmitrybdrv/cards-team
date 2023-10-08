@@ -36,6 +36,7 @@
   @include typography(var(--font-size-xs), var(--font-weight-regular), var(--line-height-s));
 
   display: flex;
+  color: var(--color-dark-100);
 }
 
 .overline {

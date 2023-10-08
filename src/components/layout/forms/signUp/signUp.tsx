@@ -1,13 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { Button, Card, TextField, Typography } from '../../../ui'
 import s from '../forms.module.scss'
-import { FormPropsType, MainFormType } from '../forms.types.ts'
 
 import { signUpSchema } from '@/common/utils'
+import { FormPropsType, MainFormType } from '@/components'
+import { SingUpArgs } from '@/services/auth/auth.types.ts'
 
-export const SignUp = ({ onSubmit }: FormPropsType<MainFormType>) => {
+export const SignUp = ({ onSubmit }: FormPropsType<SingUpArgs>) => {
   const {
     register,
     handleSubmit,
@@ -22,9 +24,13 @@ export const SignUp = ({ onSubmit }: FormPropsType<MainFormType>) => {
     mode: 'onTouched',
   })
 
+  const submit = ({ password, email }: MainFormType) => {
+    onSubmit({ password, email })
+  }
+
   return (
     <Card className={s.formWrapper}>
-      <form onSubmit={handleSubmit(onSubmit)} className={s.formContainer}>
+      <form onSubmit={handleSubmit(submit)} className={s.formContainer}>
         <Typography variant={'large'} className={s.header}>
           Sign Up
         </Typography>
@@ -62,8 +68,10 @@ export const SignUp = ({ onSubmit }: FormPropsType<MainFormType>) => {
           Already have an account?
         </Typography>
 
-        <Typography variant={'link1'} href={'#'}>
-          Sign In
+        <Typography variant={'link1'}>
+          <Link className={s.linkWrapper} to={'/login'}>
+            Sign In
+          </Link>
         </Typography>
       </form>
     </Card>
