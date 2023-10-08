@@ -22,7 +22,7 @@ export const tagMapping: TagMapping = {
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',
-  body1: 'p',
+  body1: 'span',
   subtitle1: 'sub',
   body2: 'p',
   subtitle2: 'sub',

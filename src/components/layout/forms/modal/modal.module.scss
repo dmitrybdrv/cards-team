@@ -1,0 +1,92 @@
+button,
+input {
+  all: unset;
+}
+
+.dialogTrigger {
+  user-select: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-info-700);
+  }
+}
+
+.dialogClose {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+}
+
+.dialogClose:hover {
+  cursor: pointer;
+}
+
+.dialogOverlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0.5;
+  background-color: var(--color-dark-700);
+}
+
+.dialogContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  min-width: 542px;
+
+  background-color: var(--color-dark-700);
+  border-radius: 2px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.dialogDescription {
+  display: grid;
+  flex-direction: column;
+
+  margin: 0;
+  padding: 18px 24px;
+
+  border-top: 1px solid var(--color-dark-500);
+}
+
+.dialogTitle {
+  margin: 0;
+  padding: 18px 24px;
+}
+
+.dialogFields {
+  padding: 0 24px;
+}
+
+.dialogButton {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 24px;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 3;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    transform: translate(-50%, -48%) scale(0.96);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
