@@ -12,7 +12,6 @@
 
   width: 100%;
   height: 36px;
-  padding-left: 12px;
 
   background: transparent;
   border: 1px solid var(--color-dark-100);
@@ -36,6 +35,10 @@
       cursor: inherit;
       fill: var(--color-dark-300);
     }
+  }
+
+  input {
+    padding-left: 12px;
   }
 }
 
@@ -62,11 +65,14 @@
 
 .errorText {
   user-select: none;
+
   display: flow-root;
+
   height: 0;
-  text-align: left;
   margin-top: 5px;
+
   color: var(--color-danger-300);
+  text-align: left;
 }
 
 .passwordInput {
