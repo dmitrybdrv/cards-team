@@ -1,32 +1,28 @@
-import { FC } from 'react'
-
-import ava from '../../../assets/img/ava.jpg'
-
 import s from './header.module.scss'
 
 import { ReactComponent as Logo } from '@/assets/img/logo.svg'
+import ava from '@/assets/img/noDataAva.jpg'
 import { Typography } from '@/components'
 import { Button } from '@/components/ui'
+import { useGetMeQuery } from '@/services/auth/auth.service'
 
-type Props = {
-  isLoggedIn: boolean
-}
+export const Header = ({}) => {
+  const { data } = useGetMeQuery()
 
-export const Header: FC<Props> = ({ isLoggedIn }) => {
   return (
     <header className={s.headerContainer}>
       <Logo className={s.headerLogo} />
       <div className={s.headerAvatar}>
-        {isLoggedIn ? (
+        {data?.name ? (
           <>
             <Button variant={'link'} className={s.captionLink}>
-              <Typography variant={'subtitle1'}>Ivan</Typography>
+              <Typography variant={'subtitle1'}>{data.name && data.name}</Typography>
             </Button>
-            <img src={ava} alt="ava" className={s.layoutAvatar} />
+            <img src={data.avatar ? data.avatar : ava} alt="ava" className={s.layoutAvatar} />
           </>
         ) : (
-          <Button variant={'primary'} href={'#'} as={'a'} style={{ textDecoration: 'none' }}>
-            Sign in
+          <Button variant={'primary'} style={{ textDecoration: 'none' }}>
+            Log in
           </Button>
         )}
       </div>

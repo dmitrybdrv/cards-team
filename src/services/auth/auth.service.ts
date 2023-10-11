@@ -22,7 +22,6 @@ export const authService = baseApi.injectEndpoints({
       },
       providesTags: ['Me'],
     }),
-
     login: builder.mutation<LoginResponse, LoginArgs>({
       query: data => ({
         url: 'v1/auth/login',

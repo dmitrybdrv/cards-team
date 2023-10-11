@@ -9,6 +9,7 @@ import {
 import { ForgotPassword } from '@/components'
 import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
+import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { Decks } from '@/pages/decks.tsx'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up-page/sign-up-page.tsx'
@@ -56,14 +57,22 @@ const privateRoutes: RouteObject[] = [
 ]
 
 const router = createBrowserRouter([
-  { element: <PrivateRoutes />, children: privateRoutes },
+  {
+    element: <PrivateRoutes />,
+    children: privateRoutes,
+  },
   ...publicRoutes,
 ])
 
 export const Router = () => {
   const { isLoading: isMeLoading } = useGetMeQuery()
 
-  if (isMeLoading) return <div>Loading...</div>
+  if (isMeLoading)
+    return (
+      <div style={{ position: 'fixed', left: '40%', top: '30%' }}>
+        <Preloader />
+      </div>
+    )
 
   return <RouterProvider router={router} />
 }
@@ -71,8 +80,6 @@ export const Router = () => {
 function PrivateRoutes() {
   const { data: me, isLoading: isMeLoading } = useGetMeQuery()
   const isAuthenticated = me && me?.success !== false
-
-  console.log(me, 'me')
 
   if (isMeLoading) return <div>Loading...</div>
 
