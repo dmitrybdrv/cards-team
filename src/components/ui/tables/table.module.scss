@@ -96,10 +96,10 @@
 .tdCell {
   display: flex;
   align-items: center;
-  width: min-content;
+  width: auto;
 
   .tdCellTitle {
-    width: min-content;
+    width: fit-content;
     max-height: 48px;
     overflow: hidden;
   }
