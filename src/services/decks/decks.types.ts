@@ -29,8 +29,8 @@ export type DecksResponseItems = {
   author: DecksResponseItemsAuthor
 }
 export type DecksParams = {
-  minCardsCount?: number
-  maxCardsCount?: number
+  minCardsCount?: string
+  maxCardsCount?: string
   name?: string
   authorId?: string
   orderBy?: string

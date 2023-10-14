@@ -7,9 +7,9 @@ import { ReactComponent as Delete } from '../../../assets/icons/trashIcon.svg'
 import s from './table.module.scss'
 
 type TdIconsType = {
-  onPlay?: () => void
-  onEdit?: () => void
-  onDelete?: () => void
+  onPlay: (() => void) | null
+  onEdit: (() => void) | null
+  onDelete: (() => void) | null
 }
 type Props = ComponentPropsWithoutRef<'td'> & TdIconsType
 

@@ -72,8 +72,6 @@ function PrivateRoutes() {
   const { data: me, isLoading: isMeLoading } = useGetMeQuery()
   const isAuthenticated = me && me?.success !== false
 
-  console.log(me, 'me')
-
   if (isMeLoading) return <div>Loading...</div>
 
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />

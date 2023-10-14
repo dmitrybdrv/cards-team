@@ -7,3 +7,28 @@
 .paginationWrapper {
   margin-top: 20px;
 }
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.filtersWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  align-items: end;
+}
+
+.searchInput {
+  width: 300px;
+}
+
+.slider {
+  width: 250px;
+}
+
+.filterLabel {
+  margin-bottom: 5px;
+}
