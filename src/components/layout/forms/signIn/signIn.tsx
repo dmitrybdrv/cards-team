@@ -69,7 +69,7 @@ export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
         </Typography>
 
         <Typography variant={'link1'}>
-          <Link className={s.linkWrapper} to={'/sign-up'}>
+          <Link className={s.linkWrapper} to={'/auth/sign-up'}>
             Sign Up
           </Link>
         </Typography>
