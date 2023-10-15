@@ -1,8 +1,10 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import * as SliderApp from '@radix-ui/react-slider'
 
 import s from './slider.module.scss'
+
+import { SettingSwitcherValues } from '@/pages/decks-page'
 
 type Props = {
   defaultMinValue?: number
@@ -12,6 +14,7 @@ type Props = {
   boundaryMaxValue?: number
   onChange?: (minValue: number, maxValue: number) => void
   width?: number
+  getFunc: (arg: SettingSwitcherValues) => void
 }
 export const Slider = (props: Props) => {
   let {
@@ -22,6 +25,7 @@ export const Slider = (props: Props) => {
     defaultMaxValue = boundaryMaxValue,
     width = 200,
     onChange,
+    getFunc,
   } = props
 
   //checking default values for range values
@@ -34,17 +38,26 @@ export const Slider = (props: Props) => {
   const [minValue, setMinValue] = useState(defaultMinValue)
   const [maxValue, setMaxValue] = useState(defaultMaxValue)
 
+  useEffect(() => {
+    getFunc({ setMaxValue, setMinValue })
+  }, [])
+
   const handlerSliderChange = (number: number[]) => {
     setMinValue(number[0])
     setMaxValue(number[1])
+  }
+
+  const fetchSliderValue = (number: number[]) => {
     onChange && onChange(number[0], number[1])
   }
+
   const handlerMinInput = (e: ChangeEvent<HTMLInputElement>) => {
     const newMinValue = Number(e.currentTarget.value)
 
     setMinValue(prevState => {
       return newMinValue >= boundaryMinValue ? newMinValue : prevState
     })
+    onChange && onChange(newMinValue, maxValue)
   }
 
   const handlerMaxInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +66,7 @@ export const Slider = (props: Props) => {
     setMaxValue(prevState => {
       return newMaxValue <= boundaryMaxValue ? newMaxValue : prevState
     })
+    onChange && onChange(minValue, newMaxValue)
   }
 
   return (
@@ -66,6 +80,7 @@ export const Slider = (props: Props) => {
         defaultValue={[defaultMinValue, defaultMaxValue]}
         step={step}
         onValueChange={handlerSliderChange}
+        onValueCommit={fetchSliderValue}
         className={s.SliderRoot}
       >
         <SliderApp.Track className={s.SliderTrack}>

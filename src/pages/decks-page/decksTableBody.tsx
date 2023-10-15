@@ -23,7 +23,7 @@ export const DecksTableBody: FC<Props> = ({ items, authorId }) => {
 
     return (
       <TRow key={item.id}>
-        <TdCell>{item.name}</TdCell>
+        <TdCell img={item.cover ?? null}>{item.name}</TdCell>
         <TdCell>{item.cardsCount}</TdCell>
         <TdCell>{updateData}</TdCell>
         <TdCell>{item.author.name}</TdCell>

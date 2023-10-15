@@ -7,6 +7,7 @@ export type ValueType = {
 export type Props = {
   onChange?: (value: string) => void
   values: ValueType[]
+  currentValue?: string
   defaultValue?: string
   disabled?: boolean
   className?: string
