@@ -1,7 +1,9 @@
-import logoutIcon from '../../../../assets/icons/logout.svg'
 import { Button, Typography } from '../../../ui'
 
 import s from './personalInformation.module.scss'
+
+import { ReactComponent as EditPen } from '@/assets/icons/editPen.svg'
+import logoutIcon from '@/assets/icons/logout.svg'
 
 type Props = {
   userEmail: string

@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
-import { Card, Typography } from '../../../ui'
 import cs from '../forms.module.scss'
-import { EditNameFormType } from '../forms.types.ts'
 
 import { EditNameForm } from './EditNameForm.tsx'
 import s from './personalInformation.module.scss'
 import { PersonalPhoto } from './PersonalPhoto.tsx'
 import { ShowInfo } from './ShowInfo.tsx'
+
+import { EditNameFormType } from '@/components'
+import { Card, Typography } from '@/components/ui'
 
 type Props = {
   updatePhoto: (file64: string) => void

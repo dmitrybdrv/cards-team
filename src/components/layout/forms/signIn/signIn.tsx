@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
@@ -54,11 +55,9 @@ export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
         />
 
         <Typography variant={'body2'} className={s.forgotPasswordWrapper}>
-          <a className={s.forgotPasswordLink}>
-            <Link className={s.linkWrapper} to={'/reset-password'}>
-              Forgot Password?
-            </Link>
-          </a>
+          <Link className={clsx(s.linkWrapper, s.forgotPasswordLink)} to={'/reset-password'}>
+            Forgot Password?
+          </Link>
         </Typography>
 
         <Button fullWidth={true} className={cs.btn}>
@@ -70,7 +69,7 @@ export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
         </Typography>
 
         <Typography variant={'link1'}>
-          <Link className={s.linkWrapper} to={'/sign-up'}>
+          <Link className={s.linkWrapper} to={'/auth/sign-up'}>
             Sign Up
           </Link>
         </Typography>
