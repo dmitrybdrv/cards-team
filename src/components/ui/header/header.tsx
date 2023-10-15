@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import s from './header.module.scss'
 
@@ -7,14 +7,12 @@ import { ReactComponent as UserIcon } from '@/assets/icons/person-outline-icon.s
 import { ReactComponent as Logo } from '@/assets/img/logo.svg'
 import { Dropdown, ToolbarItemWithIcon, Typography } from '@/components'
 import { Button } from '@/components/ui'
-import { useGetMeQuery } from '@/services/auth/auth.service'
+import { useGetMeQuery, useLogoutMutation } from '@/services/auth/auth.service'
 
 export const Header = ({}) => {
   const { data } = useGetMeQuery()
-
-  const onSelect = () => {
-    return <Navigate to={'/packs-list'} />
-  }
+  const [logout] = useLogoutMutation()
+  const navigate = useNavigate()
 
   return (
     <header className={s.headerContainer}>
@@ -33,15 +31,19 @@ export const Header = ({}) => {
               text={data.email && <Typography variant={'caption'}>{data.email}</Typography>}
               onSelect={() => {}}
             ></ToolbarItemWithIcon>
+
             <ToolbarItemWithIcon
               icon={<UserIcon />}
               text={'My Profile'}
-              onSelect={onSelect}
+              onSelect={() => {
+                navigate('/profile-page')
+              }}
             ></ToolbarItemWithIcon>
+
             <ToolbarItemWithIcon
               icon={<SignOut />}
               text={'Sign Out'}
-              onSelect={onSelect}
+              onSelect={logout}
             ></ToolbarItemWithIcon>
           </Dropdown>
         ) : (

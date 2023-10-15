@@ -12,6 +12,7 @@ import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
 import { Layout } from '@/components/layout/layout.tsx'
 import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { Decks } from '@/pages/decks.tsx'
+import { ProfilePage } from '@/pages/profile-page'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up-page/sign-up-page.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
@@ -52,6 +53,10 @@ const privateRoutes: RouteObject[] = [
       {
         path: '/packs-list',
         element: <>packs list</>,
+      },
+      {
+        path: '/profile-page',
+        element: <ProfilePage />,
       },
     ],
   },

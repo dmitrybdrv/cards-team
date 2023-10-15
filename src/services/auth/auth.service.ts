@@ -30,6 +30,13 @@ export const authService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Me'],
     }),
+    logout: builder.mutation<any, any>({
+      query: () => ({
+        url: 'v1/auth/logout',
+        method: 'POST',
+      }),
+      invalidatesTags: ['Me'],
+    }),
     signUp: builder.mutation<SingUpResponse, SingUpArgs>({
       query: params => ({
         url: 'v1/auth/sign-up',
@@ -40,4 +47,4 @@ export const authService = baseApi.injectEndpoints({
   }),
 })
 
-export const { useLoginMutation, useSignUpMutation, useGetMeQuery } = authService
+export const { useLoginMutation, useSignUpMutation, useGetMeQuery, useLogoutMutation } = authService
