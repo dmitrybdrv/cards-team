@@ -1,10 +1,9 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 import deleteIcon from '@/assets/icons/trashIcon.svg'
 import { Button, Slider, TabSwitcher, TextField, Typography } from '@/components'
 import s from '@/pages/decks-page/decks.module.scss'
-import { ChangeSwitcherValues, useGetDecks } from '@/pages/decks-page/decks.tsx'
-import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
+import { ChangeSwitcherValues } from '@/pages/decks-page/hook/useGetDecks.tsx'
 
 type Props = {
   switcherValue: string
