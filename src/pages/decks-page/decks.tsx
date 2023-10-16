@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import s from './decks.module.scss'
 
@@ -12,44 +12,45 @@ import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import { DecksParams } from '@/services/decks/decks.types.ts'
 
 // export type SwitcherValue = 'All Cards' | 'My Cards'
-export type SettingSwitcherValues = {
+export type ChangeSwitcherValues = {
   setMinValue: Function
   setMaxValue: Function
 }
 
-export const Decks = () => {
+const useGetDecks = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [searchValue, setSearchValue] = useState('')
   const [switcherValue, setSwitcherValue] = useState('All Cards')
   const [minCardsCount, setMinCardsCount] = useState('0')
   const [maxCardsCount, setMaxCardsCount] = useState<string | null>(null)
-  const [settingSwitcherValues, setSettingSwitcherValues] = useState<SettingSwitcherValues | null>(
+  const [changeSwitcherValues, setChangeSwitcherValues] = useState<ChangeSwitcherValues | null>(
     null
   )
   // callBacks
-  const getFuncSetting = (arg: SettingSwitcherValues) => setSettingSwitcherValues(arg)
+  const getFuncForChangeSliderValue = (funcForChange: ChangeSwitcherValues) =>
+    setChangeSwitcherValues(funcForChange)
   const clearFilter = () => {
     setSearchValue('')
     setSwitcherValue('All Cards')
     setMinCardsCount('0')
     setMaxCardsCount(null)
-    settingSwitcherValues?.setMinValue(0)
-    settingSwitcherValues?.setMaxValue(data?.maxCardsCount)
+    changeSwitcherValues?.setMinValue(0)
+    changeSwitcherValues?.setMaxValue(data?.maxCardsCount)
   }
-  const onChangeSearchInput = debounce(setSearchValue, 1000)
+  const onChangeSearchInput = debounce((searchValue: string) => {
+    setSearchValue(searchValue)
+    setCurrentPage(1)
+  }, 1000)
   const onChangeSlider = (minValue: number, maxValue: number) => {
     setMinCardsCount(minValue.toString())
     setMaxCardsCount(maxValue.toString())
-  }
-
-  useEffect(() => {
     setCurrentPage(1)
-  }, [searchValue, switcherValue, minCardsCount, maxCardsCount])
-
-  //dead time zone?
-  const cbTest = () => console.log(test)
-  const test = 1
+  }
+  const onChangeTabSwitcher = (value: string) => {
+    setSwitcherValue(value)
+    setCurrentPage(1)
+  }
 
   // get me data
   const { data: profileData, isSuccess: isHasProfileData } = useGetMeQuery()
@@ -66,7 +67,72 @@ export const Decks = () => {
 
   if (switcherValue === 'My Cards' && isHasProfileData) queryParams.authorId = profileData.id
 
-  const { data, isLoading, isSuccess: isHasDecksData } = useGetDecksQuery(queryParams)
+  const { data, isLoading, isSuccess } = useGetDecksQuery(queryParams)
+
+  return {
+    decksData: data,
+    isLoadingDeckData: isLoading,
+    isHasDecksData: isSuccess,
+    setItemsPerPage,
+    getFuncForChangeSliderValue,
+    clearFilter,
+    onChangeSearchInput,
+    onChangeSlider,
+    onChangeTabSwitcher,
+  }
+}
+
+export const Decks = () => {
+  // const [currentPage, setCurrentPage] = useState(1)
+  // const [itemsPerPage, setItemsPerPage] = useState(10)
+  // const [searchValue, setSearchValue] = useState('')
+  // const [switcherValue, setSwitcherValue] = useState('All Cards')
+  // const [minCardsCount, setMinCardsCount] = useState('0')
+  // const [maxCardsCount, setMaxCardsCount] = useState<string | null>(null)
+  // const [changeSwitcherValues, setChangeSwitcherValues] = useState<ChangeSwitcherValues | null>(
+  //   null
+  // )
+  // // callBacks
+  // const getFuncSetting = (funcForChange: ChangeSwitcherValues) =>
+  //   setChangeSwitcherValues(funcForChange)
+  // const clearFilter = () => {
+  //   setSearchValue('')
+  //   setSwitcherValue('All Cards')
+  //   setMinCardsCount('0')
+  //   setMaxCardsCount(null)
+  //   changeSwitcherValues?.setMinValue(0)
+  //   changeSwitcherValues?.setMaxValue(data?.maxCardsCount)
+  // }
+  // const onChangeSearchInput = debounce((searchValue: string) => {
+  //   setSearchValue(searchValue)
+  //   setCurrentPage(1)
+  // }, 1000)
+  // const onChangeSlider = (minValue: number, maxValue: number) => {
+  //   setMinCardsCount(minValue.toString())
+  //   setMaxCardsCount(maxValue.toString())
+  //   setCurrentPage(1)
+  // }
+  // const onChangeTabSwitcher = (value: string) => {
+  //   setSwitcherValue(value)
+  //   setCurrentPage(1)
+  // }
+  //
+  // // get me data
+  // const { data: profileData, isSuccess: isHasProfileData } = useGetMeQuery()
+  //
+  // // prepare params for decks query
+  // const queryParams: DecksParams = {
+  //   currentPage,
+  //   itemsPerPage,
+  //   name: searchValue,
+  //   minCardsCount,
+  // }
+  //
+  // if (maxCardsCount) queryParams.maxCardsCount = maxCardsCount
+  //
+  // if (switcherValue === 'My Cards' && isHasProfileData) queryParams.authorId = profileData.id
+  //
+  // const { data, isLoading, isSuccess: isHasDecksData } = useGetDecksQuery(queryParams)
 
   if (isLoading) return <div>Loading...</div>
 
@@ -94,7 +160,7 @@ export const Decks = () => {
       <DecksHeaderFilters
         switcherValue={switcherValue}
         onChangeSearchInput={onChangeSearchInput}
-        onChangeTabSwitcher={setSwitcherValue}
+        onChangeTabSwitcher={onChangeTabSwitcher}
         maxCardsCount={data?.maxCardsCount ?? 100}
         minCardsCount={+minCardsCount}
         onChangeSlider={onChangeSlider}

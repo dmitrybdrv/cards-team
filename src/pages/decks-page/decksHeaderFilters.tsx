@@ -3,7 +3,7 @@ import { ChangeEvent, FC, useState } from 'react'
 import deleteIcon from '@/assets/icons/trashIcon.svg'
 import { Button, Slider, TabSwitcher, TextField, Typography } from '@/components'
 import s from '@/pages/decks-page/decks.module.scss'
-import { SettingSwitcherValues } from '@/pages/decks-page/decks.tsx'
+import { ChangeSwitcherValues } from '@/pages/decks-page/decks.tsx'
 
 type Props = {
   switcherValue: string
@@ -13,7 +13,7 @@ type Props = {
   minCardsCount: number
   maxCardsCount: number
   clearFilter: () => void
-  getFuncSetting: (arg: SettingSwitcherValues) => void
+  getFuncSetting: (arg: ChangeSwitcherValues) => void
 }
 export const DecksHeaderFilters: FC<Props> = ({
   onChangeSearchInput,
@@ -74,7 +74,7 @@ export const DecksHeaderFilters: FC<Props> = ({
             Number of cards
           </Typography>
           <Slider
-            getFuncSetting={getFuncSetting}
+            setFuncForChangeValue={getFuncSetting}
             width={155}
             defaultMinValue={minCardsCount}
             defaultMaxValue={maxCardsCount}

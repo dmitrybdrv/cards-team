@@ -4,7 +4,7 @@ import * as SliderApp from '@radix-ui/react-slider'
 
 import s from './slider.module.scss'
 
-import { SettingSwitcherValues } from '@/pages/decks-page'
+import { ChangeSwitcherValues } from '@/pages/decks-page'
 
 type Props = {
   defaultMinValue?: number
@@ -14,7 +14,7 @@ type Props = {
   boundaryMaxValue?: number
   onChange?: (minValue: number, maxValue: number) => void
   width?: number
-  getFuncSetting: (arg: SettingSwitcherValues) => void
+  setFuncForChangeValue: (arg: ChangeSwitcherValues) => void
 }
 export const Slider = (props: Props) => {
   let {
@@ -25,7 +25,7 @@ export const Slider = (props: Props) => {
     defaultMaxValue = boundaryMaxValue,
     width = 200,
     onChange,
-    getFuncSetting,
+    setFuncForChangeValue,
   } = props
 
   //checking default values for range values
@@ -39,7 +39,7 @@ export const Slider = (props: Props) => {
   const [maxValue, setMaxValue] = useState(defaultMaxValue)
 
   useEffect(() => {
-    getFuncSetting({ setMaxValue, setMinValue })
+    setFuncForChangeValue({ setMaxValue, setMinValue })
   }, [])
 
   const handlerSliderChange = (number: number[]) => {
