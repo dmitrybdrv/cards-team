@@ -14,7 +14,7 @@ type Props = {
   boundaryMaxValue?: number
   onChange?: (minValue: number, maxValue: number) => void
   width?: number
-  getFunc: (arg: SettingSwitcherValues) => void
+  getFuncSetting: (arg: SettingSwitcherValues) => void
 }
 export const Slider = (props: Props) => {
   let {
@@ -25,7 +25,7 @@ export const Slider = (props: Props) => {
     defaultMaxValue = boundaryMaxValue,
     width = 200,
     onChange,
-    getFunc,
+    getFuncSetting,
   } = props
 
   //checking default values for range values
@@ -39,7 +39,7 @@ export const Slider = (props: Props) => {
   const [maxValue, setMaxValue] = useState(defaultMaxValue)
 
   useEffect(() => {
-    getFunc({ setMaxValue, setMinValue })
+    getFuncSetting({ setMaxValue, setMinValue })
   }, [])
 
   const handlerSliderChange = (number: number[]) => {
@@ -52,19 +52,27 @@ export const Slider = (props: Props) => {
   }
 
   const handlerMinInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const newMinValue = Number(e.currentTarget.value)
+    let newMinValue = Number(e.currentTarget.value)
 
     setMinValue(prevState => {
-      return newMinValue >= boundaryMinValue ? newMinValue : prevState
+      if (newMinValue < boundaryMinValue) {
+        newMinValue = prevState
+      }
+
+      return newMinValue
     })
     onChange && onChange(newMinValue, maxValue)
   }
 
   const handlerMaxInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const newMaxValue = Number(e.currentTarget.value)
+    let newMaxValue = Number(e.currentTarget.value)
 
     setMaxValue(prevState => {
-      return newMaxValue <= boundaryMaxValue ? newMaxValue : prevState
+      if (newMaxValue > boundaryMaxValue) {
+        newMaxValue = prevState
+      }
+
+      return newMaxValue
     })
     onChange && onChange(minValue, newMaxValue)
   }

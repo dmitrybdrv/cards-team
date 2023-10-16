@@ -13,7 +13,7 @@ type Props = {
   minCardsCount: number
   maxCardsCount: number
   clearFilter: () => void
-  getFunc: (arg: SettingSwitcherValues) => void
+  getFuncSetting: (arg: SettingSwitcherValues) => void
 }
 export const DecksHeaderFilters: FC<Props> = ({
   onChangeSearchInput,
@@ -23,7 +23,7 @@ export const DecksHeaderFilters: FC<Props> = ({
   onChangeSlider,
   switcherValue,
   clearFilter,
-  getFunc,
+  getFuncSetting,
 }) => {
   const [searchInputValue, setSearchInputValue] = useState('')
 
@@ -74,7 +74,7 @@ export const DecksHeaderFilters: FC<Props> = ({
             Number of cards
           </Typography>
           <Slider
-            getFunc={getFunc}
+            getFuncSetting={getFuncSetting}
             width={155}
             defaultMinValue={minCardsCount}
             defaultMaxValue={maxCardsCount}

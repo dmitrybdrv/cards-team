@@ -34,7 +34,13 @@
   th:nth-child(2) {
     min-width: 140px;
   }
+
+  //cardsCount column
+  th:nth-child(4) {
+    width: 200px;
+  }
 }
+
 
 //set width columns for my cards table
 .myCards,
@@ -99,9 +105,10 @@
   width: auto;
 
   .tdCellTitle {
-    width: fit-content;
+    width: auto;
     max-height: 48px;
     overflow: hidden;
+    word-break: break-all;
   }
 
   .tdCellTitle:nth-child(2) {

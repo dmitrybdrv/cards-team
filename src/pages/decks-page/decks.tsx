@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import s from './decks.module.scss'
 
@@ -28,7 +28,7 @@ export const Decks = () => {
     null
   )
   // callBacks
-  const getFunc = (arg: SettingSwitcherValues) => setSettingSwitcherValues(arg)
+  const getFuncSetting = (arg: SettingSwitcherValues) => setSettingSwitcherValues(arg)
   const clearFilter = () => {
     setSearchValue('')
     setSwitcherValue('All Cards')
@@ -42,6 +42,14 @@ export const Decks = () => {
     setMinCardsCount(minValue.toString())
     setMaxCardsCount(maxValue.toString())
   }
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchValue, switcherValue, minCardsCount, maxCardsCount])
+
+  //dead time zone?
+  const cbTest = () => console.log(test)
+  const test = 1
 
   // get me data
   const { data: profileData, isSuccess: isHasProfileData } = useGetMeQuery()
@@ -91,7 +99,7 @@ export const Decks = () => {
         minCardsCount={+minCardsCount}
         onChangeSlider={onChangeSlider}
         clearFilter={clearFilter}
-        getFunc={getFunc}
+        getFuncSetting={getFuncSetting}
       />
       <Table variant={'packs'}>
         <THead columns={['Name', 'Cards', 'LastUpdate', 'Created by', '']} />
