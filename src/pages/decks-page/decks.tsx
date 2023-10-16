@@ -17,7 +17,7 @@ export type ChangeSwitcherValues = {
   setMaxValue: Function
 }
 
-const useGetDecks = () => {
+export const useGetDecks = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [searchValue, setSearchValue] = useState('')
@@ -67,93 +67,49 @@ const useGetDecks = () => {
 
   if (switcherValue === 'My Cards' && isHasProfileData) queryParams.authorId = profileData.id
 
-  const { data, isLoading, isSuccess } = useGetDecksQuery(queryParams)
+  const { data, isLoading, isSuccess, isError } = useGetDecksQuery(queryParams)
 
   return {
+    isError,
+    profileData,
     decksData: data,
-    isLoadingDeckData: isLoading,
+    isLoadingDecksData: isLoading,
     isHasDecksData: isSuccess,
+    switcherValue,
+    minCardsCount,
     setItemsPerPage,
     getFuncForChangeSliderValue,
     clearFilter,
     onChangeSearchInput,
     onChangeSlider,
     onChangeTabSwitcher,
+    setCurrentPage,
   }
 }
 
 export const Decks = () => {
-  // const [currentPage, setCurrentPage] = useState(1)
-  // const [itemsPerPage, setItemsPerPage] = useState(10)
-  // const [searchValue, setSearchValue] = useState('')
-  // const [switcherValue, setSwitcherValue] = useState('All Cards')
-  // const [minCardsCount, setMinCardsCount] = useState('0')
-  // const [maxCardsCount, setMaxCardsCount] = useState<string | null>(null)
-  // const [changeSwitcherValues, setChangeSwitcherValues] = useState<ChangeSwitcherValues | null>(
-  //   null
-  // )
-  // // callBacks
-  // const getFuncSetting = (funcForChange: ChangeSwitcherValues) =>
-  //   setChangeSwitcherValues(funcForChange)
-  // const clearFilter = () => {
-  //   setSearchValue('')
-  //   setSwitcherValue('All Cards')
-  //   setMinCardsCount('0')
-  //   setMaxCardsCount(null)
-  //   changeSwitcherValues?.setMinValue(0)
-  //   changeSwitcherValues?.setMaxValue(data?.maxCardsCount)
-  // }
-  // const onChangeSearchInput = debounce((searchValue: string) => {
-  //   setSearchValue(searchValue)
-  //   setCurrentPage(1)
-  // }, 1000)
-  // const onChangeSlider = (minValue: number, maxValue: number) => {
-  //   setMinCardsCount(minValue.toString())
-  //   setMaxCardsCount(maxValue.toString())
-  //   setCurrentPage(1)
-  // }
-  // const onChangeTabSwitcher = (value: string) => {
-  //   setSwitcherValue(value)
-  //   setCurrentPage(1)
-  // }
-  //
-  // // get me data
-  // const { data: profileData, isSuccess: isHasProfileData } = useGetMeQuery()
-  //
-  // // prepare params for decks query
-  // const queryParams: DecksParams = {
-  //   currentPage,
-  //   itemsPerPage,
-  //   name: searchValue,
-  //   minCardsCount,
-  // }
-  //
-  // if (maxCardsCount) queryParams.maxCardsCount = maxCardsCount
-  //
-  // if (switcherValue === 'My Cards' && isHasProfileData) queryParams.authorId = profileData.id
-  //
-  // const { data, isLoading, isSuccess: isHasDecksData } = useGetDecksQuery(queryParams)
+  const {
+    isError,
+    profileData,
+    decksData,
+    isLoadingDecksData,
+    switcherValue,
+    minCardsCount,
+    onChangeSearchInput,
+    onChangeTabSwitcher,
+    onChangeSlider,
+    clearFilter,
+    getFuncForChangeSliderValue,
+    setCurrentPage,
+    setItemsPerPage,
+  } = useGetDecks()
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoadingDecksData) return <div>Loading...</div>
+  if (isError) return <h1>Error!</h1>
 
-  // render data
-  let dataItem = isHasDecksData ? data.items : []
-
-  let paginationRender = null
-
-  if (isHasDecksData) {
-    paginationRender = (
-      <div className={s.paginationWrapper}>
-        <Pagination
-          currentPage={data.pagination.currentPage}
-          totalPages={data.pagination.totalPages}
-          itemsPerPage={data.pagination.itemsPerPage}
-          changePage={setCurrentPage}
-          changeItemsPerPage={setItemsPerPage}
-        />
-      </div>
-    )
-  }
+  const maxCardsCount = decksData?.maxCardsCount ?? 100
+  const decks = decksData?.items ?? []
+  const decksColumnsTitles = ['Name', 'Cards', 'LastUpdate', 'Created by', '']
 
   return (
     <div className={s.pageWrapper}>
@@ -161,17 +117,25 @@ export const Decks = () => {
         switcherValue={switcherValue}
         onChangeSearchInput={onChangeSearchInput}
         onChangeTabSwitcher={onChangeTabSwitcher}
-        maxCardsCount={data?.maxCardsCount ?? 100}
+        maxCardsCount={maxCardsCount}
         minCardsCount={+minCardsCount}
         onChangeSlider={onChangeSlider}
         clearFilter={clearFilter}
-        getFuncSetting={getFuncSetting}
+        getFuncSetting={getFuncForChangeSliderValue}
       />
       <Table variant={'packs'}>
-        <THead columns={['Name', 'Cards', 'LastUpdate', 'Created by', '']} />
-        <DecksTableBody items={dataItem} authorId={profileData.id} />
+        <THead columns={decksColumnsTitles} />
+        <DecksTableBody items={decks} authorId={profileData.id} />
       </Table>
-      {paginationRender}
+      <div className={s.paginationWrapper}>
+        <Pagination
+          currentPage={decksData?.pagination.currentPage ?? 1}
+          totalPages={decksData?.pagination.totalPages ?? 0}
+          itemsPerPage={decksData?.pagination.itemsPerPage ?? 10}
+          changePage={setCurrentPage}
+          changeItemsPerPage={setItemsPerPage}
+        />
+      </div>
     </div>
   )
 }

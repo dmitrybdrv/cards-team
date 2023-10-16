@@ -1,9 +1,10 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import deleteIcon from '@/assets/icons/trashIcon.svg'
 import { Button, Slider, TabSwitcher, TextField, Typography } from '@/components'
 import s from '@/pages/decks-page/decks.module.scss'
-import { ChangeSwitcherValues } from '@/pages/decks-page/decks.tsx'
+import { ChangeSwitcherValues, useGetDecks } from '@/pages/decks-page/decks.tsx'
+import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 
 type Props = {
   switcherValue: string
@@ -26,14 +27,12 @@ export const DecksHeaderFilters: FC<Props> = ({
   getFuncSetting,
 }) => {
   const [searchInputValue, setSearchInputValue] = useState('')
-
   const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     //for UI
     setSearchInputValue(e.currentTarget.value)
     //for fetch
     onChangeSearchInput(e.currentTarget.value)
   }
-
   const onClickClearFilter = () => {
     clearFilter()
     setSearchInputValue('')
