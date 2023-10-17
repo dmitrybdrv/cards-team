@@ -13,6 +13,7 @@ type Props = {
   maxCardsCount: number
   clearFilter: () => void
   getFuncSetting: (arg: ChangeSwitcherValues) => void
+  disabled: boolean
 }
 export const DecksHeaderFilters: FC<Props> = ({
   onChangeSearchInput,
@@ -22,6 +23,7 @@ export const DecksHeaderFilters: FC<Props> = ({
   switcherValue,
   clearFilter,
   getFuncSetting,
+  disabled,
 }) => {
   const [searchInputValue, setSearchInputValue] = useState('')
   const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,12 +45,13 @@ export const DecksHeaderFilters: FC<Props> = ({
     <div className={s.headerWrapper}>
       <div className={s.titleWrapper}>
         <Typography variant={'large'}>Decks list</Typography>
-        <Button variant={'primary'}>
+        <Button variant={'primary'} disabled={disabled}>
           <Typography variant={'subtitle2'}>Add New Deck</Typography>
         </Button>
       </div>
       <div className={s.filtersWrapper}>
         <TextField
+          disabled={disabled}
           type={'search'}
           className={s.searchInput}
           value={searchInputValue}
@@ -59,6 +62,7 @@ export const DecksHeaderFilters: FC<Props> = ({
             Show packs cards
           </Typography>
           <TabSwitcher
+            disabled={disabled}
             currentValue={switcherValue}
             values={[{ value: 'My Cards' }, { value: 'All Cards' }]}
             defaultValue={'All Cards'}
@@ -70,13 +74,19 @@ export const DecksHeaderFilters: FC<Props> = ({
             Number of cards
           </Typography>
           <Slider
+            disabled={disabled}
             setFuncForChangeValue={getFuncSetting}
             width={155}
             boundaryMaxValue={maxCardsCount}
             onChange={onChangeSlider}
           />
         </div>
-        <Button variant={'secondary'} icon={iconForBtn} onClick={onClickClearFilter}>
+        <Button
+          variant={'secondary'}
+          icon={iconForBtn}
+          onClick={onClickClearFilter}
+          disabled={disabled}
+        >
           <Typography variant={'subtitle2'}>Clear Filter</Typography>
         </Button>
       </div>

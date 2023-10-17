@@ -8,9 +8,14 @@ import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
 
 export const Decks = () => {
   const {
+    isFetching,
     isError,
     profileData,
-    decksData,
+    decksData: {
+      maxCardsCount,
+      pagination: { currentPage, itemsPerPage, totalPages },
+      items,
+    },
     isLoadingDecksData,
     switcherValue,
     onChangeSearchInput,
@@ -25,13 +30,12 @@ export const Decks = () => {
   if (isLoadingDecksData) return <div>Loading...</div>
   if (isError) return <h1>Error!</h1>
 
-  const maxCardsCount = decksData?.maxCardsCount ?? 100
-  const decks = decksData?.items ?? []
   const decksColumnsTitles = ['Name', 'Cards', 'LastUpdate', 'Created by', '']
 
   return (
     <div className={s.pageWrapper}>
       <DecksHeaderFilters
+        disabled={isFetching}
         switcherValue={switcherValue}
         onChangeSearchInput={onChangeSearchInput}
         onChangeTabSwitcher={onChangeTabSwitcher}
@@ -42,13 +46,14 @@ export const Decks = () => {
       />
       <Table variant={'packs'}>
         <THead columns={decksColumnsTitles} />
-        <DecksTableBody items={decks} authorId={profileData.id} />
+        <DecksTableBody items={items} authorId={profileData.id} />
       </Table>
       <div className={s.paginationWrapper}>
         <Pagination
-          currentPage={decksData?.pagination.currentPage ?? 1}
-          totalPages={decksData?.pagination.totalPages ?? 0}
-          itemsPerPage={decksData?.pagination.itemsPerPage ?? 10}
+          // TODO add disabled props
+          currentPage={currentPage}
+          totalPages={totalPages}
+          itemsPerPage={itemsPerPage}
           changePage={setCurrentPage}
           changeItemsPerPage={setItemsPerPage}
         />

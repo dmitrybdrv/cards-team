@@ -15,9 +15,11 @@ type Props = {
   onChange?: (minValue: number, maxValue: number) => void
   width?: number
   setFuncForChangeValue: (arg: ChangeSwitcherValues) => void
+  disabled?: boolean
 }
 export const Slider = (props: Props) => {
   let {
+    disabled,
     step = 1,
     boundaryMinValue = 0,
     boundaryMaxValue = 100,
@@ -79,8 +81,15 @@ export const Slider = (props: Props) => {
 
   return (
     <form className={s.SliderWrapper}>
-      <input className={s.input} type={'number'} value={minValue} onChange={handlerMinInput} />
+      <input
+        className={s.input}
+        type={'number'}
+        value={minValue}
+        onChange={handlerMinInput}
+        disabled={disabled}
+      />
       <SliderApp.Root
+        disabled={disabled}
         style={{ width: width }}
         min={boundaryMinValue}
         max={boundaryMaxValue}
@@ -97,7 +106,13 @@ export const Slider = (props: Props) => {
         <SliderApp.Thumb className={s.SliderThumb} />
         <SliderApp.Thumb className={s.SliderThumb} />
       </SliderApp.Root>
-      <input className={s.input} type={'number'} value={maxValue} onChange={handlerMaxInput} />
+      <input
+        className={s.input}
+        type={'number'}
+        value={maxValue}
+        onChange={handlerMaxInput}
+        disabled={disabled}
+      />
     </form>
   )
 }

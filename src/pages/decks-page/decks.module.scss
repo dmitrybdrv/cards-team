@@ -1,4 +1,5 @@
 .pageWrapper {
+  position: static;
   width: fit-content;
   margin: 0 auto;
   padding-top: 20px;
@@ -16,9 +17,9 @@
 
 .filtersWrapper {
   display: flex;
+  align-items: end;
   justify-content: space-between;
   margin-bottom: 36px;
-  align-items: end;
 }
 
 .searchInput {
@@ -31,4 +32,15 @@
 
 .filterLabel {
   margin-bottom: 5px;
+}
+
+.disablingBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  //background-color: antiquewhite;
 }
