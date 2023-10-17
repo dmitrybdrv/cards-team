@@ -7,7 +7,7 @@ import { AnimatePresence, motion, MotionProps, Variants } from 'framer-motion'
 
 import s from './dropdown.module.scss'
 
-import ava from '@/assets/img/ava.jpg'
+import ava from '@/assets/img/avatarPlaceholder.png'
 import { SingUpResponse } from '@/services/auth/auth.types.ts'
 
 export type ToolbarProps = {
