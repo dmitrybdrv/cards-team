@@ -7,8 +7,8 @@ import { AnimatePresence, motion, MotionProps, Variants } from 'framer-motion'
 
 import s from './dropdown.module.scss'
 
-import { IconWrapper } from '@/assets/icon-wrapper'
-import { AvaDropDown } from '@/assets/icons-component'
+import ava from '@/assets/img/ava.jpg'
+import { SingUpResponse } from '@/services/auth/auth.types.ts'
 
 export type ToolbarProps = {
   /** Use TooltipItem components as children.*/
@@ -18,7 +18,9 @@ export type ToolbarProps = {
   trigger?: ReactNode
   className?: string
   style?: CSSProperties
+  data?: SingUpResponse
 }
+
 const menu = {
   closed: {
     scale: 0,
@@ -44,7 +46,14 @@ const item = {
   transition: { opacity: { duration: 0.2 } },
 } satisfies MotionProps
 
-export const Dropdown = ({ children, trigger, align = 'end', className, style }: ToolbarProps) => {
+export const Dropdown = ({
+  children,
+  trigger,
+  align = 'end',
+  className,
+  style,
+  data,
+}: ToolbarProps) => {
   const [open, setOpen] = useState(false)
 
   const classNames = {
@@ -58,11 +67,14 @@ export const Dropdown = ({ children, trigger, align = 'end', className, style }:
   return (
     <DropdownMenuRadix.Root open={open} onOpenChange={setOpen}>
       <DropdownMenuRadix.Trigger asChild>
-        {trigger ?? (
-          <button className={classNames.button}>
-            <IconWrapper icon={<AvaDropDown />}></IconWrapper>
-          </button>
-        )}
+        <button className={classNames.button}>
+          {trigger ?? <span className={className}>{data?.name}</span>}
+          <img
+            src={data?.avatar ? data?.avatar : ava}
+            style={{ width: '36px', height: '36px', borderRadius: '100%' }}
+            alt="ava"
+          />
+        </button>
       </DropdownMenuRadix.Trigger>
       <AnimatePresence>
         {open && (

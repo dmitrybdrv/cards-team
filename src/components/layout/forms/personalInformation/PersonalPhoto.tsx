@@ -1,9 +1,9 @@
 import { ChangeEvent } from 'react'
 
-import { ReactComponent as EditPen } from '../../../../assets/icons/editPen.svg'
-import photoPlacehodler from '../../../../assets/img/avatarPlaceholder.png'
-
 import s from './personalInformation.module.scss'
+
+import { ReactComponent as EditPen } from '@/assets/icons/editPen.svg'
+import photoPlaceHolder from '@/assets/img/avatarPlaceholder.png'
 
 type PersonalPhotoProps = {
   isShowMode: boolean
@@ -20,7 +20,7 @@ export const PersonalPhoto = ({ isShowMode, photoSrc, updatePhoto }: PersonalPho
   return (
     <div className={s.photoBox}>
       <img
-        src={photoSrc || photoPlacehodler}
+        src={photoSrc || photoPlaceHolder}
         alt="user avatar"
         className={s.photoImg}
         width={96}
