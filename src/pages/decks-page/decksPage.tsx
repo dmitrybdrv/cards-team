@@ -1,6 +1,7 @@
 import s from './decks.module.scss'
 
 import { Table, THead } from '@/components'
+import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { Pagination } from '@/components/ui/pagination'
 import { DecksHeaderFilters } from '@/pages/decks-page/decksHeaderFilters.tsx'
 import { DecksTableBody } from '@/pages/decks-page/decksTableBody.tsx'
@@ -34,6 +35,7 @@ export const DecksPage = () => {
 
   return (
     <div className={s.pageWrapper}>
+      {isFetching && <Preloader className={s.preloader} />}
       <DecksHeaderFilters
         disabled={isFetching}
         switcherValue={switcherValue}
