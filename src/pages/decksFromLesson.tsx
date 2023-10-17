@@ -7,7 +7,7 @@ import {
   useGetDecksQuery,
 } from '@/services/decks/decks.service.ts'
 
-export const Decks = () => {
+export const DecksFromLesson = () => {
   const [itemsPerPage, setItemPerPage] = useState(10)
   const decks = useGetDecksQuery({
     itemsPerPage,

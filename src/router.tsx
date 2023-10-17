@@ -11,7 +11,7 @@ import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
 import { Layout } from '@/components/layout/layout.tsx'
 import { Preloader } from '@/components/layout/preloader/preloader.tsx'
-import { Decks } from '@/pages/decks.tsx'
+import { DecksPage } from '@/pages/decks-page'
 import { ProfilePage } from '@/pages/profile-page'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up-page/sign-up-page.tsx'
@@ -48,7 +48,7 @@ const privateRoutes: RouteObject[] = [
     children: [
       {
         path: '/',
-        element: <Decks />,
+        element: <DecksPage />,
       },
       {
         path: '/packs-list',

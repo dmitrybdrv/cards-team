@@ -3,8 +3,8 @@ import { ComponentPropsWithoutRef, FC } from 'react'
 import s from './table.module.scss'
 
 type TdCellProps = {
-  img?: string
-  video?: string
+  img?: string | null
+  video?: string | null
 } & ComponentPropsWithoutRef<'td'>
 
 export const TdCell: FC<TdCellProps> = ({ children, img, video, ...rest }) => {
