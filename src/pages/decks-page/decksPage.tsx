@@ -6,7 +6,7 @@ import { DecksHeaderFilters } from '@/pages/decks-page/decksHeaderFilters.tsx'
 import { DecksTableBody } from '@/pages/decks-page/decksTableBody.tsx'
 import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
 
-export const Decks = () => {
+export const DecksPage = () => {
   const {
     isFetching,
     isError,

@@ -9,7 +9,7 @@ import {
 import { ForgotPassword } from '@/components'
 import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
-import { Decks } from '@/pages/decks-page'
+import { DecksPage } from '@/pages/decks-page'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up-page/sign-up-page.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
@@ -45,7 +45,7 @@ const privateRoutes: RouteObject[] = [
     path: '/',
     element: (
       <div>
-        <Decks />
+        <DecksPage />
       </div>
     ),
   },
