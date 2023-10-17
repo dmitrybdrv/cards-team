@@ -13,7 +13,6 @@ export const Decks = () => {
     decksData,
     isLoadingDecksData,
     switcherValue,
-    minCardsCount,
     onChangeSearchInput,
     onChangeTabSwitcher,
     onChangeSlider,
@@ -37,7 +36,6 @@ export const Decks = () => {
         onChangeSearchInput={onChangeSearchInput}
         onChangeTabSwitcher={onChangeTabSwitcher}
         maxCardsCount={maxCardsCount}
-        minCardsCount={+minCardsCount}
         onChangeSlider={onChangeSlider}
         clearFilter={clearFilter}
         getFuncSetting={getFuncForChangeSliderValue}

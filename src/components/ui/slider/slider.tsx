@@ -4,7 +4,7 @@ import * as SliderApp from '@radix-ui/react-slider'
 
 import s from './slider.module.scss'
 
-import { ChangeSwitcherValues } from '@/pages/decks-page'
+import { ChangeSwitcherValues } from '@/pages/decks-page/hook/useGetDecks.tsx'
 
 type Props = {
   defaultMinValue?: number

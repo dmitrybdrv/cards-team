@@ -10,7 +10,6 @@ type Props = {
   onChangeSearchInput: (searchValue: string) => void
   onChangeTabSwitcher: (value: string) => void
   onChangeSlider: (minValue: number, maxValue: number) => void
-  minCardsCount: number
   maxCardsCount: number
   clearFilter: () => void
   getFuncSetting: (arg: ChangeSwitcherValues) => void
@@ -18,7 +17,6 @@ type Props = {
 export const DecksHeaderFilters: FC<Props> = ({
   onChangeSearchInput,
   onChangeTabSwitcher,
-  minCardsCount,
   maxCardsCount,
   onChangeSlider,
   switcherValue,
@@ -74,8 +72,6 @@ export const DecksHeaderFilters: FC<Props> = ({
           <Slider
             setFuncForChangeValue={getFuncSetting}
             width={155}
-            defaultMinValue={minCardsCount}
-            defaultMaxValue={maxCardsCount}
             boundaryMaxValue={maxCardsCount}
             onChange={onChangeSlider}
           />
