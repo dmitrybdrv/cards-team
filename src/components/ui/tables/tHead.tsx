@@ -9,8 +9,6 @@ type Props = ComponentPropsWithoutRef<'thead'> & {
 export const THead: FC<Omit<Props, 'children'>> = memo(({ columns, className, ...rest }) => {
   const columnsView = columns.map((el, i) => <th key={i}>{el}</th>)
 
-  console.log('THead render ++++')
-
   return (
     <thead {...rest} className={className}>
       <tr className={s.tableHead}>{columnsView}</tr>

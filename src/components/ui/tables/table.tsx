@@ -11,8 +11,6 @@ type Props = {
 export const Table: FC<Props> = memo(({ variant, children, className, ...rest }) => {
   const tableStyle = clsx(s.table, className, s[variant])
 
-  console.log('table render')
-
   return (
     <table className={tableStyle} {...rest}>
       {children}

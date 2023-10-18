@@ -9,8 +9,6 @@ type Props = {
 }
 
 export const DecksTableBody: FC<Props> = memo(({ items, authorId }) => {
-  console.log('DecksTableBody render---')
-
   const mappedRow = items.map(item => {
     const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
       dateStyle: 'short',

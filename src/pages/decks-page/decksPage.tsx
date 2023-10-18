@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react'
+import { FC } from 'react'
 
 import s from './decks.module.scss'
 
@@ -10,6 +10,7 @@ import { DecksTableBody } from '@/pages/decks-page/decksTableBody.tsx'
 import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
 
 const decksColumnsTitles = ['Name', 'Cards', 'LastUpdate', 'Created by', '']
+const perPageCountVariant = ['10', '20', '30', '50', '100']
 
 export const DecksPage: FC<void> = () => {
   const {
@@ -23,22 +24,14 @@ export const DecksPage: FC<void> = () => {
     },
     isLoadingDecksData,
     switcherValue,
-    onChangeSearchInput,
-    onChangeTabSwitcher,
-    onChangeSlider,
-    clearFilter,
-    getFuncForChangeSliderValue,
-    setCurrentPage,
-    setItemsPerPage,
+    onChangeSearchInputMemo,
+    onChangeTabSwitcherMemo,
+    onChangeSliderMemo,
+    clearFilterMemo,
+    getFuncForChangeSliderValueMemo,
+    setCurrentPageMemo,
+    setItemsPerPageMemo,
   } = useGetDecks()
-
-  const onChangeSearchInputMemo = useCallback(onChangeSearchInput, [])
-  const onChangeTabSwitcherMemo = useCallback(onChangeTabSwitcher, [])
-  const onChangeSliderMemo = useCallback(onChangeSlider, [])
-  const clearFilterMemo = useCallback(clearFilter, [])
-  const getFuncForChangeSliderValueMemo = useCallback(getFuncForChangeSliderValue, [])
-  const setCurrentPageMemo = useCallback(setCurrentPage, [])
-  const setItemsPerPageMemo = useCallback(setItemsPerPage, [])
 
   if (isLoadingDecksData) return <Preloader className={s.preloader} />
   if (isError) return <h1>Error!</h1>
@@ -63,6 +56,7 @@ export const DecksPage: FC<void> = () => {
       <div className={s.paginationWrapper}>
         <Pagination
           // TODO add disabled props
+          perPageCountVariant={perPageCountVariant}
           currentPage={currentPage}
           totalPages={totalPages}
           itemsPerPage={itemsPerPage}

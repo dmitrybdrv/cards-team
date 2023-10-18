@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { debounce } from '@/common/utils/debounce.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
@@ -20,8 +20,10 @@ export const useGetDecks = () => {
     null
   )
   // callBacks
-  const getFuncForChangeSliderValue = (funcForChange: ChangeSwitcherValues) =>
+  const getFuncForChangeSliderValue = (funcForChange: ChangeSwitcherValues) => {
     setChangeSwitcherValues(funcForChange)
+  }
+
   const clearFilter = () => {
     setSearchValue('')
     setSwitcherValue('All Cards')
@@ -70,6 +72,13 @@ export const useGetDecks = () => {
       totalPages: 0,
     },
   }
+  const onChangeSearchInputMemo = useCallback(onChangeSearchInput, [])
+  const onChangeTabSwitcherMemo = useCallback(onChangeTabSwitcher, [])
+  const onChangeSliderMemo = useCallback(onChangeSlider, [])
+  const clearFilterMemo = useCallback(clearFilter, [changeSwitcherValues])
+  const getFuncForChangeSliderValueMemo = useCallback(getFuncForChangeSliderValue, [])
+  const setCurrentPageMemo = useCallback(setCurrentPage, [])
+  const setItemsPerPageMemo = useCallback(setItemsPerPage, [])
 
   return {
     isFetching,
@@ -79,12 +88,12 @@ export const useGetDecks = () => {
     isLoadingDecksData: isLoading,
     isHasDecksData: isSuccess,
     switcherValue,
-    setItemsPerPage,
-    getFuncForChangeSliderValue,
-    clearFilter,
-    onChangeSearchInput,
-    onChangeSlider,
-    onChangeTabSwitcher,
-    setCurrentPage,
+    onChangeSearchInputMemo,
+    onChangeTabSwitcherMemo,
+    onChangeSliderMemo,
+    clearFilterMemo,
+    getFuncForChangeSliderValueMemo,
+    setCurrentPageMemo,
+    setItemsPerPageMemo,
   }
 }

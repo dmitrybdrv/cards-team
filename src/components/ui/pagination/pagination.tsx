@@ -17,6 +17,7 @@ type Props = {
   changePage: (newPage: number) => void
   changeItemsPerPage: (items: number) => void
   className?: string
+  perPageCountVariant: string[]
 }
 
 export const Pagination: FC<Props> = memo(
@@ -28,12 +29,9 @@ export const Pagination: FC<Props> = memo(
     changePage,
     changeItemsPerPage,
     itemsPerPage,
+    perPageCountVariant,
     className,
   }) => {
-    console.log('pagination render')
-
-    const perPageCountVariant = ['10', '20', '30', '50', '100']
-
     const portions = getPortion(totalPages, maxCountShowBtn, minCountShowBtn)
     const currentPortion = getCurrentPortion(currentPage, portions)
     //callBacks
