@@ -1,15 +1,22 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import s from './decks.module.scss'
 
-import { Table, THead } from '@/components'
+import { Sort, Table, TableColumns, THead } from '@/components'
 import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { Pagination } from '@/components/ui/pagination'
 import { DecksHeaderFilters } from '@/pages/decks-page/decksHeaderFilters.tsx'
 import { DecksTableBody } from '@/pages/decks-page/decksTableBody.tsx'
 import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
+import { DecksOrderName } from '@/services/decks/decks.types.ts'
 
-const decksColumnsTitles = ['Name', 'Cards', 'LastUpdate', 'Created by', '']
+const decksColumnsTitles: TableColumns<DecksOrderName> = [
+  { title: 'Name', orderName: 'name' },
+  { title: 'Cards', orderName: 'cardsCount' },
+  { title: 'LastUpdate', orderName: 'updated' },
+  { title: 'Created by' },
+  { title: '' },
+]
 const perPageCountVariant = ['10', '20', '30', '50', '100']
 
 export const DecksPage: FC<void> = () => {
@@ -35,6 +42,8 @@ export const DecksPage: FC<void> = () => {
 
   if (isLoadingDecksData) return <Preloader className={s.preloader} />
   if (isError) return <h1>Error!</h1>
+  //TODO replace in useGetDecks:
+  const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
 
   return (
     <div className={s.pageWrapper}>
@@ -50,7 +59,7 @@ export const DecksPage: FC<void> = () => {
         getFuncSetting={getFuncForChangeSliderValueMemo}
       />
       <Table variant={'packs'}>
-        <THead columns={decksColumnsTitles} />
+        <THead columns={decksColumnsTitles} onSort={setSort} sort={sort} />
         <DecksTableBody items={items} authorId={authorId} />
       </Table>
       <div className={s.paginationWrapper}>

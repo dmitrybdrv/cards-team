@@ -55,6 +55,7 @@ export const useGetDecks = () => {
     itemsPerPage,
     name: searchValue,
     minCardsCount,
+    // orderBy: 'updated-asc',
   }
 
   if (maxCardsCount) queryParams.maxCardsCount = maxCardsCount
