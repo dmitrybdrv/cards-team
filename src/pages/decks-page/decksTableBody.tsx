@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TdCell, TdIcons, TRow } from '@/components'
 import { DecksResponseItems } from '@/services/decks/decks.types.ts'
@@ -8,9 +8,11 @@ type Props = {
   authorId: string
 }
 
-export const DecksTableBody: FC<Props> = ({ items, authorId }) => {
+export const DecksTableBody: FC<Props> = memo(({ items, authorId }) => {
+  console.log('DecksTableBody render---')
+
   const mappedRow = items.map(item => {
-    const updateData = new Date(Date.parse(item.updated)).toLocaleString('en', {
+    const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
       dateStyle: 'short',
     })
     const playDeckHandler = () => console.log('play deck id: ', item.id)
@@ -33,4 +35,4 @@ export const DecksTableBody: FC<Props> = ({ items, authorId }) => {
   })
 
   return <tbody>{mappedRow}</tbody>
-}
+})

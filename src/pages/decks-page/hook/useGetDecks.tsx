@@ -34,11 +34,11 @@ export const useGetDecks = () => {
     setSearchValue(searchValue)
     setCurrentPage(1)
   }, 1000)
-  const onChangeSlider = (minValue: number, maxValue: number) => {
+  const onChangeSlider = debounce((minValue: number, maxValue: number) => {
     setMinCardsCount(minValue.toString())
     setMaxCardsCount(maxValue.toString())
     setCurrentPage(1)
-  }
+  }, 1000)
   const onChangeTabSwitcher = (value: string) => {
     setSwitcherValue(value)
     setCurrentPage(1)

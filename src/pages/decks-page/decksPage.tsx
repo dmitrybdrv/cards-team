@@ -1,3 +1,5 @@
+import { FC, useCallback } from 'react'
+
 import s from './decks.module.scss'
 
 import { Table, THead } from '@/components'
@@ -7,11 +9,13 @@ import { DecksHeaderFilters } from '@/pages/decks-page/decksHeaderFilters.tsx'
 import { DecksTableBody } from '@/pages/decks-page/decksTableBody.tsx'
 import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
 
-export const DecksPage = () => {
+const decksColumnsTitles = ['Name', 'Cards', 'LastUpdate', 'Created by', '']
+
+export const DecksPage: FC<void> = () => {
   const {
     isFetching,
     isError,
-    profileData,
+    profileData: { id: authorId },
     decksData: {
       maxCardsCount,
       pagination: { currentPage, itemsPerPage, totalPages },
@@ -28,10 +32,16 @@ export const DecksPage = () => {
     setItemsPerPage,
   } = useGetDecks()
 
-  if (isLoadingDecksData) return <div>Loading...</div>
-  if (isError) return <h1>Error!</h1>
+  const onChangeSearchInputMemo = useCallback(onChangeSearchInput, [])
+  const onChangeTabSwitcherMemo = useCallback(onChangeTabSwitcher, [])
+  const onChangeSliderMemo = useCallback(onChangeSlider, [])
+  const clearFilterMemo = useCallback(clearFilter, [])
+  const getFuncForChangeSliderValueMemo = useCallback(getFuncForChangeSliderValue, [])
+  const setCurrentPageMemo = useCallback(setCurrentPage, [])
+  const setItemsPerPageMemo = useCallback(setItemsPerPage, [])
 
-  const decksColumnsTitles = ['Name', 'Cards', 'LastUpdate', 'Created by', '']
+  if (isLoadingDecksData) return <Preloader className={s.preloader} />
+  if (isError) return <h1>Error!</h1>
 
   return (
     <div className={s.pageWrapper}>
@@ -39,16 +49,16 @@ export const DecksPage = () => {
       <DecksHeaderFilters
         disabled={isFetching}
         switcherValue={switcherValue}
-        onChangeSearchInput={onChangeSearchInput}
-        onChangeTabSwitcher={onChangeTabSwitcher}
+        onChangeSearchInput={onChangeSearchInputMemo}
+        onChangeTabSwitcher={onChangeTabSwitcherMemo}
         maxCardsCount={maxCardsCount}
-        onChangeSlider={onChangeSlider}
-        clearFilter={clearFilter}
-        getFuncSetting={getFuncForChangeSliderValue}
+        onChangeSlider={onChangeSliderMemo}
+        clearFilter={clearFilterMemo}
+        getFuncSetting={getFuncForChangeSliderValueMemo}
       />
       <Table variant={'packs'}>
         <THead columns={decksColumnsTitles} />
-        <DecksTableBody items={items} authorId={profileData.id} />
+        <DecksTableBody items={items} authorId={authorId} />
       </Table>
       <div className={s.paginationWrapper}>
         <Pagination
@@ -56,8 +66,8 @@ export const DecksPage = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           itemsPerPage={itemsPerPage}
-          changePage={setCurrentPage}
-          changeItemsPerPage={setItemsPerPage}
+          changePage={setCurrentPageMemo}
+          changeItemsPerPage={setItemsPerPageMemo}
         />
       </div>
     </div>
