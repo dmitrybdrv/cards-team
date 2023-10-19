@@ -47,7 +47,7 @@ export const Pagination: FC<Props> = ({
     )
   }
 
-  const renderButtons = portions[currentPortion].map(num => {
+  const renderButtons = portions[currentPortion]?.map(num => {
     const buttonStyle = clsx(s.pageButton, currentPage === num && s.currentPage)
 
     return renderButton(num, buttonStyle)
@@ -66,7 +66,7 @@ export const Pagination: FC<Props> = ({
 
   //is disabled arrows
   const isDisabledArrowLeft = currentPage === 1
-  const isDisabledArrowRight = currentPage === totalPages
+  const isDisabledArrowRight = currentPage === totalPages || totalPages === 0
 
   //styles
   const wrapperStyle = clsx(s.wrapper, className)
