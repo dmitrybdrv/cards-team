@@ -44,7 +44,28 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
+    verifyEmail: builder.mutation<any, any>({
+      query: body => ({
+        url: 'v1/auth/verify-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    recoverPassword: builder.mutation<any, any>({
+      query: body => ({
+        url: 'v1/auth/recover-password',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation, useSignUpMutation, useGetMeQuery, useLogoutMutation } = authService
+export const {
+  useRecoverPasswordMutation,
+  useVerifyEmailMutation,
+  useLoginMutation,
+  useSignUpMutation,
+  useGetMeQuery,
+  useLogoutMutation,
+} = authService
