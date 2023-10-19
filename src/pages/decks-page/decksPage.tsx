@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useRef } from 'react'
 
 import s from './decks.module.scss'
 
@@ -42,7 +42,12 @@ export const DecksPage: FC<void> = () => {
     setItemsPerPageMemo,
   } = useGetDecks()
 
-  if (isLoadingDecksData) return <Preloader className={s.preloader} />
+  let heightTbody = useRef(0)
+  const setHeightTbody = (newHeightTbody: number | null) =>
+    (heightTbody.current = newHeightTbody ?? 0)
+
+  console.log(heightTbody.current)
+
   if (isError) return <h1>Error!</h1>
 
   return (
@@ -58,10 +63,15 @@ export const DecksPage: FC<void> = () => {
         clearFilter={clearFilterMemo}
         getFuncSetting={getFuncForChangeSliderValueMemo}
       />
+      {/*TODO create skeleton component*/}
+      <div
+        className={s.skeleton}
+        style={{ height: heightTbody.current, marginBottom: -heightTbody.current }}
+      ></div>
       <Table variant={'packs'}>
         {/*TODO add disabled props for sort*/}
         <THead columns={decksColumnsTitles} onSort={setSortMemo} currentSort={sort} />
-        <DecksTableBody items={items} authorId={authorId} />
+        <DecksTableBody items={items} authorId={authorId} setLastHeight={setHeightTbody} />
       </Table>
       <div className={s.paginationWrapper}>
         <Pagination

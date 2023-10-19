@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { ComponentProps, FC, memo, useLayoutEffect, useRef } from 'react'
 
 import { TdCell, TdIcons, TRow } from '@/components'
 import { DecksResponseItems } from '@/services/decks/decks.types.ts'
@@ -6,9 +6,10 @@ import { DecksResponseItems } from '@/services/decks/decks.types.ts'
 type Props = {
   items: DecksResponseItems[]
   authorId: string
-}
+  setLastHeight: (lastHeight: number | null) => void
+} & ComponentProps<'tbody'>
 
-export const DecksTableBody: FC<Props> = memo(({ items, authorId }) => {
+export const DecksTableBody: FC<Props> = memo(({ setLastHeight, items, authorId }) => {
   const mappedRow = items.map(item => {
     const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
       dateStyle: 'short',
@@ -32,5 +33,11 @@ export const DecksTableBody: FC<Props> = memo(({ items, authorId }) => {
     )
   })
 
-  return <tbody>{mappedRow}</tbody>
+  const tbodyRef = useRef(null)
+
+  useLayoutEffect(() => {
+    setLastHeight(tbodyRef.current?.offsetHeight)
+  })
+
+  return <tbody ref={tbodyRef}>{mappedRow}</tbody>
 })

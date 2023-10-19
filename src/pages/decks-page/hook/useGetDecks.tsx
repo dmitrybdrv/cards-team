@@ -80,7 +80,7 @@ export const useGetDecks = () => {
   const onChangeSearchInputMemo = useCallback(onChangeSearchInput, [])
   const onChangeTabSwitcherMemo = useCallback(onChangeTabSwitcher, [])
   const onChangeSliderMemo = useCallback(onChangeSlider, [])
-  const clearFilterMemo = useCallback(clearFilter, [changeSwitcherValues])
+  const clearFilterMemo = useCallback(clearFilter, [changeSwitcherValues, data?.maxCardsCount])
   const getFuncForChangeSliderValueMemo = useCallback(getFuncForChangeSliderValue, [])
   const setCurrentPageMemo = useCallback(setCurrentPage, [])
   const setItemsPerPageMemo = useCallback(setItemsPerPage, [])
