@@ -83,7 +83,7 @@ export const Router = () => {
 
   if (isMeLoading)
     return (
-      <div style={{ position: 'fixed', left: '40%', top: '30%' }}>
+      <div style={{ position: 'fixed', left: '50%', top: '50%' }}>
         <Preloader />
       </div>
     )

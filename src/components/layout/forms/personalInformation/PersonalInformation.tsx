@@ -9,6 +9,7 @@ import { ShowInfo } from './ShowInfo.tsx'
 
 import { EditNameFormType } from '@/components'
 import { Card, Typography } from '@/components/ui'
+import { useGetMeQuery, useUpdateProfileMutation } from '@/services/auth/auth.service.ts'
 
 type Props = {
   updatePhoto: (file64: string) => void
@@ -17,11 +18,14 @@ type Props = {
 }
 
 export const PersonalInformation = ({ updatePhoto, updateUserName, logout }: Props) => {
+  const { data } = useGetMeQuery()
+  const [updateProfile] = useUpdateProfileMutation()
+
   const [isShowMode, setIsShowMode] = useState(true)
   //mock value
-  const photoUrl = ''
-  const userName = 'UserName'
-  const userEmail = 'user@mail.com'
+  const photoUrl = data.avatar ? data.avatar : ''
+  const userName = data.name ? data.name : 'UserName'
+  const userEmail = data.email ? data.email : 'user@mail.com'
 
   // const logoutCallBack = () => logout()
 

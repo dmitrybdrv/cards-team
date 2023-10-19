@@ -4,6 +4,7 @@ import s from './header.module.scss'
 
 import { ReactComponent as SignOut } from '@/assets/icons/logout.svg'
 import { ReactComponent as UserIcon } from '@/assets/icons/person-outline-icon.svg'
+import ava from '@/assets/img/avatarPlaceholder.png'
 import { ReactComponent as Logo } from '@/assets/img/logo.svg'
 import { Dropdown, ToolbarItemWithIcon, Typography } from '@/components'
 import { Button } from '@/components/ui'
@@ -23,7 +24,7 @@ export const Header = ({}) => {
             <ToolbarItemWithIcon
               icon={
                 <img
-                  src={data.avatar && data.avatar}
+                  src={data.avatar ? data.avatar : ava}
                   alt="ava"
                   style={{ width: '36px', height: '36px', borderRadius: '100%' }}
                 />
