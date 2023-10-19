@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { debounce } from '@/common/utils/debounce.ts'
+import { Sort } from '@/components'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import { DecksParams, DecksResponse } from '@/services/decks/decks.types.ts'
@@ -19,6 +20,8 @@ export const useGetDecks = () => {
   const [changeSwitcherValues, setChangeSwitcherValues] = useState<ChangeSwitcherValues | null>(
     null
   )
+  const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
+
   // callBacks
   const getFuncForChangeSliderValue = (funcForChange: ChangeSwitcherValues) => {
     setChangeSwitcherValues(funcForChange)
@@ -55,12 +58,13 @@ export const useGetDecks = () => {
     itemsPerPage,
     name: searchValue,
     minCardsCount,
-    // orderBy: 'updated-asc',
   }
 
   if (maxCardsCount) queryParams.maxCardsCount = maxCardsCount
 
   if (switcherValue === 'My Cards' && isHasProfileData) queryParams.authorId = profileData.id
+
+  if (sort.direction) queryParams.orderBy = `${sort.orderName}-${sort.direction}`
 
   const { data, isLoading, isSuccess, isError, isFetching } = useGetDecksQuery(queryParams)
   const initialData: DecksResponse = {
@@ -80,6 +84,7 @@ export const useGetDecks = () => {
   const getFuncForChangeSliderValueMemo = useCallback(getFuncForChangeSliderValue, [])
   const setCurrentPageMemo = useCallback(setCurrentPage, [])
   const setItemsPerPageMemo = useCallback(setItemsPerPage, [])
+  const setSortMemo = useCallback(setSort, [])
 
   return {
     isFetching,
@@ -89,6 +94,8 @@ export const useGetDecks = () => {
     isLoadingDecksData: isLoading,
     isHasDecksData: isSuccess,
     switcherValue,
+    sort,
+    setSortMemo,
     onChangeSearchInputMemo,
     onChangeTabSwitcherMemo,
     onChangeSliderMemo,

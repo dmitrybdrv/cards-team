@@ -1,8 +1,8 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import s from './decks.module.scss'
 
-import { Sort, Table, TableColumns, THead } from '@/components'
+import { Table, TableColumns, THead } from '@/components'
 import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { Pagination } from '@/components/ui/pagination'
 import { DecksHeaderFilters } from '@/pages/decks-page/decksHeaderFilters.tsx'
@@ -31,6 +31,8 @@ export const DecksPage: FC<void> = () => {
     },
     isLoadingDecksData,
     switcherValue,
+    sort,
+    setSortMemo,
     onChangeSearchInputMemo,
     onChangeTabSwitcherMemo,
     onChangeSliderMemo,
@@ -42,8 +44,6 @@ export const DecksPage: FC<void> = () => {
 
   if (isLoadingDecksData) return <Preloader className={s.preloader} />
   if (isError) return <h1>Error!</h1>
-  //TODO replace in useGetDecks:
-  const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
 
   return (
     <div className={s.pageWrapper}>
@@ -59,7 +59,8 @@ export const DecksPage: FC<void> = () => {
         getFuncSetting={getFuncForChangeSliderValueMemo}
       />
       <Table variant={'packs'}>
-        <THead columns={decksColumnsTitles} onSort={setSort} sort={sort} />
+        {/*TODO add disabled props for sort*/}
+        <THead columns={decksColumnsTitles} onSort={setSortMemo} currentSort={sort} />
         <DecksTableBody items={items} authorId={authorId} />
       </Table>
       <div className={s.paginationWrapper}>
