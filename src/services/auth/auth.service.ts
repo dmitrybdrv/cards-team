@@ -1,4 +1,10 @@
-import { LoginArgs, LoginResponse, SingUpArgs, SingUpResponse } from './auth.types.ts'
+import {
+  LoginArgs,
+  LoginResponse,
+  RecoverPassword,
+  SingUpArgs,
+  SingUpResponse,
+} from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
 
@@ -51,7 +57,7 @@ export const authService = baseApi.injectEndpoints({
         body,
       }),
     }),
-    recoverPassword: builder.mutation<any, any>({
+    recoverPassword: builder.mutation<any, RecoverPassword>({
       query: body => ({
         url: 'v1/auth/recover-password',
         method: 'POST',

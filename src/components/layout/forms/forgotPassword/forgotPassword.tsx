@@ -8,10 +8,12 @@ import s from '../forms.module.scss'
 import { forgotPasswordSchema } from '@/common/utils'
 import { ForgotPasswordType, FormPropsType } from '@/components'
 import { Button, Card, TextField, Typography } from '@/components/ui'
-import { useVerifyEmailMutation } from '@/services/auth/auth.service.ts'
+import { useRecoverPasswordMutation } from '@/services/auth/auth.service.ts'
 
 export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) => {
+  const [recoverPassword] = useRecoverPasswordMutation()
   const {
+    watch,
     register,
     handleSubmit,
     formState: { errors },
@@ -23,8 +25,17 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
     mode: 'onSubmit',
   })
 
-  const [verifyEmail] = useVerifyEmailMutation()
   const typographyStyle = clsx(s.footnote, s.footnoteExtra)
+
+  const handleSendInstructions = async () => {
+    try {
+      const emailValue = watch('email')
+
+      await recoverPassword({ email: emailValue })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <Card className={s.formWrapper}>
@@ -45,7 +56,7 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
           Enter your email address and we will send you further instructions
         </Typography>
 
-        <Button onClick={verifyEmail} fullWidth={true} className={s.btn}>
+        <Button onClick={handleSendInstructions} fullWidth={true} className={s.btn}>
           <Typography variant={'subtitle2'}>Send instructions</Typography>
         </Button>
 
