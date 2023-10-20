@@ -6,7 +6,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
-import { ForgotPassword } from '@/components'
+import { CheckEmail, ForgotPassword } from '@/components'
 import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
 import { Layout } from '@/components/layout/layout.tsx'
@@ -37,6 +37,10 @@ const publicRoutes: RouteObject[] = [
       {
         path: '/auth/create-password',
         element: <CreateNewPassword onSubmit={() => {}} />,
+      },
+      {
+        path: '/auth/check-email',
+        element: <CheckEmail />,
       },
     ],
   },

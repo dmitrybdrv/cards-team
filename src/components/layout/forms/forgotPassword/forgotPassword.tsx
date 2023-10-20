@@ -56,9 +56,11 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
           Enter your email address and we will send you further instructions
         </Typography>
 
-        <Button onClick={handleSendInstructions} fullWidth={true} className={s.btn}>
-          <Typography variant={'subtitle2'}>Send instructions</Typography>
-        </Button>
+        <Link to={'/auth/check-email'}>
+          <Button onClick={handleSendInstructions} fullWidth={true} className={s.btn}>
+            <Typography variant={'subtitle2'}>Send instructions</Typography>
+          </Button>
+        </Link>
 
         <Typography variant={'body2'} className={s.footnote}>
           Did you remember your password?

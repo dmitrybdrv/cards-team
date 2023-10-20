@@ -1,4 +1,5 @@
 import { clsx } from 'clsx'
+import { Link } from 'react-router-dom'
 
 import { Button, Card, Typography } from '../../../ui'
 import s from '../forms.module.scss'
@@ -20,9 +21,11 @@ export const CheckEmail = () => {
         <Typography variant={'body2'} className={typographyStyle}>
           We have sent an Email with instructions to example@mail.com
         </Typography>
-        <Button fullWidth={true} className={s.btn}>
-          <Typography variant={'subtitle2'}>Back to Sign in</Typography>
-        </Button>
+        <Link to={'/'}>
+          <Button fullWidth={true} className={s.btn}>
+            <Typography variant={'subtitle2'}>Back to Sign in</Typography>
+          </Button>
+        </Link>
       </form>
     </Card>
   )
