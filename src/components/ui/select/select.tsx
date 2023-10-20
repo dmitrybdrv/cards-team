@@ -5,10 +5,11 @@ import { clsx } from 'clsx'
 
 import { ReactComponent as ArrowDown } from '../../../assets/icons/arrowDown.svg'
 import { ReactComponent as ArrowUp } from '../../../assets/icons/arrowUp.svg'
-import { Typography } from '../typography'
 
 import s from './select.module.scss'
 import { Props } from './select.types.ts'
+
+import { Typography } from '@/components'
 
 export const SelectC: FC<Props> = props => {
   const { onValueChange, values, startValue, label, isDisabled = false, className, ...rest } = props

@@ -9,12 +9,14 @@ export const getPortion = (
   let portion = []
 
   for (let i = 1; i <= totalPages; i++) {
+    //create firstPortion
     if (i <= maxCountShowBtn) {
       firstPortion.push(i)
       if (i === maxCountShowBtn) {
         result.push(firstPortion)
       }
     } else {
+      //create portion if i > maxCountShowBtn
       if (portion.length <= minCountShowBtn) {
         portion.push(i)
         if (portion.length === minCountShowBtn) {
@@ -23,7 +25,8 @@ export const getPortion = (
         }
       }
     }
-    if (i + maxCountShowBtn > totalPages) {
+    //create lastPortion
+    if (i + maxCountShowBtn > totalPages && maxCountShowBtn !== totalPages) {
       lastPortion.push(i)
       if (i === totalPages) {
         result.length > 1 ? (result[result.length - 1] = lastPortion) : result.push(lastPortion)

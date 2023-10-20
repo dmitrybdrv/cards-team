@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useLayoutEffect, useState } from 'react'
 
 import * as SliderApp from '@radix-ui/react-slider'
 
@@ -43,6 +43,10 @@ export const Slider = (props: Props) => {
   useEffect(() => {
     setFuncForChangeValue({ setMaxValue, setMinValue })
   }, [])
+
+  useLayoutEffect(() => {
+    setMaxValue(boundaryMaxValue)
+  }, [boundaryMaxValue])
 
   const handlerSliderChange = (number: number[]) => {
     setMinValue(number[0])

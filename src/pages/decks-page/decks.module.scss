@@ -7,6 +7,9 @@
 
 .paginationWrapper {
   margin-top: 20px;
+  div:first-child {
+    margin: 0 auto;
+  }
 }
 
 .titleWrapper {
@@ -34,8 +37,9 @@
   margin-bottom: 5px;
 }
 
-.preloader {
-  position: absolute;
-  top: 30%;
-  left: 40%;
-}
+//.preloader {
+//  position: absolute;
+//  z-index: 10;
+//  top: 30%;
+//  left: 40%;
+//}

@@ -1,17 +1,28 @@
+import { FC, useState } from 'react'
+
 import s from './decks.module.scss'
 
-import { Table, THead } from '@/components'
-import { Preloader } from '@/components/layout/preloader/preloader.tsx'
+import { Skeleton, Table, TableColumns, THead } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
 import { DecksHeaderFilters } from '@/pages/decks-page/decksHeaderFilters.tsx'
 import { DecksTableBody } from '@/pages/decks-page/decksTableBody.tsx'
 import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
+import { DecksOrderName } from '@/services/decks/decks.types.ts'
 
-export const DecksPage = () => {
+const decksColumnsTitles: TableColumns<DecksOrderName> = [
+  { title: 'Name', orderName: 'name' },
+  { title: 'Cards', orderName: 'cardsCount' },
+  { title: 'LastUpdate', orderName: 'updated' },
+  { title: 'Created by' },
+  { title: '' },
+]
+const perPageCountVariant = ['10', '20', '30', '50', '100']
+
+export const DecksPage: FC = () => {
   const {
     isFetching,
     isError,
-    profileData,
+    profileData: { id: authorId },
     decksData: {
       maxCardsCount,
       pagination: { currentPage, itemsPerPage, totalPages },
@@ -19,45 +30,58 @@ export const DecksPage = () => {
     },
     isLoadingDecksData,
     switcherValue,
-    onChangeSearchInput,
-    onChangeTabSwitcher,
-    onChangeSlider,
-    clearFilter,
-    getFuncForChangeSliderValue,
-    setCurrentPage,
-    setItemsPerPage,
+    sort,
+    setSortMemo,
+    onChangeSearchInputMemo,
+    onChangeTabSwitcherMemo,
+    onChangeSliderMemo,
+    clearFilterMemo,
+    getFuncForChangeSliderValueMemo,
+    setCurrentPageMemo,
+    setItemsPerPageMemo,
   } = useGetDecks()
 
-  if (isLoadingDecksData) return <div>Loading...</div>
-  if (isError) return <h1>Error!</h1>
+  // state for object with Dispatch function, which set skeleton height
+  let [skeletonSettings, setSkeletonSettings] = useState<{ setHeight: Function } | null>(null)
 
-  const decksColumnsTitles = ['Name', 'Cards', 'LastUpdate', 'Created by', '']
+  if (isError) return <h1>Error!</h1>
 
   return (
     <div className={s.pageWrapper}>
-      {isFetching && <Preloader className={s.preloader} />}
       <DecksHeaderFilters
         disabled={isFetching}
         switcherValue={switcherValue}
-        onChangeSearchInput={onChangeSearchInput}
-        onChangeTabSwitcher={onChangeTabSwitcher}
+        onChangeSearchInput={onChangeSearchInputMemo}
+        onChangeTabSwitcher={onChangeTabSwitcherMemo}
         maxCardsCount={maxCardsCount}
-        onChangeSlider={onChangeSlider}
-        clearFilter={clearFilter}
-        getFuncSetting={getFuncForChangeSliderValue}
+        onChangeSlider={onChangeSliderMemo}
+        clearFilter={clearFilterMemo}
+        getFuncSetting={getFuncForChangeSliderValueMemo}
       />
       <Table variant={'packs'}>
-        <THead columns={decksColumnsTitles} />
-        <DecksTableBody items={items} authorId={profileData.id} />
+        <THead
+          columns={decksColumnsTitles}
+          onSort={setSortMemo}
+          currentSort={sort}
+          disabled={isFetching}
+        />
+        <DecksTableBody items={items} authorId={authorId} skeletonSettings={skeletonSettings} />
       </Table>
+      <Skeleton
+        transferSkeletonSettings={setSkeletonSettings}
+        isFetching={isFetching}
+        isLoading={isLoadingDecksData}
+      />
       <div className={s.paginationWrapper}>
         <Pagination
-          // TODO add disabled props
+          disabled={isFetching}
+          perPageCountVariant={perPageCountVariant}
           currentPage={currentPage}
           totalPages={totalPages}
           itemsPerPage={itemsPerPage}
-          changePage={setCurrentPage}
-          changeItemsPerPage={setItemsPerPage}
+          changePage={setCurrentPageMemo}
+          changeItemsPerPage={setItemsPerPageMemo}
+          className={s.pagination}
         />
       </div>
     </div>

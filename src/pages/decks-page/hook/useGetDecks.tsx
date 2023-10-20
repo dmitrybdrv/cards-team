@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { debounce } from '@/common/utils/debounce.ts'
+import { Sort } from '@/components'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import { DecksParams, DecksResponse } from '@/services/decks/decks.types.ts'
@@ -19,9 +20,13 @@ export const useGetDecks = () => {
   const [changeSwitcherValues, setChangeSwitcherValues] = useState<ChangeSwitcherValues | null>(
     null
   )
+  const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
+
   // callBacks
-  const getFuncForChangeSliderValue = (funcForChange: ChangeSwitcherValues) =>
+  const getFuncForChangeSliderValue = (funcForChange: ChangeSwitcherValues) => {
     setChangeSwitcherValues(funcForChange)
+  }
+
   const clearFilter = () => {
     setSearchValue('')
     setSwitcherValue('All Cards')
@@ -34,13 +39,17 @@ export const useGetDecks = () => {
     setSearchValue(searchValue)
     setCurrentPage(1)
   }, 1000)
-  const onChangeSlider = (minValue: number, maxValue: number) => {
+  const onChangeSlider = debounce((minValue: number, maxValue: number) => {
     setMinCardsCount(minValue.toString())
     setMaxCardsCount(maxValue.toString())
     setCurrentPage(1)
-  }
+  }, 1000)
   const onChangeTabSwitcher = (value: string) => {
     setSwitcherValue(value)
+    setCurrentPage(1)
+  }
+  const onChangeItemsPerPage = (itemsPerPage: number) => {
+    setItemsPerPage(itemsPerPage)
     setCurrentPage(1)
   }
 
@@ -59,6 +68,8 @@ export const useGetDecks = () => {
 
   if (switcherValue === 'My Cards' && isHasProfileData) queryParams.authorId = profileData.id
 
+  if (sort.direction) queryParams.orderBy = `${sort.orderName}-${sort.direction}`
+
   const { data, isLoading, isSuccess, isError, isFetching } = useGetDecksQuery(queryParams)
   const initialData: DecksResponse = {
     items: [],
@@ -70,6 +81,14 @@ export const useGetDecks = () => {
       totalPages: 0,
     },
   }
+  const onChangeSearchInputMemo = useCallback(onChangeSearchInput, [])
+  const onChangeTabSwitcherMemo = useCallback(onChangeTabSwitcher, [])
+  const onChangeSliderMemo = useCallback(onChangeSlider, [])
+  const clearFilterMemo = useCallback(clearFilter, [changeSwitcherValues, data?.maxCardsCount])
+  const getFuncForChangeSliderValueMemo = useCallback(getFuncForChangeSliderValue, [])
+  const setCurrentPageMemo = useCallback(setCurrentPage, [])
+  const setItemsPerPageMemo = useCallback(onChangeItemsPerPage, [])
+  const setSortMemo = useCallback(setSort, [])
 
   return {
     isFetching,
@@ -79,12 +98,14 @@ export const useGetDecks = () => {
     isLoadingDecksData: isLoading,
     isHasDecksData: isSuccess,
     switcherValue,
-    setItemsPerPage,
-    getFuncForChangeSliderValue,
-    clearFilter,
-    onChangeSearchInput,
-    onChangeSlider,
-    onChangeTabSwitcher,
-    setCurrentPage,
+    sort,
+    setSortMemo,
+    onChangeSearchInputMemo,
+    onChangeTabSwitcherMemo,
+    onChangeSliderMemo,
+    clearFilterMemo,
+    getFuncForChangeSliderValueMemo,
+    setCurrentPageMemo,
+    setItemsPerPageMemo,
   }
 }

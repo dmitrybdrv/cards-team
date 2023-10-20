@@ -1,21 +1,27 @@
 @import '../../../styles/mixin';
 
 .table {
-  table-layout: fixed;
-  width: max-content;
-  border: 1px solid var(--color-dark-500);
-  border-collapse: collapse;
   @include typography(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
+
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  width: max-content;
+
   text-align: left;
+
+  border: 1px solid var(--color-dark-500);
 
   th,
   td {
-    padding: 6px 24px;
-    min-height: 36px;
-    width: min-content;
-    max-height: 60px;
-    overflow-wrap: break-word;
     overflow: hidden;
+
+    width: min-content;
+    min-height: 36px;
+    max-height: 60px;
+    padding: 6px 24px;
+
+    overflow-wrap: break-word;
   }
 
   th {
@@ -40,7 +46,6 @@
     width: 200px;
   }
 }
-
 
 //set width columns for my cards table
 .myCards,
@@ -75,10 +80,10 @@
 }
 
 .tdIcons {
-  text-align: right;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
+  text-align: right;
 
   svg {
     cursor: pointer;
@@ -105,9 +110,9 @@
   width: auto;
 
   .tdCellTitle {
+    overflow: hidden;
     width: auto;
     max-height: 48px;
-    overflow: hidden;
     word-break: break-all;
   }
 
@@ -121,4 +126,53 @@
   width: 120px;
   height: 48px;
   object-fit: cover;
+}
+//Table head
+.sortingColumn {
+  cursor: pointer;
+}
+
+.disabledColumn {
+  cursor: auto;
+  color: var(--color-dark-300);
+}
+
+//skeleton
+.skeleton {
+  position: relative;
+
+  overflow: hidden;
+
+  width: 100%;
+
+  opacity: 0.7;
+  background-color: var(--color-dark-900);
+  border: 1px solid var(--color-dark-500);
+}
+
+.skeletonLine {
+  position: relative;
+  top: -40%;
+  left: -40%;
+  transform: rotate(30deg);
+
+  width: 30%;
+  height: 200%;
+
+  background-color: var(--color-dark-500);
+
+  animation-name: skeleton;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes skeleton {
+  from {
+    left: -40%;
+  }
+
+  to {
+    left: 120%;
+  }
 }
