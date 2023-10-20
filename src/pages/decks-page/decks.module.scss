@@ -7,6 +7,9 @@
 
 .paginationWrapper {
   margin-top: 20px;
+  div:first-child {
+    margin: 0 auto;
+  }
 }
 
 .titleWrapper {

@@ -127,9 +127,14 @@
   height: 48px;
   object-fit: cover;
 }
-
+//Table head
 .sortingColumn {
   cursor: pointer;
+}
+
+.disabledColumn {
+  cursor: auto;
+  color: var(--color-dark-300);
 }
 
 //skeleton

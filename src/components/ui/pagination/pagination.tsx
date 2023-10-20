@@ -18,6 +18,7 @@ type Props = {
   changeItemsPerPage: (items: number) => void
   className?: string
   perPageCountVariant: string[]
+  disabled: boolean
 }
 
 export const Pagination: FC<Props> = memo(
@@ -31,14 +32,15 @@ export const Pagination: FC<Props> = memo(
     itemsPerPage,
     perPageCountVariant,
     className,
+    disabled,
   }) => {
     const portions = getPortion(totalPages, maxCountShowBtn, minCountShowBtn)
     const currentPortion = getCurrentPortion(currentPage, portions)
     //callBacks
-    const clickRightArrowHandler = () => changePage(currentPage + 1)
-    const clickLeftArrowHandler = () => changePage(currentPage - 1)
-    const onChangeSelectHandle = (value: string) => changeItemsPerPage(Number(value))
-    const onClickPageButton = (page: number) => () => changePage(page)
+    const clickRightArrowHandler = () => !disabled && changePage(currentPage + 1)
+    const clickLeftArrowHandler = () => !disabled && changePage(currentPage - 1)
+    const onChangeSelectHandle = (value: string) => !disabled && changeItemsPerPage(Number(value))
+    const onClickPageButton = (page: number) => () => !disabled && changePage(page)
 
     const renderButton = (value: number, buttonStyle: string) => {
       return (
@@ -49,16 +51,25 @@ export const Pagination: FC<Props> = memo(
     }
 
     const renderButtons = portions[currentPortion]?.map(num => {
-      const buttonStyle = clsx(s.pageButton, currentPage === num && s.currentPage)
+      const buttonStyle = clsx(
+        s.pageButton,
+        currentPage === num && s.currentPage,
+        disabled && s.disabledButton
+      )
 
       return renderButton(num, buttonStyle)
     })
 
     // is show first/last button
-    const firstButtonStyle = clsx(s.pageButton, currentPage === 1 && s.currentPage)
+    const firstButtonStyle = clsx(
+      s.pageButton,
+      currentPage === 1 && s.currentPage,
+      disabled && s.disabledButton
+    )
     const renderFirstButton = currentPortion > 0 && renderButton(1, firstButtonStyle)
+    const lastButtonStyle = clsx(s.pageButton, disabled && s.disabledButton)
     const renderLastButton =
-      currentPortion < portions.length - 1 && renderButton(totalPages, s.pageButton)
+      currentPortion < portions.length - 1 && renderButton(totalPages, lastButtonStyle)
 
     //is show dots
     const dots = <div className={s.dots}>...</div>
@@ -97,6 +108,7 @@ export const Pagination: FC<Props> = memo(
         <div className={s.showPerPageWrapper}>
           <Typography variant={'body2'}>Показать</Typography>
           <SelectC
+            isDisabled={disabled}
             values={perPageCountVariant}
             startValue={itemsPerPage.toString()}
             className={s.select}

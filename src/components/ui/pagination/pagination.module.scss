@@ -3,10 +3,10 @@
 .wrapper {
   display: flex;
   align-items: center;
-
   margin: 10px;
   padding-right: 5px;
   padding-left: 5px;
+  width: fit-content;
 }
 
 .arrowWrapper {
@@ -83,6 +83,14 @@
 .currentPage {
   color: var(--color-dark-900);
   background-color: var(--color-light-100);
+
+  &.disabledButton {
+    background-color: var(--color-dark-100);
+  }
+}
+
+.disabledButton {
+  color: var(--color-light-900);
 }
 
 //select

@@ -10,6 +10,7 @@ type Props = ComponentPropsWithoutRef<'thead'> & {
   columns: TableColumns<any>
   onSort: Dispatch<Sort>
   currentSort: Sort
+  disabled: boolean
 }
 
 export type TableColumns<T> = {
@@ -25,20 +26,21 @@ export type Sort = {
 }
 
 export const THead: FC<Omit<Props, 'children'>> = memo(
-  ({ columns, onSort, currentSort, className, ...rest }) => {
+  ({ disabled, columns, onSort, currentSort, className, ...rest }) => {
     const columnsRender = columns.map(({ title, orderName }, i) => {
       const isSortColumn = currentSort.orderName === orderName
       const currentDirection = isSortColumn ? currentSort.direction : null
 
       const onClick = () => {
         orderName &&
+          !disabled &&
           onSort({
             orderName,
             direction: getNewSortDirection(currentDirection),
           })
       }
 
-      const thStyle = clsx(orderName && s.sortingColumn)
+      const thStyle = clsx(orderName && s.sortingColumn, disabled && s.disabledColumn)
 
       return (
         <th key={i} onClick={onClick} className={thStyle}>

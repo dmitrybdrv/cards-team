@@ -59,8 +59,12 @@ export const DecksPage: FC = () => {
         getFuncSetting={getFuncForChangeSliderValueMemo}
       />
       <Table variant={'packs'}>
-        {/*TODO add disabled props for sort*/}
-        <THead columns={decksColumnsTitles} onSort={setSortMemo} currentSort={sort} />
+        <THead
+          columns={decksColumnsTitles}
+          onSort={setSortMemo}
+          currentSort={sort}
+          disabled={isFetching}
+        />
         <DecksTableBody items={items} authorId={authorId} skeletonSettings={skeletonSettings} />
       </Table>
       <Skeleton
@@ -70,13 +74,14 @@ export const DecksPage: FC = () => {
       />
       <div className={s.paginationWrapper}>
         <Pagination
-          // TODO add disabled props
+          disabled={isFetching}
           perPageCountVariant={perPageCountVariant}
           currentPage={currentPage}
           totalPages={totalPages}
           itemsPerPage={itemsPerPage}
           changePage={setCurrentPageMemo}
           changeItemsPerPage={setItemsPerPageMemo}
+          className={s.pagination}
         />
       </div>
     </div>
