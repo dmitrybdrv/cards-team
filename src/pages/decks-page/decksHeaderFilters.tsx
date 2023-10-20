@@ -60,7 +60,7 @@ export const DecksHeaderFilters: FC<Props> = memo(
           />
           <div className={s.tabSwitcherWrapper}>
             <Typography variant={'body2'} className={s.filterLabel}>
-              Show packs cards
+              Show decks cards
             </Typography>
             <TabSwitcher
               disabled={disabled}

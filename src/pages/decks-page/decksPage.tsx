@@ -1,9 +1,8 @@
-import { FC, useRef } from 'react'
+import { FC, useState } from 'react'
 
 import s from './decks.module.scss'
 
-import { Table, TableColumns, THead } from '@/components'
-import { Preloader } from '@/components/layout/preloader/preloader.tsx'
+import { Skeleton, Table, TableColumns, THead } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
 import { DecksHeaderFilters } from '@/pages/decks-page/decksHeaderFilters.tsx'
 import { DecksTableBody } from '@/pages/decks-page/decksTableBody.tsx'
@@ -19,7 +18,7 @@ const decksColumnsTitles: TableColumns<DecksOrderName> = [
 ]
 const perPageCountVariant = ['10', '20', '30', '50', '100']
 
-export const DecksPage: FC<void> = () => {
+export const DecksPage: FC = () => {
   const {
     isFetching,
     isError,
@@ -42,17 +41,13 @@ export const DecksPage: FC<void> = () => {
     setItemsPerPageMemo,
   } = useGetDecks()
 
-  let heightTbody = useRef(0)
-  const setHeightTbody = (newHeightTbody: number | null) =>
-    (heightTbody.current = newHeightTbody ?? 0)
-
-  console.log(heightTbody.current)
+  // state for object with Dispatch function, which set skeleton height
+  let [skeletonSettings, setSkeletonSettings] = useState<{ setHeight: Function } | null>(null)
 
   if (isError) return <h1>Error!</h1>
 
   return (
     <div className={s.pageWrapper}>
-      {isFetching && <Preloader className={s.preloader} />}
       <DecksHeaderFilters
         disabled={isFetching}
         switcherValue={switcherValue}
@@ -63,16 +58,16 @@ export const DecksPage: FC<void> = () => {
         clearFilter={clearFilterMemo}
         getFuncSetting={getFuncForChangeSliderValueMemo}
       />
-      {/*TODO create skeleton component*/}
-      <div
-        className={s.skeleton}
-        style={{ height: heightTbody.current, marginBottom: -heightTbody.current }}
-      ></div>
       <Table variant={'packs'}>
         {/*TODO add disabled props for sort*/}
         <THead columns={decksColumnsTitles} onSort={setSortMemo} currentSort={sort} />
-        <DecksTableBody items={items} authorId={authorId} setLastHeight={setHeightTbody} />
+        <DecksTableBody items={items} authorId={authorId} skeletonSettings={skeletonSettings} />
       </Table>
+      <Skeleton
+        transferSkeletonSettings={setSkeletonSettings}
+        isFetching={isFetching}
+        isLoading={isLoadingDecksData}
+      />
       <div className={s.paginationWrapper}>
         <Pagination
           // TODO add disabled props

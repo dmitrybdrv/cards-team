@@ -48,6 +48,10 @@ export const useGetDecks = () => {
     setSwitcherValue(value)
     setCurrentPage(1)
   }
+  const onChangeItemsPerPage = (itemsPerPage: number) => {
+    setItemsPerPage(itemsPerPage)
+    setCurrentPage(1)
+  }
 
   // get me data
   const { data: profileData, isSuccess: isHasProfileData } = useGetMeQuery()
@@ -83,7 +87,7 @@ export const useGetDecks = () => {
   const clearFilterMemo = useCallback(clearFilter, [changeSwitcherValues, data?.maxCardsCount])
   const getFuncForChangeSliderValueMemo = useCallback(getFuncForChangeSliderValue, [])
   const setCurrentPageMemo = useCallback(setCurrentPage, [])
-  const setItemsPerPageMemo = useCallback(setItemsPerPage, [])
+  const setItemsPerPageMemo = useCallback(onChangeItemsPerPage, [])
   const setSortMemo = useCallback(setSort, [])
 
   return {
