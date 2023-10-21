@@ -14,6 +14,7 @@ type Props = {
   clearFilter: () => void
   getFuncSetting: (arg: ChangeSwitcherValues) => void
   disabled: boolean
+  onClickAddDeck: () => void
 }
 export const DecksHeaderFilters: FC<Props> = memo(
   ({
@@ -25,6 +26,7 @@ export const DecksHeaderFilters: FC<Props> = memo(
     clearFilter,
     getFuncSetting,
     disabled,
+    onClickAddDeck,
   }) => {
     const [searchInputValue, setSearchInputValue] = useState('')
     const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +48,7 @@ export const DecksHeaderFilters: FC<Props> = memo(
       <div className={s.headerWrapper}>
         <div className={s.titleWrapper}>
           <Typography variant={'large'}>Decks list</Typography>
-          <Button variant={'primary'} disabled={disabled}>
+          <Button variant={'primary'} disabled={disabled} onClick={onClickAddDeck}>
             <Typography variant={'subtitle2'}>Add New Deck</Typography>
           </Button>
         </div>

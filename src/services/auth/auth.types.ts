@@ -35,3 +35,9 @@ export type SingUpArgs = {
   subject?: string
   sendConfirmationEmail?: boolean
 }
+
+export type CreateDeckArgs = {
+  name: string
+  isPrivate?: boolean
+  cover?: BinaryData
+}

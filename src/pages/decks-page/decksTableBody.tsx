@@ -1,16 +1,15 @@
-import { ComponentProps, FC, memo } from 'react'
+import { ComponentProps, FC, memo, useEffect, useRef } from 'react'
 
 import { TdCell, TdIcons, TRow } from '@/components'
-import { useSetSkeletonHeight } from '@/components/ui/tables/hook/useSetSkeletonHeight.ts'
 import { DecksResponseItems } from '@/services/decks/decks.types.ts'
 
 type Props = {
   items: DecksResponseItems[]
   authorId: string
-  skeletonSettings?: { setHeight: Function } | null
+  setHeight: (value: number) => void
 } & ComponentProps<'tbody'>
 
-export const DecksTableBody: FC<Props> = memo(({ skeletonSettings, items, authorId }) => {
+export const DecksTableBody: FC<Props> = memo(({ setHeight, items, authorId }) => {
   const mappedRow = items.map(item => {
     const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
       dateStyle: 'short',
@@ -34,7 +33,11 @@ export const DecksTableBody: FC<Props> = memo(({ skeletonSettings, items, author
     )
   })
 
-  const tbodyRef = useSetSkeletonHeight(skeletonSettings)
+  const tbodyRef = useRef<null | HTMLTableSectionElement>(null)
+
+  useEffect(() => {
+    setHeight(tbodyRef.current?.offsetHeight ?? 0)
+  })
 
   return <tbody ref={tbodyRef}>{mappedRow}</tbody>
 })
