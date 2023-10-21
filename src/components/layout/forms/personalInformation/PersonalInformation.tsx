@@ -9,15 +9,14 @@ import { ShowInfo } from './ShowInfo.tsx'
 
 import { EditNameFormType } from '@/components'
 import { Card, Typography } from '@/components/ui'
-import { useGetMeQuery, useUpdateProfileMutation } from '@/services/auth/auth.service.ts'
+import {
+  useGetMeQuery,
+  useLogoutMutation,
+  useUpdateProfileMutation,
+} from '@/services/auth/auth.service.ts'
 
-type Props = {
-  updatePhoto: (file64: string) => void
-  updateUserName: (userName: string) => void
-  logout: () => void
-}
-
-export const PersonalInformation = ({ updatePhoto, updateUserName, logout }: Props) => {
+export const PersonalInformation = () => {
+  const [logout] = useLogoutMutation()
   const { data } = useGetMeQuery()
   const [updateProfile] = useUpdateProfileMutation()
 
@@ -27,25 +26,30 @@ export const PersonalInformation = ({ updatePhoto, updateUserName, logout }: Pro
   const userName = data.name ? data.name : 'UserName'
   const userEmail = data.email ? data.email : 'user@mail.com'
 
-  // const logoutCallBack = () => logout()
+  const logoutCallBack = () => logout
 
   const editNameIconHandler = () => setIsShowMode(false)
 
   const updatePhotoCallBack = (file: File) => {
-    const reader = new FileReader()
+    //const reader = new FileReader()
 
-    reader.onloadend = () => {
-      const file64 = reader.result as string
+    const formData = new FormData()
 
-      //dispatch thunk updatePhoto
-      updatePhoto(file64)
-    }
-    reader.readAsDataURL(file)
+    formData.append('avatar', file)
+
+    updateProfile(formData)
+
+    /*reader.onloadend = () => {
+                              /!*const file64 = reader.result as string*!/
+                             /!*dispatch thunk updatePhoto*!/
+                            }*/
+    /*reader.readAsDataURL(file)*/
   }
 
   const updateUserNameCallBack = (data: EditNameFormType) => {
     //dispatch thunk updateUserName
-    updateUserName(data.name)
+    //updateUserName(data.name)
+    updateProfile(data)
     setIsShowMode(true)
   }
 
@@ -64,7 +68,7 @@ export const PersonalInformation = ({ updatePhoto, updateUserName, logout }: Pro
           userEmail={userEmail}
           userName={userName}
           editNameIconHandler={editNameIconHandler}
-          logoutHandler={logout}
+          logoutHandler={logoutCallBack}
         />
       ) : (
         <EditNameForm defaultNameValue={userName} submitHandler={updateUserNameCallBack} />

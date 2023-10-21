@@ -4,7 +4,6 @@ import {
   ProfileResponse,
   SingUpArgs,
   SingUpResponse,
-  UpdateRequest,
 } from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
@@ -37,6 +36,7 @@ export const authService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Me'],
     }),
+    //TODO типизировать ANY
     logout: builder.mutation<any, any>({
       query: () => ({
         url: 'v1/auth/logout',
@@ -51,12 +51,14 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
-    updateProfile: builder.mutation<ProfileResponse, UpdateRequest>({
+    //TODO типизировать ANY
+    updateProfile: builder.mutation<ProfileResponse, any>({
       query: data => ({
         url: 'v1/auth/me',
-        method: 'POST',
+        method: 'PATCH',
         body: data,
       }),
+      invalidatesTags: ['Me'],
     }),
   }),
 })

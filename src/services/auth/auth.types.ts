@@ -35,5 +35,3 @@ export type SingUpArgs = {
   subject?: string
   sendConfirmationEmail?: boolean
 }
-
-export type UpdateRequest = Pick<SingUpResponse, 'avatar' | 'name' | 'email'>
