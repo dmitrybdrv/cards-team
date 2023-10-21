@@ -25,6 +25,8 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
     mode: 'onSubmit',
   })
 
+  // export const emailValue1 = watch('email')
+
   const typographyStyle = clsx(s.footnote, s.footnoteExtra)
 
   const handleSendInstructions = async () => {

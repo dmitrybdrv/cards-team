@@ -41,3 +41,12 @@ export type RecoverPassword = {
   email: string
   subject?: string
 }
+
+export type VerifyEmail = {
+  code?: string
+}
+
+export type ResendVerifyEmail = {
+  html?: string
+  userId?: string
+}

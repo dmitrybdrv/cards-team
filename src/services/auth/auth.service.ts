@@ -2,8 +2,10 @@ import {
   LoginArgs,
   LoginResponse,
   RecoverPassword,
+  ResendVerifyEmail,
   SingUpArgs,
   SingUpResponse,
+  VerifyEmail,
 } from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
@@ -50,16 +52,23 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
-    verifyEmail: builder.mutation<any, any>({
+    verifyEmail: builder.mutation<void, VerifyEmail>({
       query: body => ({
         url: 'v1/auth/verify-email',
         method: 'POST',
         body,
       }),
     }),
-    recoverPassword: builder.mutation<any, RecoverPassword>({
+    recoverPassword: builder.mutation<void, RecoverPassword>({
       query: body => ({
         url: 'v1/auth/recover-password',
+        method: 'POST',
+        body,
+      }),
+    }),
+    resendVerifyEmail: builder.mutation<void, ResendVerifyEmail>({
+      query: body => ({
+        url: 'v1/auth/resend-verification-email',
         method: 'POST',
         body,
       }),
@@ -68,6 +77,7 @@ export const authService = baseApi.injectEndpoints({
 })
 
 export const {
+  useResendVerifyEmailMutation,
   useRecoverPasswordMutation,
   useVerifyEmailMutation,
   useLoginMutation,
