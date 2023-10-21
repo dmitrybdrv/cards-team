@@ -5,9 +5,11 @@ import { Button, Card, Typography } from '../../../ui'
 import s from '../forms.module.scss'
 
 import { ReactComponent as EmailIcon } from '@/assets/icons/emailIcon.svg'
+import { useAppSelector } from '@/hooks/hooks.ts'
 
 export const CheckEmail = () => {
   const typographyStyle = clsx(s.footnote, s.footnoteTextCenter)
+  const emailValue = useAppSelector(state => state.emailValue.value)
 
   return (
     <Card className={s.formWrapper}>
@@ -19,7 +21,7 @@ export const CheckEmail = () => {
           <EmailIcon />
         </div>
         <Typography variant={'body2'} className={typographyStyle}>
-          We have sent an Email with instructions to example@mail.com
+          {`We have sent an Email with instructions to ${emailValue}`}
         </Typography>
         <Link to={'/'}>
           <Button fullWidth={true} className={s.btn}>
