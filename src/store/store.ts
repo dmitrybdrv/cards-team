@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import { baseApi } from '@/services/base-api.ts'
-import emailSlice from '@/store/email.slice.ts'
+import { emailSlice } from '@/store/email.slice.ts'
 
 export const store = configureStore({
   reducer: {

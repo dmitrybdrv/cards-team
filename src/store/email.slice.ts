@@ -7,7 +7,7 @@ const initialState: EmailState = {
   value: '',
 }
 
-const emailSlice = createSlice({
+export const emailSlice = createSlice({
   name: 'emailValue',
   initialState,
   reducers: {
@@ -18,4 +18,3 @@ const emailSlice = createSlice({
 })
 
 export const { setEmail } = emailSlice.actions
-export default emailSlice.reducer
