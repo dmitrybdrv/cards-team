@@ -1,4 +1,13 @@
-import { LoginArgs, LoginResponse, SingUpArgs, SingUpResponse } from './auth.types.ts'
+import {
+  LoginArgs,
+  LoginResponse,
+  RecoverPassword,
+  ResendVerifyEmail,
+  ResetPassword,
+  SingUpArgs,
+  SingUpResponse,
+  VerifyEmail,
+} from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
 
@@ -44,7 +53,44 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
+    verifyEmail: builder.mutation<void, VerifyEmail>({
+      query: body => ({
+        url: 'v1/auth/verify-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    recoverPassword: builder.mutation<void, RecoverPassword>({
+      query: body => ({
+        url: 'v1/auth/recover-password',
+        method: 'POST',
+        body,
+      }),
+    }),
+    resendVerifyEmail: builder.mutation<void, ResendVerifyEmail>({
+      query: body => ({
+        url: 'v1/auth/resend-verification-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    resetPassword: builder.mutation<void, ResetPassword>({
+      query: body => ({
+        url: `v1/auth/reset-password/${body.token}`,
+        method: 'POST',
+        body: { password: body.password },
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation, useSignUpMutation, useGetMeQuery, useLogoutMutation } = authService
+export const {
+  useResetPasswordMutation,
+  useResendVerifyEmailMutation,
+  useRecoverPasswordMutation,
+  useVerifyEmailMutation,
+  useLoginMutation,
+  useSignUpMutation,
+  useGetMeQuery,
+  useLogoutMutation,
+} = authService

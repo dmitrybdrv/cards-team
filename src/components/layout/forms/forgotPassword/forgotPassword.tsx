@@ -8,9 +8,15 @@ import s from '../forms.module.scss'
 import { forgotPasswordSchema } from '@/common/utils'
 import { ForgotPasswordType, FormPropsType } from '@/components'
 import { Button, Card, TextField, Typography } from '@/components/ui'
+import { useAppDispatch } from '@/hooks/hooks.ts'
+import { useRecoverPasswordMutation } from '@/services/auth/auth.service.ts'
+import { emailSlice } from '@/store/email.slice.ts'
 
 export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) => {
+  const dispatch = useAppDispatch()
+  const [recoverPassword] = useRecoverPasswordMutation()
   const {
+    watch,
     register,
     handleSubmit,
     formState: { errors },
@@ -22,7 +28,23 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
     mode: 'onSubmit',
   })
 
+  // export const emailValue1 = watch('email')
+
   const typographyStyle = clsx(s.footnote, s.footnoteExtra)
+
+  const handleSendPasswordRecoveryInstructions = async () => {
+    try {
+      const emailValue = watch('email')
+
+      dispatch(emailSlice.actions.setEmail(emailValue))
+      await recoverPassword({
+        email: emailValue,
+        html: '<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/auth/create-password/##token##">here</a> to recover your password</p>',
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <Card className={s.formWrapper}>
@@ -43,16 +65,22 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
           Enter your email address and we will send you further instructions
         </Typography>
 
-        <Button fullWidth={true} className={s.btn}>
-          <Typography variant={'subtitle2'}>Send instructions</Typography>
-        </Button>
+        <Link to={'/auth/check-email'}>
+          <Button
+            onClick={handleSendPasswordRecoveryInstructions}
+            fullWidth={true}
+            className={s.btn}
+          >
+            <Typography variant={'subtitle2'}>Send instructions</Typography>
+          </Button>
+        </Link>
 
         <Typography variant={'body2'} className={s.footnote}>
           Did you remember your password?
         </Typography>
 
         <Typography variant={'link1'} href={'#'}>
-          <Link className={s.linkWrapper} to={'/login'}>
+          <Link className={s.linkWrapper} to={'/auth/login'}>
             Try logging in
           </Link>
         </Typography>
