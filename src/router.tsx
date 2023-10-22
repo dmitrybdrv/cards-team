@@ -35,7 +35,7 @@ const publicRoutes: RouteObject[] = [
         element: <ForgotPassword onSubmit={() => {}} />,
       },
       {
-        path: '/auth/create-password',
+        path: '/auth/create-password/:token',
         element: <CreateNewPassword onSubmit={() => {}} />,
       },
       {

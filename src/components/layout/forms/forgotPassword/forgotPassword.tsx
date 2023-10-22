@@ -32,12 +32,15 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
 
   const typographyStyle = clsx(s.footnote, s.footnoteExtra)
 
-  const handleSendInstructions = async () => {
+  const handleSendPasswordRecoveryInstructions = async () => {
     try {
       const emailValue = watch('email')
 
       dispatch(emailSlice.actions.setEmail(emailValue))
-      await recoverPassword({ email: emailValue })
+      await recoverPassword({
+        email: emailValue,
+        html: '<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/auth/create-password/##token##">here</a> to recover your password</p>',
+      })
     } catch (e) {
       console.log(e)
     }
@@ -63,7 +66,11 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
         </Typography>
 
         <Link to={'/auth/check-email'}>
-          <Button onClick={handleSendInstructions} fullWidth={true} className={s.btn}>
+          <Button
+            onClick={handleSendPasswordRecoveryInstructions}
+            fullWidth={true}
+            className={s.btn}
+          >
             <Typography variant={'subtitle2'}>Send instructions</Typography>
           </Button>
         </Link>

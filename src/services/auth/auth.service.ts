@@ -3,6 +3,7 @@ import {
   LoginResponse,
   RecoverPassword,
   ResendVerifyEmail,
+  ResetPassword,
   SingUpArgs,
   SingUpResponse,
   VerifyEmail,
@@ -73,10 +74,18 @@ export const authService = baseApi.injectEndpoints({
         body,
       }),
     }),
+    resetPassword: builder.mutation<void, ResetPassword>({
+      query: body => ({
+        url: `v1/auth/reset-password/${body.token}`,
+        method: 'POST',
+        body: { password: body.password },
+      }),
+    }),
   }),
 })
 
 export const {
+  useResetPasswordMutation,
   useResendVerifyEmailMutation,
   useRecoverPasswordMutation,
   useVerifyEmailMutation,

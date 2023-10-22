@@ -50,3 +50,7 @@ export type ResendVerifyEmail = {
   html?: string
   userId?: string
 }
+export type ResetPassword = {
+  password: string
+  token: string | undefined | null
+}
