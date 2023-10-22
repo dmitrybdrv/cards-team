@@ -7,7 +7,7 @@ export type LoginResponse = {
   accessToken: string
 }
 
-export type ProfileResponse = {
+export type MeResponse = {
   avatar: string
   id: string
   email: string
@@ -36,8 +36,21 @@ export type SingUpArgs = {
   sendConfirmationEmail?: boolean
 }
 
-export type CreateDeckArgs = {
-  name: string
-  isPrivate?: boolean
-  cover?: BinaryData
+export type RecoverPassword = {
+  html?: string
+  email: string
+  subject?: string
+}
+
+export type VerifyEmail = {
+  code?: string
+}
+
+export type ResendVerifyEmail = {
+  html?: string
+  userId?: string
+}
+export type ResetPassword = {
+  password: string
+  token: string | undefined | null
 }

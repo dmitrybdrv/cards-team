@@ -55,7 +55,7 @@ export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
         />
 
         <Typography variant={'body2'} className={s.forgotPasswordWrapper}>
-          <Link className={clsx(s.linkWrapper, s.forgotPasswordLink)} to={'/reset-password'}>
+          <Link className={clsx(s.linkWrapper, s.forgotPasswordLink)} to={'/auth/reset-password'}>
             Forgot Password?
           </Link>
         </Typography>
