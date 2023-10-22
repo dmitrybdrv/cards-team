@@ -1,23 +1,15 @@
-import { FC, useCallback, useState } from 'react'
-
-import { useForm } from 'react-hook-form'
+import { FC } from 'react'
 
 import s from './decks.module.scss'
 
-import { Button, Skeleton, Table, TableColumns, TextField, THead } from '@/components'
-import { Modal } from '@/components/layout/forms'
-import { ModalButton } from '@/components/layout/forms/modal/modalButton.tsx'
-import { ModalClose } from '@/components/layout/forms/modal/modalClose.tsx'
-import { ModalContent } from '@/components/layout/forms/modal/modalContent.tsx'
-import { ModalField } from '@/components/layout/forms/modal/modalField.tsx'
-import { ModalTitle } from '@/components/layout/forms/modal/modalTitle.tsx'
-import { ControlledCheckbox } from '@/components/ui/checkbox/ControlledCheckbox.tsx'
+import { Skeleton, Table, TableColumns, THead } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
+import { DecksCUDModals } from '@/pages/decks-page/decksCUDModals.tsx'
 import { DecksHeaderFilters } from '@/pages/decks-page/decksHeaderFilters.tsx'
 import { DecksTableBody } from '@/pages/decks-page/decksTableBody.tsx'
+import { useDeckModalState } from '@/pages/decks-page/hook/useDeckModalState.ts'
 import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
-import { CreateDeckArgs } from '@/services/auth/auth.types.ts'
 import { DecksOrderName } from '@/services/decks/decks.types.ts'
 
 const decksColumnsTitles: TableColumns<DecksOrderName> = [
@@ -28,6 +20,7 @@ const decksColumnsTitles: TableColumns<DecksOrderName> = [
   { title: '' },
 ]
 const perPageCountVariant = ['10', '20', '30', '50', '100']
+const initialSkeletonHeight = 374
 
 export const DecksPage: FC = () => {
   const {
@@ -52,52 +45,27 @@ export const DecksPage: FC = () => {
     setItemsPerPageMemo,
   } = useGetDecks()
 
-  let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(374)
-
-  const [isOpenModal, setIsOpenModal] = useState(false)
-  const onClickAddDeck = useCallback(() => setIsOpenModal(true), [])
+  let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
   const {
-    // formState: { errors },
-    register,
-    handleSubmit,
-    control,
-  } = useForm<CreateDeckArgs>()
+    isOpenModal,
+    setIsOpenModal,
+    modalVariant,
+    currentDeckData,
+    onClickAddDeck,
+    onClickEditOrDeleteDeck,
+  } = useDeckModalState()
 
   if (isError) return <h1>Error!</h1>
 
   return (
     <div className={s.pageWrapper}>
-      <Modal isOpen={isOpenModal} onOpenChange={setIsOpenModal}>
-        <ModalContent>
-          <ModalTitle>Add New Deck</ModalTitle>
-          <ModalClose>X</ModalClose>
-          <ModalField>
-            <form onSubmit={handleSubmit(data => console.log(data))}>
-              <TextField
-                autoFocus
-                {...register('name')}
-                label={'Name Deck'}
-                placeholder={'Name'}
-              ></TextField>
-              <ControlledCheckbox
-                control={control}
-                defaultValue={true}
-                label={'Private deck'}
-                name={'isPrivate'}
-              />
-              <ModalButton>
-                <Button variant={'secondary'} onClick={() => setIsOpenModal(false)} type={'button'}>
-                  Close
-                </Button>
-                <Button variant={'primary'} type={'submit'}>
-                  Add New Deck
-                </Button>
-              </ModalButton>
-            </form>
-          </ModalField>
-        </ModalContent>
-      </Modal>
+      <DecksCUDModals
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+        variant={modalVariant}
+        currentDeckData={currentDeckData}
+      />
       <DecksHeaderFilters
         disabled={isFetching}
         switcherValue={switcherValue}
@@ -116,7 +84,12 @@ export const DecksPage: FC = () => {
           currentSort={sort}
           disabled={isFetching}
         />
-        <DecksTableBody items={items} authorId={authorId} setHeight={setSkeletonHeight} />
+        <DecksTableBody
+          items={items}
+          authorId={authorId}
+          onChangeHeight={setSkeletonHeight}
+          onClickEditOrDeleteIcons={onClickEditOrDeleteDeck}
+        />
       </Table>
       <Skeleton
         isFetching={isFetching}

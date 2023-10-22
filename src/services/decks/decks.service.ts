@@ -1,5 +1,10 @@
 import { baseApi } from '@/services/base-api.ts'
-import { DecksParams, DecksResponse, DecksResponseItems } from '@/services/decks/decks.types.ts'
+import {
+  CreateDeckArgs,
+  DecksParams,
+  DecksResponse,
+  DecksResponseItems,
+} from '@/services/decks/decks.types.ts'
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -11,11 +16,11 @@ export const decksService = baseApi.injectEndpoints({
       }),
       providesTags: ['Decks'],
     }),
-    createDeck: builder.mutation<any, { name: string }>({
-      query: ({ name }) => ({
+    createDeck: builder.mutation<any, CreateDeckArgs>({
+      query: body => ({
         url: 'v1/decks',
         method: 'POST',
-        body: { name },
+        body,
       }),
       // async onQueryStarted(_, { dispatch, queryFulfilled }) {
       //   try {
@@ -42,11 +47,11 @@ export const decksService = baseApi.injectEndpoints({
       //    * dispatch(api.util.invalidateTags(['Post']))
       //    */
       // },
-      // invalidatesTags: ['Decks'],
+      invalidatesTags: ['Decks'],
     }),
     deleteDecks: builder.mutation<DecksResponseItems, { id: string }>({
       query: data => ({
-        url: `v1/decks${data.id}`,
+        url: `v1/decks/${data.id}`,
         method: 'DELETE',
       }),
       // async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
@@ -62,7 +67,7 @@ export const decksService = baseApi.injectEndpoints({
       //     patchResult.undo()
       //   }
       // },
-      // invalidatesTags: ['Decks'],
+      invalidatesTags: ['Decks'],
     }),
   }),
 })
