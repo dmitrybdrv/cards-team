@@ -41,7 +41,8 @@ export type UpdateProfile = {
   avatar?: string | Blob
   name?: string
   email?: string
-  
+}
+
 export type RecoverPassword = {
   html?: string
   email: string

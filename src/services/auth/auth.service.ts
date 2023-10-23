@@ -1,15 +1,12 @@
 import {
   LoginArgs,
   LoginResponse,
-  ProfileResponse,
-  SingUpArgs,
-  SingUpResponse,
-  UpdateProfile,
   RecoverPassword,
   ResendVerifyEmail,
   ResetPassword,
   SingUpArgs,
   SingUpResponse,
+  UpdateProfile,
   VerifyEmail,
 } from './auth.types.ts'
 
@@ -57,13 +54,14 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
-    updateProfile: builder.mutation<ProfileResponse, UpdateProfile>({
+    updateProfile: builder.mutation<any, UpdateProfile>({
       query: data => ({
         url: 'v1/auth/me',
         method: 'PATCH',
         body: data,
       }),
       invalidatesTags: ['Me'],
+    }),
     verifyEmail: builder.mutation<void, VerifyEmail>({
       query: body => ({
         url: 'v1/auth/verify-email',
