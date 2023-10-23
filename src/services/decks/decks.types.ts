@@ -38,7 +38,7 @@ export type DecksParams = {
   orderBy?: string
   currentPage?: number
   itemsPerPage?: number
-} | void
+}
 
 export type CreateDeckArgs = {
   name: string
