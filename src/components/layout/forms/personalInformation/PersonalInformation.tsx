@@ -7,13 +7,13 @@ import s from './personalInformation.module.scss'
 import { PersonalPhoto } from './PersonalPhoto.tsx'
 import { ShowInfo } from './ShowInfo.tsx'
 
-import { EditNameFormType } from '@/components'
 import { Card, Typography } from '@/components/ui'
 import {
   useGetMeQuery,
   useLogoutMutation,
   useUpdateProfileMutation,
 } from '@/services/auth/auth.service.ts'
+import { UpdateProfile } from '@/services/auth/auth.types.ts'
 
 export const PersonalInformation = () => {
   const [logout] = useLogoutMutation()
@@ -21,34 +21,19 @@ export const PersonalInformation = () => {
   const [updateProfile] = useUpdateProfileMutation()
 
   const [isShowMode, setIsShowMode] = useState(true)
-  //mock value
-  const photoUrl = data.avatar ? data.avatar : ''
-  const userName = data.name ? data.name : 'UserName'
-  const userEmail = data.email ? data.email : 'user@mail.com'
 
-  const logoutCallBack = () => logout
+  const logoutCallBack = () => logout()
 
   const editNameIconHandler = () => setIsShowMode(false)
 
-  const updatePhotoCallBack = (file: File) => {
-    //const reader = new FileReader()
-
+  const updatePhotoCallBack = (data: File) => {
     const formData = new FormData()
 
-    formData.append('avatar', file)
-
-    updateProfile(formData)
-
-    /*reader.onloadend = () => {
-                              /!*const file64 = reader.result as string*!/
-                             /!*dispatch thunk updatePhoto*!/
-                            }*/
-    /*reader.readAsDataURL(file)*/
+    formData.append('avatar', data)
+    updateProfile(formData as UpdateProfile)
   }
 
-  const updateUserNameCallBack = (data: EditNameFormType) => {
-    //dispatch thunk updateUserName
-    //updateUserName(data.name)
+  const updateUserNameCallBack = (data: UpdateProfile) => {
     updateProfile(data)
     setIsShowMode(true)
   }
@@ -60,18 +45,18 @@ export const PersonalInformation = () => {
       </Typography>
       <PersonalPhoto
         isShowMode={isShowMode}
-        photoSrc={photoUrl}
+        photoSrc={data.avatar}
         updatePhoto={updatePhotoCallBack}
       />
       {isShowMode ? (
         <ShowInfo
-          userEmail={userEmail}
-          userName={userName}
+          userEmail={data.email}
+          userName={data.name}
           editNameIconHandler={editNameIconHandler}
           logoutHandler={logoutCallBack}
         />
       ) : (
-        <EditNameForm defaultNameValue={userName} submitHandler={updateUserNameCallBack} />
+        <EditNameForm defaultNameValue={data.name} submitHandler={updateUserNameCallBack} />
       )}
     </Card>
   )

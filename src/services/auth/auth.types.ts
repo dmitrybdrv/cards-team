@@ -3,6 +3,7 @@ export type LoginArgs = {
   password: string
   rememberMe?: boolean
 }
+
 export type LoginResponse = {
   accessToken: string
 }
@@ -34,4 +35,10 @@ export type SingUpArgs = {
   email: string
   subject?: string
   sendConfirmationEmail?: boolean
+}
+
+export type UpdateProfile = {
+  avatar?: string | Blob
+  name?: string
+  email?: string
 }

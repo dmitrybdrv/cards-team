@@ -20,12 +20,12 @@ export const ShowInfo = ({ userEmail, userName, editNameIconHandler, logoutHandl
     <>
       <div className={s.userNameBox}>
         <Typography variant={'h1'} className={s.userName}>
-          {userName}
+          {userName ? userName : 'user name'}
         </Typography>
         <EditPen className={s.editUserNameIcon} onClick={editNameIconHandler} />
       </div>
       <Typography variant={'body2'} className={s.userMail}>
-        {userEmail}
+        {userEmail ? userEmail : 'user@mail.com'}
       </Typography>
       <Button
         className={s.logoutBtn}
