@@ -6,12 +6,14 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
-import { ForgotPassword } from '@/components'
+import { CheckEmail, ForgotPassword } from '@/components'
 import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
 import { Layout } from '@/components/layout/layout.tsx'
 import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { DecksPage } from '@/pages/decks-page'
+import { FriendsPack } from '@/pages/friends-pack/friends-pack.tsx'
+import { MyPack } from '@/pages/my-pack/my-pack.tsx'
 import { ProfilePage } from '@/pages/profile-page'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up-page/sign-up-page.tsx'
@@ -35,8 +37,12 @@ const publicRoutes: RouteObject[] = [
         element: <ForgotPassword onSubmit={() => {}} />,
       },
       {
-        path: '/auth/create-password',
+        path: '/auth/create-password/:token',
         element: <CreateNewPassword onSubmit={() => {}} />,
+      },
+      {
+        path: '/auth/check-email',
+        element: <CheckEmail />,
       },
     ],
   },
@@ -51,12 +57,21 @@ const privateRoutes: RouteObject[] = [
         element: <DecksPage />,
       },
       {
-        path: '/packs-list',
-        element: <>packs list</>,
+        path: '/deck/:deckId',
+        element: <>Cards table must be here</>,
       },
       {
         path: '/profile-page',
         element: <ProfilePage />,
+      },
+      {
+        path: '/friends-pack',
+        // eslint-disable-next-line react/jsx-no-undef
+        element: <FriendsPack />,
+      },
+      {
+        path: '/my-pack',
+        element: <MyPack />,
       },
     ],
   },

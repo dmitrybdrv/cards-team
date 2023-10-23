@@ -34,3 +34,8 @@ export const createNewPasswordSchema = z.object({
 export const updateNameSchema = z.object({
   name: z.string(),
 })
+
+export const createDeckSchema = z.object({
+  name: z.string().min(3).max(30),
+  isPrivate: z.boolean(),
+})

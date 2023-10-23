@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC } from 'react'
+import { ComponentPropsWithoutRef, FC, memo } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -8,7 +8,7 @@ type Props = {
   variant: 'packs' | 'cards' | 'myCards'
 } & ComponentPropsWithoutRef<'table'>
 
-export const Table: FC<Props> = ({ variant, children, className, ...rest }) => {
+export const Table: FC<Props> = memo(({ variant, children, className, ...rest }) => {
   const tableStyle = clsx(s.table, className, s[variant])
 
   return (
@@ -16,4 +16,4 @@ export const Table: FC<Props> = ({ variant, children, className, ...rest }) => {
       {children}
     </table>
   )
-}
+})

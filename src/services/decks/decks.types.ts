@@ -28,6 +28,8 @@ export type DecksResponseItems = {
   cardsCount: number
   author: DecksResponseItemsAuthor
 }
+export type DecksOrderName = 'updated' | 'created' | 'name' | 'cardsCount' | 'question' | 'answer'
+
 export type DecksParams = {
   minCardsCount?: string
   maxCardsCount?: string
@@ -37,3 +39,9 @@ export type DecksParams = {
   currentPage?: number
   itemsPerPage?: number
 } | void
+
+export type CreateDeckArgs = {
+  name: string
+  isPrivate?: boolean
+  cover?: BinaryData
+}

@@ -5,6 +5,12 @@ import {
   SingUpArgs,
   SingUpResponse,
   UpdateProfile,
+  RecoverPassword,
+  ResendVerifyEmail,
+  ResetPassword,
+  SingUpArgs,
+  SingUpResponse,
+  VerifyEmail,
 } from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
@@ -51,7 +57,6 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
-    //TODO типизировать ANY
     updateProfile: builder.mutation<ProfileResponse, UpdateProfile>({
       query: data => ({
         url: 'v1/auth/me',
@@ -59,11 +64,42 @@ export const authService = baseApi.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ['Me'],
+    verifyEmail: builder.mutation<void, VerifyEmail>({
+      query: body => ({
+        url: 'v1/auth/verify-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    recoverPassword: builder.mutation<void, RecoverPassword>({
+      query: body => ({
+        url: 'v1/auth/recover-password',
+        method: 'POST',
+        body,
+      }),
+    }),
+    resendVerifyEmail: builder.mutation<void, ResendVerifyEmail>({
+      query: body => ({
+        url: 'v1/auth/resend-verification-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    resetPassword: builder.mutation<void, ResetPassword>({
+      query: body => ({
+        url: `v1/auth/reset-password/${body.token}`,
+        method: 'POST',
+        body: { password: body.password },
+      }),
     }),
   }),
 })
 
 export const {
+  useResetPasswordMutation,
+  useResendVerifyEmailMutation,
+  useRecoverPasswordMutation,
+  useVerifyEmailMutation,
   useLoginMutation,
   useSignUpMutation,
   useGetMeQuery,

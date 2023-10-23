@@ -11,7 +11,7 @@ type Props = {
   onClickEditOrDeleteIcons: (id: string, name: string, variant: ModalVariant) => void
 } & ComponentProps<'tbody'>
 
-export const DecksTableBody: FC<Props> = memo(
+export const MyPackTableBody: FC<Props> = memo(
   ({ onClickEditOrDeleteIcons, onChangeHeight, items, authorId }) => {
     const mappedRow = items.map(item => {
       const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
