@@ -1,4 +1,14 @@
-import { LoginArgs, LoginResponse, SingUpArgs, SingUpResponse } from './auth.types.ts'
+import {
+  LoginArgs,
+  LoginResponse,
+  RecoverPassword,
+  ResendVerifyEmail,
+  ResetPassword,
+  SingUpArgs,
+  SingUpResponse,
+  UpdateProfile,
+  VerifyEmail,
+} from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
 
@@ -30,7 +40,7 @@ export const authService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Me'],
     }),
-    logout: builder.mutation<any, any>({
+    logout: builder.mutation<void, void>({
       query: () => ({
         url: 'v1/auth/logout',
         method: 'POST',
@@ -44,7 +54,53 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
+    updateProfile: builder.mutation<any, UpdateProfile>({
+      query: data => ({
+        url: 'v1/auth/me',
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Me'],
+    }),
+    verifyEmail: builder.mutation<void, VerifyEmail>({
+      query: body => ({
+        url: 'v1/auth/verify-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    recoverPassword: builder.mutation<void, RecoverPassword>({
+      query: body => ({
+        url: 'v1/auth/recover-password',
+        method: 'POST',
+        body,
+      }),
+    }),
+    resendVerifyEmail: builder.mutation<void, ResendVerifyEmail>({
+      query: body => ({
+        url: 'v1/auth/resend-verification-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    resetPassword: builder.mutation<void, ResetPassword>({
+      query: body => ({
+        url: `v1/auth/reset-password/${body.token}`,
+        method: 'POST',
+        body: { password: body.password },
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation, useSignUpMutation, useGetMeQuery, useLogoutMutation } = authService
+export const {
+  useResetPasswordMutation,
+  useResendVerifyEmailMutation,
+  useRecoverPasswordMutation,
+  useVerifyEmailMutation,
+  useLoginMutation,
+  useSignUpMutation,
+  useGetMeQuery,
+  useLogoutMutation,
+  useUpdateProfileMutation,
+} = authService

@@ -3,11 +3,12 @@ export type LoginArgs = {
   password: string
   rememberMe?: boolean
 }
+
 export type LoginResponse = {
   accessToken: string
 }
 
-export type ProfileResponse = {
+export type MeResponse = {
   avatar: string
   id: string
   email: string
@@ -34,4 +35,30 @@ export type SingUpArgs = {
   email: string
   subject?: string
   sendConfirmationEmail?: boolean
+}
+
+export type UpdateProfile = {
+  avatar?: string | Blob
+  name?: string
+  email?: string
+}
+
+export type RecoverPassword = {
+  html?: string
+  email: string
+  subject?: string
+}
+
+export type VerifyEmail = {
+  code?: string
+}
+
+export type ResendVerifyEmail = {
+  html?: string
+  userId?: string
+}
+
+export type ResetPassword = {
+  password: string
+  token: string | undefined | null
 }
