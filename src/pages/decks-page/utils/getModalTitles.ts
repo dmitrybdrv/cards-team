@@ -1,4 +1,4 @@
-import { ModalVariant } from '@/pages/decks-page'
+import { ModalVariant } from '@/pages/decks-page/hook/useDeckModalState.ts'
 
 export const getModalTitles = (
   modalVariant: ModalVariant

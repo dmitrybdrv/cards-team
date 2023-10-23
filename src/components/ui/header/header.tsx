@@ -16,7 +16,9 @@ export const Header = ({}) => {
 
   return (
     <header className={s.headerContainer}>
-      <Logo className={s.headerLogo} />
+      <Link to={'/'}>
+        <Logo className={s.headerLogo} />
+      </Link>
       <div className={s.headerAvatar}>
         {data?.name ? (
           <Dropdown data={data} className={s.captionLink}>
