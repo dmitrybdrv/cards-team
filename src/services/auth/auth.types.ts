@@ -3,6 +3,7 @@ export type LoginArgs = {
   password: string
   rememberMe?: boolean
 }
+
 export type LoginResponse = {
   accessToken: string
 }
@@ -36,6 +37,11 @@ export type SingUpArgs = {
   sendConfirmationEmail?: boolean
 }
 
+export type UpdateProfile = {
+  avatar?: string | Blob
+  name?: string
+  email?: string
+  
 export type RecoverPassword = {
   html?: string
   email: string
@@ -50,6 +56,7 @@ export type ResendVerifyEmail = {
   html?: string
   userId?: string
 }
+
 export type ResetPassword = {
   password: string
   token: string | undefined | null
