@@ -13,13 +13,9 @@ import { ModalField } from '@/components/layout/forms/modal/modalField.tsx'
 import { ModalTitle } from '@/components/layout/forms/modal/modalTitle.tsx'
 import { ControlledCheckbox } from '@/components/ui/checkbox/ControlledCheckbox.tsx'
 import s from '@/pages/decks-page/decks.module.scss'
+import { useCUDDecks } from '@/pages/decks-page/hook/useCUDDecks.ts'
 import { CurrentDeckData, ModalVariant } from '@/pages/decks-page/hook/useDeckModalState.ts'
 import { getModalTitles } from '@/pages/decks-page/utils/getModalTitles.ts'
-import {
-  useCreateDeckMutation,
-  useDeleteDecksMutation,
-  useUpdateDecksMutation,
-} from '@/services/decks/decks.service.ts'
 import { CreateDeckArgs } from '@/services/decks/decks.types.ts'
 
 export type ModalsProps = {
@@ -28,8 +24,11 @@ export type ModalsProps = {
   variant: ModalVariant
   currentDeckData: CurrentDeckData
 }
+
 export const DecksCUDModals: FC<ModalsProps> = memo(
   ({ isOpenModal, setIsOpenModal, variant, currentDeckData }) => {
+    const { createDeck, updateHandler, deleteHandler, isSuccess, isLoading, error } =
+      useCUDDecks(currentDeckData)
     const currentInputValue =
       variant === 'updateDeck' && currentDeckData.name ? currentDeckData.name : ''
 
@@ -48,18 +47,8 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
       },
       resolver: zodResolver(createDeckSchema),
     })
-    //TODO commit (updateEndPoint, validation), create custom hook, apply optimistic update
-    const [createDeck, { isSuccess: isSuccessCreate, isLoading: isLoadingCreate }] =
-      useCreateDeckMutation()
-    const [deleteDeck, { isSuccess: isSuccessDelete, isLoading: isLoadingDelete }] =
-      useDeleteDecksMutation()
-    const [updateDeck, { isSuccess: isSuccessUpdate, isLoading: isLoadingUpdate }] =
-      useUpdateDecksMutation()
-    const isSuccess = isSuccessCreate || isSuccessDelete || isSuccessUpdate
-    const isLoading = isLoadingCreate || isLoadingDelete || isLoadingUpdate
-    const deleteHandler = () => currentDeckData.id && deleteDeck({ id: currentDeckData.id })
-    const updateHandler = (data: CreateDeckArgs) =>
-      currentDeckData.id && updateDeck({ id: currentDeckData.id, ...data })
+    //TODO apply optimistic update
+
     const onSubmit = variant === 'createDeck' ? createDeck : updateHandler
 
     useEffect(() => {
