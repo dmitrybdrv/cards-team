@@ -1,28 +1,16 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 import s from './table.module.scss'
 
 type SkeletonProps = {
   isLoading: boolean
   isFetching: boolean
-  transferSkeletonSettings: (setHeight: { setHeight: Function }) => void
+  currentHeight: number
 }
-export const Skeleton: FC<SkeletonProps> = ({
-  isLoading,
-  isFetching,
-  transferSkeletonSettings,
-}) => {
-  const initialTbodyHeight = 374
-
-  let [height, setHeight] = useState(initialTbodyHeight)
-
-  useEffect(() => {
-    transferSkeletonSettings({ setHeight })
-  }, [])
-
+export const Skeleton: FC<SkeletonProps> = ({ isLoading, isFetching, currentHeight }) => {
   const skeletonStyle = {
-    height,
-    marginTop: isLoading ? 0 : -height,
+    height: currentHeight + 1,
+    marginTop: isLoading ? 0 : -currentHeight - 1,
   }
 
   return isFetching ? (

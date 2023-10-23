@@ -39,3 +39,9 @@ export type DecksParams = {
   currentPage?: number
   itemsPerPage?: number
 } | void
+
+export type CreateDeckArgs = {
+  name: string
+  isPrivate?: boolean
+  cover?: BinaryData
+}

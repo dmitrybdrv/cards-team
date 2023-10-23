@@ -55,8 +55,8 @@ const privateRoutes: RouteObject[] = [
         element: <DecksPage />,
       },
       {
-        path: '/packs-list',
-        element: <>packs list</>,
+        path: '/deck/:deckId',
+        element: <>Cards table must be here</>,
       },
       {
         path: '/profile-page',
