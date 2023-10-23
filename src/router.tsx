@@ -12,6 +12,8 @@ import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
 import { Layout } from '@/components/layout/layout.tsx'
 import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { DecksPage } from '@/pages/decks-page'
+import { FriendsPack } from '@/pages/friends-pack/friends-pack.tsx'
+import { MyPack } from '@/pages/my-pack/my-pack.tsx'
 import { ProfilePage } from '@/pages/profile-page'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up-page/sign-up-page.tsx'
@@ -55,12 +57,21 @@ const privateRoutes: RouteObject[] = [
         element: <DecksPage />,
       },
       {
-        path: '/packs-list',
-        element: <>packs list</>,
+        path: '/deck/:deckId',
+        element: <>Cards table must be here</>,
       },
       {
         path: '/profile-page',
         element: <ProfilePage />,
+      },
+      {
+        path: '/friends-pack',
+        // eslint-disable-next-line react/jsx-no-undef
+        element: <FriendsPack />,
+      },
+      {
+        path: '/my-pack',
+        element: <MyPack />,
       },
     ],
   },
@@ -87,7 +98,7 @@ export const Router = () => {
 
   if (isMeLoading)
     return (
-      <div style={{ position: 'fixed', left: '40%', top: '30%' }}>
+      <div style={{ position: 'fixed', left: '50%', top: '50%' }}>
         <Preloader />
       </div>
     )

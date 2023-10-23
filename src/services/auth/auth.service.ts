@@ -6,6 +6,7 @@ import {
   ResetPassword,
   SingUpArgs,
   SingUpResponse,
+  UpdateProfile,
   VerifyEmail,
 } from './auth.types.ts'
 
@@ -39,7 +40,7 @@ export const authService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Me'],
     }),
-    logout: builder.mutation<any, any>({
+    logout: builder.mutation<void, void>({
       query: () => ({
         url: 'v1/auth/logout',
         method: 'POST',
@@ -52,6 +53,14 @@ export const authService = baseApi.injectEndpoints({
         method: 'POST',
         body: params,
       }),
+    }),
+    updateProfile: builder.mutation<any, UpdateProfile>({
+      query: data => ({
+        url: 'v1/auth/me',
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Me'],
     }),
     verifyEmail: builder.mutation<void, VerifyEmail>({
       query: body => ({
@@ -93,4 +102,5 @@ export const {
   useSignUpMutation,
   useGetMeQuery,
   useLogoutMutation,
+  useUpdateProfileMutation,
 } = authService

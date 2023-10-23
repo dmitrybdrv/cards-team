@@ -7,6 +7,7 @@
 
 .paginationWrapper {
   margin-top: 20px;
+
   div:first-child {
     margin: 0 auto;
   }
@@ -26,7 +27,7 @@
 }
 
 .searchInput {
-  width: 300px;
+  width: 100%;
 }
 
 .slider {
@@ -35,11 +36,6 @@
 
 .filterLabel {
   margin-bottom: 5px;
-}
-
-//modals
-.nameInput {
-  margin-bottom: 24px;
 }
 
 .checkboxIsPrivate {
@@ -51,10 +47,3 @@
   display: block;
   margin-bottom: 28px;
 }
-
-//.preloader {
-//  position: absolute;
-//  z-index: 10;
-//  top: 30%;
-//  left: 40%;
-//}

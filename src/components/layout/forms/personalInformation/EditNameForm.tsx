@@ -1,11 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-import { EditNameFormType } from '../forms.types.ts'
-
 import s from './personalInformation.module.scss'
 
 import { updateNameSchema } from '@/common/utils'
+import { EditNameFormType } from '@/components'
 import { TextField, Button, Typography } from '@/components/ui'
 
 type Props = {
