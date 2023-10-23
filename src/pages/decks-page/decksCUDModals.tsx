@@ -27,7 +27,7 @@ export type ModalsProps = {
 
 export const DecksCUDModals: FC<ModalsProps> = memo(
   ({ isOpenModal, setIsOpenModal, variant, currentDeckData }) => {
-    const { createDeck, updateHandler, deleteHandler, isSuccess, isLoading, error } =
+    const { createDeck, updateHandler, deleteHandler, isSuccess, isLoading } =
       useCUDDecks(currentDeckData)
     const currentInputValue =
       variant === 'updateDeck' && currentDeckData.name ? currentDeckData.name : ''
