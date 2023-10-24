@@ -1,5 +1,4 @@
 import { baseApi } from '@/services/base-api.ts'
-import { decksSlice } from '@/services/decks/decks.slice.ts'
 import {
   CreateDeckArgs,
   DecksParams,
@@ -15,14 +14,6 @@ export const decksService = baseApi.injectEndpoints({
         method: 'GET',
         params: params ?? {},
       }),
-      onQueryStarted: async (params, { dispatch, queryFulfilled }) => {
-        try {
-          await queryFulfilled
-          dispatch(decksSlice.actions.updateDecksParams(params))
-        } catch (e) {
-          console.log(e)
-        }
-      },
       providesTags: ['Decks'],
     }),
     createDeck: builder.mutation<any, CreateDeckArgs>({

@@ -1,10 +1,8 @@
-import { ChangeEvent, useEffect, useLayoutEffect, useState } from 'react'
+import { ChangeEvent, useLayoutEffect, useState } from 'react'
 
 import * as SliderApp from '@radix-ui/react-slider'
 
 import s from './slider.module.scss'
-
-import { ChangeSwitcherValues } from '@/pages/decks-page/hook/useGetDecks.tsx'
 
 type Props = {
   defaultMinValue?: number
@@ -14,8 +12,9 @@ type Props = {
   boundaryMaxValue?: number
   onChange?: (minValue: number, maxValue: number) => void
   width?: number
-  setFuncForChangeValue: (arg: ChangeSwitcherValues) => void
+  // setFuncForChangeValue: (arg: ChangeSwitcherValues) => void
   disabled?: boolean
+  isResetSlider?: boolean
 }
 export const Slider = (props: Props) => {
   let {
@@ -27,7 +26,7 @@ export const Slider = (props: Props) => {
     defaultMaxValue = boundaryMaxValue,
     width = 200,
     onChange,
-    setFuncForChangeValue,
+    isResetSlider,
   } = props
 
   //checking default values for range values
@@ -40,9 +39,16 @@ export const Slider = (props: Props) => {
   const [minValue, setMinValue] = useState(defaultMinValue)
   const [maxValue, setMaxValue] = useState(defaultMaxValue)
 
-  useEffect(() => {
-    setFuncForChangeValue({ setMaxValue, setMinValue })
-  }, [])
+  const resetSlider = () => {
+    setMinValue(0)
+    setMaxValue(boundaryMaxValue)
+  }
+
+  useLayoutEffect(() => {
+    if (isResetSlider) {
+      resetSlider()
+    }
+  }, [isResetSlider])
 
   useLayoutEffect(() => {
     setMaxValue(boundaryMaxValue)
