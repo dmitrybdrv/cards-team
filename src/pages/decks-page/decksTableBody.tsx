@@ -1,5 +1,9 @@
 import { ComponentProps, FC, memo, useEffect, useRef } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
+import s from './decks.module.scss'
+
 import { TdCell, TdIcons, TRow } from '@/components'
 import { ModalVariant } from '@/pages/decks-page/hook/useDeckModalState.ts'
 import { DecksResponseItems } from '@/services/decks/decks.types.ts'
@@ -13,6 +17,7 @@ type Props = {
 
 export const DecksTableBody: FC<Props> = memo(
   ({ onClickEditOrDeleteIcons, onChangeHeight, items, authorId }) => {
+    const navigate = useNavigate()
     const mappedRow = items.map(item => {
       const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
         dateStyle: 'short',
@@ -26,7 +31,7 @@ export const DecksTableBody: FC<Props> = memo(
       const onDelete = isAuthor ? deleteDeckHandler : null
 
       return (
-        <TRow key={item.id}>
+        <TRow className={s.tRow} key={item.id} onClick={() => navigate(`/deck/${item.id}`)}>
           <TdCell img={item.cover ?? null}>{item.name}</TdCell>
           <TdCell>{item.cardsCount}</TdCell>
           <TdCell>{updateData}</TdCell>

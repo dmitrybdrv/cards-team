@@ -1,15 +1,14 @@
 import { ChangeEvent, FC, memo, useState } from 'react'
 
-import s from '../friends-pack/friends-pack.module.scss'
+import s from './deck.module.scss'
 
 import { Button, TextField, Typography } from '@/components'
 
 type Props = {
   onChangeSearchInput: (searchValue: string) => void
-  maxCardsCount: number
   disabled: boolean
 }
-export const FriendsPackHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled }) => {
+export const DeckHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled }) => {
   const [searchInputValue, setSearchInputValue] = useState('')
   const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     //for UI

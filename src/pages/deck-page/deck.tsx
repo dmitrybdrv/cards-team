@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom'
 
 import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outline.svg'
 
-import s from './friends-pack.module.scss'
+import s from './deck.module.scss'
 
 import { Skeleton, Table, TableColumns, THead, Typography } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
-import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
+import { DeckHeaders } from '@/pages/deck-page/deck-headers.tsx'
+import { DeckTableBody } from '@/pages/deck-page/deck-table-body.tsx'
+import { friendsOrderName } from '@/pages/deck-page/deck.types.ts'
+import { useGetDeck } from '@/pages/deck-page/useGetDeck.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
-import { FriendsPackHeaders } from '@/pages/friends-pack/friends-pack-headers.tsx'
-import { FriendsPackTableBody } from '@/pages/friends-pack/friends-pack-table-body.tsx'
-import { friendsOrderName } from '@/pages/friends-pack/friends.types.ts'
 
 const friendsColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Question', orderName: 'question' },
@@ -24,13 +24,11 @@ const friendsColumnsTitles: TableColumns<friendsOrderName> = [
 const perPageCountVariant = ['10', '20', '30', '50', '100']
 const initialSkeletonHeight = 374
 
-export const FriendsPack: FC = () => {
+export const Deck: FC = () => {
   const {
     isFetching,
     isError,
-    profileData: { id: authorId },
-    decksData: {
-      maxCardsCount,
+    deckData: {
       pagination: { currentPage, itemsPerPage, totalPages },
       items,
     },
@@ -40,7 +38,7 @@ export const FriendsPack: FC = () => {
     onChangeSearchInputMemo,
     setCurrentPageMemo,
     setItemsPerPageMemo,
-  } = useGetDecks()
+  } = useGetDeck()
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
@@ -54,11 +52,7 @@ export const FriendsPack: FC = () => {
           <Typography variant={'body2'}>Back to Packs List</Typography>
         </div>
       </Link>
-      <FriendsPackHeaders
-        disabled={isFetching}
-        onChangeSearchInput={onChangeSearchInputMemo}
-        maxCardsCount={maxCardsCount}
-      />
+      <DeckHeaders disabled={isFetching} onChangeSearchInput={onChangeSearchInputMemo} />
       <Table variant={'cards'}>
         <THead
           columns={friendsColumnsTitles}
@@ -66,11 +60,7 @@ export const FriendsPack: FC = () => {
           currentSort={sort}
           disabled={isFetching}
         />
-        <FriendsPackTableBody
-          items={items}
-          authorId={authorId}
-          onChangeHeight={setSkeletonHeight}
-        />
+        <DeckTableBody items={items} onChangeHeight={setSkeletonHeight} />
       </Table>
       <Skeleton
         isFetching={isFetching}
