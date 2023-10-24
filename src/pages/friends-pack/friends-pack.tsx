@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outline.svg'
 
 import s from './friends-pack.module.scss'
@@ -56,10 +58,12 @@ export const FriendsPack: FC = () => {
 
   return (
     <div className={s.pageWrapper}>
-      <div className={s.linkArrowContainer}>
-        <ArrowBack />
-        <Typography variant={'body2'}>Back to Packs List</Typography>
-      </div>
+      <Link style={{ textDecoration: 'none' }} to={'/'}>
+        <div className={s.linkArrowContainer}>
+          <ArrowBack />
+          <Typography variant={'body2'}>Back to Packs List</Typography>
+        </div>
+      </Link>
       <DecksCUDModals
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
