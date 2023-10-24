@@ -14,13 +14,14 @@ import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
 import { FriendsPackHeaders } from '@/pages/friends-pack/friends-pack-headers.tsx'
 import { FriendsPackTableBody } from '@/pages/friends-pack/friends-pack-table-body.tsx'
-import { DecksOrderName } from '@/services/decks/decks.types.ts'
+import { friendsOrderName } from '@/pages/friends-pack/friends.types.ts'
 
-const decksColumnsTitles: TableColumns<DecksOrderName> = [
+const friendsColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Question', orderName: 'question' },
   { title: 'Answer', orderName: 'answer' },
   { title: 'LastUpdate', orderName: 'updated' },
   { title: 'Grade' },
+  // { title: '' },
 ]
 const perPageCountVariant = ['10', '20', '30', '50', '100']
 const initialSkeletonHeight = 374
@@ -78,7 +79,7 @@ export const FriendsPack: FC = () => {
       />
       <Table variant={'cards'}>
         <THead
-          columns={decksColumnsTitles}
+          columns={friendsColumnsTitles}
           onSort={setSortMemo}
           currentSort={sort}
           disabled={isFetching}
