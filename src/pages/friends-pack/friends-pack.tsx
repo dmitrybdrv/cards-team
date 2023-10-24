@@ -66,7 +66,7 @@ export const FriendsPack: FC = () => {
         maxCardsCount={maxCardsCount}
         onClickAddDeck={onClickAddDeck}
       />
-      <Table variant={'packs'}>
+      <Table variant={'myCards'}>
         <THead
           columns={decksColumnsTitles}
           onSort={setSortMemo}

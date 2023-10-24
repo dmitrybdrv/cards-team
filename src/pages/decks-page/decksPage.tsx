@@ -33,11 +33,11 @@ export const DecksPage: FC = () => {
       items,
     },
     isLoadingDecksData,
-    switcherValue,
+    // switcherValue,
     sort,
     setSortMemo,
-    onChangeSearchInputMemo,
-    onChangeTabSwitcherMemo,
+    // onChangeSearchInputMemo,
+    // onChangeTabSwitcherMemo,
     onChangeSliderMemo,
     clearFilterMemo,
     getFuncForChangeSliderValueMemo,
@@ -68,9 +68,9 @@ export const DecksPage: FC = () => {
       />
       <DecksHeaderFilters
         disabled={isFetching}
-        switcherValue={switcherValue}
-        onChangeSearchInput={onChangeSearchInputMemo}
-        onChangeTabSwitcher={onChangeTabSwitcherMemo}
+        // switcherValue={switcherValue}
+        // onChangeSearchInput={onChangeSearchInputMemo}
+        // onChangeTabSwitcher={onChangeTabSwitcherMemo}
         maxCardsCount={maxCardsCount}
         onChangeSlider={onChangeSliderMemo}
         clearFilter={clearFilterMemo}

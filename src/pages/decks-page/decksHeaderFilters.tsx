@@ -1,14 +1,18 @@
-import { ChangeEvent, FC, memo, useState } from 'react'
+import { ChangeEvent, FC, memo, useCallback, useState } from 'react'
 
 import deleteIcon from '@/assets/icons/trashIcon.svg'
+import { debounce } from '@/common/utils/debounce.ts'
 import { Button, Slider, TabSwitcher, TextField, Typography } from '@/components'
+import { useAppDispatch } from '@/hooks/hooks.ts'
 import s from '@/pages/decks-page/decks.module.scss'
 import { ChangeSwitcherValues } from '@/pages/decks-page/hook/useGetDecks.tsx'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { changeAuthorId, changeSearchName, resetState } from '@/services/decks/decks.slice.ts'
 
 type Props = {
-  switcherValue: string
-  onChangeSearchInput: (searchValue: string) => void
-  onChangeTabSwitcher: (value: string) => void
+  // switcherValue: string
+  // onChangeSearchInput: (searchValue: string) => void
+  // onChangeTabSwitcher: (value: string) => void
   onChangeSlider: (minValue: number, maxValue: number) => void
   maxCardsCount: number
   clearFilter: () => void
@@ -18,26 +22,46 @@ type Props = {
 }
 export const DecksHeaderFilters: FC<Props> = memo(
   ({
-    onChangeSearchInput,
-    onChangeTabSwitcher,
+    // onChangeSearchInput,
+    // onChangeTabSwitcher,
     maxCardsCount,
     onChangeSlider,
-    switcherValue,
+    // switcherValue,
     clearFilter,
     getFuncSetting,
     disabled,
     onClickAddDeck,
   }) => {
+    const dispatch = useAppDispatch()
+    const { data: profileData } = useGetMeQuery()
+
+    //----------input----------
+    const setSearchNameForFetch = useCallback(
+      debounce((searchValue: string) => dispatch(changeSearchName(searchValue)), 1000),
+      []
+    )
     const [searchInputValue, setSearchInputValue] = useState('')
     const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
       //for UI
       setSearchInputValue(e.currentTarget.value)
-      //for fetch
-      onChangeSearchInput(e.currentTarget.value)
+      //for fetch with debounce
+      setSearchNameForFetch(e.currentTarget.value)
     }
+
+    //---------switcher-------------
+    const [switcherValue, setSwitcherValue] = useState('All Cards')
+    const onChangeTabSwitcher = (value: string) => {
+      //for UI
+      setSwitcherValue(value)
+      //for fetch
+      dispatch(changeAuthorId(value === 'My Cards' ? profileData.id : null))
+    }
+
+    //-------clear filter button------
     const onClickClearFilter = () => {
       clearFilter()
       setSearchInputValue('')
+      dispatch(resetState())
     }
 
     const iconForBtn = (
