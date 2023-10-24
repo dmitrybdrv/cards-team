@@ -8,8 +8,6 @@ import s from './friends-pack.module.scss'
 
 import { Skeleton, Table, TableColumns, THead, Typography } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
-import { DecksCUDModals } from '@/pages/decks-page/decksCUDModals.tsx'
-import { useDeckModalState } from '@/pages/decks-page/hook/useDeckModalState.ts'
 import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
 import { FriendsPackHeaders } from '@/pages/friends-pack/friends-pack-headers.tsx'
@@ -46,15 +44,6 @@ export const FriendsPack: FC = () => {
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
-  const {
-    isOpenModal,
-    setIsOpenModal,
-    modalVariant,
-    currentDeckData,
-    onClickAddDeck,
-    onClickEditOrDeleteDeck,
-  } = useDeckModalState()
-
   if (isError) return <h1>Error!</h1>
 
   return (
@@ -65,17 +54,10 @@ export const FriendsPack: FC = () => {
           <Typography variant={'body2'}>Back to Packs List</Typography>
         </div>
       </Link>
-      <DecksCUDModals
-        isOpenModal={isOpenModal}
-        setIsOpenModal={setIsOpenModal}
-        variant={modalVariant}
-        currentDeckData={currentDeckData}
-      />
       <FriendsPackHeaders
         disabled={isFetching}
         onChangeSearchInput={onChangeSearchInputMemo}
         maxCardsCount={maxCardsCount}
-        onClickAddDeck={onClickAddDeck}
       />
       <Table variant={'cards'}>
         <THead
@@ -88,7 +70,6 @@ export const FriendsPack: FC = () => {
           items={items}
           authorId={authorId}
           onChangeHeight={setSkeletonHeight}
-          onClickEditOrDeleteIcons={onClickEditOrDeleteDeck}
         />
       </Table>
       <Skeleton

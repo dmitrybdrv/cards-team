@@ -8,7 +8,6 @@ type Props = {
   onChangeSearchInput: (searchValue: string) => void
   maxCardsCount: number
   disabled: boolean
-  onClickAddDeck: () => void
 }
 export const FriendsPackHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled }) => {
   const [searchInputValue, setSearchInputValue] = useState('')
