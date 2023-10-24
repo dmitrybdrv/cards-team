@@ -1,8 +1,10 @@
 import { FC } from 'react'
 
+import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outline.svg'
+
 import s from './friends-pack.module.scss'
 
-import { Skeleton, Table, TableColumns, THead } from '@/components'
+import { Skeleton, Table, TableColumns, THead, Typography } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
 import { DecksCUDModals } from '@/pages/decks-page/decksCUDModals.tsx'
 import { useDeckModalState } from '@/pages/decks-page/hook/useDeckModalState.ts'
@@ -54,6 +56,10 @@ export const FriendsPack: FC = () => {
 
   return (
     <div className={s.pageWrapper}>
+      <div className={s.linkArrowContainer}>
+        <ArrowBack />
+        <Typography variant={'body2'}>Back to Packs List</Typography>
+      </div>
       <DecksCUDModals
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
