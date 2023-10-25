@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom'
 
 import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outline.svg'
 
-import s from './deck.module.scss'
+import s from './cards.module.scss'
 
 import { Skeleton, Table, TableColumns, THead, Typography } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
-import { DeckHeaders } from '@/pages/deck-page/deck-headers.tsx'
-import { DeckTableBody } from '@/pages/deck-page/deck-table-body.tsx'
-import { friendsOrderName } from '@/pages/deck-page/deck.types.ts'
-import { useGetDeck } from '@/pages/deck-page/useGetDeck.tsx'
+import { CardsHeaders } from '@/pages/cards-page/cards-headers.tsx'
+import { CardsTableBody } from '@/pages/cards-page/cards-table-body.tsx'
+import { friendsOrderName } from '@/pages/cards-page/cards.types.ts'
+import { useGetCards } from '@/pages/cards-page/useGetCards.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
 
 const friendsColumnsTitles: TableColumns<friendsOrderName> = [
@@ -24,7 +24,7 @@ const friendsColumnsTitles: TableColumns<friendsOrderName> = [
 const perPageCountVariant = ['10', '20', '30', '50', '100']
 const initialSkeletonHeight = 374
 
-export const Deck: FC = () => {
+export const Cards: FC = () => {
   const {
     isFetching,
     isError,
@@ -38,7 +38,7 @@ export const Deck: FC = () => {
     onChangeSearchInputMemo,
     setCurrentPageMemo,
     setItemsPerPageMemo,
-  } = useGetDeck()
+  } = useGetCards()
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
@@ -52,7 +52,7 @@ export const Deck: FC = () => {
           <Typography variant={'body2'}>Back to Packs List</Typography>
         </div>
       </Link>
-      <DeckHeaders disabled={isFetching} onChangeSearchInput={onChangeSearchInputMemo} />
+      <CardsHeaders disabled={isFetching} onChangeSearchInput={onChangeSearchInputMemo} />
       <Table variant={'cards'}>
         <THead
           columns={friendsColumnsTitles}
@@ -60,7 +60,7 @@ export const Deck: FC = () => {
           currentSort={sort}
           disabled={isFetching}
         />
-        <DeckTableBody items={items} onChangeHeight={setSkeletonHeight} />
+        <CardsTableBody items={items} onChangeHeight={setSkeletonHeight} />
       </Table>
       <Skeleton
         isFetching={isFetching}

@@ -1,5 +1,3 @@
-import { Params } from 'react-router-dom'
-
 export type DeckResponse = {
   items: DeckResponseItems[]
   pagination: DeckResponsePagination
@@ -17,7 +15,7 @@ export type DeckResponseItems = {
   questionVideo?: any
   comments?: any
   type?: any
-  rating: number
+  grade: number
   moreId?: any
   created: string
   updated: string

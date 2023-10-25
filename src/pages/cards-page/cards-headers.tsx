@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, memo, useState } from 'react'
 
-import s from './deck.module.scss'
+import s from './cards.module.scss'
 
 import { Button, TextField, Typography } from '@/components'
 
@@ -8,7 +8,7 @@ type Props = {
   onChangeSearchInput: (searchValue: string) => void
   disabled: boolean
 }
-export const DeckHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled }) => {
+export const CardsHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled }) => {
   const [searchInputValue, setSearchInputValue] = useState('')
   const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     //for UI

@@ -4,15 +4,11 @@ import { useParams } from 'react-router-dom'
 
 import { debounce } from '@/common/utils/debounce.ts'
 import { Sort } from '@/components'
-import { useGetDeckQuery } from '@/services/deck/deck.service.ts'
+import { useGetCardsQuery } from '@/services/deck/deck.service.ts'
 import { DeckParams } from '@/services/deck/deck.types.ts'
 import { DecksResponse } from '@/services/decks/decks.types.ts'
 
-export type ChangeSwitcherValues = {
-  setMinValue: Function
-  setMaxValue: Function
-}
-export const useGetDeck = () => {
+export const useGetCards = () => {
   const { deckId } = useParams()
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
@@ -32,12 +28,14 @@ export const useGetDeck = () => {
   // prepare params for decks query
   const queryParams: DeckParams = {
     id: deckId,
-    name: searchValue,
+    question: searchValue,
+    currentPage,
+    itemsPerPage,
   }
 
   // if (sort.direction) queryParams.orderBy = `${sort.orderName}-${sort.direction}`
 
-  const { data, isLoading, isSuccess, isError, isFetching } = useGetDeckQuery(queryParams)
+  const { data, isLoading, isSuccess, isError, isFetching } = useGetCardsQuery(queryParams)
 
   const initialData: DecksResponse = {
     items: [],

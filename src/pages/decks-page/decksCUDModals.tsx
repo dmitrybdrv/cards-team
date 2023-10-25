@@ -65,7 +65,7 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
         <TextField
           autoFocus
           {...register('name')}
-          label={'Name Deck'}
+          label={'Name Cards'}
           placeholder={'Name'}
           className={s.nameInput}
           error={errors.name}

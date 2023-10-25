@@ -3,13 +3,14 @@ import { DeckParams, DeckResponse } from '@/services/deck/deck.types.ts'
 
 export const deckService = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getDeck: builder.query<DeckResponse, DeckParams>({
-      query: params => ({
-        url: `v1/decks/${params.id}/cards`,
-        method: 'GET',
-      }),
+    getCards: builder.query<DeckResponse, DeckParams>({
+      query: params => {
+        const { id, ...rest } = params
+
+        return { url: `v1/decks/${id}/cards`, method: 'GET', params: rest }
+      },
     }),
   }),
 })
 
-export const { useGetDeckQuery } = deckService
+export const { useGetCardsQuery } = deckService

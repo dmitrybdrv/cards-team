@@ -1,6 +1,6 @@
 import { ComponentProps, FC, memo, useEffect, useRef } from 'react'
 
-import { TdCell, TRow } from '@/components'
+import { TdCell, TdRating, TRow } from '@/components'
 import { DeckResponseItems } from '@/services/deck/deck.types.ts'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   onChangeHeight: (value: number) => void
 } & ComponentProps<'tbody'>
 
-export const DeckTableBody: FC<Props> = memo(({ onChangeHeight, items }) => {
+export const CardsTableBody: FC<Props> = memo(({ onChangeHeight, items }) => {
   const mappedRow = items.map(item => {
     const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
       dateStyle: 'short',
@@ -19,7 +19,9 @@ export const DeckTableBody: FC<Props> = memo(({ onChangeHeight, items }) => {
         <TdCell>{item.question}</TdCell>
         <TdCell>{item.answer}</TdCell>
         <TdCell>{updateData}</TdCell>
-        <TdCell>{item.rating}</TdCell>
+        <TdCell>
+          <TdRating rating={item.grade} />
+        </TdCell>
       </TRow>
     )
   })
