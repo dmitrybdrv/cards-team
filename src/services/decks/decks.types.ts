@@ -28,7 +28,7 @@ export type DecksResponseItems = {
   cardsCount: number
   author: DecksResponseItemsAuthor
 }
-export type DecksOrderName = 'updated' | 'created' | 'name' | 'cardsCount' | 'question' | 'answer'
+export type DecksOrderName = 'updated' | 'created' | 'name' | 'cardsCount'
 
 export type DecksParams = {
   minCardsCount?: string

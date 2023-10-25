@@ -48,6 +48,7 @@ export const decksSlice = createSlice({
       state.minCardsCount = '0'
       state.maxCardsCount = null
       state.currentPage = 1
+      state.orderBy = null
     },
   },
 })
