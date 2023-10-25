@@ -1,7 +1,7 @@
 import { baseApi } from '@/services/base-api.ts'
-import { DeckParams, DeckResponse } from '@/services/deck/deck.types.ts'
+import { DeckParams, DeckResponse } from '@/services/deck/cards.types.ts'
 
-export const deckService = baseApi.injectEndpoints({
+export const cardsService = baseApi.injectEndpoints({
   endpoints: builder => ({
     getCards: builder.query<DeckResponse, DeckParams>({
       query: params => {
@@ -13,4 +13,4 @@ export const deckService = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetCardsQuery } = deckService
+export const { useGetCardsQuery } = cardsService

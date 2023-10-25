@@ -1,8 +1,8 @@
-export type DeckResponse = {
-  items: DeckResponseItems[]
-  pagination: DeckResponsePagination
+export type CardsResponse = {
+  items: CardsResponseItems[]
+  pagination: CardsResponsePagination
 }
-export type DeckResponseItems = {
+export type CardsResponseItems = {
   id: string
   deckId: string
   userId: string
@@ -20,14 +20,14 @@ export type DeckResponseItems = {
   created: string
   updated: string
 }
-export type DeckResponsePagination = {
+export type CardsResponsePagination = {
   currentPage: number
   itemsPerPage: number
   totalPages: number
   totalItems: number
 }
 
-export type DeckParams = {
+export type CardsParams = {
   id?: string | undefined
   name?: string
   question?: string
@@ -36,3 +36,5 @@ export type DeckParams = {
   currentPage?: number
   itemsPerPage?: number
 }
+
+export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'

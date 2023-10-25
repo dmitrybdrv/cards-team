@@ -14,7 +14,7 @@ export const useGetDecks = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [searchValue, setSearchValue] = useState('')
-  const [switcherValue, setSwitcherValue] = useState('All Cards')
+  const [switcherValue, setSwitcherValue] = useState('All CardsPage')
   const [minCardsCount, setMinCardsCount] = useState('0')
   const [maxCardsCount, setMaxCardsCount] = useState<string | null>(null)
   const [changeSwitcherValues, setChangeSwitcherValues] = useState<ChangeSwitcherValues | null>(
@@ -29,7 +29,7 @@ export const useGetDecks = () => {
 
   const clearFilter = () => {
     setSearchValue('')
-    setSwitcherValue('All Cards')
+    setSwitcherValue('All CardsPage')
     setMinCardsCount('0')
     setMaxCardsCount(null)
     changeSwitcherValues?.setMinValue(0)
@@ -66,7 +66,7 @@ export const useGetDecks = () => {
 
   if (maxCardsCount) queryParams.maxCardsCount = maxCardsCount
 
-  if (switcherValue === 'My Cards' && isHasProfileData) queryParams.authorId = profileData.id
+  if (switcherValue === 'My CardsPage' && isHasProfileData) queryParams.authorId = profileData.id
 
   if (sort.direction) queryParams.orderBy = `${sort.orderName}-${sort.direction}`
 

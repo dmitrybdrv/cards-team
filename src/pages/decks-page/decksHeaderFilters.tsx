@@ -67,8 +67,8 @@ export const DecksHeaderFilters: FC<Props> = memo(
             <TabSwitcher
               disabled={disabled}
               currentValue={switcherValue}
-              values={[{ value: 'My Cards' }, { value: 'All Cards' }]}
-              defaultValue={'All Cards'}
+              values={[{ value: 'My CardsPage' }, { value: 'All CardsPage' }]}
+              defaultValue={'All CardsPage'}
               onChange={onChangeTabSwitcher}
             />
           </div>

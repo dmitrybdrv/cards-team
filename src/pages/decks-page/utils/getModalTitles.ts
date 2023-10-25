@@ -10,8 +10,8 @@ export const getModalTitles = (
 
   switch (modalVariant) {
     case 'createDeck':
-      result.title = 'Add New Cards'
-      result.buttonTitle = 'Add New Cards'
+      result.title = 'Add New CardsPage'
+      result.buttonTitle = 'Add New CardsPage'
       break
     case 'updateDeck':
       result.title = 'Edit deck'

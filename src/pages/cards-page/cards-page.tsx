@@ -10,9 +10,9 @@ import { Skeleton, Table, TableColumns, THead, Typography } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
 import { CardsHeaders } from '@/pages/cards-page/cards-headers.tsx'
 import { CardsTableBody } from '@/pages/cards-page/cards-table-body.tsx'
-import { friendsOrderName } from '@/pages/cards-page/cards.types.ts'
 import { useGetCards } from '@/pages/cards-page/useGetCards.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
+import { friendsOrderName } from '@/services/deck/cards.types.ts'
 
 const friendsColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Question', orderName: 'question' },
@@ -24,7 +24,7 @@ const friendsColumnsTitles: TableColumns<friendsOrderName> = [
 const perPageCountVariant = ['10', '20', '30', '50', '100']
 const initialSkeletonHeight = 374
 
-export const Cards: FC = () => {
+export const CardsPage: FC = () => {
   const {
     isFetching,
     isError,
@@ -36,7 +36,7 @@ export const Cards: FC = () => {
     sort,
     setSortMemo,
     onChangeSearchInputMemo,
-    setCurrentPageMemo,
+    setCurrentPageHandler,
     setItemsPerPageMemo,
   } = useGetCards()
 
@@ -74,7 +74,7 @@ export const Cards: FC = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           itemsPerPage={itemsPerPage}
-          changePage={setCurrentPageMemo}
+          changePage={setCurrentPageHandler}
           changeItemsPerPage={setItemsPerPageMemo}
           className={s.pagination}
         />

@@ -37,7 +37,7 @@ export const Pagination: FC<Props> = memo(
     const portions = getPortion(totalPages, maxCountShowBtn, minCountShowBtn)
     const currentPortion = getCurrentPortion(currentPage, portions)
     //callBacks
-    const clickRightArrowHandler = () => !disabled && changePage(currentPage + 1)
+    const clickRightArrowHandler = () => !disabled && dispat(currentPage + 1)
     const clickLeftArrowHandler = () => !disabled && changePage(currentPage - 1)
     const onChangeSelectHandle = (value: string) => !disabled && changeItemsPerPage(Number(value))
     const onClickPageButton = (page: number) => () => !disabled && changePage(page)
