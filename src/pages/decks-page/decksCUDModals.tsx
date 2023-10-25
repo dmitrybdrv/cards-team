@@ -27,8 +27,6 @@ export type ModalsProps = {
 
 export const DecksCUDModals: FC<ModalsProps> = memo(
   ({ isOpenModal, setIsOpenModal, variant, currentDeckData }) => {
-    const { createDeck, updateHandler, deleteHandler, isSuccess, isLoading } =
-      useCUDDecks(currentDeckData)
     const currentInputValue =
       variant === 'updateDeck' && currentDeckData.name ? currentDeckData.name : ''
 
@@ -38,6 +36,7 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
       handleSubmit,
       control,
       reset,
+      setError,
     } = useForm<CreateDeckArgs>({
       defaultValues: {
         name: currentInputValue,
@@ -47,16 +46,15 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
       },
       resolver: zodResolver(createDeckSchema),
     })
+
+    const { createDeck, updateDeck, deleteDeck, isLoading } = useCUDDecks(
+      currentDeckData,
+      setIsOpenModal,
+      reset
+    )
     //TODO apply optimistic update
 
-    const onSubmit = variant === 'createDeck' ? createDeck : updateHandler
-
-    useEffect(() => {
-      if (isSuccess) {
-        setIsOpenModal(false)
-        variant === 'createDeck' && reset({ name: '' })
-      }
-    }, [isSuccess, isLoading])
+    const onSubmit = variant === 'createDeck' ? createDeck : updateDeck
 
     const titleData = getModalTitles(variant)
     const formForCreateOrUpdate = (
@@ -96,7 +94,7 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
           <Button variant={'secondary'} onClick={() => setIsOpenModal(false)} type={'button'}>
             Close
           </Button>
-          <Button variant={'primary'} type={'submit'} disabled={isLoading} onClick={deleteHandler}>
+          <Button variant={'primary'} type={'submit'} disabled={isLoading} onClick={deleteDeck}>
             {titleData.buttonTitle}
           </Button>
         </ModalButton>
