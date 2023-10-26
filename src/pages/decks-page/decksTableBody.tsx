@@ -31,8 +31,10 @@ export const DecksTableBody: FC<Props> = memo(
       const onDelete = isAuthor ? deleteDeckHandler : null
 
       return (
-        <TRow className={s.tRow} key={item.id} onClick={() => navigate(`/deck/${item.id}`)}>
-          <TdCell img={item.cover ?? null}>{item.name}</TdCell>
+        <TRow className={s.tRow} key={item.id}>
+          <TdCell onClick={() => navigate(`/deck/${item.id}`)} img={item.cover ?? null}>
+            {item.name}
+          </TdCell>
           <TdCell>{item.cardsCount}</TdCell>
           <TdCell>{updateData}</TdCell>
           <TdCell>{item.author.name}</TdCell>
