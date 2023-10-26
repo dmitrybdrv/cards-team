@@ -36,7 +36,7 @@ export const CardsPage: FC = () => {
     sort,
     setSortMemo,
     onChangeSearchInputMemo,
-    setCurrentPageHandler,
+    setCurrentPageMemo,
     setItemsPerPageMemo,
   } = useGetCards()
 
@@ -74,7 +74,7 @@ export const CardsPage: FC = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           itemsPerPage={itemsPerPage}
-          changePage={setCurrentPageHandler}
+          changePage={setCurrentPageMemo}
           changeItemsPerPage={setItemsPerPageMemo}
           className={s.pagination}
         />

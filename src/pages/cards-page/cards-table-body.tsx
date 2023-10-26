@@ -1,10 +1,10 @@
 import { ComponentProps, FC, memo, useEffect, useRef } from 'react'
 
 import { TdCell, TdRating, TRow } from '@/components'
-import { DeckResponseItems } from '@/services/deck/cards.types.ts'
+import { CardsResponseItems } from '@/services/deck/cards.types.ts'
 
 type Props = {
-  items: DeckResponseItems[]
+  items: CardsResponseItems[]
   onChangeHeight: (value: number) => void
 } & ComponentProps<'tbody'>
 
