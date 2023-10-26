@@ -1,21 +1,24 @@
 import { baseApi } from '@/services/base-api.ts'
-import { CardsParams, CardsResponse, CardsResponseItems } from '@/services/deck/cards.types.ts'
+import { CardsParams, CardsResponse } from '@/services/deck/cards.types.ts'
+import { DecksResponseItems } from '@/services/decks/decks.types.ts'
 
 export const cardsService = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getCards: builder.query<CardsResponse, CardsParams>({
+    getUserCards: builder.query<CardsResponse, CardsParams>({
       query: params => {
         const { id, ...rest } = params
 
         return { url: `v1/decks/${id}/cards`, method: 'GET', params: rest }
       },
+      providesTags: ['Cards'],
     }),
-    getUserCard: builder.query<CardsResponseItems, { id: string }>({
+    getDeck: builder.query<DecksResponseItems, string>({
       query: id => {
         return { url: `v1/decks/${id}`, method: 'GET' }
       },
+      providesTags: ['Deck'],
     }),
   }),
 })
 
-export const { useGetCardsQuery, useGetUserCardQuery } = cardsService
+export const { useGetDeckQuery, useGetUserCardsQuery } = cardsService

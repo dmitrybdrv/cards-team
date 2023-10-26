@@ -12,7 +12,8 @@ import { CardsHeaders } from '@/pages/cards-page/cards-headers.tsx'
 import { CardsTableBody } from '@/pages/cards-page/cards-table-body.tsx'
 import { useGetCards } from '@/pages/cards-page/useGetCards.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
-import { useGetUserCardQuery } from '@/services/deck/cards.service.ts'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { useGetDeckQuery } from '@/services/deck/cards.service.ts'
 import { friendsOrderName } from '@/services/deck/cards.types.ts'
 
 const friendsColumnsTitles: TableColumns<friendsOrderName> = [
@@ -27,14 +28,6 @@ const perPageCountVariant = ['10', '20', '30', '50', '100']
 const initialSkeletonHeight = 374
 
 export const CardsPage: FC = () => {
-  const { deckId } = useParams()
-  const packId = deckId ? deckId : ''
-
-  const { data } = useGetUserCardQuery({ id: packId })
-
-  const checkPackTitle = deckId === 'my decks' ? 'My Pack' : 'Friends Pack'
-
-  console.log(data)
   const {
     isFetching,
     isError,
@@ -49,6 +42,17 @@ export const CardsPage: FC = () => {
     setCurrentPageMemo,
     setItemsPerPageMemo,
   } = useGetCards()
+
+  const { deckId } = useParams()
+
+  const packId = deckId ? deckId : ''
+
+  const { data } = useGetDeckQuery(packId)
+
+  const { data: userData } = useGetMeQuery()
+
+  const isAuthorDeck = data?.userId === userData.id
+  const checkPackTitle = isAuthorDeck ? 'My Pack' : 'Friends Pack'
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 

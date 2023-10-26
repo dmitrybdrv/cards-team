@@ -1,13 +1,14 @@
 import {
   LoginArgs,
   LoginResponse,
+  SingUpResponse,
+  UpdateProfile,
   RecoverPassword,
   ResendVerifyEmail,
   ResetPassword,
   SingUpArgs,
-  SingUpResponse,
-  UpdateProfile,
   VerifyEmail,
+  MeResponse,
 } from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
@@ -54,7 +55,7 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
-    updateProfile: builder.mutation<any, UpdateProfile>({
+    updateProfile: builder.mutation<MeResponse, UpdateProfile>({
       query: data => ({
         url: 'v1/auth/me',
         method: 'PATCH',
