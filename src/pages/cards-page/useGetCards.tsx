@@ -12,12 +12,11 @@ import { friendsPackSlice } from '@/store/friends-pack.slice.ts'
 export const useGetCards = () => {
   const dispatch = useAppDispatch()
   const { deckId } = useParams()
-  // const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
   const [searchValue, setSearchValue] = useState('')
   const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
 
   const currentPage = useAppSelector(state => state.friendsPack.currentPage)
+  const itemsPerPage = useAppSelector(state => state.friendsPack.itemPerPage)
 
   const onChangeSearchInput = debounce((searchValue: string) => {
     setSearchValue(searchValue)
@@ -25,8 +24,7 @@ export const useGetCards = () => {
   }, 1000)
 
   const onChangeItemsPerPage = (itemsPerPage: number) => {
-    setItemsPerPage(itemsPerPage)
-    // setCurrentPage(1)
+    dispatch(friendsPackSlice.actions.setItemPerPage(itemsPerPage))
     dispatch(friendsPackSlice.actions.setCurrentPage(1))
   }
 
@@ -50,17 +48,11 @@ export const useGetCards = () => {
     },
   }
 
-  // const setCurrentPageHandler = () => {
-  //   dispatch(friendsPackSlice.actions.setCurrentPage(1))
-  // }
-
   const onChangeSearchInputMemo = useCallback(onChangeSearchInput, [])
-  // const setCurrentPageMemo = useCallback(setCurrentPage, [])
   const setCurrentPageMemo = useCallback(
     (currentPage: number) => dispatch(friendsPackSlice.actions.setCurrentPage(currentPage)),
     []
   )
-
   const setItemsPerPageMemo = useCallback(onChangeItemsPerPage, [])
   const setSortMemo = useCallback(setSort, [])
 
