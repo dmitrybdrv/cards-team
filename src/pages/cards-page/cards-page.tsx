@@ -49,7 +49,7 @@ export const CardsPage: FC = () => {
       <Link style={{ textDecoration: 'none' }} to={'/'}>
         <div className={s.linkArrowContainer}>
           <ArrowBack />
-          <Typography variant={'body2'}>Back to Packs List</Typography>
+          <Typography variant={'body2'}>Back to Deck List</Typography>
         </div>
       </Link>
       <CardsHeaders disabled={isFetching} onChangeSearchInput={onChangeSearchInputMemo} />
