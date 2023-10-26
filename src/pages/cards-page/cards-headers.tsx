@@ -7,8 +7,9 @@ import { Button, TextField, Typography } from '@/components'
 type Props = {
   onChangeSearchInput: (searchValue: string) => void
   disabled: boolean
+  cardsPageTitle: string
 }
-export const CardsHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled }) => {
+export const CardsHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled, cardsPageTitle }) => {
   const [searchInputValue, setSearchInputValue] = useState('')
   const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     //for UI
@@ -20,7 +21,7 @@ export const CardsHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled }) 
   return (
     <div className={s.headerWrapper}>
       <div className={s.titleWrapper}>
-        <Typography variant={'large'}>Friends Pack</Typography>
+        <Typography variant={'large'}>{cardsPageTitle}</Typography>
         <Button variant={'primary'} disabled={disabled} onClick={() => {}}>
           <Typography variant={'subtitle2'}>Learn Pack</Typography>
         </Button>

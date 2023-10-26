@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outline.svg'
 
@@ -12,6 +12,7 @@ import { CardsHeaders } from '@/pages/cards-page/cards-headers.tsx'
 import { CardsTableBody } from '@/pages/cards-page/cards-table-body.tsx'
 import { useGetCards } from '@/pages/cards-page/useGetCards.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
+import { useGetUserCardQuery } from '@/services/deck/cards.service.ts'
 import { friendsOrderName } from '@/services/deck/cards.types.ts'
 
 const friendsColumnsTitles: TableColumns<friendsOrderName> = [
@@ -21,10 +22,19 @@ const friendsColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Grade' },
   // { title: '' },
 ]
+
 const perPageCountVariant = ['10', '20', '30', '50', '100']
 const initialSkeletonHeight = 374
 
 export const CardsPage: FC = () => {
+  const { deckId } = useParams()
+  const packId = deckId ? deckId : ''
+
+  const { data } = useGetUserCardQuery({ id: packId })
+
+  const checkPackTitle = deckId === 'my decks' ? 'My Pack' : 'Friends Pack'
+
+  console.log(data)
   const {
     isFetching,
     isError,
@@ -52,7 +62,11 @@ export const CardsPage: FC = () => {
           <Typography variant={'body2'}>Back to Deck List</Typography>
         </div>
       </Link>
-      <CardsHeaders disabled={isFetching} onChangeSearchInput={onChangeSearchInputMemo} />
+      <CardsHeaders
+        cardsPageTitle={checkPackTitle}
+        disabled={isFetching}
+        onChangeSearchInput={onChangeSearchInputMemo}
+      />
       <Table variant={'cards'}>
         <THead
           columns={friendsColumnsTitles}
