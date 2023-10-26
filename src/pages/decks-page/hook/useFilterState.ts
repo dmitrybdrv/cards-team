@@ -53,6 +53,7 @@ export const useFilterState = () => {
   const onClickClearFilter = () => {
     setSearchInputValue('')
     setIsResetSlider(true)
+    setSwitcherValue('All Cards')
     dispatch(resetState())
   }
 

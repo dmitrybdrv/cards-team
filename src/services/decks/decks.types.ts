@@ -1,7 +1,7 @@
 export type DecksResponse = {
   maxCardsCount: number
   pagination: DecksResponsePagination
-  items: DecksResponseItems[]
+  items: DecksResponseItem[]
 }
 export type DecksResponsePagination = {
   totalPages: number
@@ -13,7 +13,7 @@ export type DecksResponseItemsAuthor = {
   id: string
   name: string
 }
-export type DecksResponseItems = {
+export type DecksResponseItem = {
   id: string
   userId: string
   name: string

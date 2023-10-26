@@ -17,7 +17,7 @@ import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.ts'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
 
 export const DecksPage: FC = () => {
-  const {
+  let {
     isFetching,
     isError,
     profileData: { id: authorId },
@@ -35,6 +35,7 @@ export const DecksPage: FC = () => {
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
+  // isFetching = false
   const {
     isOpenModal,
     setIsOpenModal,
@@ -56,7 +57,7 @@ export const DecksPage: FC = () => {
       />
       <DecksHeaderFilters
         onClickAddDeck={onClickAddDeck}
-        disabled={isFetching}
+        // disabled={isFetching}
         maxCardsCount={maxCardsCount}
       />
       <Table variant={'packs'}>
@@ -64,7 +65,7 @@ export const DecksPage: FC = () => {
           columns={decksColumnsTitles}
           onSort={setSortMemo}
           currentSort={sort}
-          disabled={isFetching}
+          // disabled={isFetching}
         />
         <DecksTableBody
           items={items}
@@ -80,7 +81,7 @@ export const DecksPage: FC = () => {
       />
       <div className={s.paginationWrapper}>
         <Pagination
-          disabled={isFetching}
+          // disabled={isFetching}
           perPageCountVariant={perPageCountVariant}
           currentPage={currentPage}
           totalPages={totalPages}

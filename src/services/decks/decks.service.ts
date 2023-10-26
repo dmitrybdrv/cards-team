@@ -5,7 +5,7 @@ import {
   CreateDeckArgs,
   DecksParams,
   DecksResponse,
-  DecksResponseItems,
+  DecksResponseItem,
 } from '@/services/decks/decks.types.ts'
 
 export const decksService = baseApi.injectEndpoints({
@@ -18,15 +18,31 @@ export const decksService = baseApi.injectEndpoints({
       }),
       providesTags: ['Decks'],
     }),
-    createDeck: builder.mutation<any, CreateDeckArgs>({
+    createDeck: builder.mutation<DecksResponseItem, CreateDeckArgs>({
       query: body => ({
         url: 'v1/decks',
         method: 'POST',
         body,
       }),
+      onQueryStarted: async (_, { getState, dispatch, queryFulfilled }) => {
+        const state = getState() as RootState
+        const decksParams = getDeckParams(state.decks)
+
+        try {
+          const result = await queryFulfilled
+
+          dispatch(
+            decksService.util.updateQueryData('getDecks', decksParams, draft => {
+              draft.items.push(result.data)
+            })
+          )
+        } catch (e) {
+          /* empty */
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
-    deleteDecks: builder.mutation<DecksResponseItems, { id: string }>({
+    deleteDecks: builder.mutation<DecksResponseItem, { id: string }>({
       query: data => ({
         url: `v1/decks/${data.id}`,
         method: 'DELETE',
@@ -51,7 +67,7 @@ export const decksService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
-    updateDecks: builder.mutation<DecksResponseItems, CreateDeckArgs & { id: string }>({
+    updateDecks: builder.mutation<DecksResponseItem, CreateDeckArgs & { id: string }>({
       query: data => {
         const { id, ...body } = data
 

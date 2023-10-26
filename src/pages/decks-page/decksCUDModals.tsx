@@ -12,6 +12,7 @@ import { ModalContent } from '@/components/layout/forms/modal/modalContent.tsx'
 import { ModalField } from '@/components/layout/forms/modal/modalField.tsx'
 import { ModalTitle } from '@/components/layout/forms/modal/modalTitle.tsx'
 import { ControlledCheckbox } from '@/components/ui/checkbox/ControlledCheckbox.tsx'
+import { ImageInput } from '@/components/ui/imageInput/imageInput.tsx'
 import s from '@/pages/decks-page/decks.module.scss'
 import { useCUDDecks } from '@/pages/decks-page/hook/useCUDDecks.ts'
 import { CurrentDeckData, ModalVariant } from '@/pages/decks-page/hook/useDeckModalState.ts'
@@ -52,7 +53,6 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
       setIsOpenModal,
       reset
     )
-    //TODO apply optimistic update
 
     const onSubmit = variant === 'createDeck' ? createDeck : updateDeck
 
@@ -60,6 +60,7 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
     const formForCreateOrUpdate = (
       <form onSubmit={handleSubmit(onSubmit)}>
         {/*TODO add input for loading cover*/}
+        <ImageInput />
         <TextField
           autoFocus
           {...register('name')}

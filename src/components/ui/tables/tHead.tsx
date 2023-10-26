@@ -10,7 +10,7 @@ type Props = ComponentPropsWithoutRef<'thead'> & {
   columns: TableColumns<any>
   onSort: Dispatch<Sort>
   currentSort: Sort
-  disabled: boolean
+  disabled?: boolean
 }
 
 export type TableColumns<T> = {

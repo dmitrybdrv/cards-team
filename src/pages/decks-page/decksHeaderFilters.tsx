@@ -7,7 +7,7 @@ import { tabSwitcherValue } from '@/pages/decks-page/enums'
 import { useFilterState } from '@/pages/decks-page/hook/useFilterState.ts'
 
 type Props = {
-  disabled: boolean
+  disabled?: boolean
   onClickAddDeck: () => void
   maxCardsCount: number
 }

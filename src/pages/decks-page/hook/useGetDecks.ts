@@ -35,7 +35,7 @@ export const useGetDecks = () => {
   const { data: profileData } = useGetMeQuery()
 
   const decksState = useAppSelector(state => state.decks)
-  const { data, isLoading, isSuccess, isError, isFetching } = useGetDecksQuery(
+  const { data, currentData, isLoading, isSuccess, isError, isFetching } = useGetDecksQuery(
     getDeckParams(decksState)
   )
 
@@ -43,7 +43,7 @@ export const useGetDecks = () => {
     isFetching,
     isError,
     profileData,
-    decksData: data || initialDecksData,
+    decksData: currentData || data || initialDecksData,
     isLoadingDecksData: isLoading,
     isHasDecksData: isSuccess,
     sort,
