@@ -5,6 +5,9 @@ export type CurrentDeckData = {
   id: string | null
   name: string | null
 }
+
+// test-conflicts
+
 export const useDeckModalState = () => {
   const [modalVariant, setModalVariant] = useState<ModalVariant>(null)
   const [currentDeckData, setCurrentDeckData] = useState<CurrentDeckData>({ id: null, name: null })
