@@ -8,7 +8,12 @@ type Props = {
   items: DecksResponseItem[]
   authorId: string
   onChangeHeight: (value: number) => void
-  onClickEditOrDeleteIcons: (id: string, name: string, variant: ModalVariant) => void
+  onClickEditOrDeleteIcons: (
+    id: string,
+    name: string,
+    isPrivate: boolean,
+    variant: ModalVariant
+  ) => void
 } & ComponentProps<'tbody'>
 
 export const DecksTableBody: FC<Props> = memo(
@@ -18,8 +23,10 @@ export const DecksTableBody: FC<Props> = memo(
         dateStyle: 'short',
       })
       const playDeckHandler = () => console.log('play deck id: ', item.id)
-      const editDeckHandler = () => onClickEditOrDeleteIcons(item.id, item.name, 'updateDeck')
-      const deleteDeckHandler = () => onClickEditOrDeleteIcons(item.id, item.name, 'deleteDeck')
+      const editDeckHandler = () =>
+        onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'updateDeck')
+      const deleteDeckHandler = () =>
+        onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'deleteDeck')
 
       const isAuthor = authorId === item.author.id
       const onEdit = isAuthor ? editDeckHandler : null

@@ -35,7 +35,6 @@ export const DecksPage: FC = () => {
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
-  // isFetching = false
   const {
     isOpenModal,
     setIsOpenModal,
@@ -55,18 +54,9 @@ export const DecksPage: FC = () => {
         variant={modalVariant}
         currentDeckData={currentDeckData}
       />
-      <DecksHeaderFilters
-        onClickAddDeck={onClickAddDeck}
-        // disabled={isFetching}
-        maxCardsCount={maxCardsCount}
-      />
+      <DecksHeaderFilters onClickAddDeck={onClickAddDeck} maxCardsCount={maxCardsCount} />
       <Table variant={'packs'}>
-        <THead
-          columns={decksColumnsTitles}
-          onSort={setSortMemo}
-          currentSort={sort}
-          // disabled={isFetching}
-        />
+        <THead columns={decksColumnsTitles} onSort={setSortMemo} currentSort={sort} />
         <DecksTableBody
           items={items}
           authorId={authorId}
@@ -81,7 +71,6 @@ export const DecksPage: FC = () => {
       />
       <div className={s.paginationWrapper}>
         <Pagination
-          // disabled={isFetching}
           perPageCountVariant={perPageCountVariant}
           currentPage={currentPage}
           totalPages={totalPages}

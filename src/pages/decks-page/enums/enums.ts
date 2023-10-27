@@ -4,7 +4,7 @@ import { DecksOrderName, DecksResponse } from '@/services/decks/decks.types.ts'
 export const decksColumnsTitles: TableColumns<DecksOrderName> = [
   { title: 'Name', orderName: 'name' },
   { title: 'Cards', orderName: 'cardsCount' },
-  { title: 'LastUpdate', orderName: 'updated' },
+  { title: 'Last Update', orderName: 'updated' },
   { title: 'Created by' },
   { title: '' },
 ]

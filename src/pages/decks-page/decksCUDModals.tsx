@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react'
+import { FC, memo } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -37,13 +37,15 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
       handleSubmit,
       control,
       reset,
-      setError,
+      // setError,
+      // watch,
     } = useForm<CreateDeckArgs>({
       defaultValues: {
         name: currentInputValue,
       },
       values: {
         name: currentInputValue,
+        isPrivate: currentDeckData.isPrivate,
       },
       resolver: zodResolver(createDeckSchema),
     })
@@ -57,10 +59,12 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
     const onSubmit = variant === 'createDeck' ? createDeck : updateDeck
 
     const titleData = getModalTitles(variant)
+
+    //-----JSX-----
+    //  Create Deck or Update Deck
     const formForCreateOrUpdate = (
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/*TODO add input for loading cover*/}
-        <ImageInput />
+        <ImageInput name={'cover'} control={control} />
         <TextField
           autoFocus
           {...register('name')}
@@ -71,7 +75,7 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
         />
         <ControlledCheckbox
           control={control}
-          defaultValue={true}
+          defaultValue={currentDeckData.isPrivate}
           label={'Private deck'}
           name={'isPrivate'}
           className={s.checkboxIsPrivate}
@@ -86,6 +90,8 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
         </ModalButton>
       </form>
     )
+
+    //  Delete Deck
     const deletingContent = (
       <>
         <span className={s.deleteText}>

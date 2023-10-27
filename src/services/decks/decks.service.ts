@@ -1,4 +1,5 @@
 import { getDeckParams } from '@/common/utils/getDeckParams.ts'
+import { toDeckFormData } from '@/common/utils/toDeckFormData.ts'
 import { RootState } from '@/hooks/hooks.ts'
 import { baseApi } from '@/services/base-api.ts'
 import {
@@ -19,11 +20,15 @@ export const decksService = baseApi.injectEndpoints({
       providesTags: ['Decks'],
     }),
     createDeck: builder.mutation<DecksResponseItem, CreateDeckArgs>({
-      query: body => ({
-        url: 'v1/decks',
-        method: 'POST',
-        body,
-      }),
+      query: body => {
+        const formData = toDeckFormData(body)
+
+        return {
+          url: 'v1/decks',
+          method: 'POST',
+          body: formData,
+        }
+      },
       onQueryStarted: async (_, { getState, dispatch, queryFulfilled }) => {
         const state = getState() as RootState
         const decksParams = getDeckParams(state.decks)
@@ -71,13 +76,16 @@ export const decksService = baseApi.injectEndpoints({
       query: data => {
         const { id, ...body } = data
 
+        const formData = toDeckFormData(body)
+
         return {
           url: `v1/decks/${id}`,
           method: 'PATCH',
-          body,
+          body: formData,
         }
       },
       onQueryStarted: async ({ id, cover, ...body }, { getState, dispatch, queryFulfilled }) => {
+        // TODO  add cover (file64) to optimistic update
         const state = getState() as RootState
         const decksParams = getDeckParams(state.decks)
         const patchResult = dispatch(
