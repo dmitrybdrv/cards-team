@@ -28,13 +28,15 @@ export type CardsResponsePagination = {
 }
 
 export type CardsParams = {
-  id?: string | undefined
+  id: string | undefined
   name?: string
-  question?: string
+  question: string
   answer?: string
   orderBy?: string
   currentPage?: number
   itemsPerPage?: number
+  questionVideo?: string
+  answerVideo?: string
 }
 
 export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'

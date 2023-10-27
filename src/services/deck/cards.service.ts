@@ -1,5 +1,5 @@
 import { baseApi } from '@/services/base-api.ts'
-import { CardsParams, CardsResponse } from '@/services/deck/cards.types.ts'
+import { CardsParams, CardsResponse, CardsResponseItems } from '@/services/deck/cards.types.ts'
 import { DecksResponseItems } from '@/services/decks/decks.types.ts'
 
 export const cardsService = baseApi.injectEndpoints({
@@ -18,7 +18,12 @@ export const cardsService = baseApi.injectEndpoints({
       },
       providesTags: ['Deck'],
     }),
+    createCard: builder.mutation<CardsResponseItems, CardsParams>({
+      query: params => {
+        return { url: `v1/decks/${params.id}`, method: 'POST' }
+      },
+    }),
   }),
 })
 
-export const { useGetDeckQuery, useGetUserCardsQuery } = cardsService
+export const { useCreateCardMutation, useGetDeckQuery, useGetUserCardsQuery } = cardsService
