@@ -29,11 +29,15 @@ export const useFilterState = () => {
   //---------switcher-------------
   const { data: profileData } = useGetMeQuery()
   const [switcherValue, setSwitcherValue] = useState('All Cards')
+
   const onChangeTabSwitcher = (value: string) => {
-    //for UI
-    setSwitcherValue(value)
-    //for fetch
-    dispatch(changeAuthorId(value === 'My Cards' ? profileData.id : null))
+    // switcher can return empty string if second click same button
+    if (value !== '') {
+      //for UI
+      setSwitcherValue(value)
+      //for fetch
+      dispatch(changeAuthorId(value === 'My Cards' ? profileData.id : null))
+    }
   }
 
   //-------Slider--------------

@@ -105,6 +105,7 @@
 
 //tdCell
 .tdCell {
+  position: relative;
   display: flex;
   align-items: center;
   width: auto;
@@ -115,10 +116,15 @@
     max-height: 48px;
     word-break: break-all;
   }
-
+  //if cell has cover image
   .tdCellTitle:nth-child(2) {
     max-width: 80px;
     margin-left: 10px;
+  }
+
+  .lock {
+    position: absolute;
+    right: -20px;
   }
 }
 

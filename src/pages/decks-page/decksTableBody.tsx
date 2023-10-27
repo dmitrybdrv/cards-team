@@ -27,7 +27,9 @@ export const DecksTableBody: FC<Props> = memo(
 
       return (
         <TRow key={item.id}>
-          <TdCell img={item.cover ?? null}>{item.name}</TdCell>
+          <TdCell img={item.cover ?? null} isPrivate={item.isPrivate}>
+            {item.name}
+          </TdCell>
           <TdCell>{item.cardsCount}</TdCell>
           <TdCell>{updateData}</TdCell>
           <TdCell>{item.author.name}</TdCell>
