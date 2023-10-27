@@ -23,32 +23,44 @@ export const CardsHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled, ca
     onChangeSearchInput(e.currentTarget.value)
   }
 
+  const MyPackDropDownHandler = () => {
+    return (
+      <MyPackDropDown>
+        <ToolbarItemWithIcon
+          icon={<PlayIcon />}
+          text={'Learn'}
+          onSelect={() => {}}
+        ></ToolbarItemWithIcon>
+        <ToolbarItemWithIcon
+          icon={<EditPen />}
+          text={'Edit'}
+          onSelect={() => {}}
+        ></ToolbarItemWithIcon>
+        <ToolbarItemWithIcon
+          icon={<TrashIcon />}
+          text={'Delete'}
+          onSelect={() => {}}
+        ></ToolbarItemWithIcon>
+      </MyPackDropDown>
+    )
+  }
+
   return (
     <div className={s.headerWrapper}>
       <div className={s.titleWrapper}>
         <div className={s.dotsWrapper}>
           <Typography variant={'large'}>{cardsPageTitle}</Typography>
-          <MyPackDropDown>
-            <ToolbarItemWithIcon
-              icon={<PlayIcon />}
-              text={'Learn'}
-              onSelect={() => {}}
-            ></ToolbarItemWithIcon>
-            <ToolbarItemWithIcon
-              icon={<EditPen />}
-              text={'Edit'}
-              onSelect={() => {}}
-            ></ToolbarItemWithIcon>
-            <ToolbarItemWithIcon
-              icon={<TrashIcon />}
-              text={'Delete'}
-              onSelect={() => {}}
-            ></ToolbarItemWithIcon>
-          </MyPackDropDown>
+          {cardsPageTitle === 'My Pack' ? <MyPackDropDownHandler /> : null}
         </div>
-        <Button variant={'primary'} disabled={disabled} onClick={() => {}}>
-          <Typography variant={'subtitle2'}>Learn Pack</Typography>
-        </Button>
+        {cardsPageTitle === 'My Pack' ? (
+          <Button variant={'primary'} disabled={disabled} onClick={() => {}}>
+            <Typography variant={'subtitle2'}>Add Card</Typography>
+          </Button>
+        ) : (
+          <Button variant={'primary'} disabled={disabled} onClick={() => {}}>
+            <Typography variant={'subtitle2'}>Learn Pack</Typography>
+          </Button>
+        )}
       </div>
       <div className={s.filtersWrapper}>
         <TextField
