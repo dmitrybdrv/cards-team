@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Dropdown, ToolbarItemWithIcon } from './dropdown.tsx'
+import { MyPackDropDown, ToolbarItemWithIcon } from './my-pack-drop-down.tsx'
 
 import { ReactComponent as SignOut } from '@/assets/icons/logout.svg'
 import { ReactComponent as UserIcon } from '@/assets/icons/person-outline-icon.svg'
 
 const meta = {
   title: 'Components/UI/MyPackDropDown',
-  component: Dropdown,
+  component: MyPackDropDown,
   tags: ['autodocs'],
   argTypes: {
     children: {
@@ -28,7 +28,7 @@ const meta = {
       description: 'CSSProperties - тип - возможность передавать стили css напрямую',
     },
   },
-} satisfies Meta<typeof Dropdown>
+} satisfies Meta<typeof MyPackDropDown>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -51,5 +51,5 @@ export const Default: Story = {
     ),
     trigger: <div style={{ marginRight: '10px' }}>{'Ivan'}</div>,
   },
-  render: args => <Dropdown {...args} />,
+  render: args => <MyPackDropDown {...args} />,
 }

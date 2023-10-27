@@ -1,8 +1,13 @@
 import { ChangeEvent, FC, memo, useState } from 'react'
 
+import { ReactComponent as EditPen } from '../../assets/icons/editPen.svg'
+import { ReactComponent as PlayIcon } from '../../assets/icons/playIcon.svg'
+import { ReactComponent as TrashIcon } from '../../assets/icons/trashIcon.svg'
+
 import s from './cards.module.scss'
 
-import { Button, TextField, Typography } from '@/components'
+import { Button, TextField, ToolbarItemWithIcon, Typography } from '@/components'
+import { MyPackDropDown } from '@/pages/cards-page/my-pack-drop-down'
 
 type Props = {
   onChangeSearchInput: (searchValue: string) => void
@@ -21,7 +26,26 @@ export const CardsHeaders: FC<Props> = memo(({ onChangeSearchInput, disabled, ca
   return (
     <div className={s.headerWrapper}>
       <div className={s.titleWrapper}>
-        <Typography variant={'large'}>{cardsPageTitle}</Typography>
+        <div className={s.dotsWrapper}>
+          <Typography variant={'large'}>{cardsPageTitle}</Typography>
+          <MyPackDropDown>
+            <ToolbarItemWithIcon
+              icon={<PlayIcon />}
+              text={'Learn'}
+              onSelect={() => {}}
+            ></ToolbarItemWithIcon>
+            <ToolbarItemWithIcon
+              icon={<EditPen />}
+              text={'Edit'}
+              onSelect={() => {}}
+            ></ToolbarItemWithIcon>
+            <ToolbarItemWithIcon
+              icon={<TrashIcon />}
+              text={'Delete'}
+              onSelect={() => {}}
+            ></ToolbarItemWithIcon>
+          </MyPackDropDown>
+        </div>
         <Button variant={'primary'} disabled={disabled} onClick={() => {}}>
           <Typography variant={'subtitle2'}>Learn Pack</Typography>
         </Button>
