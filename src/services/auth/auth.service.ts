@@ -1,6 +1,7 @@
 import {
   LoginArgs,
   LoginResponse,
+  MeResponse,
   RecoverPassword,
   ResendVerifyEmail,
   ResetPassword,
@@ -54,7 +55,7 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
-    updateProfile: builder.mutation<any, UpdateProfile>({
+    updateProfile: builder.mutation<MeResponse, UpdateProfile>({
       query: data => ({
         url: 'v1/auth/me',
         method: 'PATCH',

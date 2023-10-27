@@ -1,9 +1,12 @@
+import { getDeckParams } from '@/common/utils/getDeckParams.ts'
+import { toDeckFormData } from '@/common/utils/toDeckFormData.ts'
+import { RootState } from '@/hooks/hooks.ts'
 import { baseApi } from '@/services/base-api.ts'
 import {
   CreateDeckArgs,
   DecksParams,
   DecksResponse,
-  DecksResponseItems,
+  DecksResponseItem,
 } from '@/services/decks/decks.types.ts'
 
 export const decksService = baseApi.injectEndpoints({
@@ -16,69 +19,89 @@ export const decksService = baseApi.injectEndpoints({
       }),
       providesTags: ['Decks'],
     }),
-    createDeck: builder.mutation<any, CreateDeckArgs>({
-      query: body => ({
-        url: 'v1/decks',
-        method: 'POST',
-        body,
-      }),
-      // async onQueryStarted(_, { dispatch, queryFulfilled }) {
-      //   try {
-      //     const response = await queryFulfilled
-      //
-      //     console.log(response)
-      //     dispatch(
-      //       decksService.util.updateQueryData(
-      //         'getDecks',
-      //         { authorId: '1', currentPage: 1 },
-      //         draft => {
-      //           draft.items.push(response.data)
-      //         }
-      //       )
-      //     )
-      //
-      //     await queryFulfilled
-      //   } catch (error) {
-      //     console.log(error)
-      //   }
-      //   /**
-      //    * Alternatively, on failure you can invalidate the corresponding cache tags
-      //    * to trigger a re-fetch:
-      //    * dispatch(api.util.invalidateTags(['Post']))
-      //    */
-      // },
+    createDeck: builder.mutation<DecksResponseItem, CreateDeckArgs>({
+      query: body => {
+        const formData = toDeckFormData(body)
+
+        return {
+          url: 'v1/decks',
+          method: 'POST',
+          body: formData,
+        }
+      },
+      onQueryStarted: async (_, { getState, dispatch, queryFulfilled }) => {
+        const state = getState() as RootState
+        const decksParams = getDeckParams(state.decks)
+
+        try {
+          const result = await queryFulfilled
+
+          dispatch(
+            decksService.util.updateQueryData('getDecks', decksParams, draft => {
+              draft.items.push(result.data)
+            })
+          )
+        } catch (e) {
+          /* empty */
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
-    deleteDecks: builder.mutation<DecksResponseItems, { id: string }>({
+    deleteDecks: builder.mutation<DecksResponseItem, { id: string }>({
       query: data => ({
         url: `v1/decks/${data.id}`,
         method: 'DELETE',
       }),
-      // async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
-      //   const patchResult = dispatch(
-      //     decksService.util.updateQueryData('getDecks', { currentPage: 1 }, draft => {
-      //       draft.items = draft.items.filter(item => item.id !== id)
-      //     })
-      //   )
-      //
-      //   try {
-      //     await queryFulfilled
-      //   } catch (error) {
-      //     patchResult.undo()
-      //   }
-      // },
+      onQueryStarted: async ({ id }, { getState, dispatch, queryFulfilled }) => {
+        const state = getState() as RootState
+        const decksParams = getDeckParams(state.decks)
+        const patchResult = dispatch(
+          decksService.util.updateQueryData('getDecks', decksParams, draft => {
+            draft.items.splice(
+              draft.items.findIndex(item => item.id === id),
+              1
+            )
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch (e) {
+          patchResult.undo()
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
-    updateDecks: builder.mutation<DecksResponseItems, CreateDeckArgs & { id: string }>({
-      query: data => ({
-        url: `v1/decks/${data.id}`,
-        method: 'PATCH',
-        body: {
-          name: data.name,
-          isPrivate: data.isPrivate,
-          cover: data.cover ?? null,
-        },
-      }),
+    updateDecks: builder.mutation<DecksResponseItem, CreateDeckArgs & { id: string }>({
+      query: data => {
+        const { id, ...body } = data
+
+        const formData = toDeckFormData(body)
+
+        return {
+          url: `v1/decks/${id}`,
+          method: 'PATCH',
+          body: formData,
+        }
+      },
+      onQueryStarted: async ({ id, cover, ...body }, { getState, dispatch, queryFulfilled }) => {
+        // TODO  add cover (file64) to optimistic update
+        const state = getState() as RootState
+        const decksParams = getDeckParams(state.decks)
+        const patchResult = dispatch(
+          decksService.util.updateQueryData('getDecks', decksParams, draft => {
+            const index = draft.items.findIndex(item => item.id === id)
+
+            if (index !== -1) draft.items[index] = { ...draft.items[index], ...body }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch (e) {
+          patchResult.undo()
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
   }),

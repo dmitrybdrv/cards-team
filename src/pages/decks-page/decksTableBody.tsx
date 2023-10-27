@@ -2,13 +2,18 @@ import { ComponentProps, FC, memo, useEffect, useRef } from 'react'
 
 import { TdCell, TdIcons, TRow } from '@/components'
 import { ModalVariant } from '@/pages/decks-page/hook/useDeckModalState.ts'
-import { DecksResponseItems } from '@/services/decks/decks.types.ts'
+import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
 type Props = {
-  items: DecksResponseItems[]
+  items: DecksResponseItem[]
   authorId: string
   onChangeHeight: (value: number) => void
-  onClickEditOrDeleteIcons: (id: string, name: string, variant: ModalVariant) => void
+  onClickEditOrDeleteIcons: (
+    id: string,
+    name: string,
+    isPrivate: boolean,
+    variant: ModalVariant
+  ) => void
 } & ComponentProps<'tbody'>
 
 export const DecksTableBody: FC<Props> = memo(
@@ -18,8 +23,10 @@ export const DecksTableBody: FC<Props> = memo(
         dateStyle: 'short',
       })
       const playDeckHandler = () => console.log('play deck id: ', item.id)
-      const editDeckHandler = () => onClickEditOrDeleteIcons(item.id, item.name, 'updateDeck')
-      const deleteDeckHandler = () => onClickEditOrDeleteIcons(item.id, item.name, 'deleteDeck')
+      const editDeckHandler = () =>
+        onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'updateDeck')
+      const deleteDeckHandler = () =>
+        onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'deleteDeck')
 
       const isAuthor = authorId === item.author.id
       const onEdit = isAuthor ? editDeckHandler : null
@@ -27,7 +34,9 @@ export const DecksTableBody: FC<Props> = memo(
 
       return (
         <TRow key={item.id}>
-          <TdCell img={item.cover ?? null}>{item.name}</TdCell>
+          <TdCell img={item.cover ?? null} isPrivate={item.isPrivate}>
+            {item.name}
+          </TdCell>
           <TdCell>{item.cardsCount}</TdCell>
           <TdCell>{updateData}</TdCell>
           <TdCell>{item.author.name}</TdCell>

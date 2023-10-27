@@ -1,7 +1,7 @@
 export type DecksResponse = {
   maxCardsCount: number
   pagination: DecksResponsePagination
-  items: DecksResponseItems[]
+  items: DecksResponseItem[]
 }
 export type DecksResponsePagination = {
   totalPages: number
@@ -13,7 +13,7 @@ export type DecksResponseItemsAuthor = {
   id: string
   name: string
 }
-export type DecksResponseItems = {
+export type DecksResponseItem = {
   id: string
   userId: string
   name: string
@@ -28,7 +28,7 @@ export type DecksResponseItems = {
   cardsCount: number
   author: DecksResponseItemsAuthor
 }
-export type DecksOrderName = 'updated' | 'created' | 'name' | 'cardsCount' | 'question' | 'answer'
+export type DecksOrderName = 'updated' | 'created' | 'name' | 'cardsCount'
 
 export type DecksParams = {
   minCardsCount?: string
@@ -38,10 +38,10 @@ export type DecksParams = {
   orderBy?: string
   currentPage?: number
   itemsPerPage?: number
-} | void
+}
 
 export type CreateDeckArgs = {
   name: string
-  isPrivate?: boolean
-  cover?: BinaryData
+  isPrivate: boolean
+  cover?: string | Blob
 }

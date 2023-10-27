@@ -18,7 +18,7 @@ type Props = {
   changeItemsPerPage: (items: number) => void
   className?: string
   perPageCountVariant: string[]
-  disabled: boolean
+  disabled?: boolean
 }
 
 export const Pagination: FC<Props> = memo(

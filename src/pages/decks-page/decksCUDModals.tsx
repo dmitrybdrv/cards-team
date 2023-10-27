@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react'
+import { FC, memo } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -12,6 +12,7 @@ import { ModalContent } from '@/components/layout/forms/modal/modalContent.tsx'
 import { ModalField } from '@/components/layout/forms/modal/modalField.tsx'
 import { ModalTitle } from '@/components/layout/forms/modal/modalTitle.tsx'
 import { ControlledCheckbox } from '@/components/ui/checkbox/ControlledCheckbox.tsx'
+import { ImageInput } from '@/components/ui/imageInput/imageInput.tsx'
 import s from '@/pages/decks-page/decks.module.scss'
 import { useCUDDecks } from '@/pages/decks-page/hook/useCUDDecks.ts'
 import { CurrentDeckData, ModalVariant } from '@/pages/decks-page/hook/useDeckModalState.ts'
@@ -27,8 +28,6 @@ export type ModalsProps = {
 
 export const DecksCUDModals: FC<ModalsProps> = memo(
   ({ isOpenModal, setIsOpenModal, variant, currentDeckData }) => {
-    const { createDeck, updateHandler, deleteHandler, isSuccess, isLoading } =
-      useCUDDecks(currentDeckData)
     const currentInputValue =
       variant === 'updateDeck' && currentDeckData.name ? currentDeckData.name : ''
 
@@ -38,30 +37,34 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
       handleSubmit,
       control,
       reset,
+      // setError,
+      // watch,
     } = useForm<CreateDeckArgs>({
       defaultValues: {
         name: currentInputValue,
       },
       values: {
         name: currentInputValue,
+        isPrivate: currentDeckData.isPrivate,
       },
       resolver: zodResolver(createDeckSchema),
     })
-    //TODO apply optimistic update
 
-    const onSubmit = variant === 'createDeck' ? createDeck : updateHandler
+    const { createDeck, updateDeck, deleteDeck, isLoading } = useCUDDecks(
+      currentDeckData,
+      setIsOpenModal,
+      reset
+    )
 
-    useEffect(() => {
-      if (isSuccess) {
-        setIsOpenModal(false)
-        variant === 'createDeck' && reset({ name: '' })
-      }
-    }, [isSuccess, isLoading])
+    const onSubmit = variant === 'createDeck' ? createDeck : updateDeck
 
     const titleData = getModalTitles(variant)
+
+    //-----JSX-----
+    //  Create Deck or Update Deck
     const formForCreateOrUpdate = (
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/*TODO add input for loading cover*/}
+        <ImageInput name={'cover'} control={control} />
         <TextField
           autoFocus
           {...register('name')}
@@ -72,7 +75,7 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
         />
         <ControlledCheckbox
           control={control}
-          defaultValue={true}
+          defaultValue={currentDeckData.isPrivate}
           label={'Private deck'}
           name={'isPrivate'}
           className={s.checkboxIsPrivate}
@@ -87,6 +90,8 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
         </ModalButton>
       </form>
     )
+
+    //  Delete Deck
     const deletingContent = (
       <>
         <span className={s.deleteText}>
@@ -96,7 +101,7 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
           <Button variant={'secondary'} onClick={() => setIsOpenModal(false)} type={'button'}>
             Close
           </Button>
-          <Button variant={'primary'} type={'submit'} disabled={isLoading} onClick={deleteHandler}>
+          <Button variant={'primary'} type={'submit'} disabled={isLoading} onClick={deleteDeck}>
             {titleData.buttonTitle}
           </Button>
         </ModalButton>
