@@ -1,7 +1,8 @@
 import { ChangeEvent, FC, memo, useState } from 'react'
 
+import s from '../friends-pack/friends-pack.module.scss'
+
 import { Button, TextField, Typography } from '@/components'
-import s from '@/pages/decks-page/decks.module.scss'
 
 type Props = {
   onChangeSearchInput: (searchValue: string) => void

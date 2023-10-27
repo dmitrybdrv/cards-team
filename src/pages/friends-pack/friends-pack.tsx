@@ -6,7 +6,7 @@ import { Skeleton, Table, TableColumns, THead } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
 import { DecksCUDModals } from '@/pages/decks-page/decksCUDModals.tsx'
 import { useDeckModalState } from '@/pages/decks-page/hook/useDeckModalState.ts'
-import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.ts'
+import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
 import { FriendsPackHeaders } from '@/pages/friends-pack/friends-pack-headers.tsx'
 import { FriendsPackTableBody } from '@/pages/friends-pack/friends-pack-table-body.tsx'
@@ -66,7 +66,7 @@ export const FriendsPack: FC = () => {
         maxCardsCount={maxCardsCount}
         onClickAddDeck={onClickAddDeck}
       />
-      <Table variant={'myCards'}>
+      <Table variant={'cards'}>
         <THead
           columns={decksColumnsTitles}
           onSort={setSortMemo}
