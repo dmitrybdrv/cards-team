@@ -1,6 +1,6 @@
 import { baseApi } from '@/services/base-api.ts'
 import { CardsParams, CardsResponse, CardsResponseItems } from '@/services/deck/cards.types.ts'
-import { DecksResponseItems } from '@/services/decks/decks.types.ts'
+import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
 export const cardsService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -12,7 +12,7 @@ export const cardsService = baseApi.injectEndpoints({
       },
       providesTags: ['Cards'],
     }),
-    getDeck: builder.query<DecksResponseItems, string>({
+    getDeck: builder.query<DecksResponseItem, string>({
       query: id => {
         return { url: `v1/decks/${id}`, method: 'GET' }
       },

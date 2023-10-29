@@ -12,12 +12,13 @@ type Props = {
   items: DecksResponseItem[]
   authorId: string
   onChangeHeight: (value: number) => void
-    onClickEditOrDeleteIcons: (
-        id: string,
-        name: string,
-        isPrivate: boolean,
-        variant: ModalVariant
-    ) => void
+  onClickEditOrDeleteIcons: (
+    id: string,
+    name: string,
+
+    isPrivate: boolean,
+    variant: ModalVariant
+  ) => void
 } & ComponentProps<'tbody'>
 
 export const DecksTableBody: FC<Props> = memo(
@@ -28,10 +29,10 @@ export const DecksTableBody: FC<Props> = memo(
         dateStyle: 'short',
       })
       const playDeckHandler = () => console.log('play deck id: ', item.id)
-        const editDeckHandler = () =>
-            onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'updateDeck')
-        const deleteDeckHandler = () =>
-            onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'deleteDeck')
+      const editDeckHandler = () =>
+        onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'updateDeck')
+      const deleteDeckHandler = () =>
+        onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'deleteDeck')
 
       const isAuthor = authorId === item.author.id
       const onEdit = isAuthor ? editDeckHandler : null
@@ -39,7 +40,11 @@ export const DecksTableBody: FC<Props> = memo(
 
       return (
         <TRow className={s.tRow} key={item.id}>
-          <TdCell onClick={() => navigate(`/deck/${item.id}`)} img={item.cover ?? null} isPrivate={item.isPrivate}>
+          <TdCell
+            onClick={() => navigate(`/deck/${item.id}`)}
+            img={item.cover ?? null}
+            isPrivate={item.isPrivate}
+          >
             {item.name}
           </TdCell>
           <TdCell>{item.cardsCount}</TdCell>

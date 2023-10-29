@@ -25,6 +25,8 @@ export type Sort = {
   direction: SortDirection
 }
 
+// sort logic fix
+
 export const THead: FC<Omit<Props, 'children'>> = memo(
   ({ disabled, columns, onSort, currentSort, className, ...rest }) => {
     const columnsRender = columns.map(({ title, orderName }, i) => {

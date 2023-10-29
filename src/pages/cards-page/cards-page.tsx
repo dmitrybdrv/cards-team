@@ -22,6 +22,7 @@ const friendsColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'LastUpdate', orderName: 'updated' },
   { title: 'Grade' },
   // { title: '' },
+  // authorId check extra column
 ]
 
 const perPageCountVariant = ['10', '20', '30', '50', '100']
@@ -52,7 +53,7 @@ export const CardsPage: FC = () => {
   const { data: userData } = useGetMeQuery()
 
   const isAuthorDeck = data?.userId === userData.id
-  const checkPackTitle = isAuthorDeck ? 'My Pack' : 'Friends Pack'
+  const deckTitle = data?.name
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
@@ -67,11 +68,12 @@ export const CardsPage: FC = () => {
         </div>
       </Link>
       <CardsHeaders
-        cardsPageTitle={checkPackTitle}
+        isAuthorDeck={isAuthorDeck}
+        cardsPageTitle={deckTitle}
         disabled={isFetching}
         onChangeSearchInput={onChangeSearchInputMemo}
       />
-      <Table variant={'cards'}>
+      <Table variant={isAuthorDeck ? 'myCards' : 'cards'}>
         <THead
           columns={friendsColumnsTitles}
           onSort={setSortMemo}
