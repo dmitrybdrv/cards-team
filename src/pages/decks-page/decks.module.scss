@@ -7,7 +7,6 @@
 
 .paginationWrapper {
   margin-top: 20px;
-  margin-bottom: 20px;
 
   div:first-child {
     margin: 0 auto;
@@ -52,6 +51,10 @@
 .deleteText {
   display: block;
   margin-bottom: 28px;
+}
+
+.tRow {
+  cursor: pointer;
 }
 
 //.preloader {

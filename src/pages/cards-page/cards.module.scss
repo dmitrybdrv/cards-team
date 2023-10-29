@@ -5,6 +5,13 @@
   padding-top: 20px;
 }
 
+.linkArrowContainer {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 30px;
+  text-decoration: none;
+}
+
 .paginationWrapper {
   margin-top: 20px;
 
@@ -17,6 +24,15 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.dotsWrapper {
+  display: flex;
+  gap: 16px;
+}
+
+.dots {
+  margin-top: 7px;
 }
 
 .filtersWrapper {

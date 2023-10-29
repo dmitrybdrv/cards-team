@@ -11,9 +11,8 @@ import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
 import { Layout } from '@/components/layout/layout.tsx'
 import { Preloader } from '@/components/layout/preloader/preloader.tsx'
+import { CardsPage } from '@/pages/cards-page/cards-page.tsx'
 import { DecksPage } from '@/pages/decks-page'
-import { FriendsPack } from '@/pages/friends-pack/friends-pack.tsx'
-import { MyPack } from '@/pages/my-pack/my-pack.tsx'
 import { ProfilePage } from '@/pages/profile-page'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up-page/sign-up-page.tsx'
@@ -58,21 +57,20 @@ const privateRoutes: RouteObject[] = [
       },
       {
         path: '/deck/:deckId',
-        element: <>Cards table must be here</>,
+        element: <CardsPage />,
       },
       {
         path: '/profile-page',
         element: <ProfilePage />,
       },
-      {
-        path: '/friends-pack',
-        // eslint-disable-next-line react/jsx-no-undef
-        element: <FriendsPack />,
-      },
-      {
-        path: '/my-pack',
-        element: <MyPack />,
-      },
+      // {
+      //   path: '/deck-page',
+      //   element: <CardsPage />,
+      // },
+      // {
+      //   path: '/my-pack',
+      //   element: <MyPack />,
+      // },
     ],
   },
 ]

@@ -1,33 +1,37 @@
 import { FC } from 'react'
 
-import s from './friends-pack.module.scss'
+import { Link, useParams } from 'react-router-dom'
 
-import { Skeleton, Table, TableColumns, THead } from '@/components'
+import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outline.svg'
+
+import s from './cards.module.scss'
+
+import { Skeleton, Table, TableColumns, THead, Typography } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
-import { DecksCUDModals } from '@/pages/decks-page/decksCUDModals.tsx'
-import { useDeckModalState } from '@/pages/decks-page/hook/useDeckModalState.ts'
-import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
+import { CardsHeaders } from '@/pages/cards-page/cards-headers.tsx'
+import { CardsTableBody } from '@/pages/cards-page/cards-table-body.tsx'
+import { useGetCards } from '@/pages/cards-page/useGetCards.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
-import { FriendsPackHeaders } from '@/pages/friends-pack/friends-pack-headers.tsx'
-import { FriendsPackTableBody } from '@/pages/friends-pack/friends-pack-table-body.tsx'
-import { DecksOrderName } from '@/services/decks/decks.types.ts'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { useGetDeckQuery } from '@/services/deck/cards.service.ts'
+import { friendsOrderName } from '@/services/deck/cards.types.ts'
 
-const decksColumnsTitles: TableColumns<DecksOrderName> = [
+const friendsColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Question', orderName: 'question' },
   { title: 'Answer', orderName: 'answer' },
   { title: 'LastUpdate', orderName: 'updated' },
   { title: 'Grade' },
+  // { title: '' },
 ]
+
 const perPageCountVariant = ['10', '20', '30', '50', '100']
 const initialSkeletonHeight = 374
 
-export const FriendsPack: FC = () => {
+export const CardsPage: FC = () => {
   const {
     isFetching,
     isError,
-    profileData: { id: authorId },
-    decksData: {
-      maxCardsCount,
+    deckData: {
       pagination: { currentPage, itemsPerPage, totalPages },
       items,
     },
@@ -37,48 +41,44 @@ export const FriendsPack: FC = () => {
     onChangeSearchInputMemo,
     setCurrentPageMemo,
     setItemsPerPageMemo,
-  } = useGetDecks()
+  } = useGetCards()
+
+  const { deckId } = useParams()
+
+  const packId = deckId ? deckId : ''
+
+  const { data } = useGetDeckQuery(packId)
+
+  const { data: userData } = useGetMeQuery()
+
+  const isAuthorDeck = data?.userId === userData.id
+  const checkPackTitle = isAuthorDeck ? 'My Pack' : 'Friends Pack'
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
-
-  const {
-    isOpenModal,
-    setIsOpenModal,
-    modalVariant,
-    currentDeckData,
-    onClickAddDeck,
-    onClickEditOrDeleteDeck,
-  } = useDeckModalState()
 
   if (isError) return <h1>Error!</h1>
 
   return (
     <div className={s.pageWrapper}>
-      <DecksCUDModals
-        isOpenModal={isOpenModal}
-        setIsOpenModal={setIsOpenModal}
-        variant={modalVariant}
-        currentDeckData={currentDeckData}
-      />
-      <FriendsPackHeaders
+      <Link style={{ textDecoration: 'none' }} to={'/'}>
+        <div className={s.linkArrowContainer}>
+          <ArrowBack />
+          <Typography variant={'body2'}>Back to Deck List</Typography>
+        </div>
+      </Link>
+      <CardsHeaders
+        cardsPageTitle={checkPackTitle}
         disabled={isFetching}
         onChangeSearchInput={onChangeSearchInputMemo}
-        maxCardsCount={maxCardsCount}
-        onClickAddDeck={onClickAddDeck}
       />
       <Table variant={'cards'}>
         <THead
-          columns={decksColumnsTitles}
+          columns={friendsColumnsTitles}
           onSort={setSortMemo}
           currentSort={sort}
           disabled={isFetching}
         />
-        <FriendsPackTableBody
-          items={items}
-          authorId={authorId}
-          onChangeHeight={setSkeletonHeight}
-          onClickEditOrDeleteIcons={onClickEditOrDeleteDeck}
-        />
+        <CardsTableBody items={items} onChangeHeight={setSkeletonHeight} />
       </Table>
       <Skeleton
         isFetching={isFetching}

@@ -1,14 +1,14 @@
 import {
   LoginArgs,
   LoginResponse,
-  MeResponse,
+  SingUpResponse,
+  UpdateProfile,
   RecoverPassword,
   ResendVerifyEmail,
   ResetPassword,
   SingUpArgs,
-  SingUpResponse,
-  UpdateProfile,
   VerifyEmail,
+  MeResponse,
 } from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'

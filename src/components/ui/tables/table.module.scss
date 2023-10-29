@@ -29,25 +29,25 @@
   }
 }
 
-//set width columns for packs table
+// set width columns for packs table
 .packs {
-  //name column
+  // name column
   th:first-child {
     min-width: 260px;
   }
 
-  //cardsCount column
+  // cardsCount column
   th:nth-child(2) {
     min-width: 140px;
   }
 
-  //cardsCount column
+  // cardsCount column
   th:nth-child(4) {
     width: 200px;
   }
 }
 
-//set width columns for my cards table
+// set width columns for my deck table
 .myCards,
 .cards {
   th:first-child,
@@ -56,7 +56,7 @@
   }
 }
 
-//set width columns for cards table
+// set width columns for deck table
 .myCards {
   th:nth-child(3) {
     min-width: 130px;
@@ -103,7 +103,7 @@
   }
 }
 
-//tdCell
+// tdCell
 .tdCell {
   position: relative;
   display: flex;
@@ -134,7 +134,7 @@
   object-fit: cover;
 }
 
-//Table head
+// Table head
 .sortingColumn {
   cursor: pointer;
 }
@@ -144,7 +144,7 @@
   color: var(--color-dark-300);
 }
 
-//skeleton
+// skeleton
 .skeleton {
   position: relative;
 
