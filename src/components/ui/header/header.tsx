@@ -28,7 +28,12 @@ export const Header = ({}) => {
                 <img
                   src={data.avatar ? data.avatar : ava}
                   alt="ava"
-                  style={{ width: '36px', height: '36px', borderRadius: '100%' }}
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '100%',
+                    objectFit: 'cover',
+                  }}
                 />
               }
               text={data.email && <Typography variant={'caption'}>{data.email}</Typography>}
@@ -46,7 +51,7 @@ export const Header = ({}) => {
             <ToolbarItemWithIcon
               icon={<SignOut />}
               text={'Sign Out'}
-              onSelect={logout}
+              onSelect={() => logout()}
             ></ToolbarItemWithIcon>
           </Dropdown>
         ) : (

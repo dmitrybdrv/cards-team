@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { any, z } from 'zod'
 
 const zEmail = z.string().email()
 const zPassword = z
@@ -38,4 +38,5 @@ export const updateNameSchema = z.object({
 export const createDeckSchema = z.object({
   name: z.string().min(3).max(30),
   isPrivate: z.boolean(),
+  cover: any(),
 })

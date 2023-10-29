@@ -1,99 +1,81 @@
-import { ChangeEvent, FC, memo, useState } from 'react'
+import { FC, memo } from 'react'
 
 import deleteIcon from '@/assets/icons/trashIcon.svg'
 import { Button, Slider, TabSwitcher, TextField, Typography } from '@/components'
 import s from '@/pages/decks-page/decks.module.scss'
-import { ChangeSwitcherValues } from '@/pages/decks-page/hook/useGetDecks.tsx'
+import { tabSwitcherValue } from '@/pages/decks-page/enums'
+import { useFilterState } from '@/pages/decks-page/hook/useFilterState.ts'
 
 type Props = {
-  switcherValue: string
-  onChangeSearchInput: (searchValue: string) => void
-  onChangeTabSwitcher: (value: string) => void
-  onChangeSlider: (minValue: number, maxValue: number) => void
-  maxCardsCount: number
-  clearFilter: () => void
-  getFuncSetting: (arg: ChangeSwitcherValues) => void
-  disabled: boolean
+  disabled?: boolean
   onClickAddDeck: () => void
+  maxCardsCount: number
 }
-export const DecksHeaderFilters: FC<Props> = memo(
-  ({
-    onChangeSearchInput,
-    onChangeTabSwitcher,
-    maxCardsCount,
-    onChangeSlider,
+
+export const DecksHeaderFilters: FC<Props> = memo(({ onClickAddDeck, disabled, maxCardsCount }) => {
+  const {
+    searchInputValue,
+    changeSearchInputHandler,
     switcherValue,
-    clearFilter,
-    getFuncSetting,
-    disabled,
-    onClickAddDeck,
-  }) => {
-    const [searchInputValue, setSearchInputValue] = useState('')
-    const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      //for UI
-      setSearchInputValue(e.currentTarget.value)
-      //for fetch
-      onChangeSearchInput(e.currentTarget.value)
-    }
-    const onClickClearFilter = () => {
-      clearFilter()
-      setSearchInputValue('')
-    }
+    onChangeTabSwitcher,
+    isResetSlider,
+    onChangeSlider,
+    onClickClearFilter,
+  } = useFilterState()
 
-    const iconForBtn = (
-      <img src={deleteIcon} alt="trash icon" style={{ marginRight: '3px', marginTop: '-3px' }} />
-    )
+  const iconForBtn = (
+    <img src={deleteIcon} alt="trash icon" style={{ marginRight: '3px', marginTop: '-3px' }} />
+  )
 
-    return (
-      <div className={s.headerWrapper}>
-        <div className={s.titleWrapper}>
-          <Typography variant={'large'}>Decks list</Typography>
-          <Button variant={'primary'} disabled={disabled} onClick={onClickAddDeck}>
-            <Typography variant={'subtitle2'}>Add New Deck</Typography>
-          </Button>
-        </div>
-        <div className={s.filtersWrapper}>
-          <TextField
-            disabled={disabled}
-            type={'search'}
-            className={s.searchInput}
-            value={searchInputValue}
-            onChange={changeSearchInputHandler}
-          />
-          <div className={s.tabSwitcherWrapper}>
-            <Typography variant={'body2'} className={s.filterLabel}>
-              Show decks cards
-            </Typography>
-            <TabSwitcher
-              disabled={disabled}
-              currentValue={switcherValue}
-              values={[{ value: 'My CardsPage' }, { value: 'All CardsPage' }]}
-              defaultValue={'All CardsPage'}
-              onChange={onChangeTabSwitcher}
-            />
-          </div>
-          <div className={s.sliderWrapper}>
-            <Typography variant={'body2'} className={s.filterLabel}>
-              Number of cards
-            </Typography>
-            <Slider
-              disabled={disabled}
-              setFuncForChangeValue={getFuncSetting}
-              width={155}
-              boundaryMaxValue={maxCardsCount}
-              onChange={onChangeSlider}
-            />
-          </div>
-          <Button
-            variant={'secondary'}
-            icon={iconForBtn}
-            onClick={onClickClearFilter}
-            disabled={disabled}
-          >
-            <Typography variant={'subtitle2'}>Clear Filter</Typography>
-          </Button>
-        </div>
+  return (
+    <div className={s.headerWrapper}>
+      <div className={s.titleWrapper}>
+        <Typography variant={'large'}>Decks list</Typography>
+        <Button variant={'primary'} disabled={disabled} onClick={onClickAddDeck}>
+          <Typography variant={'subtitle2'}>Add New Deck</Typography>
+        </Button>
       </div>
-    )
-  }
-)
+      <div className={s.filtersWrapper}>
+        <TextField
+          disabled={disabled}
+          type={'search'}
+          className={s.searchInput}
+          value={searchInputValue}
+          onChange={changeSearchInputHandler}
+        />
+        <div className={s.tabSwitcherWrapper}>
+          <Typography variant={'body2'} className={s.filterLabel}>
+            Show decks cards
+          </Typography>
+          <TabSwitcher
+            disabled={disabled}
+            currentValue={switcherValue}
+            values={tabSwitcherValue}
+            defaultValue={'All Cards'}
+            onChange={onChangeTabSwitcher}
+          />
+        </div>
+        <div className={s.sliderWrapper}>
+          <Typography variant={'body2'} className={s.filterLabel}>
+            Number of cards
+          </Typography>
+          <Slider
+            disabled={disabled}
+            isResetSlider={isResetSlider}
+            width={155}
+            boundaryMaxValue={maxCardsCount}
+            onChange={onChangeSlider}
+          />
+        </div>
+        <Button
+          variant={'secondary'}
+          icon={iconForBtn}
+          onClick={onClickClearFilter}
+          disabled={disabled}
+        >
+          <Typography variant={'subtitle2'}>Clear Filter</Typography>
+        </Button>
+      </div>
+    </div>
+  )
+})

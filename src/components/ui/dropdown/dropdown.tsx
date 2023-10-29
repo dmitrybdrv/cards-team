@@ -71,7 +71,7 @@ export const Dropdown = ({
           {trigger ?? <span className={className}>{data?.name}</span>}
           <img
             src={data?.avatar ? data?.avatar : ava}
-            style={{ width: '36px', height: '36px', borderRadius: '100%' }}
+            style={{ width: '36px', height: '36px', borderRadius: '100%', objectFit: 'cover' }}
             alt="ava"
           />
         </button>

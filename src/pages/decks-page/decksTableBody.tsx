@@ -6,10 +6,10 @@ import s from './decks.module.scss'
 
 import { TdCell, TdIcons, TRow } from '@/components'
 import { ModalVariant } from '@/pages/decks-page/hook/useDeckModalState.ts'
-import { DecksResponseItems } from '@/services/decks/decks.types.ts'
+import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
 type Props = {
-  items: DecksResponseItems[]
+  items: DecksResponseItem[]
   authorId: string
   onChangeHeight: (value: number) => void
   onClickEditOrDeleteIcons: (id: string, name: string, variant: ModalVariant) => void

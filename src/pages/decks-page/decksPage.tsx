@@ -2,28 +2,22 @@ import { FC } from 'react'
 
 import s from './decks.module.scss'
 
-import { Skeleton, Table, TableColumns, THead } from '@/components'
+import { Skeleton, Table, THead } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
 import { DecksCUDModals } from '@/pages/decks-page/decksCUDModals.tsx'
 import { DecksHeaderFilters } from '@/pages/decks-page/decksHeaderFilters.tsx'
 import { DecksTableBody } from '@/pages/decks-page/decksTableBody.tsx'
+import {
+  decksColumnsTitles,
+  initialSkeletonHeight,
+  perPageCountVariant,
+} from '@/pages/decks-page/enums'
 import { useDeckModalState } from '@/pages/decks-page/hook/useDeckModalState.ts'
-import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.tsx'
+import { useGetDecks } from '@/pages/decks-page/hook/useGetDecks.ts'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
-import { DecksOrderName } from '@/services/decks/decks.types.ts'
-
-const decksColumnsTitles: TableColumns<DecksOrderName> = [
-  { title: 'Name', orderName: 'name' },
-  { title: 'Cards', orderName: 'cardsCount' },
-  { title: 'LastUpdate', orderName: 'updated' },
-  { title: 'Created by' },
-  { title: '' },
-]
-const perPageCountVariant = ['10', '20', '30', '50', '100']
-const initialSkeletonHeight = 374
 
 export const DecksPage: FC = () => {
-  const {
+  let {
     isFetching,
     isError,
     profileData: { id: authorId },
@@ -33,14 +27,8 @@ export const DecksPage: FC = () => {
       items,
     },
     isLoadingDecksData,
-    switcherValue,
     sort,
     setSortMemo,
-    onChangeSearchInputMemo,
-    onChangeTabSwitcherMemo,
-    onChangeSliderMemo,
-    clearFilterMemo,
-    getFuncForChangeSliderValueMemo,
     setCurrentPageMemo,
     setItemsPerPageMemo,
   } = useGetDecks()
@@ -66,24 +54,9 @@ export const DecksPage: FC = () => {
         variant={modalVariant}
         currentDeckData={currentDeckData}
       />
-      <DecksHeaderFilters
-        disabled={isFetching}
-        switcherValue={switcherValue}
-        onChangeSearchInput={onChangeSearchInputMemo}
-        onChangeTabSwitcher={onChangeTabSwitcherMemo}
-        maxCardsCount={maxCardsCount}
-        onChangeSlider={onChangeSliderMemo}
-        clearFilter={clearFilterMemo}
-        getFuncSetting={getFuncForChangeSliderValueMemo}
-        onClickAddDeck={onClickAddDeck}
-      />
+      <DecksHeaderFilters onClickAddDeck={onClickAddDeck} maxCardsCount={maxCardsCount} />
       <Table variant={'packs'}>
-        <THead
-          columns={decksColumnsTitles}
-          onSort={setSortMemo}
-          currentSort={sort}
-          disabled={isFetching}
-        />
+        <THead columns={decksColumnsTitles} onSort={setSortMemo} currentSort={sort} />
         <DecksTableBody
           items={items}
           authorId={authorId}
@@ -98,7 +71,6 @@ export const DecksPage: FC = () => {
       />
       <div className={s.paginationWrapper}>
         <Pagination
-          disabled={isFetching}
           perPageCountVariant={perPageCountVariant}
           currentPage={currentPage}
           totalPages={totalPages}
