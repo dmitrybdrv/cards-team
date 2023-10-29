@@ -159,12 +159,12 @@
 
 .skeletonLine {
   position: relative;
-  top: -40%;
+  top: calc(-100px - 20%);
   left: -40%;
   transform: rotate(30deg);
 
   width: 30%;
-  height: 200%;
+  height: calc(200px + 200%);
 
   background-color: var(--color-dark-500);
 
