@@ -30,9 +30,15 @@ export type Sort = {
 
 export const THead: FC<Omit<Props, 'children'>> = memo(
   ({ disabled, columns, onSort, currentSort, className, isAuthorDeck, ...rest }) => {
-    // const columnsForMap = !isAuthorDeck ?
+    let columnsForMap
 
-    const columnsRender = columns.map(({ title, orderName }, i) => {
+    if (!isAuthorDeck) {
+      columnsForMap = columns.slice(0, -1)
+    } else {
+      columnsForMap = columns
+    }
+
+    const columnsRender = columnsForMap.map(({ title, orderName }, i) => {
       const isSortColumn = currentSort.orderName === orderName
       const currentDirection = isSortColumn ? currentSort.direction : null
 

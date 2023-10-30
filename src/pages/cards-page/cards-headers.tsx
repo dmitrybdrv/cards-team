@@ -10,13 +10,14 @@ import { Button, TextField, ToolbarItemWithIcon, Typography } from '@/components
 import { MyPackDropDown } from '@/pages/cards-page/my-pack-drop-down'
 
 type Props = {
+  isDeckEmpty: boolean
   isAuthorDeck: boolean
   onChangeSearchInput: (searchValue: string) => void
   disabled: boolean
   cardsPageTitle: string | undefined
 }
 export const CardsHeaders: FC<Props> = memo(
-  ({ onChangeSearchInput, disabled, cardsPageTitle, isAuthorDeck }) => {
+  ({ onChangeSearchInput, disabled, cardsPageTitle, isAuthorDeck, isDeckEmpty }) => {
     const [searchInputValue, setSearchInputValue] = useState('')
     const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
       //for UI
@@ -65,13 +66,15 @@ export const CardsHeaders: FC<Props> = memo(
           )}
         </div>
         <div className={s.filtersWrapper}>
-          <TextField
-            disabled={disabled}
-            type={'search'}
-            className={s.searchInput}
-            value={searchInputValue}
-            onChange={changeSearchInputHandler}
-          />
+          {isDeckEmpty && (
+            <TextField
+              disabled={disabled}
+              type={'search'}
+              className={s.searchInput}
+              value={searchInputValue}
+              onChange={changeSearchInputHandler}
+            />
+          )}
         </div>
       </div>
     )
