@@ -10,6 +10,7 @@ import { Skeleton, Table, TableColumns, THead, Typography } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
 import { CardsHeaders } from '@/pages/cards-page/cards-headers.tsx'
 import { CardsTableBody } from '@/pages/cards-page/cards-table-body.tsx'
+import { EmptyDeckPage } from '@/pages/cards-page/empty-deck-page/empty-deck-page.tsx'
 import { useGetCards } from '@/pages/cards-page/useGetCards.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
@@ -54,6 +55,7 @@ export const CardsPage: FC = () => {
 
   const isAuthorDeck = data?.userId === userData.id
   const deckTitle = data?.name
+  const isDeckEmpty = data?.cardsCount === 0
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
@@ -67,39 +69,47 @@ export const CardsPage: FC = () => {
           <Typography variant={'body2'}>Back to Deck List</Typography>
         </div>
       </Link>
-      <CardsHeaders
-        isAuthorDeck={isAuthorDeck}
-        cardsPageTitle={deckTitle}
-        disabled={isFetching}
-        onChangeSearchInput={onChangeSearchInputMemo}
-      />
-      <Table variant={isAuthorDeck ? 'myCards' : 'cards'}>
-        <THead
-          isAuthorDeck={isAuthorDeck}
-          columns={friendsColumnsTitles}
-          onSort={setSortMemo}
-          currentSort={sort}
-          disabled={isFetching}
-        />
-        <CardsTableBody items={items} onChangeHeight={setSkeletonHeight} />
-      </Table>
-      <Skeleton
-        isFetching={isFetching}
-        isLoading={isLoadingDecksData}
-        currentHeight={skeletonHeight.current}
-      />
-      <div className={s.paginationWrapper}>
-        <Pagination
-          disabled={isFetching}
-          perPageCountVariant={perPageCountVariant}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          itemsPerPage={itemsPerPage}
-          changePage={setCurrentPageMemo}
-          changeItemsPerPage={setItemsPerPageMemo}
-          className={s.pagination}
-        />
-      </div>
+      {isDeckEmpty ? (
+        <>
+          <EmptyDeckPage deckTitle={deckTitle} isAuthorDeck={isAuthorDeck} />
+        </>
+      ) : (
+        <>
+          <CardsHeaders
+            isAuthorDeck={isAuthorDeck}
+            cardsPageTitle={deckTitle}
+            disabled={isFetching}
+            onChangeSearchInput={onChangeSearchInputMemo}
+          />
+          <Table variant={isAuthorDeck ? 'myCards' : 'cards'}>
+            <THead
+              isAuthorDeck={isAuthorDeck}
+              columns={friendsColumnsTitles}
+              onSort={setSortMemo}
+              currentSort={sort}
+              disabled={isFetching}
+            />
+            <CardsTableBody items={items} onChangeHeight={setSkeletonHeight} />
+          </Table>
+          <Skeleton
+            isFetching={isFetching}
+            isLoading={isLoadingDecksData}
+            currentHeight={skeletonHeight.current}
+          />
+          <div className={s.paginationWrapper}>
+            <Pagination
+              disabled={isFetching}
+              perPageCountVariant={perPageCountVariant}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              itemsPerPage={itemsPerPage}
+              changePage={setCurrentPageMemo}
+              changeItemsPerPage={setItemsPerPageMemo}
+              className={s.pagination}
+            />
+          </div>
+        </>
+      )}
     </div>
   )
 }
