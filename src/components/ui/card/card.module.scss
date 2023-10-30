@@ -1,4 +1,6 @@
 .cardContainer {
+  margin: 36px auto 0;
+  padding: 33px 36px 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,4 +17,6 @@
     1px 1px 2px rgb(0 0 0 / 10%);
 
   stroke-width: 1px;
+  border-radius: 2px;
+  border: 1px solid var(--color-dark-500)
 }

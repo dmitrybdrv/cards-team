@@ -17,6 +17,7 @@ import { ProfilePage } from '@/pages/profile-page'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up-page/sign-up-page.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import {LearnPage} from "@/pages/learn-page/learn-page.tsx";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -58,6 +59,10 @@ const privateRoutes: RouteObject[] = [
       {
         path: '/deck/:deckId',
         element: <CardsPage />,
+      },
+      {
+        path: '/learn/:deckId',
+        element: <LearnPage />,
       },
       {
         path: '/profile-page',
