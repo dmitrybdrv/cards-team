@@ -22,7 +22,7 @@ const friendsColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Answer', orderName: 'answer' },
   { title: 'LastUpdate', orderName: 'updated' },
   { title: 'Grade' },
-  { title: '' },
+  // { title: '' },
   // authorId check extra column
 ]
 
