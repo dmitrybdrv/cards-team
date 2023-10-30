@@ -4,7 +4,7 @@ import {
   CardsParams,
   CardsResponse,
   CardsResponseItems,
-} from '@/services/deck/cards.types.ts'
+} from '@/services/cards/cards.types.ts'
 import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
 export const cardsService = baseApi.injectEndpoints({
@@ -36,4 +36,5 @@ export const cardsService = baseApi.injectEndpoints({
   }),
 })
 
-export const { useCreateCardMutation, useGetDeckQuery, useGetUserCardsQuery } = cardsService
+export const { useGetCardQuery, useCreateCardMutation, useGetDeckQuery, useGetUserCardsQuery } =
+  cardsService

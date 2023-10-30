@@ -8,7 +8,7 @@ import s from './learnPage.module.scss'
 
 import { Button, Card, Radio, Typography } from '@/components'
 import { CardHeader } from '@/pages/learn-page/cardHeader.tsx'
-import { useGetCardQuery, useGetDeckQuery } from '@/services/deck/cards.service.ts'
+import { useGetCardQuery, useGetDeckQuery } from '@/services/cards/cards.service.ts'
 
 export const LearnPage: FC = () => {
   const { deckId } = useParams()

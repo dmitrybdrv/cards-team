@@ -19,9 +19,7 @@ export const CardsTableBody: FC<Props> = memo(({ onChangeHeight, items }) => {
         <TdCell>{item.question}</TdCell>
         <TdCell>{item.answer}</TdCell>
         <TdCell>{updateData}</TdCell>
-        <TdCell>
-          <TdRating rating={item.grade} />
-        </TdCell>
+        <TdRating rating={item.grade} />
         <TdIcons onDelete={() => {}} onEdit={() => {}} onPlay={() => {}} />
       </TRow>
     )
