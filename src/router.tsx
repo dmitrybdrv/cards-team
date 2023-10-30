@@ -13,11 +13,11 @@ import { Layout } from '@/components/layout/layout.tsx'
 import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { CardsPage } from '@/pages/cards-page/cards-page.tsx'
 import { DecksPage } from '@/pages/decks-page'
+import { LearnPage } from '@/pages/learn-page/learn-page.tsx'
 import { ProfilePage } from '@/pages/profile-page'
 import { SignInPage } from '@/pages/sign-in-page/sign-in-page.tsx'
 import { SignUpPage } from '@/pages/sign-up-page/sign-up-page.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
-import {LearnPage} from "@/pages/learn-page/learn-page.tsx";
 
 const publicRoutes: RouteObject[] = [
   {
