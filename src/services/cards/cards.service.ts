@@ -36,5 +36,4 @@ export const cardsService = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetCardQuery, useCreateCardMutation, useGetDeckQuery, useGetUserCardsQuery } =
-  cardsService
+export const { useCreateCardMutation, useGetDeckQuery, useGetUserCardsQuery } = cardsService

@@ -1,7 +1,7 @@
 import { ComponentProps, FC, memo, useEffect, useRef } from 'react'
 
-import { TdCell, TdRating, TRow } from '@/components'
-import { CardsResponseItems } from '@/services/deck/cards.types.ts'
+import { TdCell, TdIcons, TdRating, TRow } from '@/components'
+import { CardsResponseItems } from '@/services/cards/cards.types.ts'
 
 type Props = {
   items: CardsResponseItems[]
@@ -22,6 +22,7 @@ export const CardsTableBody: FC<Props> = memo(({ onChangeHeight, items }) => {
         <TdCell>
           <TdRating rating={item.grade} />
         </TdCell>
+        <TdIcons onDelete={() => {}} onEdit={() => {}} onPlay={() => {}} />
       </TRow>
     )
   })
