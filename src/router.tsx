@@ -63,14 +63,6 @@ const privateRoutes: RouteObject[] = [
         path: '/profile-page',
         element: <ProfilePage />,
       },
-      // {
-      //   path: '/deck-page',
-      //   element: <CardsPage />,
-      // },
-      // {
-      //   path: '/my-pack',
-      //   element: <MyPack />,
-      // },
     ],
   },
 ]

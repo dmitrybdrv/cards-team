@@ -47,7 +47,7 @@
   }
 }
 
-// set width columns for my deck table
+// set width columns for my cards table
 .myCards,
 .cards {
   th:first-child,
@@ -56,7 +56,7 @@
   }
 }
 
-// set width columns for deck table
+// set width columns for cards table
 .myCards {
   th:nth-child(3) {
     min-width: 130px;

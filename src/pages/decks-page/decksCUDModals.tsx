@@ -76,7 +76,7 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
         <ControlledCheckbox
           control={control}
           defaultValue={currentDeckData.isPrivate}
-          label={'Private deck'}
+          label={'Private cards'}
           name={'isPrivate'}
           className={s.checkboxIsPrivate}
         />

@@ -14,8 +14,8 @@ import { EmptyDeckPage } from '@/pages/cards-page/empty-deck-page/empty-deck-pag
 import { useGetCards } from '@/pages/cards-page/useGetCards.tsx'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
-import { useGetDeckQuery } from '@/services/deck/cards.service.ts'
-import { friendsOrderName } from '@/services/deck/cards.types.ts'
+import { useGetDeckQuery } from '@/services/cards/cards.service.ts'
+import { friendsOrderName } from '@/services/cards/cards.types.ts'
 
 const friendsColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Question', orderName: 'question' },
