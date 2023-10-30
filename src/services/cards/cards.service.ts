@@ -1,5 +1,5 @@
 import { baseApi } from '@/services/base-api.ts'
-import { CardsParams, CardsResponse, CardsResponseItems } from '@/services/deck/cards.types.ts'
+import { CardsParams, CardsResponse, CardsResponseItems } from '@/services/cards/cards.types.ts'
 import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
 export const cardsService = baseApi.injectEndpoints({
