@@ -21,7 +21,7 @@ const friendsColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Answer', orderName: 'answer' },
   { title: 'LastUpdate', orderName: 'updated' },
   { title: 'Grade' },
-  // { title: '' },
+  { title: '' },
   // authorId check extra column
 ]
 
@@ -75,6 +75,7 @@ export const CardsPage: FC = () => {
       />
       <Table variant={isAuthorDeck ? 'myCards' : 'cards'}>
         <THead
+          isAuthorDeck={isAuthorDeck}
           columns={friendsColumnsTitles}
           onSort={setSortMemo}
           currentSort={sort}
