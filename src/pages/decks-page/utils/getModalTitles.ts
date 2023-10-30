@@ -14,12 +14,12 @@ export const getModalTitles = (
       result.buttonTitle = 'Add New Deck'
       break
     case 'updateDeck':
-      result.title = 'Edit deck'
+      result.title = 'Edit cards'
       result.buttonTitle = 'Save Changes'
       break
     case 'deleteDeck':
-      result.title = 'Delete deck'
-      result.buttonTitle = 'Delete deck'
+      result.title = 'Delete cards'
+      result.buttonTitle = 'Delete cards'
       break
   }
 
