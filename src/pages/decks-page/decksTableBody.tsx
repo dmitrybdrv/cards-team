@@ -27,7 +27,7 @@ export const DecksTableBody: FC<Props> = memo(
       const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
         dateStyle: 'short',
       })
-      const playDeckHandler = () => console.log('play cards id: ', item.id)
+      const playDeckHandler = () => navigate(`/learn/${item.id}`)
       const editDeckHandler = () =>
         onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'updateDeck')
       const deleteDeckHandler = () =>

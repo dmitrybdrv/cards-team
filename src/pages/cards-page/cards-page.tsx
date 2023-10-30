@@ -17,14 +17,17 @@ import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDeckQuery } from '@/services/cards/cards.service.ts'
 import { friendsOrderName } from '@/services/cards/cards.types.ts'
 
-const friendsColumnsTitles: TableColumns<friendsOrderName> = [
+const myColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Question', orderName: 'question' },
   { title: 'Answer', orderName: 'answer' },
   { title: 'LastUpdate', orderName: 'updated' },
   { title: 'Grade' },
-  // { title: '' },
-  // authorId check extra column
+  { title: '' },
 ]
+
+const friendsColumnsTitles: TableColumns<friendsOrderName> = [...myColumnsTitles]
+
+friendsColumnsTitles.pop()
 
 const perPageCountVariant = ['10', '20', '30', '50', '100']
 const initialSkeletonHeight = 374
@@ -83,8 +86,7 @@ export const CardsPage: FC = () => {
           />
           <Table variant={isAuthorDeck ? 'myCards' : 'cards'}>
             <THead
-              isAuthorDeck={isAuthorDeck}
-              columns={friendsColumnsTitles}
+              columns={isAuthorDeck ? myColumnsTitles : friendsColumnsTitles}
               onSort={setSortMemo}
               currentSort={sort}
               disabled={isFetching}
