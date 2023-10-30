@@ -9,10 +9,10 @@ export type CardsResponseItems = {
   question: string
   answer: string
   shots: number
-  questionImg?: any
-  answerImg?: any
-  answerVideo?: any
-  questionVideo?: any
+  questionImg?: string
+  answerImg?: string
+  answerVideo?: string
+  questionVideo?: string
   comments?: any
   type?: any
   grade: number
@@ -40,3 +40,19 @@ export type CardsParams = {
 }
 
 export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'
+
+export type CardResponse = {
+  id: string
+  deckId: string
+  userId: string
+  question: string
+  answer: string
+  shots: number
+  questionImg?: string
+  answerImg?: string
+  answerVideo?: string
+  questionVideo?: string
+  grade: number
+  created: Date
+  updated: Date
+}

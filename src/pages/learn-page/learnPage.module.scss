@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 
-.linkBackWrapper{
+.linkBackWrapper {
   display: flex;
   gap: 6px;
   margin-top: 24px;
@@ -13,4 +13,16 @@
 
 .title {
   text-align: center;
+  margin-bottom: 45px;
+}
+
+.question {
+}
+
+.shots {
+  color: var(--color-dark-100);
+}
+
+.shotsCount {
+  font-weight: 700;
 }

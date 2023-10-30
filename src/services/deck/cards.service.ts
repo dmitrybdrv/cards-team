@@ -1,5 +1,10 @@
 import { baseApi } from '@/services/base-api.ts'
-import { CardsParams, CardsResponse, CardsResponseItems } from '@/services/deck/cards.types.ts'
+import {
+  CardResponse,
+  CardsParams,
+  CardsResponse,
+  CardsResponseItems,
+} from '@/services/deck/cards.types.ts'
 import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
 export const cardsService = baseApi.injectEndpoints({
@@ -23,7 +28,13 @@ export const cardsService = baseApi.injectEndpoints({
         return { url: `v1/decks/${params.id}`, method: 'POST' }
       },
     }),
+    getCard: builder.query<CardResponse, string>({
+      query: id => ({
+        url: `v1/decks/${id}/learn`,
+      }),
+    }),
   }),
 })
 
-export const { useCreateCardMutation, useGetDeckQuery, useGetUserCardsQuery } = cardsService
+export const { useGetCardQuery, useCreateCardMutation, useGetDeckQuery, useGetUserCardsQuery } =
+  cardsService
