@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom'
 import { debounce } from '@/common/utils/debounce.ts'
 import { Sort } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
-import { useGetUserCardsQuery } from '@/services/deck/cards.service.ts'
-import { CardsParams, CardsResponse } from '@/services/deck/cards.types.ts'
+import { useGetUserCardsQuery } from '@/services/cards/cards.service.ts'
+import { CardsParams, CardsResponse } from '@/services/cards/cards.types.ts'
 import { friendsPackSlice } from '@/store/friends-pack.slice.ts'
 
 export const useGetCards = () => {
