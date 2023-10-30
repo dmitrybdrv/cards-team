@@ -54,6 +54,7 @@ export const CardsPage: FC = () => {
 
   const isAuthorDeck = data?.userId === userData.id
   const deckTitle = data?.name
+  const isDeckEmpty = data?.cardsCount !== 0
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
@@ -68,6 +69,7 @@ export const CardsPage: FC = () => {
         </div>
       </Link>
       <CardsHeaders
+        isDeckEmpty={isDeckEmpty}
         isAuthorDeck={isAuthorDeck}
         cardsPageTitle={deckTitle}
         disabled={isFetching}
