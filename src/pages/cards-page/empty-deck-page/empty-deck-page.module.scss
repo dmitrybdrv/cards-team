@@ -1,0 +1,21 @@
+.pageWrapper {
+  position: static;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.textWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 69px;
+
+  color: var(--color-dark-100);
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}

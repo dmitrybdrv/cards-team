@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom'
 import { debounce } from '@/common/utils/debounce.ts'
 import { Sort } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
-import { useGetUserCardsQuery } from '@/services/cards/cards.service.ts'
-import { CardsParams, CardsResponse } from '@/services/cards/cards.types.ts'
-import { friendsPackSlice } from '@/store/friends-pack.slice.ts'
+import { useGetUserCardsQuery } from '@/services/deck/cards.service.ts'
+import { CardsParams, CardsResponse } from '@/services/deck/cards.types.ts'
+import { friendsPackSlice, setCurrentPage, setItemPerPage } from '@/store/friends-pack.slice.ts'
 
 export const useGetCards = () => {
   const dispatch = useAppDispatch()
@@ -20,12 +20,12 @@ export const useGetCards = () => {
 
   const onChangeSearchInput = debounce((searchValue: string) => {
     setSearchValue(searchValue)
-    dispatch(friendsPackSlice.actions.setCurrentPage(1))
+    dispatch(setCurrentPage(1))
   }, 1000)
 
   const onChangeItemsPerPage = (itemsPerPage: number) => {
-    dispatch(friendsPackSlice.actions.setItemPerPage(itemsPerPage))
-    dispatch(friendsPackSlice.actions.setCurrentPage(1))
+    dispatch(setItemPerPage(itemsPerPage))
+    dispatch(setCurrentPage(1))
   }
 
   // prepare params for decks query
@@ -36,6 +36,8 @@ export const useGetCards = () => {
     itemsPerPage,
   }
 
+  // fix watch new hook - search dispatch  value and value take from redux
+  // the same flow you should do with sort
   const { data, isLoading, isSuccess, isError, isFetching } = useGetUserCardsQuery(queryParams)
 
   const initialData: CardsResponse = {

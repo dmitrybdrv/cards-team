@@ -7,6 +7,7 @@ import s from './table.module.scss'
 import { showDirection, getNewSortDirection } from '@/common/utils'
 
 type Props = ComponentPropsWithoutRef<'thead'> & {
+  isAuthorDeck: boolean
   columns: TableColumns<any>
   onSort: Dispatch<Sort>
   currentSort: Sort
@@ -25,8 +26,18 @@ export type Sort = {
   direction: SortDirection
 }
 
+// sort logic fix
+
 export const THead: FC<Omit<Props, 'children'>> = memo(
-  ({ disabled, columns, onSort, currentSort, className, ...rest }) => {
+  ({ disabled, columns, onSort, currentSort, className, isAuthorDeck, ...rest }) => {
+    // let columnsForMap
+    //
+    // if (!isAuthorDeck) {
+    //   columnsForMap = columns.slice(0, -1)
+    // } else {
+    //   columnsForMap = columns
+    // }
+
     const columnsRender = columns.map(({ title, orderName }, i) => {
       const isSortColumn = currentSort.orderName === orderName
       const currentDirection = isSortColumn ? currentSort.direction : null
