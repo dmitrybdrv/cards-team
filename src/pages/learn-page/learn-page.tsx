@@ -8,6 +8,7 @@ import s from './learnPage.module.scss'
 
 import { Button, Card, Radio, Typography } from '@/components'
 import { CardHeader } from '@/pages/learn-page/cardHeader.tsx'
+import { radioValues } from '@/pages/learn-page/enums/enums.ts'
 import { useGetCardQuery, useGetDeckQuery } from '@/services/cards/cards.service.ts'
 
 export const LearnPage: FC = () => {
@@ -17,15 +18,20 @@ export const LearnPage: FC = () => {
   if (!deckId) return <h1>Deck not found</h1>
 
   const { data: deckData, isSuccess: isSuccessGetDeck, isLoading } = useGetDeckQuery(deckId)
+
+  //redirect if the deck has not cards
+  if (deckData?.cardsCount === 0) navigate(`/deck/${deckId}`)
   const { data: cardData, isSuccess: isSuccessGetCard } = useGetCardQuery(deckId)
 
   const [isShowAnswer, setIsShowAnswer] = useState(false)
+  const [gradeValue, setGradeValue] = useState(1)
   const onShowAnswer = () => setIsShowAnswer(true)
   const onNextQuestion = () => {
     // post query
     setIsShowAnswer(false)
   }
   const clickBtnHandler = isShowAnswer ? onNextQuestion : onShowAnswer
+  const btnTitle = isShowAnswer ? 'Next Question' : 'Show Answer'
 
   return (
     <div className={s.pageWrapper}>
@@ -38,17 +44,46 @@ export const LearnPage: FC = () => {
         <Card>
           <CardHeader name={deckData?.name} shots={cardData?.shots} question={cardData?.question} />
           {/*-----answer*/}
-          <Typography variant={'subtitle1'} className={s.answer}>
-            Answer: <Typography variant={'body1'}>{cardData.answer}</Typography>
-          </Typography>
-          <Radio data={[1, 2, 3]} value={1} onChange={() => {}} />
+          <CardAnswer
+            isShowAnswer={isShowAnswer}
+            answer={cardData.answer}
+            gradeValue={gradeValue}
+            setGradeValue={setGradeValue}
+          />
           {/*-----button*/}
           <Button variant={'primary'} fullWidth={true} onClick={clickBtnHandler}>
-            Show Answer
+            {btnTitle}
           </Button>
         </Card>
       )}
       {/*skeleton*/}
     </div>
   )
+}
+
+export type CardAnswerProps = {
+  answer: string
+  gradeValue: number
+  setGradeValue: (value: number) => void
+  isShowAnswer: boolean
+}
+export const CardAnswer: FC<CardAnswerProps> = ({
+  answer,
+  gradeValue,
+  setGradeValue,
+  isShowAnswer,
+}) => {
+  if (isShowAnswer) {
+    return (
+      <>
+        <Typography variant={'subtitle1'} className={s.answer}>
+          Answer: <Typography variant={'body1'}>{answer}</Typography>
+        </Typography>
+        <Typography variant={'subtitle1'} className={s.rateYouself}>
+          Rate yourself:
+        </Typography>
+        <Radio data={radioValues} value={gradeValue} onChange={setGradeValue} className={s.radio} />
+      </>
+    )
+  }
 }

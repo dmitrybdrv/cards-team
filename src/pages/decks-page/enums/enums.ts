@@ -20,4 +20,4 @@ export const initialDecksData: DecksResponse = {
     totalPages: 0,
   },
 }
-export const tabSwitcherValue = [{ value: 'My Cards' }, { value: 'All Cards' }]
+export const tabSwitcherValue = [{ value: 'My Decks' }, { value: 'All Decks' }]

@@ -2,6 +2,7 @@ import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 import { debounce } from '@/common/utils/debounce.ts'
 import { useAppDispatch } from '@/hooks/hooks.ts'
+import { tabSwitcherValue } from '@/pages/decks-page'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import {
   changeAuthorId,
@@ -28,7 +29,7 @@ export const useFilterState = () => {
 
   //---------switcher-------------
   const { data: profileData } = useGetMeQuery()
-  const [switcherValue, setSwitcherValue] = useState('All Cards')
+  const [switcherValue, setSwitcherValue] = useState(tabSwitcherValue[1].value)
 
   const onChangeTabSwitcher = (value: string) => {
     // switcher can return empty string if second click same button
@@ -36,7 +37,7 @@ export const useFilterState = () => {
       //for UI
       setSwitcherValue(value)
       //for fetch
-      dispatch(changeAuthorId(value === 'My Cards' ? profileData.id : null))
+      dispatch(changeAuthorId(value === tabSwitcherValue[0].value ? profileData.id : null))
     }
   }
 
