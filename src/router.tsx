@@ -9,6 +9,8 @@ import {
 import { CheckEmail, ForgotPassword } from '@/components'
 import { CreateNewPassword } from '@/components/layout/forms'
 import { Error404 } from '@/components/layout/forms/error-page/error404.tsx'
+import { SuccessResetPassword } from '@/components/layout/forms/success-reset-password/success-reset-password.tsx'
+import { SuccessSingUp } from '@/components/layout/forms/success-sing-up/success-sing-up.tsx'
 import { Layout } from '@/components/layout/layout.tsx'
 import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { CardsPage } from '@/pages/cards-page/cards-page.tsx'
@@ -43,6 +45,14 @@ const publicRoutes: RouteObject[] = [
       {
         path: '/auth/check-email',
         element: <CheckEmail />,
+      },
+      {
+        path: '/auth/success-reset-password',
+        element: <SuccessResetPassword />,
+      },
+      {
+        path: '/auth/success-sign-up',
+        element: <SuccessSingUp />,
       },
     ],
   },
