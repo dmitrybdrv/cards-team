@@ -1,18 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface CardsState {
-  currentPage: number
-  itemPerPage: number
-  searchValue: string
-}
-const initialState: CardsState = {
+const initialState = {
   currentPage: 1,
   itemPerPage: 10,
-  searchValue: '',
+  orderBy: null as unknown as string | null,
 }
 
+export type InitialCards = typeof initialState
+
 export const cardsSlice = createSlice({
-  name: 'friendsPack',
+  name: 'cards',
   initialState,
   reducers: {
     setCurrentPage: (state, action: PayloadAction<number>) => {
@@ -20,11 +17,12 @@ export const cardsSlice = createSlice({
     },
     setItemPerPage: (state, action: PayloadAction<number>) => {
       state.itemPerPage = action.payload
+      state.currentPage = 1
     },
-    setSearchValue: (state, action: PayloadAction<string>) => {
-      state.searchValue = action.payload
+    changeOrderBy: (state, action: PayloadAction<string>) => {
+      state.orderBy = action.payload
     },
   },
 })
 
-export const { setCurrentPage, setItemPerPage, setSearchValue } = cardsSlice.actions
+export const { setCurrentPage, setItemPerPage } = cardsSlice.actions

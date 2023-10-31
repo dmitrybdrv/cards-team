@@ -15,8 +15,8 @@ export const useGetCards = () => {
   const [searchValue, setSearchValue] = useState('')
   const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
 
-  const currentPage = useAppSelector(state => state.friendsPack.currentPage)
-  const itemsPerPage = useAppSelector(state => state.friendsPack.itemPerPage)
+  const currentPage = useAppSelector(state => state.cards.currentPage)
+  const itemsPerPage = useAppSelector(state => state.cards.itemPerPage)
 
   const onChangeSearchInput = debounce((searchValue: string) => {
     setSearchValue(searchValue)
