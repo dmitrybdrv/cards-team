@@ -51,5 +51,5 @@ export const Default: Story = {
     ),
     trigger: <div style={{ marginRight: '10px' }}>{'Ivan'}</div>,
   },
-  render: args => <Dropdown {...args} />,
+  render: args => <Dropdown {...args}>xxx</Dropdown>,
 }
