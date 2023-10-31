@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface FriendsPackState {
+interface CardsState {
   currentPage: number
   itemPerPage: number
+  searchValue: string
 }
-const initialState: FriendsPackState = {
+const initialState: CardsState = {
   currentPage: 1,
   itemPerPage: 10,
+  searchValue: '',
 }
 
-export const friendsPackSlice = createSlice({
+export const cardsSlice = createSlice({
   name: 'friendsPack',
   initialState,
   reducers: {
@@ -19,7 +21,10 @@ export const friendsPackSlice = createSlice({
     setItemPerPage: (state, action: PayloadAction<number>) => {
       state.itemPerPage = action.payload
     },
+    setSearchValue: (state, action: PayloadAction<string>) => {
+      state.searchValue = action.payload
+    },
   },
 })
 
-export const { setCurrentPage, setItemPerPage } = friendsPackSlice.actions
+export const { setCurrentPage, setItemPerPage, setSearchValue } = cardsSlice.actions

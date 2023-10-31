@@ -7,7 +7,7 @@ import { Sort } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
 import { useGetUserCardsQuery } from '@/services/cards/cards.service.ts'
 import { CardsParams, CardsResponse } from '@/services/cards/cards.types.ts'
-import { friendsPackSlice, setCurrentPage, setItemPerPage } from '@/store/friends-pack.slice.ts'
+import { setCurrentPage, setItemPerPage } from '@/store/cards.slice.ts'
 
 export const useGetCards = () => {
   const dispatch = useAppDispatch()
@@ -52,7 +52,7 @@ export const useGetCards = () => {
 
   const onChangeSearchInputMemo = useCallback(onChangeSearchInput, [])
   const setCurrentPageMemo = useCallback(
-    (currentPage: number) => dispatch(friendsPackSlice.actions.setCurrentPage(currentPage)),
+    (currentPage: number) => dispatch(setCurrentPage(currentPage)),
     []
   )
   const setItemsPerPageMemo = useCallback(onChangeItemsPerPage, [])
