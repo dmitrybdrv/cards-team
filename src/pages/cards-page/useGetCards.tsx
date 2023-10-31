@@ -2,31 +2,46 @@ import { useCallback, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
-import { debounce } from '@/common/utils/debounce.ts'
 import { Sort } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
 import { useGetUserCardsQuery } from '@/services/cards/cards.service.ts'
 import { CardsParams, CardsResponse } from '@/services/cards/cards.types.ts'
-import { friendsPackSlice, setCurrentPage, setItemPerPage } from '@/store/friends-pack.slice.ts'
+import { changeOrderBy, setCurrentPage, setItemPerPage } from '@/store/cards.slice.ts'
 
 export const useGetCards = () => {
   const dispatch = useAppDispatch()
   const { deckId } = useParams()
-  const [searchValue, setSearchValue] = useState('')
-  const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
 
-  const currentPage = useAppSelector(state => state.friendsPack.currentPage)
-  const itemsPerPage = useAppSelector(state => state.friendsPack.itemPerPage)
+  // const [searchValue, setSearchValue] = useState('')
+  //
+  // const onChangeSearchInputMemo = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  //   setSearchValue(e.currentTarget.value)
+  //   onChangeSearchInput(e.currentTarget.value)
+  // }, [])
 
-  const onChangeSearchInput = debounce((searchValue: string) => {
-    setSearchValue(searchValue)
-    dispatch(setCurrentPage(1))
-  }, 1000)
+  const currentPage = useAppSelector(state => state.cards.currentPage)
+  const itemsPerPage = useAppSelector(state => state.cards.itemPerPage)
 
-  const onChangeItemsPerPage = (itemsPerPage: number) => {
+  //-----for pagination--------
+  const setItemsPerPageMemo = useCallback((itemsPerPage: number) => {
     dispatch(setItemPerPage(itemsPerPage))
-    dispatch(setCurrentPage(1))
-  }
+  }, [])
+  const setCurrentPageMemo = useCallback(
+    (currentPage: number) => dispatch(setCurrentPage(currentPage)),
+    []
+  )
+
+  //------for sort------------
+  const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
+  const setSortMemo = useCallback((sort: Sort) => {
+    setSort(sort)
+    const sortData = sort.direction ? `${sort.orderName}-${sort.direction}` : null
+
+    dispatch(changeOrderBy(sortData))
+  }, [])
+
+  const searchValue = useAppSelector(state => state.cards.name)
+  const orderBy = useAppSelector(state => state.cards.orderBy)
 
   // prepare params for decks query
   const queryParams: CardsParams = {
@@ -35,6 +50,8 @@ export const useGetCards = () => {
     currentPage,
     itemsPerPage,
   }
+
+  if (orderBy) queryParams.orderBy = orderBy
 
   // fix watch new hook - search dispatch  value and value take from redux
   // the same flow you should do with sort
@@ -50,14 +67,6 @@ export const useGetCards = () => {
     },
   }
 
-  const onChangeSearchInputMemo = useCallback(onChangeSearchInput, [])
-  const setCurrentPageMemo = useCallback(
-    (currentPage: number) => dispatch(friendsPackSlice.actions.setCurrentPage(currentPage)),
-    []
-  )
-  const setItemsPerPageMemo = useCallback(onChangeItemsPerPage, [])
-  const setSortMemo = useCallback(setSort, [])
-
   return {
     isFetching,
     isError,
@@ -66,7 +75,7 @@ export const useGetCards = () => {
     isHasDecksData: isSuccess,
     sort,
     setSortMemo,
-    onChangeSearchInputMemo,
+    // onChangeSearchInputMemo,
     setCurrentPageMemo,
     setItemsPerPageMemo,
   }
