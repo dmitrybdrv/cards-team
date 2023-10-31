@@ -8,9 +8,10 @@ export const SuccessResetPassword = () => {
   return (
     <div className={s.wrapper}>
       <Card className={s.formWrapper}>
-        <div className={s.congrats}>
-          <Typography variant={'large'}>Congratulations! </Typography>
-        </div>
+        <Typography variant={'large'} className={s.congrats}>
+          Congratulations!{' '}
+        </Typography>
+
         <Typography variant={'h1'} className={s.h2}>
           You have successfully reset your password.
         </Typography>
