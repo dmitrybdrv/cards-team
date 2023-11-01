@@ -38,6 +38,7 @@ export const CardsPage: FC = () => {
   const {
     isFetching,
     isError,
+    profileData: { id: authorId },
     deckData: {
       pagination: { currentPage, itemsPerPage, totalPages },
       items,
@@ -98,6 +99,7 @@ export const CardsPage: FC = () => {
             isAuthorDeck={isAuthorDeck}
             cardsPageTitle={deckTitle}
             disabled={isFetching}
+            onClickAddCard={onClickAddCard}
           />
           <Table variant={isAuthorDeck ? 'myCards' : 'cards'}>
             <THead
@@ -106,7 +108,12 @@ export const CardsPage: FC = () => {
               currentSort={sort}
               disabled={isFetching}
             />
-            <CardsTableBody items={items} onChangeHeight={setSkeletonHeight} />
+            <CardsTableBody
+              items={items}
+              onChangeHeight={setSkeletonHeight}
+              onClickEditOrDeleteCardIcons={onClickEditOrDeleteCard}
+              authorId={authorId}
+            />
           </Table>
           <Skeleton
             isFetching={isFetching}
