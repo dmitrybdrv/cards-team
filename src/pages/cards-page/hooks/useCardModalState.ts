@@ -4,7 +4,6 @@ export type CardModalVariant = 'createCard' | 'updateCard' | 'deleteCard' | null
 export type CurrentCardData = {
   id: string | null
   name: string | null
-  isPrivate: boolean
 }
 
 //test - conflicts
@@ -14,7 +13,6 @@ export const useCardModalState = () => {
   const [currentCardData, setCurrentCardData] = useState<CurrentCardData>({
     id: null,
     name: null,
-    isPrivate: false,
   })
   const [isOpenCardModal, setIsOpenCardModal] = useState(false)
   const onClickAddCard = useCallback(() => {
@@ -23,9 +21,9 @@ export const useCardModalState = () => {
   }, [])
 
   const onClickEditOrDeleteCard = useCallback(
-    (id: string, name: string, isPrivate: boolean, variant: CardModalVariant) => {
+    (id: string, name: string, variant: CardModalVariant) => {
       setIsOpenCardModal(true)
-      setCurrentCardData({ id, name, isPrivate })
+      setCurrentCardData({ id, name })
       setModalCardVariant(variant)
     },
     []

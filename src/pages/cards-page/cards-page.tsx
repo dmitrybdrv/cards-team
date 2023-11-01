@@ -10,7 +10,9 @@ import { Skeleton, Table, TableColumns, THead, Typography } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
 import { CardsHeaders } from '@/pages/cards-page/cards-headers.tsx'
 import { CardsTableBody } from '@/pages/cards-page/cards-table-body.tsx'
+import { CardsCUDModals } from '@/pages/cards-page/cardsCUDModals.tsx'
 import { EmptyDeckPage } from '@/pages/cards-page/empty-deck-page/empty-deck-page.tsx'
+import { useCardModalState } from '@/pages/cards-page/hooks/useCardModalState.ts'
 import { useGetCards } from '@/pages/cards-page/hooks/useGetCards.ts'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
@@ -61,10 +63,25 @@ export const CardsPage: FC = () => {
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
+  const {
+    modalCardVariant,
+    currentCardData,
+    isOpenCardModal,
+    onClickAddCard,
+    onClickEditOrDeleteCard,
+    setIsOpenCardModal,
+  } = useCardModalState()
+
   if (isError) return <h1>Error!</h1>
 
   return (
     <div className={s.pageWrapper}>
+      <CardsCUDModals
+        isOpenCardModal={isOpenCardModal}
+        setIsOpenCardModal={setIsOpenCardModal}
+        variant={modalCardVariant}
+        currentCardData={currentCardData}
+      />
       <Link style={{ textDecoration: 'none' }} to={'/'}>
         <div className={s.linkArrowContainer}>
           <ArrowBack />

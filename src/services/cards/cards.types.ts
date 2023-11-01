@@ -56,3 +56,8 @@ export type CardResponse = {
   created: Date
   updated: Date
 }
+
+export type CreateCardArgs = {
+  name: string
+  cover?: string | Blob
+}
