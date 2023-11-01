@@ -9,7 +9,11 @@ import s from './learnPage.module.scss'
 import { Button, Card, Radio, Typography } from '@/components'
 import { CardHeader } from '@/pages/learn-page/cardHeader.tsx'
 import { radioValues } from '@/pages/learn-page/enums/enums.ts'
-import { useGetCardQuery, useGetDeckQuery } from '@/services/cards/cards.service.ts'
+import {
+  useGetCardQuery,
+  useGetDeckQuery,
+  useUpdateGradeCardMutation,
+} from '@/services/cards/cards.service.ts'
 
 export const LearnPage: FC = () => {
   const { deckId } = useParams()
@@ -21,13 +25,16 @@ export const LearnPage: FC = () => {
 
   //redirect if the deck has not cards
   if (deckData?.cardsCount === 0) navigate(`/deck/${deckId}`)
+  const [updateGradeCard] = useUpdateGradeCardMutation()
   const { data: cardData, isSuccess: isSuccessGetCard } = useGetCardQuery(deckId)
 
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const [gradeValue, setGradeValue] = useState(1)
   const onShowAnswer = () => setIsShowAnswer(true)
   const onNextQuestion = () => {
-    // post query
+    if (cardData?.id) {
+      updateGradeCard({ cardId: cardData.id, id: deckId, grade: gradeValue })
+    }
     setIsShowAnswer(false)
   }
   const clickBtnHandler = isShowAnswer ? onNextQuestion : onShowAnswer
@@ -56,6 +63,7 @@ export const LearnPage: FC = () => {
           </Button>
         </Card>
       )}
+      {/*TODO enable skeleton if start fetching, create custom hooks*/}
       {/*skeleton*/}
     </div>
   )
