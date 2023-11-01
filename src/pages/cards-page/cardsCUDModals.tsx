@@ -4,18 +4,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import { createCardSchema } from '@/common/utils'
-import { Button, SelectC, TextField } from '@/components'
+import { Button, TextField } from '@/components'
 import { Modal } from '@/components/layout/forms'
 import { ModalButton } from '@/components/layout/forms/modal/modalButton.tsx'
 import { ModalClose } from '@/components/layout/forms/modal/modalClose.tsx'
 import { ModalContent } from '@/components/layout/forms/modal/modalContent.tsx'
 import { ModalField } from '@/components/layout/forms/modal/modalField.tsx'
 import { ModalTitle } from '@/components/layout/forms/modal/modalTitle.tsx'
-import { ImageInput } from '@/components/ui/imageInput/imageInput.tsx'
 import { useCUDCards } from '@/pages/cards-page/hooks/useCUDCards.ts'
 import { cardsGetModalTitles } from '@/pages/cards-page/utils/CardsGetModalTitles.ts'
 import s from '@/pages/decks-page/decks.module.scss'
-import { CardModalVariant, CreateCardArgs, CurrentCardData } from '@/services/cards/cards.types.ts'
+import { CardModalVariant, CurrentCardData } from '@/services/cards/cards.types.ts'
 
 export type CardsModalsProps = {
   isOpenCardModal: boolean
@@ -26,26 +25,28 @@ export type CardsModalsProps = {
 
 export const CardsCUDModals: FC<CardsModalsProps> = memo(
   ({ isOpenCardModal, setIsOpenCardModal, variant, currentCardData }) => {
-    const currentQuestionInputValue =
-      variant === 'updateCard' && currentCardData.question ? currentCardData.question : ''
+    /*const currentCardFormValue =
+              variant === 'updateCard' && currentCardData.question ? currentCardData.question : ''*/
 
     const {
       formState: { errors },
       register,
       handleSubmit,
-      control,
       reset,
       // setError,
       // watch,
-    } = useForm<CreateCardArgs>({
+    } = useForm<CurrentCardData>({
       defaultValues: {
-        question: currentQuestionInputValue,
+        id: 'clodas1xm19d2vo2qv0wf33fl',
+        question: currentCardData.question,
+        answer: currentCardData.answer,
       },
       values: {
-        question: currentQuestionInputValue,
-        answer: 'answer',
-        questionVideo: '',
-        answerVideo: '',
+        id: 'clodas1xm19d2vo2qv0wf33fl',
+        question: currentCardData.question,
+        answer: currentCardData.answer,
+        questionVideo: 'xxx',
+        answerVideo: 'xxx',
         answerImg: '',
         questionImg: '',
       },
@@ -58,12 +59,14 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
       reset
     )
 
+    console.log(currentCardData)
+
     const onSubmit = variant === 'createCard' ? createCard : updateCard
 
     const titleData = cardsGetModalTitles(variant)
 
     //-----JSX-----
-    //  Create Deck or Update Deck
+    //  Create Card or Update Card
     const formCardCreateOrUpdate = (
       <form onSubmit={handleSubmit(onSubmit)}>
         {/*<SelectC values={'Text'} onValueChange={} />*/}
@@ -74,6 +77,13 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
           placeholder={'Question'}
           className={s.nameInput}
           error={errors.question}
+        />
+        <TextField
+          {...register('answer')}
+          label={'Answer'}
+          placeholder={'Answer'}
+          className={s.nameInput}
+          error={errors.answer}
         />
         <ModalButton>
           <Button variant={'secondary'} onClick={() => setIsOpenCardModal(false)} type={'button'}>
@@ -90,7 +100,7 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
     const deletingContent = (
       <>
         <span className={s.deleteText}>
-          Do you really want to remove {currentCardData.name}? The card will be deleted.
+          Do you really want to remove {'Имя карточки'}? The card will be deleted.
         </span>
         <ModalButton>
           <Button variant={'secondary'} onClick={() => setIsOpenCardModal(false)} type={'button'}>
@@ -102,6 +112,7 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
         </ModalButton>
       </>
     )
+
     const mainContent = variant === 'deleteCard' ? deletingContent : formCardCreateOrUpdate
 
     return (

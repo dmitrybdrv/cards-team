@@ -91,7 +91,11 @@ export const CardsPage: FC = () => {
       </Link>
       {isDeckEmpty ? (
         <>
-          <EmptyDeckPage deckTitle={deckTitle} isAuthorDeck={isAuthorDeck} />
+          <EmptyDeckPage
+            deckTitle={deckTitle}
+            isAuthorDeck={isAuthorDeck}
+            onClickAddCard={onClickAddCard}
+          />
         </>
       ) : (
         <>

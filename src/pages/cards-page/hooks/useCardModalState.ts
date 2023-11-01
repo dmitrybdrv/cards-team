@@ -14,9 +14,9 @@ export const useCardModalState = () => {
     answerVideo: '',
   })
   const [isOpenCardModal, setIsOpenCardModal] = useState(false)
+
   const onClickAddCard = useCallback(() => {
     setIsOpenCardModal(true)
-    console.log('addCard')
     setModalCardVariant('createCard')
   }, [])
 

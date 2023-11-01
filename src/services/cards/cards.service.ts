@@ -25,7 +25,9 @@ export const cardsService = baseApi.injectEndpoints({
     }),
     createCard: builder.mutation<CardsResponseItems, CardsParams>({
       query: params => {
-        return { url: `v1/decks/${params.id}`, method: 'POST' }
+        const { id, ...rest } = params
+
+        return { url: `v1/decks/${id}/cards`, method: 'POST', body: rest }
       },
     }),
     getCard: builder.query<CardResponse, string>({

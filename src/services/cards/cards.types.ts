@@ -38,6 +38,7 @@ export type CardsParams = {
   answerVideo?: string
 }
 export type CardModalVariant = 'createCard' | 'updateCard' | 'deleteCard' | null
+
 export type CurrentCardData = {
   id?: string | null
   question: string
@@ -47,8 +48,6 @@ export type CurrentCardData = {
   questionVideo?: string
   answerVideo?: string
 }
-
-export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'
 
 export type CardResponse = {
   id: string
@@ -74,3 +73,5 @@ export type CreateCardArgs = {
   questionVideo?: string
   answerVideo?: string
 }
+
+export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'
