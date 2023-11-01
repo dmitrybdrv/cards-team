@@ -11,8 +11,7 @@ export const SuccessSingUp = () => {
         <Typography variant={'large'} className={s.congrats}>
           Congratulations!{' '}
         </Typography>
-
-        <Typography variant={'h1'} className={s.h2}>
+        <Typography variant={'h1'} className={s.h1}>
           Your account has been successfully created.
         </Typography>
         <div>
