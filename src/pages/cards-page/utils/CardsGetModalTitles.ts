@@ -1,4 +1,4 @@
-import { CardModalVariant } from '@/pages/cards-page/hooks/useCardModalState.ts'
+import { CardModalVariant } from '@/services/cards/cards.types.ts'
 
 export const cardsGetModalTitles = (
   modalVariant: CardModalVariant

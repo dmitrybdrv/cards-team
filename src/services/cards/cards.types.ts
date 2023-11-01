@@ -39,13 +39,13 @@ export type CardsParams = {
 }
 export type CardModalVariant = 'createCard' | 'updateCard' | 'deleteCard' | null
 export type CurrentCardData = {
-  id: string | null
+  id?: string | null
   question: string
   answer: string
-  questionImg: string
-  answerImg: string
-  questionVideo: string
-  answerVideo: string
+  questionImg?: string
+  answerImg?: string
+  questionVideo?: string
+  answerVideo?: string
 }
 
 export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'
@@ -67,6 +67,10 @@ export type CardResponse = {
 }
 
 export type CreateCardArgs = {
-  name: string
-  cover?: string | Blob
+  question: string
+  answer: string
+  questionImg?: string
+  answerImg?: string
+  questionVideo?: string
+  answerVideo?: string
 }

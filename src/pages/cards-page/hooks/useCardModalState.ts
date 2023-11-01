@@ -16,14 +16,18 @@ export const useCardModalState = () => {
   const [isOpenCardModal, setIsOpenCardModal] = useState(false)
   const onClickAddCard = useCallback(() => {
     setIsOpenCardModal(true)
+    console.log('addCard')
     setModalCardVariant('createCard')
   }, [])
 
-  const onClickEditOrDeleteCard = useCallback((id: string, variant: CardModalVariant) => {
-    setIsOpenCardModal(true)
-    setCurrentCardData({ id })
-    setModalCardVariant(variant)
-  }, [])
+  const onClickEditOrDeleteCard = useCallback(
+    (params: CurrentCardData, variant: CardModalVariant) => {
+      setIsOpenCardModal(true)
+      setCurrentCardData(params)
+      setModalCardVariant(variant)
+    },
+    []
+  )
 
   return {
     modalCardVariant,

@@ -1,6 +1,12 @@
-import {UseFormReset} from 'react-hook-form'
-import {CreateCardArgs} from "@/services/cards/cards.types.ts";
-import {CurrentCardData} from "@/pages/cards-page/hooks/useCardModalState.ts";
+import { UseFormReset } from 'react-hook-form'
+
+import { CurrentCardData } from '@/pages/cards-page/hooks/useCardModalState.ts'
+import { CreateCardArgs } from '@/services/cards/cards.types.ts'
+import {
+  useCreateDeckMutation,
+  useDeleteDecksMutation,
+  useUpdateDecksMutation,
+} from '@/services/decks/decks.service.ts'
 
 export const useCUDCards = (
   currentCardData: CurrentCardData,
@@ -8,11 +14,11 @@ export const useCUDCards = (
   reset: UseFormReset<CreateCardArgs>
 ) => {
   const [createCardQuery, { isLoading: isLoadingCreate, error: errorCreate }] =
-    // useCreateDeckMutation()
+    useCreateDeckMutation()
   const [deleteCardQuery, { isLoading: isLoadingDelete, error: errorDelete }] =
-    // useDeleteDecksMutation()
+    useDeleteDecksMutation()
   const [updateCardQuery, { isLoading: isLoadingUpdate, error: errorUpdate }] =
-    // useUpdateDecksMutation()
+    useUpdateDecksMutation()
 
   //status
   const isLoading = isLoadingCreate || isLoadingDelete || isLoadingUpdate

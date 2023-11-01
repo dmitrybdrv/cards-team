@@ -1,13 +1,12 @@
 import { ComponentProps, FC, memo, useEffect, useRef } from 'react'
 
 import { TdCell, TdIcons, TdRating, TRow } from '@/components'
-import { CardModalVariant } from '@/pages/cards-page/hooks/useCardModalState.ts'
-import { CardsResponseItems } from '@/services/cards/cards.types.ts'
+import { CardModalVariant, CardsResponseItems } from '@/services/cards/cards.types.ts'
 
 type Props = {
   items: CardsResponseItems[]
   onChangeHeight: (value: number) => void
-  onClickEditOrDeleteCardIcons: (id: string, variant: CardModalVariant) => void
+  onClickEditOrDeleteCardIcons: (params: CardsResponseItems, variant: CardModalVariant) => void
   authorId: string
 } & ComponentProps<'tbody'>
 

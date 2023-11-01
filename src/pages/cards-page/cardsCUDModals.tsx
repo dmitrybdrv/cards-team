@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import { createCardSchema } from '@/common/utils'
-import { Button, TextField } from '@/components'
+import { Button, SelectC, TextField } from '@/components'
 import { Modal } from '@/components/layout/forms'
 import { ModalButton } from '@/components/layout/forms/modal/modalButton.tsx'
 import { ModalClose } from '@/components/layout/forms/modal/modalClose.tsx'
@@ -12,11 +12,10 @@ import { ModalContent } from '@/components/layout/forms/modal/modalContent.tsx'
 import { ModalField } from '@/components/layout/forms/modal/modalField.tsx'
 import { ModalTitle } from '@/components/layout/forms/modal/modalTitle.tsx'
 import { ImageInput } from '@/components/ui/imageInput/imageInput.tsx'
-import { CardModalVariant, CurrentCardData } from '@/pages/cards-page/hooks/useCardModalState.ts'
 import { useCUDCards } from '@/pages/cards-page/hooks/useCUDCards.ts'
 import { cardsGetModalTitles } from '@/pages/cards-page/utils/CardsGetModalTitles.ts'
 import s from '@/pages/decks-page/decks.module.scss'
-import { CreateCardArgs } from '@/services/cards/cards.types.ts'
+import { CardModalVariant, CreateCardArgs, CurrentCardData } from '@/services/cards/cards.types.ts'
 
 export type CardsModalsProps = {
   isOpenCardModal: boolean
@@ -27,8 +26,8 @@ export type CardsModalsProps = {
 
 export const CardsCUDModals: FC<CardsModalsProps> = memo(
   ({ isOpenCardModal, setIsOpenCardModal, variant, currentCardData }) => {
-    const currentInputValue =
-      variant === 'updateCard' && currentCardData.name ? currentCardData.name : ''
+    const currentQuestionInputValue =
+      variant === 'updateCard' && currentCardData.question ? currentCardData.question : ''
 
     const {
       formState: { errors },
@@ -40,10 +39,15 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
       // watch,
     } = useForm<CreateCardArgs>({
       defaultValues: {
-        name: currentInputValue,
+        question: currentQuestionInputValue,
       },
       values: {
-        name: currentInputValue,
+        question: currentQuestionInputValue,
+        answer: 'answer',
+        questionVideo: '',
+        answerVideo: '',
+        answerImg: '',
+        questionImg: '',
       },
       resolver: zodResolver(createCardSchema),
     })
@@ -62,14 +66,14 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
     //  Create Deck or Update Deck
     const formCardCreateOrUpdate = (
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ImageInput name={'cover'} control={control} />
+        {/*<SelectC values={'Text'} onValueChange={} />*/}
         <TextField
           autoFocus
-          {...register('name')}
-          label={'Card Name'}
-          placeholder={'Name'}
+          {...register('question')}
+          label={'Question'}
+          placeholder={'Question'}
           className={s.nameInput}
-          error={errors.name}
+          error={errors.question}
         />
         <ModalButton>
           <Button variant={'secondary'} onClick={() => setIsOpenCardModal(false)} type={'button'}>

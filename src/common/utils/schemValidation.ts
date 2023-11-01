@@ -42,6 +42,10 @@ export const createDeckSchema = z.object({
 })
 
 export const createCardSchema = z.object({
-  name: z.string().min(3).max(30),
-  cover: any(),
+  question: z.string().min(3).max(30),
+  answer: z.string().min(3).max(30),
+  questionImg: any(),
+  answerImg: any(),
+  questionVideo: any(),
+  answerVideo: any(),
 })
