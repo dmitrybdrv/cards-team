@@ -1,15 +1,22 @@
-import { FC, useState } from 'react'
+import { ComponentPropsWithoutRef, FC, useState } from 'react'
 
 import * as Select from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
-import { ReactComponent as ArrowDown } from '../../../assets/icons/arrowDown.svg'
-import { ReactComponent as ArrowUp } from '../../../assets/icons/arrowUp.svg'
-
 import s from './select.module.scss'
-import { Props } from './select.types.ts'
 
+import { ReactComponent as ArrowDown } from '@/assets/icons/arrowDown.svg'
+import { ReactComponent as ArrowUp } from '@/assets/icons/arrowUp.svg'
 import { Typography } from '@/components'
+
+export type Props = {
+  values: string[]
+  onValueChange: (value: string) => void
+  startValue?: string
+  isDisabled?: boolean
+  label?: string
+  className?: string
+} & ComponentPropsWithoutRef<'select'>
 
 export const SelectC: FC<Props> = props => {
   const { onValueChange, values, startValue, label, isDisabled = false, className, ...rest } = props

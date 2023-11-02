@@ -7,7 +7,8 @@ import { useDeleteDecksMutation, useUpdateDecksMutation } from '@/services/decks
 export const useCUDCards = (
   currentCardData: CurrentCardData,
   setIsOpenModal: (isOpen: boolean) => void,
-  reset: UseFormReset<CreateCardArgs>
+  reset: UseFormReset<CreateCardArgs>,
+  packId: string
 ) => {
   const [createCardQuery, { isLoading: isLoadingCreate, error: errorCreate }] =
     useCreateCardMutation()
@@ -22,13 +23,19 @@ export const useCUDCards = (
 
   //Call backs
   const createCard = (data: any) => {
-    currentCardData.id &&
-      createCardQuery(data)
-        .unwrap()
-        .then(_res => {
-          setIsOpenModal(false)
-          reset({ question: '' })
+    createCardQuery({ id: packId, ...data })
+      .unwrap()
+      .then(_res => {
+        setIsOpenModal(false)
+        reset({
+          question: '',
+          answer: '',
+          answerImg: '',
+          questionImg: '',
+          questionVideo: '',
+          answerVideo: '',
         })
+      })
   }
   const updateCard = (data: any) => {
     currentCardData.id &&

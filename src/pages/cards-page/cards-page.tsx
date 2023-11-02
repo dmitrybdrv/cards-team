@@ -78,6 +78,7 @@ export const CardsPage: FC = () => {
   return (
     <div className={s.pageWrapper}>
       <CardsCUDModals
+        packId={packId}
         isOpenCardModal={isOpenCardModal}
         setIsOpenCardModal={setIsOpenCardModal}
         variant={modalCardVariant}

@@ -29,6 +29,7 @@ export const cardsService = baseApi.injectEndpoints({
 
         return { url: `v1/decks/${id}/cards`, method: 'POST', body: rest }
       },
+      invalidatesTags: ['Cards'],
     }),
     getCard: builder.query<CardResponse, string>({
       query: id => ({
