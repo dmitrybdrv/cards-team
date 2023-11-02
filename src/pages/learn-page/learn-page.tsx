@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useLayoutEffect, useRef, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -6,9 +6,9 @@ import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outli
 
 import s from './learnPage.module.scss'
 
-import { Button, Card, Radio, Typography } from '@/components'
+import { Button, Card, Skeleton, Typography } from '@/components'
+import { CardAnswer } from '@/pages/learn-page/cardAnswer.tsx'
 import { CardHeader } from '@/pages/learn-page/cardHeader.tsx'
-import { radioValues } from '@/pages/learn-page/enums/enums.ts'
 import {
   useGetCardQuery,
   useGetDeckQuery,
@@ -21,21 +21,36 @@ export const LearnPage: FC = () => {
 
   if (!deckId) return <h1>Deck not found</h1>
 
-  const { data: deckData, isSuccess: isSuccessGetDeck, isLoading } = useGetDeckQuery(deckId)
+  const {
+    data: deckData,
+    isSuccess: isSuccessGetDeck,
+    isLoading: isLoadingGetDeck,
+  } = useGetDeckQuery(deckId)
 
   //redirect if the deck has not cards
   if (deckData?.cardsCount === 0) navigate(`/deck/${deckId}`)
-  const [updateGradeCard] = useUpdateGradeCardMutation()
   const { data: cardData, isSuccess: isSuccessGetCard } = useGetCardQuery(deckId)
+  const [updateGradeCard, { isLoading: isLoadingUpdateCard }] = useUpdateGradeCardMutation()
 
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const [gradeValue, setGradeValue] = useState(1)
+  const [skeletonHeight, setSkeletonHeight] = useState(587)
+  const cardRef = useRef<null | HTMLTableSectionElement>(null)
+
+  useLayoutEffect(() => {
+    if (cardRef.current?.offsetHeight) {
+      setSkeletonHeight(cardRef.current?.offsetHeight)
+    }
+  }, [isShowAnswer])
   const onShowAnswer = () => setIsShowAnswer(true)
   const onNextQuestion = () => {
     if (cardData?.id) {
       updateGradeCard({ cardId: cardData.id, id: deckId, grade: gradeValue })
+        .unwrap()
+        .then(() => {
+          setIsShowAnswer(false)
+        })
     }
-    setIsShowAnswer(false)
   }
   const clickBtnHandler = isShowAnswer ? onNextQuestion : onShowAnswer
   const btnTitle = isShowAnswer ? 'Next Question' : 'Show Answer'
@@ -48,7 +63,7 @@ export const LearnPage: FC = () => {
       </div>
       {/*Check success data*/}
       {isSuccessGetDeck && isSuccessGetCard && (
-        <Card>
+        <Card ref={cardRef}>
           <CardHeader name={deckData?.name} shots={cardData?.shots} question={cardData?.question} />
           {/*-----answer*/}
           <CardAnswer
@@ -63,35 +78,12 @@ export const LearnPage: FC = () => {
           </Button>
         </Card>
       )}
-      {/*TODO enable skeleton if start fetching, create custom hooks*/}
-      {/*skeleton*/}
+      <Skeleton
+        className={s.skeleton}
+        isLoading={isLoadingGetDeck}
+        isFetching={isLoadingUpdateCard}
+        currentHeight={skeletonHeight}
+      />
     </div>
   )
-}
-
-export type CardAnswerProps = {
-  answer: string
-  gradeValue: number
-  setGradeValue: (value: number) => void
-  isShowAnswer: boolean
-}
-export const CardAnswer: FC<CardAnswerProps> = ({
-  answer,
-  gradeValue,
-  setGradeValue,
-  isShowAnswer,
-}) => {
-  if (isShowAnswer) {
-    return (
-      <>
-        <Typography variant={'subtitle1'} className={s.answer}>
-          Answer: <Typography variant={'body1'}>{answer}</Typography>
-        </Typography>
-        <Typography variant={'subtitle1'} className={s.rateYouself}>
-          Rate yourself:
-        </Typography>
-        <Radio data={radioValues} value={gradeValue} onChange={setGradeValue} className={s.radio} />
-      </>
-    )
-  }
 }

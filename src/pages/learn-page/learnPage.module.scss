@@ -1,6 +1,7 @@
 .pageWrapper {
   width: 75%;
   margin: 0 auto;
+  position: relative;
 }
 
 .linkBackWrapper {
@@ -41,4 +42,9 @@
 .radio {
   margin: 10px 0 30px;
   align-self: flex-start;
+}
+
+.skeleton {
+  width: 420px;
+  left: calc(50% - 210px);
 }
