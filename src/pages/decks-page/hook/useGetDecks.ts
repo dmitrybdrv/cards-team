@@ -11,6 +11,10 @@ import {
   changeItemsPerPage,
   changeOrderBy,
 } from '@/services/decks/decks.slice.ts'
+import {
+  decksDebounceFilterSelector,
+  decksFilterSelector,
+} from '@/services/decks/decksFilter.selector.ts'
 
 export const useGetDecks = () => {
   const dispatch = useAppDispatch()
@@ -32,11 +36,15 @@ export const useGetDecks = () => {
     dispatch(changeOrderBy(sortData))
   }, [])
 
+  //-----GetMe-----
   const { data: profileData } = useGetMeQuery()
-  //need debouncing decksFilterState
-  const decksFilterState = useAppSelector(state => state.decks)
+
+  //-----selector decks filter data-----
+  const decksFilterState = useAppSelector(decksFilterSelector)
+  //need debouncing decksDebounceFilterState
+  const decksDebounceFilterState = useAppSelector(decksDebounceFilterSelector)
   const { data, currentData, isLoading, isSuccess, isError, isFetching } = useGetDecksQuery(
-    getDeckParams(decksFilterState)
+    getDeckParams({ ...decksFilterState, ...decksDebounceFilterState })
   )
 
   return {
