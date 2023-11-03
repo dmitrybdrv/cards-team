@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useState } from 'react'
 
 import { debounce } from '@/common/utils/debounce.ts'
 import { useAppDispatch } from '@/hooks/hooks.ts'
@@ -63,11 +63,11 @@ export const useFilterState = () => {
   }
 
   // reset redux state if user leave from page
-  useEffect(() => {
-    return () => {
-      dispatch(resetState())
-    }
-  }, [])
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(resetState())
+  //   }
+  // }, [])
 
   return {
     searchInputValue,

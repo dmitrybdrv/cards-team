@@ -29,11 +29,13 @@ export const LearnPage: FC = () => {
 
   //redirect if the deck has not cards
   if (deckData?.cardsCount === 0) navigate(`/deck/${deckId}`)
+  //get card and update
   const { data: cardData, isSuccess: isSuccessGetCard } = useGetCardQuery(deckId)
   const [updateGradeCard, { isLoading: isLoadingUpdateCard }] = useUpdateGradeCardMutation()
 
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const [gradeValue, setGradeValue] = useState(1)
+  //skeleton
   const [skeletonHeight, setSkeletonHeight] = useState(587)
   const cardRef = useRef<null | HTMLTableSectionElement>(null)
 
@@ -42,6 +44,8 @@ export const LearnPage: FC = () => {
       setSkeletonHeight(cardRef.current?.offsetHeight)
     }
   }, [isShowAnswer])
+
+  //callbacks
   const onShowAnswer = () => setIsShowAnswer(true)
   const onNextQuestion = () => {
     if (cardData?.id) {
@@ -64,7 +68,8 @@ export const LearnPage: FC = () => {
       {/*Check success data*/}
       {isSuccessGetDeck && isSuccessGetCard && (
         <Card ref={cardRef}>
-          <CardHeader name={deckData?.name} shots={cardData?.shots} question={cardData?.question} />
+          {/*TODO show images*/}
+          <CardHeader deckName={deckData?.name} cardData={cardData} />
           {/*-----answer*/}
           <CardAnswer
             isShowAnswer={isShowAnswer}

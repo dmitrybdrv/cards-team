@@ -33,10 +33,10 @@ export const useGetDecks = () => {
   }, [])
 
   const { data: profileData } = useGetMeQuery()
-
-  const decksState = useAppSelector(state => state.decks)
+  //need debouncing decksFilterState
+  const decksFilterState = useAppSelector(state => state.decks)
   const { data, currentData, isLoading, isSuccess, isError, isFetching } = useGetDecksQuery(
-    getDeckParams(decksState)
+    getDeckParams(decksFilterState)
   )
 
   return {
