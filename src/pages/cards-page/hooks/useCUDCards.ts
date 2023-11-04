@@ -1,8 +1,11 @@
 import { UseFormReset } from 'react-hook-form'
 
-import { useCreateCardMutation } from '@/services/cards/cards.service.ts'
+import {
+  useCreateCardMutation,
+  useDeleteCardMutation,
+  useUpdateCardMutation,
+} from '@/services/cards/cards.service.ts'
 import { CreateCardArgs, CurrentCardData } from '@/services/cards/cards.types.ts'
-import { useDeleteDecksMutation, useUpdateDecksMutation } from '@/services/decks/decks.service.ts'
 
 export const useCUDCards = (
   currentCardData: CurrentCardData,
@@ -13,9 +16,9 @@ export const useCUDCards = (
   const [createCardQuery, { isLoading: isLoadingCreate, error: errorCreate }] =
     useCreateCardMutation()
   const [deleteCardQuery, { isLoading: isLoadingDelete, error: errorDelete }] =
-    useDeleteDecksMutation()
+    useDeleteCardMutation()
   const [updateCardQuery, { isLoading: isLoadingUpdate, error: errorUpdate }] =
-    useUpdateDecksMutation()
+    useUpdateCardMutation()
 
   //status
   const isLoading = isLoadingCreate || isLoadingDelete || isLoadingUpdate
@@ -38,17 +41,15 @@ export const useCUDCards = (
       })
   }
   const updateCard = (data: any) => {
-    currentCardData.id &&
-      updateCardQuery(data)
-        .unwrap()
-        .then(_res => {
-          setIsOpenModal(false)
-        })
+    updateCardQuery({ id: currentCardData.id, ...data })
+      .unwrap()
+      .then(_res => {
+        setIsOpenModal(false)
+      })
   }
-
   const deleteCard = () => {
+    deleteCardQuery(currentCardData.id)
     setIsOpenModal(false)
-    currentCardData.id && deleteCardQuery({ id: currentCardData.id })
   }
 
   return {

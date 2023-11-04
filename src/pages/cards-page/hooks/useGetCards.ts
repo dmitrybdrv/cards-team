@@ -73,7 +73,7 @@ export const useGetCards = () => {
   return {
     isFetching,
     isError,
-    deckData: data || initialData,
+    cardData: data || initialData,
     isLoadingDecksData: isLoading,
     isHasDecksData: isSuccess,
     sort,

@@ -1,3 +1,5 @@
+@import '../../styles/colors';
+
 .pageWrapper {
   position: static;
   width: fit-content;
@@ -51,6 +53,9 @@
 .deleteText {
   display: block;
   margin-bottom: 28px;
+  .deleteTextName {
+    color: var(--color-accent-700);
+  }
 }
 
 //.tRow {

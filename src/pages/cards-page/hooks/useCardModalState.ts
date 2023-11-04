@@ -5,7 +5,7 @@ import { CardModalVariant, CurrentCardData } from '@/services/cards/cards.types.
 export const useCardModalState = () => {
   const [modalCardVariant, setModalCardVariant] = useState<CardModalVariant>(null)
   const [currentCardData, setCurrentCardData] = useState<CurrentCardData>({
-    id: null,
+    id: '',
     question: '',
     answer: '',
     questionImg: '',

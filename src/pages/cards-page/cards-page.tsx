@@ -39,7 +39,7 @@ export const CardsPage: FC = () => {
     isFetching,
     isError,
     profileData: { id: authorId },
-    deckData: {
+    cardData: {
       pagination: { currentPage, itemsPerPage, totalPages },
       items,
     },

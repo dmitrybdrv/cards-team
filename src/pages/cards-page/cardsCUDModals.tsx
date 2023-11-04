@@ -12,9 +12,9 @@ import { ModalContent } from '@/components/layout/forms/modal/modalContent.tsx'
 import { ModalField } from '@/components/layout/forms/modal/modalField.tsx'
 import { ModalTitle } from '@/components/layout/forms/modal/modalTitle.tsx'
 import { ImageInput } from '@/components/ui/imageInput/imageInput.tsx'
+import s from '@/pages/cards-page/cards.module.scss'
 import { useCUDCards } from '@/pages/cards-page/hooks/useCUDCards.ts'
 import { cardsGetModalTitles } from '@/pages/cards-page/utils/CardsGetModalTitles.ts'
-import s from '@/pages/decks-page/decks.module.scss'
 import { CardModalVariant, CurrentCardData } from '@/services/cards/cards.types.ts'
 
 export type CardsModalsProps = {
@@ -37,6 +37,11 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
       reset,
     } = useForm<CurrentCardData>({
       defaultValues: {
+        id: currentCardData.id,
+        question: currentCardData.question,
+        answer: currentCardData.answer,
+      },
+      values: {
         question: currentCardData.question,
         answer: currentCardData.answer,
       },
@@ -89,7 +94,7 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
     //-----JSX-----
     //  Create Card or Update Card
     const formCardCreateOrUpdate = (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={s.formCard}>
         <SelectC
           values={['Text', 'Picture']}
           onValueChange={setFieldsVariant}
@@ -112,7 +117,8 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
     const deletingContent = (
       <>
         <span className={s.deleteText}>
-          Do you really want to remove {'Имя карточки'}? The card will be deleted.
+          Do you really want to remove{' '}
+          <i className={s.deleteTextName}>{currentCardData.question}</i> ? The card will be deleted.
         </span>
         <ModalButton>
           <Button variant={'secondary'} onClick={() => setIsOpenCardModal(false)} type={'button'}>

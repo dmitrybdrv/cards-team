@@ -1,6 +1,7 @@
 import { ComponentProps, FC, memo, useEffect, useRef } from 'react'
 
 import { TdCell, TdIcons, TdRating, TRow } from '@/components'
+//import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards.service.ts'
 import { CardModalVariant, CardsResponseItems } from '@/services/cards/cards.types.ts'
 
 type Props = {
@@ -11,13 +12,14 @@ type Props = {
 } & ComponentProps<'tbody'>
 
 export const CardsTableBody: FC<Props> = memo(
-  ({ onChangeHeight, items, onClickEditOrDeleteCardIcons, authorId }) => {
+  ({ onChangeHeight, items, authorId, onClickEditOrDeleteCardIcons }) => {
     const mappedRow = items.map(item => {
       const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
         dateStyle: 'short',
       })
-      const editCardHandler = () => onClickEditOrDeleteCardIcons(item.id, 'updateCard')
-      const deleteCardHandler = () => onClickEditOrDeleteCardIcons(item.id, 'deleteCard')
+
+      const editCardHandler = () => onClickEditOrDeleteCardIcons(item, 'updateCard')
+      const deleteCardHandler = () => onClickEditOrDeleteCardIcons(item, 'deleteCard')
 
       const isAuthor = authorId === item.userId
       const onEdit = isAuthor ? editCardHandler : null
@@ -29,7 +31,7 @@ export const CardsTableBody: FC<Props> = memo(
           <TdCell>{item.answer}</TdCell>
           <TdCell>{updateData}</TdCell>
           <TdRating rating={item.grade} />
-          <TdIcons onDelete={onDelete} onEdit={onEdit} onPlay={() => {}} />
+          <TdIcons onDelete={onDelete} onEdit={onEdit} />
         </TRow>
       )
     })
