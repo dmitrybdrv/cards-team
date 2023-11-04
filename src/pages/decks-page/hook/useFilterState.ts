@@ -15,16 +15,17 @@ export const useFilterState = () => {
   const dispatch = useAppDispatch()
 
   //----------input----------
-  const setSearchNameForFetch = useCallback(
-    debounce((searchValue: string) => dispatch(changeSearchName(searchValue)), 1000),
-    []
-  )
+  // const setSearchNameForFetch = useCallback(
+  //   debounce((searchValue: string) => dispatch(changeSearchName(searchValue)), 1000),
+  //   []
+  // )
   const [searchInputValue, setSearchInputValue] = useState('')
   const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     //for UI
     setSearchInputValue(e.currentTarget.value)
     //for fetch with debounce
-    setSearchNameForFetch(e.currentTarget.value)
+    // setSearchNameForFetch(e.currentTarget.value)
+    dispatch(changeSearchName(e.currentTarget.value))
   }
 
   //---------switcher-------------
