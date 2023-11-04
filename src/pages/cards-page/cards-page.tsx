@@ -2,10 +2,9 @@ import { FC } from 'react'
 
 import { Link, useParams } from 'react-router-dom'
 
-import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outline.svg'
-
 import s from './cards.module.scss'
 
+import { ReactComponent as ArrowBack } from '@/assets/icons/arrow-back-outline.svg'
 import { Skeleton, Table, TableColumns, THead, Typography } from '@/components'
 import { Pagination } from '@/components/ui/pagination'
 import { CardsHeaders } from '@/pages/cards-page/cards-headers.tsx'
@@ -60,7 +59,6 @@ export const CardsPage: FC = () => {
 
   const isAuthorDeck = data?.userId === userData.id
   const deckTitle = data?.name
-  const isDeckEmpty = data?.cardsCount === 0
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
@@ -90,7 +88,7 @@ export const CardsPage: FC = () => {
           <Typography variant={'body2'}>Back to Deck List</Typography>
         </div>
       </Link>
-      {isDeckEmpty ? (
+      {!data?.cardsCount ? (
         <>
           <EmptyDeckPage
             deckTitle={deckTitle}

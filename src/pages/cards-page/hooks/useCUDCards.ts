@@ -35,8 +35,6 @@ export const useCUDCards = (
           answer: '',
           answerImg: '',
           questionImg: '',
-          questionVideo: '',
-          answerVideo: '',
         })
       })
   }
@@ -48,8 +46,17 @@ export const useCUDCards = (
       })
   }
   const deleteCard = () => {
-    deleteCardQuery(currentCardData.id)
+    const id =
+      currentCardData?.id !== undefined && currentCardData?.id !== null ? currentCardData.id : ''
+
+    deleteCardQuery(id)
     setIsOpenModal(false)
+    reset({
+      question: '',
+      answer: '',
+      answerImg: '',
+      questionImg: '',
+    })
   }
 
   return {

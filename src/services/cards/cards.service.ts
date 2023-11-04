@@ -4,6 +4,7 @@ import {
   CardsParams,
   CardsResponse,
   CardsResponseItems,
+  CurrentCardData,
 } from '@/services/cards/cards.types.ts'
 import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
@@ -21,7 +22,7 @@ export const cardsService = baseApi.injectEndpoints({
       query: id => {
         return { url: `v1/decks/${id}`, method: 'GET' }
       },
-      providesTags: ['Deck'],
+      providesTags: ['Cards'],
     }),
     createCard: builder.mutation<CardsResponseItems, CardsParams>({
       query: params => {
@@ -32,17 +33,18 @@ export const cardsService = baseApi.injectEndpoints({
       invalidatesTags: ['Cards'],
     }),
     getCard: builder.query<CardResponse, string>({
-      query: id => ({
-        url: `v1/decks/${id}/learn`,
-      }),
+      query: id => {
+        return { url: `v1/decks/${id}/learn`, method: 'GET' }
+      },
+      providesTags: ['Cards'],
     }),
-    deleteCard: builder.mutation<any, any>({
+    deleteCard: builder.mutation<CardResponse, string>({
       query: id => {
         return { url: `v1/cards/${id}`, method: 'DELETE' }
       },
       invalidatesTags: ['Cards'],
     }),
-    updateCard: builder.mutation<any, any>({
+    updateCard: builder.mutation<CardResponse, CurrentCardData>({
       query: params => {
         const { id, ...rest } = params
 

@@ -3,13 +3,12 @@ import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 import { clsx } from 'clsx'
 import { FieldError } from 'react-hook-form'
 
-import { ReactComponent as ClosedEyeIcon } from '../../../assets/icons/closedEye.svg'
-import { ReactComponent as OpenEyeIcon } from '../../../assets/icons/openEye.svg'
-import { ReactComponent as SearchIcon } from '../../../assets/icons/searchIcon.svg'
-
 import s from './textField.module.scss'
 import { getPlaceHolder, getType } from './textField.utils.ts'
 
+import { ReactComponent as ClosedEyeIcon } from '@/assets/icons/closedEye.svg'
+import { ReactComponent as OpenEyeIcon } from '@/assets/icons/openEye.svg'
+import { ReactComponent as SearchIcon } from '@/assets/icons/searchIcon.svg'
 import { Typography } from '@/components'
 
 type TextFieldProps = {

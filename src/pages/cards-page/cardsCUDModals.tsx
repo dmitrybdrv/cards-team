@@ -59,6 +59,11 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
 
     const titleData = cardsGetModalTitles(variant)
 
+    const onCloseBtn = () => {
+      setFieldsVariant('Text')
+      setIsOpenCardModal(false)
+    }
+
     const formVariant =
       fieldsVariant === 'Picture' ? (
         <>
@@ -103,7 +108,7 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
         />
         {formVariant}
         <ModalButton>
-          <Button variant={'secondary'} onClick={() => setIsOpenCardModal(false)} type={'button'}>
+          <Button variant={'secondary'} onClick={onCloseBtn} type={'button'}>
             Close
           </Button>
           <Button variant={'primary'} type={'submit'} disabled={isLoading}>
@@ -121,7 +126,7 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
           <i className={s.deleteTextName}>{currentCardData.question}</i> ? The card will be deleted.
         </span>
         <ModalButton>
-          <Button variant={'secondary'} onClick={() => setIsOpenCardModal(false)} type={'button'}>
+          <Button variant={'secondary'} onClick={onCloseBtn} type={'button'}>
             Close
           </Button>
           <Button variant={'primary'} type={'submit'} disabled={isLoading} onClick={deleteCard}>
@@ -137,7 +142,7 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
       <Modal isOpen={isOpenCardModal} onOpenChange={setIsOpenCardModal}>
         <ModalContent>
           <ModalTitle>{titleData.title}</ModalTitle>
-          <ModalClose>X</ModalClose>
+          <ModalClose onClick={onCloseBtn}>X</ModalClose>
           <ModalField>{mainContent}</ModalField>
         </ModalContent>
       </Modal>
