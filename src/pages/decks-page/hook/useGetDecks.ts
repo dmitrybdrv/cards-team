@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react'
 
+import { useDebounce } from '@uidotdev/usehooks'
+
 import { getDeckParams } from '@/common/utils/getDeckParams.ts'
 import { Sort } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
@@ -41,8 +43,8 @@ export const useGetDecks = () => {
 
   //-----selector decks filter data-----
   const decksFilterState = useAppSelector(decksFilterSelector)
-  //need debouncing decksDebounceFilterState
-  const decksDebounceFilterState = useAppSelector(decksDebounceFilterSelector)
+  //input value, sliders value get with debounce
+  const decksDebounceFilterState = useDebounce(useAppSelector(decksDebounceFilterSelector), 1000)
   const { data, currentData, isLoading, isSuccess, isError, isFetching } = useGetDecksQuery(
     getDeckParams({ ...decksFilterState, ...decksDebounceFilterState })
   )
