@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useState } from 'react'
 
 import { debounce } from '@/common/utils/debounce.ts'
-import { useAppDispatch } from '@/hooks/hooks.ts'
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
 import { tabSwitcherValue } from '@/pages/decks-page'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import {
@@ -15,16 +15,8 @@ export const useFilterState = () => {
   const dispatch = useAppDispatch()
 
   //----------input----------
-  // const setSearchNameForFetch = useCallback(
-  //   debounce((searchValue: string) => dispatch(changeSearchName(searchValue)), 1000),
-  //   []
-  // )
-  const [searchInputValue, setSearchInputValue] = useState('')
+  const searchInputValue = useAppSelector(state => state.decks.name)
   const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //for UI
-    setSearchInputValue(e.currentTarget.value)
-    //for fetch with debounce
-    // setSearchNameForFetch(e.currentTarget.value)
     dispatch(changeSearchName(e.currentTarget.value))
   }
 
@@ -57,18 +49,11 @@ export const useFilterState = () => {
 
   //-------clear filter button------
   const onClickClearFilter = () => {
-    setSearchInputValue('')
+    // setSearchInputValue('')
     setIsResetSlider(true)
-    setSwitcherValue('All Cards')
+    setSwitcherValue(tabSwitcherValue[1].value)
     dispatch(resetState())
   }
-
-  // reset redux state if user leave from page
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(resetState())
-  //   }
-  // }, [])
 
   return {
     searchInputValue,
