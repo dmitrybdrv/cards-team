@@ -1,3 +1,5 @@
+export type TabSwitcher = 'My Decks' | 'All Decks'
+
 export type DecksResponse = {
   maxCardsCount: number
   pagination: DecksResponsePagination

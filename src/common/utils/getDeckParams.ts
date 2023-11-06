@@ -1,6 +1,8 @@
-// prepare params for decks query
+import { tabSwitcherValue } from '@/pages/decks-page'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { InitialDeck } from '@/services/decks/decks.slice.ts'
 import { DecksParams } from '@/services/decks/decks.types.ts'
+
 /**
 
  Возвращает параметры для запроса колоды, исключаяя поля с null
@@ -8,9 +10,11 @@ import { DecksParams } from '@/services/decks/decks.types.ts'
  @returns {DecksParams} queryParams - Параметры для запроса колоды. */
 
 export const getDeckParams = (decksState: InitialDeck): DecksParams => {
-  const { name, authorId, minCardsCount, maxCardsCount, currentPage, itemsPerPage, orderBy } =
+  const { name, switcherValue, minCardsCount, maxCardsCount, currentPage, itemsPerPage, orderBy} =
     decksState
-
+  const {
+    data: { id },
+  } = useGetMeQuery()
   const queryParams: DecksParams = {
     currentPage,
     itemsPerPage,
@@ -18,7 +22,7 @@ export const getDeckParams = (decksState: InitialDeck): DecksParams => {
     minCardsCount,
   }
 
-  if (authorId) queryParams.authorId = authorId
+  if (switcherValue === tabSwitcherValue[0].value && id) queryParams.authorId = id
   if (maxCardsCount) queryParams.maxCardsCount = maxCardsCount
   if (orderBy) queryParams.orderBy = orderBy
 

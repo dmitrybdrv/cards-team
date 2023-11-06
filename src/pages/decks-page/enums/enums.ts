@@ -1,5 +1,5 @@
 import { TableColumns } from '@/components'
-import { DecksOrderName, DecksResponse } from '@/services/decks/decks.types.ts'
+import { DecksOrderName, DecksResponse, TabSwitcher } from '@/services/decks/decks.types.ts'
 
 export const decksColumnsTitles: TableColumns<DecksOrderName> = [
   { title: 'Name', orderName: 'name' },
@@ -20,4 +20,6 @@ export const initialDecksData: DecksResponse = {
     totalPages: 0,
   },
 }
-export const tabSwitcherValue = [{ value: 'My Decks' }, { value: 'All Decks' }]
+export const tabSwitcherValue: {
+  value: TabSwitcher
+}[] = [{ value: 'My Decks' }, { value: 'All Decks' }]

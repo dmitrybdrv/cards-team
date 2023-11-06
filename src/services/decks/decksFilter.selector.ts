@@ -7,7 +7,7 @@ export const decksFilterSelector = (state: RootState) => {
 }
 
 export const decksDebounceFilterSelector = (state: RootState) => {
-  const { currentPage, itemsPerPage, authorId, orderBy, ...rest } = state.decks
+  const { currentPage, itemsPerPage, switcherValue, orderBy, ...rest } = state.decks
 
   return rest
 }

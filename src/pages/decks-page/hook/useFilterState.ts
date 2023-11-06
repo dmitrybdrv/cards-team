@@ -5,11 +5,12 @@ import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
 import { tabSwitcherValue } from '@/pages/decks-page'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import {
-  changeAuthorId,
+  changeSwitcherValue,
   changeCardsCount,
   changeSearchName,
   resetState,
 } from '@/services/decks/decks.slice.ts'
+import { TabSwitcher } from '@/services/decks/decks.types.ts'
 
 export const useFilterState = () => {
   const dispatch = useAppDispatch()
@@ -21,16 +22,16 @@ export const useFilterState = () => {
   }
 
   //---------switcher-------------
-  const { data: profileData } = useGetMeQuery()
-  const [switcherValue, setSwitcherValue] = useState(tabSwitcherValue[1].value)
-
-  const onChangeTabSwitcher = (value: string) => {
+  // const { data: profileData } = useGetMeQuery()
+  // const [switcherValue, setSwitcherValue] = useState(tabSwitcherValue[1].value)
+  const switcherValue = useAppSelector(state => state.decks.switcherValue)
+  const onChangeTabSwitcher = (value: '' | TabSwitcher) => {
     // switcher can return empty string if second click same button
     if (value !== '') {
       //for UI
-      setSwitcherValue(value)
+      // setSwitcherValue(value)
       //for fetch
-      dispatch(changeAuthorId(value === tabSwitcherValue[0].value ? profileData.id : null))
+      dispatch(changeSwitcherValue(value))
     }
   }
 
@@ -51,7 +52,7 @@ export const useFilterState = () => {
   const onClickClearFilter = () => {
     // setSearchInputValue('')
     setIsResetSlider(true)
-    setSwitcherValue(tabSwitcherValue[1].value)
+    // setSwitcherValue(tabSwitcherValue[1].value)
     dispatch(resetState())
   }
 

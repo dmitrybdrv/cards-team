@@ -45,6 +45,7 @@ export const useGetDecks = () => {
   const decksFilterState = useAppSelector(decksFilterSelector)
   //input value, sliders value get with debounce
   const decksDebounceFilterState = useDebounce(useAppSelector(decksDebounceFilterSelector), 1000)
+
   const { data, currentData, isLoading, isSuccess, isError, isFetching } = useGetDecksQuery(
     getDeckParams({ ...decksFilterState, ...decksDebounceFilterState })
   )
