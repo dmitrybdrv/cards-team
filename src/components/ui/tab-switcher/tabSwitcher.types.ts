@@ -1,3 +1,5 @@
+import { TabSwitcher } from '@/services/decks/decks.types.ts'
+
 export type ValueType = {
   value: string
   title?: string
@@ -5,7 +7,7 @@ export type ValueType = {
 }
 
 export type Props = {
-  onChange?: (value: string) => void
+  onChange?: (value: '' | TabSwitcher) => void
   values: ValueType[]
   currentValue?: string
   defaultValue?: string

@@ -12,9 +12,9 @@ type Props = {
   boundaryMaxValue?: number
   onChange?: (minValue: number, maxValue: number) => void
   width?: number
-  // setFuncForChangeValue: (arg: ChangeSwitcherValues) => void
   disabled?: boolean
   isResetSlider?: boolean
+  currentValue: [number, number]
 }
 export const Slider = (props: Props) => {
   let {

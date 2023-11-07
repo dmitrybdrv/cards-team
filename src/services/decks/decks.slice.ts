@@ -30,12 +30,12 @@ export const decksSlice = createSlice({
       state.itemsPerPage = action.payload
       state.currentPage = 1
     },
-    changeCardsCount: (
-      state,
-      action: PayloadAction<{ minCardsCount: string; maxCardsCount: string }>
-    ) => {
-      state.minCardsCount = action.payload.minCardsCount
-      state.maxCardsCount = action.payload.maxCardsCount
+    changeMinCardsCount: (state, action: PayloadAction<string>) => {
+      state.minCardsCount = action.payload
+      state.currentPage = 1
+    },
+    changeMaxCardsCount: (state, action: PayloadAction<string>) => {
+      state.maxCardsCount = action.payload
       state.currentPage = 1
     },
     changeOrderBy: (state, action: PayloadAction<string | null>) => {
@@ -54,12 +54,29 @@ export const decksSlice = createSlice({
       state.orderBy = null
     },
   },
+  // one the way for set maxCardsCount from getDecks query
+  // extraReducers: builder => {
+  //   builder.addMatcher(
+  //     (action: PayloadAction<any>) => {
+  //       if (action.type === 'baseApi/executeQuery/fulfilled') {
+  //         return 'maxCardsCount' in action.payload
+  //       }
+  //
+  //       return false
+  //     },
+  //     (state, action: PayloadAction<DecksResponse>) => {
+  //       console.log(action)
+  //       state.maxCardsCount = action.payload.maxCardsCount.toString()
+  //     }
+  //   )
+  // },
 })
 
 export const {
   changeOrderBy,
   changeSwitcherValue,
-  changeCardsCount,
+  changeMinCardsCount,
+  changeMaxCardsCount,
   changeItemsPerPage,
   changeCurrentPage,
   changeSearchName,

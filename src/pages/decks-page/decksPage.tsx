@@ -54,7 +54,7 @@ export const DecksPage: FC = () => {
         variant={modalVariant}
         currentDeckData={currentDeckData}
       />
-      <DecksHeaderFilters onClickAddDeck={onClickAddDeck} maxCardsCount={maxCardsCount} />
+      <DecksHeaderFilters onClickAddDeck={onClickAddDeck} boundaryMaxValue={maxCardsCount} />
       <Table variant={'packs'}>
         <THead columns={decksColumnsTitles} onSort={setSortMemo} currentSort={sort} />
         <DecksTableBody

@@ -1,14 +1,14 @@
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
-import { debounce } from '@/common/utils/debounce.ts'
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
-import { tabSwitcherValue } from '@/pages/decks-page'
-import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+// import { tabSwitcherValue } from '@/pages/decks-page'
+// import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import {
   changeSwitcherValue,
-  changeCardsCount,
   changeSearchName,
   resetState,
+  changeMinCardsCount,
+  changeMaxCardsCount,
 } from '@/services/decks/decks.slice.ts'
 import { TabSwitcher } from '@/services/decks/decks.types.ts'
 
@@ -36,17 +36,18 @@ export const useFilterState = () => {
   }
 
   //-------Slider--------------
+  const currentSliderValue = useAppSelector(state => {
+    return [Number(state.decks.minCardsCount), state.decks.maxCardsCount] as [number, number]
+  })
   const [isResetSlider, setIsResetSlider] = useState(false)
-  const onChangeSlider = useCallback(
-    debounce((minValue: number, maxValue: number) => {
-      setIsResetSlider(false)
-      const minCardsCount = minValue.toString()
-      const maxCardsCount = maxValue.toString()
+  const onChangeSlider = (minValue: number, maxValue: number) => {
+    setIsResetSlider(false)
+    const minCardsCount = minValue.toString()
+    const maxCardsCount = maxValue.toString()
 
-      dispatch(changeCardsCount({ minCardsCount, maxCardsCount }))
-    }, 1000),
-    []
-  )
+    dispatch(changeMinCardsCount(minCardsCount))
+    dispatch(changeMaxCardsCount(maxCardsCount))
+  }
 
   //-------clear filter button------
   const onClickClearFilter = () => {
@@ -61,6 +62,7 @@ export const useFilterState = () => {
     changeSearchInputHandler,
     switcherValue,
     onChangeTabSwitcher,
+    currentSliderValue,
     isResetSlider,
     onChangeSlider,
     onClickClearFilter,
