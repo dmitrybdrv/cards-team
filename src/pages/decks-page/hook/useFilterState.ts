@@ -36,9 +36,9 @@ export const useFilterState = () => {
   }
 
   //-------Slider--------------
-  const currentSliderValue = useAppSelector(state => {
-    return [Number(state.decks.minCardsCount), state.decks.maxCardsCount] as [number, number]
-  })
+  const minCardsCount = useAppSelector(state => state.decks.minCardsCount)
+  const maxCardsCount = useAppSelector(state => state.decks.maxCardsCount)
+  const currentSliderValue = [Number(minCardsCount), Number(maxCardsCount)] as [number, number]
   const [isResetSlider, setIsResetSlider] = useState(false)
   const onChangeSlider = (minValue: number, maxValue: number) => {
     setIsResetSlider(false)
