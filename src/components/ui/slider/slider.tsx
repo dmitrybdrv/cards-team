@@ -10,11 +10,13 @@ type Props = {
   step?: number
   boundaryMinValue?: number
   boundaryMaxValue?: number
-  onChange?: (minValue: number, maxValue: number) => void
+  // onChange?: (minValue: number, maxValue: number) => void
   width?: number
   disabled?: boolean
-  isResetSlider?: boolean
+  // isResetSlider?: boolean
   currentValue: [number, number]
+  changeMinCardsCount: (minValue: string) => void
+  changeMaxCardsCount: (maxValue: string) => void
 }
 export const Slider = (props: Props) => {
   let {
@@ -25,8 +27,11 @@ export const Slider = (props: Props) => {
     defaultMinValue = 0,
     defaultMaxValue = boundaryMaxValue,
     width = 200,
-    onChange,
-    isResetSlider,
+    // onChange,
+    // isResetSlider,
+    changeMinCardsCount,
+    changeMaxCardsCount,
+    currentValue,
   } = props
 
   //checking default values for range values
@@ -36,57 +41,52 @@ export const Slider = (props: Props) => {
   if (defaultMinValue < boundaryMinValue || defaultMinValue > boundaryMaxValue) {
     defaultMinValue = boundaryMinValue
   }
-  const [minValue, setMinValue] = useState(defaultMinValue)
-  const [maxValue, setMaxValue] = useState(defaultMaxValue)
 
-  const resetSlider = () => {
-    setMinValue(0)
-    setMaxValue(boundaryMaxValue)
+  if (!currentValue[1]) {
+    currentValue[1] = boundaryMaxValue
   }
+  // const [minValue, setMinValue] = useState(defaultMinValue)
+  // const [maxValue, setMaxValue] = useState(defaultMaxValue)
 
-  useLayoutEffect(() => {
-    if (isResetSlider) {
-      resetSlider()
-    }
-  }, [isResetSlider])
+  // const resetSlider = () => {
+  //   setMinValue(0)
+  //   setMaxValue(boundaryMaxValue)
+  // }
 
-  useLayoutEffect(() => {
-    setMaxValue(boundaryMaxValue)
-  }, [boundaryMaxValue])
+  // useLayoutEffect(() => {
+  //   if (isResetSlider) {
+  //     resetSlider()
+  //   }
+  // }, [isResetSlider])
+
+  // useLayoutEffect(() => {
+  //   setMaxValue(boundaryMaxValue)
+  // }, [boundaryMaxValue])
 
   const handlerSliderChange = (number: number[]) => {
-    setMinValue(number[0])
-    setMaxValue(number[1])
+    changeMinCardsCount(number[0].toString())
+    changeMaxCardsCount(number[1].toString())
   }
 
-  const fetchSliderValue = (number: number[]) => {
-    onChange && onChange(number[0], number[1])
-  }
+  // const fetchSliderValue = (number: number[]) => {
+  //   changeMinCardsCount(number[0])
+  //   changeMaxCardsCount(number[1])
+  // }
 
   const handlerMinInput = (e: ChangeEvent<HTMLInputElement>) => {
-    let newMinValue = Number(e.currentTarget.value)
+    const newMinValue = e.currentTarget.value
 
-    setMinValue(prevState => {
-      if (newMinValue < boundaryMinValue) {
-        newMinValue = prevState
-      }
-
-      return newMinValue
-    })
-    onChange && onChange(newMinValue, maxValue)
+    if (+newMinValue >= boundaryMinValue) {
+      changeMinCardsCount(newMinValue)
+    }
   }
 
   const handlerMaxInput = (e: ChangeEvent<HTMLInputElement>) => {
-    let newMaxValue = Number(e.currentTarget.value)
+    const newMaxValue = e.currentTarget.value
 
-    setMaxValue(prevState => {
-      if (newMaxValue > boundaryMaxValue) {
-        newMaxValue = prevState
-      }
-
-      return newMaxValue
-    })
-    onChange && onChange(minValue, newMaxValue)
+    if (+newMaxValue <= boundaryMinValue) {
+      changeMinCardsCount(newMaxValue)
+    }
   }
 
   return (
@@ -94,7 +94,7 @@ export const Slider = (props: Props) => {
       <input
         className={s.input}
         type={'number'}
-        value={minValue}
+        value={currentValue[0]}
         onChange={handlerMinInput}
         disabled={disabled}
       />
@@ -103,11 +103,11 @@ export const Slider = (props: Props) => {
         style={{ width: width }}
         min={boundaryMinValue}
         max={boundaryMaxValue}
-        value={[minValue, maxValue]}
+        value={currentValue}
         defaultValue={[defaultMinValue, defaultMaxValue]}
         step={step}
         onValueChange={handlerSliderChange}
-        onValueCommit={fetchSliderValue}
+        onValueCommit={handlerSliderChange}
         className={s.SliderRoot}
       >
         <SliderApp.Track className={s.SliderTrack}>
@@ -119,7 +119,7 @@ export const Slider = (props: Props) => {
       <input
         className={s.input}
         type={'number'}
-        value={maxValue}
+        value={currentValue[1]}
         onChange={handlerMaxInput}
         disabled={disabled}
       />

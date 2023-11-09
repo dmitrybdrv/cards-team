@@ -20,8 +20,10 @@ export const DecksHeaderFilters: FC<Props> = memo(
       switcherValue,
       onChangeTabSwitcher,
       currentSliderValue,
-      isResetSlider,
-      onChangeSlider,
+      // isResetSlider,
+      // onChangeSlider,
+      onChangeMinCardsCount,
+      onChangeMaxCardsCount,
       onClickClearFilter,
     } = useFilterState()
 
@@ -63,11 +65,13 @@ export const DecksHeaderFilters: FC<Props> = memo(
             </Typography>
             <Slider
               disabled={disabled}
-              isResetSlider={isResetSlider}
+              // isResetSlider={isResetSlider}
               width={155}
               boundaryMaxValue={boundaryMaxValue}
-              onChange={onChangeSlider}
+              // onChange={onChangeSlider}
               currentValue={currentSliderValue}
+              changeMinCardsCount={onChangeMinCardsCount}
+              changeMaxCardsCount={onChangeMaxCardsCount}
             />
           </div>
           <Button

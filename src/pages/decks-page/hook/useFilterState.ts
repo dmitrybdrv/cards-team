@@ -39,20 +39,26 @@ export const useFilterState = () => {
   const minCardsCount = useAppSelector(state => state.decks.minCardsCount)
   const maxCardsCount = useAppSelector(state => state.decks.maxCardsCount)
   const currentSliderValue = [Number(minCardsCount), Number(maxCardsCount)] as [number, number]
-  const [isResetSlider, setIsResetSlider] = useState(false)
-  const onChangeSlider = (minValue: number, maxValue: number) => {
-    setIsResetSlider(false)
-    const minCardsCount = minValue.toString()
-    const maxCardsCount = maxValue.toString()
-
-    dispatch(changeMinCardsCount(minCardsCount))
-    dispatch(changeMaxCardsCount(maxCardsCount))
+  const onChangeMinCardsCount = (minValue: string) => {
+    dispatch(changeMinCardsCount(minValue))
   }
+  const onChangeMaxCardsCount = (maxValue: string) => {
+    dispatch(changeMaxCardsCount(maxValue))
+  }
+  // const [isResetSlider, setIsResetSlider] = useState(false)
+  // const onChangeSlider = (minValue: number, maxValue: number) => {
+  //   setIsResetSlider(false)
+  //   const minCardsCount = minValue.toString()
+  //   const maxCardsCount = maxValue.toString()
+  //
+  //   dispatch(changeMinCardsCount(minCardsCount))
+  //   dispatch(changeMaxCardsCount(maxCardsCount))
+  // }
 
   //-------clear filter button------
   const onClickClearFilter = () => {
     // setSearchInputValue('')
-    setIsResetSlider(true)
+    // setIsResetSlider(true)
     // setSwitcherValue(tabSwitcherValue[1].value)
     dispatch(resetState())
   }
@@ -63,8 +69,10 @@ export const useFilterState = () => {
     switcherValue,
     onChangeTabSwitcher,
     currentSliderValue,
-    isResetSlider,
-    onChangeSlider,
+    // isResetSlider,
+    // onChangeSlider,
+    onChangeMinCardsCount,
+    onChangeMaxCardsCount,
     onClickClearFilter,
   }
 }
