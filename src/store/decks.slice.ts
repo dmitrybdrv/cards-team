@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { Sort } from '@/components'
 import { tabSwitcherValue } from '@/pages/decks-page'
 import { TabSwitcher } from '@/services/decks/decks.types.ts'
 
@@ -9,7 +10,7 @@ const initialState = {
   itemsPerPage: 10,
   minCardsCount: '0',
   maxCardsCount: null as unknown as string | null,
-  orderBy: null as unknown as string | null,
+  orderBy: { orderName: null, direction: null } as Sort,
   switcherValue: tabSwitcherValue[1].value as TabSwitcher,
   userId: null as unknown as string | null,
 }
@@ -39,7 +40,7 @@ export const decksSlice = createSlice({
       state.maxCardsCount = action.payload
       state.currentPage = 1
     },
-    changeOrderBy: (state, action: PayloadAction<string | null>) => {
+    changeOrderBy: (state, action: PayloadAction<Sort>) => {
       state.orderBy = action.payload
     },
     changeSwitcherValue: (state, action: PayloadAction<TabSwitcher>) => {
@@ -55,25 +56,9 @@ export const decksSlice = createSlice({
       state.minCardsCount = '0'
       state.maxCardsCount = null
       state.currentPage = 1
-      state.orderBy = null
+      // state.orderBy = { orderName: null, direction: null }
     },
   },
-  // one the way for set maxCardsCount from getDecks query
-  // extraReducers: builder => {
-  //   builder.addMatcher(
-  //     (action: PayloadAction<any>) => {
-  //       if (action.type === 'baseApi/executeQuery/fulfilled') {
-  //         return 'maxCardsCount' in action.payload
-  //       }
-  //
-  //       return false
-  //     },
-  //     (state, action: PayloadAction<DecksResponse>) => {
-  //       console.log(action)
-  //       state.maxCardsCount = action.payload.maxCardsCount.toString()
-  //     }
-  //   )
-  // },
 })
 
 export const {

@@ -29,7 +29,7 @@ export const getDeckParams = (decksState: InitialDeck): DecksParams => {
 
   if (switcherValue === tabSwitcherValue[0].value && userId) queryParams.authorId = userId
   if (maxCardsCount) queryParams.maxCardsCount = maxCardsCount
-  if (orderBy) queryParams.orderBy = orderBy
+  if (orderBy.direction) queryParams.orderBy = `${orderBy.orderName}-${orderBy.direction}`
 
   return queryParams
 }

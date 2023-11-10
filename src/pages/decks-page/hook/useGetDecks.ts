@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 
 import { useDebounce } from '@uidotdev/usehooks'
 
@@ -23,12 +23,9 @@ export const useGetDecks = () => {
     []
   )
   //------for sort------------
-  const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
+  const sort = useAppSelector(state => state.decks.orderBy)
   const setSortMemo = useCallback((sort: Sort) => {
-    setSort(sort)
-    const sortData = sort.direction ? `${sort.orderName}-${sort.direction}` : null
-
-    dispatch(changeOrderBy(sortData))
+    dispatch(changeOrderBy(sort))
   }, [])
 
   //-----GetMe-----
