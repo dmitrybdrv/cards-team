@@ -1,23 +1,23 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
 // import { tabSwitcherValue } from '@/pages/decks-page'
 // import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { TabSwitcher } from '@/services/decks/decks.types.ts'
 import {
   changeSwitcherValue,
   changeSearchName,
   resetState,
   changeMinCardsCount,
   changeMaxCardsCount,
-} from '@/services/decks/decks.slice.ts'
-import { TabSwitcher } from '@/services/decks/decks.types.ts'
+} from '@/store/decks.slice.ts'
 
 export const useFilterState = () => {
   const dispatch = useAppDispatch()
 
   //----------input----------
   const searchInputValue = useAppSelector(state => state.decks.name)
-  const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(changeSearchName(e.currentTarget.value))
   }
 
@@ -65,7 +65,7 @@ export const useFilterState = () => {
 
   return {
     searchInputValue,
-    changeSearchInputHandler,
+    onChangeSearchInput,
     switcherValue,
     onChangeTabSwitcher,
     currentSliderValue,

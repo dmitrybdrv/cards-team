@@ -68,6 +68,9 @@ dependencies:
   react-router-dom:
     specifier: ^6.16.0
     version: 6.16.0(react-dom@18.2.0)(react@18.2.0)
+  reselect:
+    specifier: ^4.1.8
+    version: 4.1.8
   zod:
     specifier: ^3.22.2
     version: 3.22.2

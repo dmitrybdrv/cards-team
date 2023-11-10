@@ -1,7 +1,6 @@
 import { tabSwitcherValue } from '@/pages/decks-page'
-import { useGetMeQuery } from '@/services/auth/auth.service.ts'
-import { InitialDeck } from '@/services/decks/decks.slice.ts'
 import { DecksParams } from '@/services/decks/decks.types.ts'
+import { InitialDeck } from '@/store/decks.slice.ts'
 
 /**
 
@@ -10,11 +9,17 @@ import { DecksParams } from '@/services/decks/decks.types.ts'
  @returns {DecksParams} queryParams - Параметры для запроса колоды. */
 
 export const getDeckParams = (decksState: InitialDeck): DecksParams => {
-  const { name, switcherValue, minCardsCount, maxCardsCount, currentPage, itemsPerPage, orderBy} =
-    decksState
   const {
-    data: { id },
-  } = useGetMeQuery()
+    name,
+    switcherValue,
+    minCardsCount,
+    maxCardsCount,
+    currentPage,
+    itemsPerPage,
+    orderBy,
+    userId,
+  } = decksState
+
   const queryParams: DecksParams = {
     currentPage,
     itemsPerPage,
@@ -22,7 +27,7 @@ export const getDeckParams = (decksState: InitialDeck): DecksParams => {
     minCardsCount,
   }
 
-  if (switcherValue === tabSwitcherValue[0].value && id) queryParams.authorId = id
+  if (switcherValue === tabSwitcherValue[0].value && userId) queryParams.authorId = userId
   if (maxCardsCount) queryParams.maxCardsCount = maxCardsCount
   if (orderBy) queryParams.orderBy = orderBy
 

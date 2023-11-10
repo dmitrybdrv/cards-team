@@ -16,12 +16,10 @@ export const DecksHeaderFilters: FC<Props> = memo(
   ({ onClickAddDeck, disabled, boundaryMaxValue }) => {
     const {
       searchInputValue,
-      changeSearchInputHandler,
+      onChangeSearchInput,
       switcherValue,
       onChangeTabSwitcher,
       currentSliderValue,
-      // isResetSlider,
-      // onChangeSlider,
       onChangeMinCardsCount,
       onChangeMaxCardsCount,
       onClickClearFilter,
@@ -45,7 +43,7 @@ export const DecksHeaderFilters: FC<Props> = memo(
             type={'search'}
             className={s.searchInput}
             value={searchInputValue}
-            onChange={changeSearchInputHandler}
+            onChange={onChangeSearchInput}
           />
           <div className={s.tabSwitcherWrapper}>
             <Typography variant={'body2'} className={s.filterLabel}>

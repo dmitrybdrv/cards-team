@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import { baseApi } from '@/services/base-api.ts'
-import { decksSlice } from '@/services/decks/decks.slice.ts'
+import { decksSlice } from '@/store/decks.slice.ts'
 import { emailSlice } from '@/store/email.slice.ts'
 import { friendsPackSlice } from '@/store/friends-pack.slice.ts'
 

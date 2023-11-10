@@ -2,7 +2,6 @@ import { getDeckParams } from '@/common/utils/getDeckParams.ts'
 import { toDeckFormData } from '@/common/utils/toDeckFormData.ts'
 import { RootState } from '@/hooks/hooks.ts'
 import { baseApi } from '@/services/base-api.ts'
-// import { changeMaxCardsCount } from '@/services/decks/decks.slice.ts'
 import {
   CreateDeckArgs,
   DecksParams,
@@ -19,16 +18,6 @@ export const decksService = baseApi.injectEndpoints({
         params: params ?? {},
       }),
       providesTags: ['Decks'],
-      // set maxCardsCount in decks slice
-      // onQueryStarted: async (_, { getState, queryFulfilled, dispatch }) => {
-      //   const state = getState() as RootState
-      //   const isMaxCardsCountNull = !state.decks.maxCardsCount
-      //   const result = await queryFulfilled
-      //
-      //   if (isMaxCardsCountNull) {
-      //     dispatch(changeMaxCardsCount(result.data.maxCardsCount.toString()))
-      //   }
-      // },
     }),
     createDeck: builder.mutation<DecksResponseItem, CreateDeckArgs>({
       query: body => {

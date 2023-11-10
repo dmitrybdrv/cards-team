@@ -8,15 +8,8 @@ import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
 import { initialDecksData } from '@/pages/decks-page'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
-import {
-  changeCurrentPage,
-  changeItemsPerPage,
-  changeOrderBy,
-} from '@/services/decks/decks.slice.ts'
-import {
-  decksDebounceFilterSelector,
-  decksFilterSelector,
-} from '@/services/decks/decksFilter.selector.ts'
+import { changeCurrentPage, changeItemsPerPage, changeOrderBy } from '@/store/decks.slice.ts'
+import { decksDebounceFilterSelector, decksFilterSelector } from '@/store/decksFilter.selector.ts'
 
 export const useGetDecks = () => {
   const dispatch = useAppDispatch()

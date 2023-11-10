@@ -11,6 +11,7 @@ const initialState = {
   maxCardsCount: null as unknown as string | null,
   orderBy: null as unknown as string | null,
   switcherValue: tabSwitcherValue[1].value as TabSwitcher,
+  userId: null as unknown as string | null,
 }
 
 export type InitialDeck = typeof initialState
@@ -44,6 +45,9 @@ export const decksSlice = createSlice({
     changeSwitcherValue: (state, action: PayloadAction<TabSwitcher>) => {
       state.switcherValue = action.payload
       state.currentPage = 1
+    },
+    changeUserId: (state, action: PayloadAction<string>) => {
+      state.userId = action.payload
     },
     resetState: (state, _action: PayloadAction<void>) => {
       state.name = ''
@@ -80,5 +84,6 @@ export const {
   changeItemsPerPage,
   changeCurrentPage,
   changeSearchName,
+  changeUserId,
   resetState,
 } = decksSlice.actions

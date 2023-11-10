@@ -1,4 +1,4 @@
-import { ChangeEvent, useLayoutEffect, useState } from 'react'
+import { ChangeEvent } from 'react'
 
 import * as SliderApp from '@radix-ui/react-slider'
 
@@ -10,10 +10,8 @@ type Props = {
   step?: number
   boundaryMinValue?: number
   boundaryMaxValue?: number
-  // onChange?: (minValue: number, maxValue: number) => void
   width?: number
   disabled?: boolean
-  // isResetSlider?: boolean
   currentValue: [number, number]
   changeMinCardsCount: (minValue: string) => void
   changeMaxCardsCount: (maxValue: string) => void
@@ -27,8 +25,6 @@ export const Slider = (props: Props) => {
     defaultMinValue = 0,
     defaultMaxValue = boundaryMaxValue,
     width = 200,
-    // onChange,
-    // isResetSlider,
     changeMinCardsCount,
     changeMaxCardsCount,
     currentValue,
@@ -45,33 +41,11 @@ export const Slider = (props: Props) => {
   if (!currentValue[1]) {
     currentValue[1] = boundaryMaxValue
   }
-  // const [minValue, setMinValue] = useState(defaultMinValue)
-  // const [maxValue, setMaxValue] = useState(defaultMaxValue)
-
-  // const resetSlider = () => {
-  //   setMinValue(0)
-  //   setMaxValue(boundaryMaxValue)
-  // }
-
-  // useLayoutEffect(() => {
-  //   if (isResetSlider) {
-  //     resetSlider()
-  //   }
-  // }, [isResetSlider])
-
-  // useLayoutEffect(() => {
-  //   setMaxValue(boundaryMaxValue)
-  // }, [boundaryMaxValue])
 
   const handlerSliderChange = (number: number[]) => {
     changeMinCardsCount(number[0].toString())
     changeMaxCardsCount(number[1].toString())
   }
-
-  // const fetchSliderValue = (number: number[]) => {
-  //   changeMinCardsCount(number[0])
-  //   changeMaxCardsCount(number[1])
-  // }
 
   const handlerMinInput = (e: ChangeEvent<HTMLInputElement>) => {
     const newMinValue = e.currentTarget.value
