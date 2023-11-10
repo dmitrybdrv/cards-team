@@ -43,7 +43,6 @@ export const CardsPage: FC = () => {
     isLoadingDecksData,
     sort,
     setSortMemo,
-    onChangeSearchInputMemo,
     setCurrentPageMemo,
     setItemsPerPageMemo,
   } = useGetCards()
@@ -82,7 +81,6 @@ export const CardsPage: FC = () => {
             isAuthorDeck={isAuthorDeck}
             cardsPageTitle={deckTitle}
             disabled={isFetching}
-            onChangeSearchInput={onChangeSearchInputMemo}
           />
           <Table variant={isAuthorDeck ? 'myCards' : 'cards'}>
             <THead
