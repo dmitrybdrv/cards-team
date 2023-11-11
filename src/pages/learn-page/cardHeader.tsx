@@ -9,12 +9,11 @@ type Props = {
   cardData: CardResponse
 }
 
-export const CardHeader: FC<Props> = ({ deckName, cardData }) => {
-  const questionImg = cardData.questionImg
-  const showQuestion = questionImg ? (
+export const CardHeader: FC<Props> = ({ deckName, cardData: { questionImg, question, shots } }) => {
+  const renderTextQuestion = question && <Typography variant={'body1'}>{question}</Typography>
+
+  const renderImgQuestion = questionImg && (
     <img alt={'#'} src={questionImg} className={s.questionImg} />
-  ) : (
-    <Typography variant={'body1'}>{cardData.question}</Typography>
   )
 
   return (
@@ -22,11 +21,15 @@ export const CardHeader: FC<Props> = ({ deckName, cardData }) => {
       <Typography variant={'large'} className={s.title}>
         Learn &quot;{deckName}&quot;
       </Typography>
+      {/*--------Question-----------*/}
       <Typography variant={'subtitle1'} className={s.question}>
-        Question: {showQuestion}
+        Question: {renderTextQuestion}
       </Typography>
+      {/*-----------Image-----------*/}
+      {renderImgQuestion}
+      {/*-----------Shots-----------*/}
       <Typography variant={'body2'} className={s.shots}>
-        Количество попыток ответов на вопрос: <span className={s.shotsCount}>{cardData.shots}</span>
+        Количество попыток ответов на вопрос: <span className={s.shotsCount}>{shots}</span>
       </Typography>
     </>
   )

@@ -71,12 +71,9 @@ export const LearnPage = () => {
           {/*TODO show images*/}
           <CardHeader deckName={deckData?.name} cardData={cardData} />
           {/*-----answer*/}
-          <CardAnswer
-            isShowAnswer={isShowAnswer}
-            answer={cardData.answer}
-            gradeValue={gradeValue}
-            setGradeValue={setGradeValue}
-          />
+          {isShowAnswer && (
+            <CardAnswer cardData={cardData} gradeValue={gradeValue} setGradeValue={setGradeValue} />
+          )}
           {/*-----button*/}
           <Button variant={'primary'} fullWidth={true} onClick={clickBtnHandler}>
             {btnTitle}
