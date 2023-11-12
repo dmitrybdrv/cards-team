@@ -44,8 +44,6 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
       values: {
         question: currentCardData.question,
         answer: currentCardData.answer,
-        questionImg: currentCardData.questionImg,
-        answerImg: currentCardData.answerImg,
       },
       resolver: zodResolver(createCardSchema),
     })
@@ -53,6 +51,7 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
     const { deleteCard, createCard, updateCard, isLoading } = useCUDCards(
       currentCardData,
       setIsOpenCardModal,
+      setFieldsVariant,
       reset,
       packId
     )
