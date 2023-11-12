@@ -53,18 +53,16 @@
 .deleteText {
   display: block;
   margin-bottom: 28px;
+
   .deleteTextName {
     color: var(--color-accent-700);
   }
 }
 
-//.tRow {
-//  cursor: pointer;
-//}
+.titleCell {
+  cursor: pointer;
 
-//.preloader {
-//  position: absolute;
-//  z-index: 10;
-//  top: 30%;
-//  left: 40%;
-//}
+  &:hover {
+    background-color: var(--color-accent-900);
+  }
+}

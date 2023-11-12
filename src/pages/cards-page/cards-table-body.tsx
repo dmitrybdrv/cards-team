@@ -27,11 +27,11 @@ export const CardsTableBody: FC<Props> = memo(
 
       return (
         <TRow key={item.id}>
-          <TdCell>{item.question}</TdCell>
-          <TdCell>{item.answer}</TdCell>
+          <TdCell img={item.questionImg}>{item.question}</TdCell>
+          <TdCell img={item.answerImg}>{item.answer}</TdCell>
           <TdCell>{updateData}</TdCell>
           <TdRating rating={item.grade} />
-          <TdIcons onDelete={onDelete} onEdit={onEdit} />
+          {isAuthor && <TdIcons onDelete={onDelete} onEdit={onEdit} />}
         </TRow>
       )
     })
