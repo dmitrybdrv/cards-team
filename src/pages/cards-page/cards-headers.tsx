@@ -1,11 +1,10 @@
 import { ChangeEvent, FC, memo, useCallback, useState } from 'react'
 
-import { ReactComponent as EditPen } from '../../assets/icons/editPen.svg'
-import { ReactComponent as PlayIcon } from '../../assets/icons/playIcon.svg'
-import { ReactComponent as TrashIcon } from '../../assets/icons/trashIcon.svg'
-
 import s from './cards.module.scss'
 
+import { ReactComponent as EditPen } from '@/assets/icons/editPen.svg'
+import { ReactComponent as PlayIcon } from '@/assets/icons/playIcon.svg'
+import { ReactComponent as TrashIcon } from '@/assets/icons/trashIcon.svg'
 import { debounce } from '@/common/utils/debounce.ts'
 import { Button, TextField, ToolbarItemWithIcon, Typography } from '@/components'
 import { useAppDispatch } from '@/hooks/hooks.ts'
