@@ -70,7 +70,7 @@ export const decksService = baseApi.injectEndpoints({
           patchResult.undo()
         }
       },
-      invalidatesTags: ['Decks'],
+      invalidatesTags: ['Decks', 'Cards'],
     }),
     updateDecks: builder.mutation<DecksResponseItem, CreateDeckArgs & { id: string }>({
       query: data => {
