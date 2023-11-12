@@ -40,8 +40,8 @@
   min-width: 542px;
 
   background-color: var(--color-dark-700);
-  border-radius: 2px;
   border: 1px solid var(--color-dark-500);
+  border-radius: 2px;
 
   animation-name: contentShow;
   animation-duration: 200ms;
@@ -54,7 +54,6 @@
 .dialogDescription {
   display: grid;
   flex-direction: column;
-
   margin: 0;
   padding: 18px 24px;
 
@@ -62,19 +61,21 @@
 }
 
 .dialogTitle {
+  @include typography(var(--font-size-l), var(--font-weight-bold), var(--line-height-m));
+
   margin: 0;
   padding: 18px 24px;
   border-bottom: 1px solid var(--color-dark-500);
-  @include typography(var(--font-size-l), var(--font-weight-bold), var(--line-height-m));
 }
 
 .dialogFields {
-  padding: 24px 24px;
+  padding: 24px;
 }
 
 .dialogButton {
   display: flex;
   justify-content: space-between;
+
   //padding: 18px 24px;
 }
 

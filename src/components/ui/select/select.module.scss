@@ -5,6 +5,7 @@
 }
 
 .selectContent {
+  z-index: 100;
   width: var(--radix-select-trigger-width);
   border: 1px solid var(--color-dark-100);
   border-radius: 2px;
@@ -13,11 +14,9 @@
 .selectTrigger {
   @include typography(var(--font-size-m), var(--font-weight-regular), var(--line-height-m));
 
-  cursor: pointer;
-
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 
   width: 100%;
   padding: 6px 12px;
@@ -44,6 +43,7 @@
 
 .selectViewport {
   width: 100%;
+  background-color: var(--color-dark-500);
 
   & div:focus-visible {
     color: var(--color-accent-300);
@@ -52,6 +52,7 @@
   }
 
   & div:hover {
+    cursor: pointer;
     background: var(--color-accent-900);
 
     & span {

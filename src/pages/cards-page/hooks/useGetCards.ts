@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import { Sort } from '@/components'
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetUserCardsQuery } from '@/services/cards/cards.service.ts'
 import { CardsParams, CardsResponse } from '@/services/cards/cards.types.ts'
 import { changeOrderBy, setCurrentPage, setItemPerPage } from '@/store/cards.slice.ts'
@@ -21,6 +22,8 @@ export const useGetCards = () => {
 
   const currentPage = useAppSelector(state => state.cards.currentPage)
   const itemsPerPage = useAppSelector(state => state.cards.itemPerPage)
+
+  const { data: profileData } = useGetMeQuery()
 
   //-----for pagination--------
   const setItemsPerPageMemo = useCallback((itemsPerPage: number) => {
@@ -70,7 +73,7 @@ export const useGetCards = () => {
   return {
     isFetching,
     isError,
-    deckData: data || initialData,
+    cardData: data || initialData,
     isLoadingDecksData: isLoading,
     isHasDecksData: isSuccess,
     sort,
@@ -78,5 +81,6 @@ export const useGetCards = () => {
     // onChangeSearchInputMemo,
     setCurrentPageMemo,
     setItemsPerPageMemo,
+    profileData,
   }
 }

@@ -40,3 +40,12 @@ export const createDeckSchema = z.object({
   isPrivate: z.boolean(),
   cover: any(),
 })
+
+export const createCardSchema = z.object({
+  question: z.string().min(3),
+  answer: z.string().min(3),
+  questionImg: any(),
+  answerImg: any(),
+  questionVideo: any(),
+  answerVideo: any(),
+})

@@ -1,9 +1,11 @@
+import { toCardFormData } from '@/common/utils/toCardFormData.ts'
 import { baseApi } from '@/services/base-api.ts'
 import {
   CardResponse,
   CardsParams,
   CardsResponse,
   CardsResponseItems,
+  CurrentCardData,
   UpdateGradeCardArgs,
 } from '@/services/cards/cards.types.ts'
 import { DecksResponseItem } from '@/services/decks/decks.types.ts'
@@ -22,17 +24,47 @@ export const cardsService = baseApi.injectEndpoints({
       query: id => {
         return { url: `v1/decks/${id}`, method: 'GET' }
       },
-      providesTags: ['Deck'],
+      providesTags: ['Cards'],
     }),
-    createCard: builder.mutation<CardsResponseItems, CardsParams>({
+    createCard: builder.mutation<CardsResponseItems, CurrentCardData>({
       query: params => {
-        return { url: `v1/decks/${params.id}`, method: 'POST' }
+        const { id, ...rest } = params
+
+        if (params.questionImg || params.answerImg) {
+          const body = toCardFormData(rest)
+
+          return { url: `v1/decks/${id}/cards`, method: 'POST', body }
+        }
+
+        return { url: `v1/decks/${id}/cards`, method: 'POST', body: rest }
       },
+      invalidatesTags: ['Cards'],
     }),
     getCard: builder.query<CardResponse, string>({
-      query: id => ({
-        url: `v1/decks/${id}/learn`,
-      }),
+      query: id => {
+        return { url: `v1/decks/${id}/learn`, method: 'GET' }
+      },
+      providesTags: ['Cards'],
+    }),
+    deleteCard: builder.mutation<CardResponse, string>({
+      query: id => {
+        return { url: `v1/cards/${id}`, method: 'DELETE' }
+      },
+      invalidatesTags: ['Cards'],
+    }),
+    updateCard: builder.mutation<CardResponse, CurrentCardData>({
+      query: params => {
+        const { id, ...rest } = params
+
+        if (params.questionImg || params.answerImg) {
+          const body = toCardFormData(rest)
+
+          return { url: `v1/cards/${id}`, method: 'PATCH', body }
+        }
+
+        return { url: `v1/cards/${id}`, method: 'PATCH', body: rest }
+      },
+      invalidatesTags: ['Cards'],
     }),
     updateGradeCard: builder.mutation<CardResponse, UpdateGradeCardArgs>({
       query: arg => {
@@ -63,8 +95,10 @@ export const cardsService = baseApi.injectEndpoints({
 
 export const {
   useGetCardQuery,
-  useUpdateGradeCardMutation,
   useCreateCardMutation,
   useGetDeckQuery,
   useGetUserCardsQuery,
+  useDeleteCardMutation,
+  useUpdateCardMutation,
+  useUpdateGradeCardMutation,
 } = cardsService

@@ -10,7 +10,7 @@ import { ForgotPasswordType, FormPropsType } from '@/components'
 import { Button, Card, TextField, Typography } from '@/components/ui'
 import { useAppDispatch } from '@/hooks/hooks.ts'
 import { useRecoverPasswordMutation } from '@/services/auth/auth.service.ts'
-import { emailSlice } from '@/store/email.slice.ts'
+import { setEmail } from '@/store/email.slice.ts'
 
 export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) => {
   const dispatch = useAppDispatch()
@@ -36,7 +36,7 @@ export const ForgotPassword = ({ onSubmit }: FormPropsType<ForgotPasswordType>) 
     try {
       const emailValue = watch('email')
 
-      dispatch(emailSlice.actions.setEmail(emailValue))
+      dispatch(setEmail(emailValue))
       await recoverPassword({
         email: emailValue,
         html: '<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/auth/create-password/##token##">here</a> to recover your password</p>',

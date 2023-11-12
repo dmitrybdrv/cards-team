@@ -29,17 +29,21 @@ export type CardsResponsePagination = {
 
 export type CardsParams = {
   id: string | undefined
-  name?: string
-  question: string
+  question?: string
   answer?: string
   orderBy?: string
   currentPage?: number
   itemsPerPage?: number
-  questionVideo?: string
-  answerVideo?: string
 }
+export type CardModalVariant = 'createCard' | 'updateCard' | 'deleteCard' | null
 
-export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'
+export type CurrentCardData = {
+  id?: string | null
+  question: string
+  answer: string
+  questionImg?: string | Blob
+  answerImg?: string | Blob
+}
 
 export type CardResponse = {
   id: string
@@ -56,6 +60,15 @@ export type CardResponse = {
   created: Date
   updated: Date
 }
+
+export type CreateCardArgs = {
+  question: string
+  answer: string
+  questionImg?: string | Blob
+  answerImg?: string | Blob
+}
+
+export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'
 
 export type UpdateGradeCardArgs = {
   id: string
