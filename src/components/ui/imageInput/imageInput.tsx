@@ -5,6 +5,7 @@ import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 import s from './imageInput.module.scss'
 
 import coverIcon from '@/assets/icons/cover.svg'
+import { toImage64 } from '@/common/utils/toImage64.ts'
 import { Button } from '@/components'
 
 type Props<TFieldValues extends FieldValues> = UseControllerProps<TFieldValues>
@@ -32,17 +33,23 @@ export const ImageInput = <TFieldValues extends FieldValues>({
   const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.files) {
       const file = e.currentTarget.files[0]
-      const reader = new FileReader()
 
-      reader.readAsDataURL(file)
+      // const reader = new FileReader()
+      //
+      // reader.readAsDataURL(file)
+      //
+      // reader.onload = function () {
+      //   const image64 = reader.result as string
+      //
+      //   //for UI
+      //   setImage(image64)
+      //   //TODO need save image64 in redux for optimistic update when start fetching updateDeck
+      // }
+      //for UI
+      toImage64(file).then(image64 => setImage(image64))
 
-      reader.onload = function () {
-        const image64 = reader.result as string
-
-        //for UI
-        setImage(image64)
-        //TODO need save image64 in redux for optimistic update when start fetching updateDeck
-      }
+      // console.log(image64)
+      // setImage(image64)
       //for fetch
       onChange(file)
     }

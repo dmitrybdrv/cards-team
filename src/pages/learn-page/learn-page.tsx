@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { FC, useLayoutEffect, useRef, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -15,7 +15,7 @@ import {
   useUpdateGradeCardMutation,
 } from '@/services/cards/cards.service.ts'
 
-export const LearnPage = () => {
+export const LearnPage: FC = () => {
   const { deckId } = useParams()
   const navigate = useNavigate()
 
@@ -28,7 +28,7 @@ export const LearnPage = () => {
   } = useGetDeckQuery(deckId)
 
   //redirect if the deck has not cards
-  if (deckData?.cardsCount === 0) return navigate(`/deck/${deckId}`)
+  if (deckData?.cardsCount === 0) return <>{navigate(`/deck/${deckId}`)}</>
   //get card and update
   const { data: cardData, isSuccess: isSuccessGetCard } = useGetCardQuery(deckId)
   const [updateGradeCard, { isLoading: isLoadingUpdateCard }] = useUpdateGradeCardMutation()

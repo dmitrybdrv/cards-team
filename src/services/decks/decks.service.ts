@@ -1,5 +1,6 @@
 import { getDeckParams } from '@/common/utils/getDeckParams.ts'
 import { toDeckFormData } from '@/common/utils/toDeckFormData.ts'
+import { toImage64 } from '@/common/utils/toImage64.ts'
 import { RootState } from '@/hooks/hooks.ts'
 import { baseApi } from '@/services/base-api.ts'
 import {
@@ -47,7 +48,12 @@ export const decksService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
-    deleteDecks: builder.mutation<DecksResponseItem, { id: string }>({
+    deleteDecks: builder.mutation<
+      DecksResponseItem,
+      {
+        id: string
+      }
+    >({
       query: data => ({
         url: `v1/decks/${data.id}`,
         method: 'DELETE',
@@ -72,7 +78,12 @@ export const decksService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
-    updateDecks: builder.mutation<DecksResponseItem, CreateDeckArgs & { id: string }>({
+    updateDecks: builder.mutation<
+      DecksResponseItem,
+      CreateDeckArgs & {
+        id: string
+      }
+    >({
       query: data => {
         const { id, ...body } = data
 
@@ -86,6 +97,16 @@ export const decksService = baseApi.injectEndpoints({
       },
       onQueryStarted: async ({ id, cover, ...body }, { getState, dispatch, queryFulfilled }) => {
         // TODO  add cover (file64) to optimistic update
+        // console.log(cover)
+        if (cover) {
+          let cover64 = ''
+
+          await toImage64(cover).then(image64 => {
+            cover64 = image64
+          })
+          console.log(cover64)
+        }
+
         const state = getState() as RootState
         const decksParams = getDeckParams(state.decks)
         const patchResult = dispatch(
