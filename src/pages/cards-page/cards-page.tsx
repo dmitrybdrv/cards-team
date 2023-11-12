@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
@@ -10,9 +10,10 @@ import { Pagination } from '@/components/ui/pagination'
 import { CardsHeaders } from '@/pages/cards-page/cards-headers.tsx'
 import { CardsTableBody } from '@/pages/cards-page/cards-table-body.tsx'
 import { CardsCUDModals } from '@/pages/cards-page/cardsCUDModals.tsx'
-import { EmptyDeckPage } from '@/pages/cards-page/empty-deck-page/empty-deck-page.tsx'
 import { useCardModalState } from '@/pages/cards-page/hooks/useCardModalState.ts'
 import { useGetCards } from '@/pages/cards-page/hooks/useGetCards.ts'
+import { DecksCUDModals } from '@/pages/decks-page'
+import { useDeckModalState } from '@/pages/decks-page/hook/useDeckModalState.ts'
 import { useSkeletonHeightState } from '@/pages/decks-page/hook/useSkeletonHeightState.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDeckQuery } from '@/services/cards/cards.service.ts'
@@ -59,6 +60,7 @@ export const CardsPage: FC = () => {
 
   const isAuthorDeck = data?.userId === userData.id
   const deckTitle = data?.name
+  const isDeckEmpty = !data?.cardsCount
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
@@ -71,7 +73,14 @@ export const CardsPage: FC = () => {
     setIsOpenCardModal,
   } = useCardModalState()
 
-  if (isError) return <h1>Error!</h1>
+  const { isOpenModal, setIsOpenModal, modalVariant, currentDeckData, onClickEditOrDeleteDeck } =
+    useDeckModalState()
+
+  const onShowDeleteModal = () => {
+    if (data) onClickEditOrDeleteDeck(packId, data?.name, data.isPrivate, 'deleteDeck')
+  }
+
+  if (isError) return <Navigate to={'/'} />
 
   return (
     <div className={s.pageWrapper}>
@@ -82,28 +91,28 @@ export const CardsPage: FC = () => {
         variant={modalCardVariant}
         currentCardData={currentCardData}
       />
+      <DecksCUDModals
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+        variant={modalVariant}
+        currentDeckData={currentDeckData}
+      />
       <Link style={{ textDecoration: 'none' }} to={'/'}>
         <div className={s.linkArrowContainer}>
           <ArrowBack />
           <Typography variant={'body2'}>Back to Deck List</Typography>
         </div>
       </Link>
-      {!data?.cardsCount ? (
+      <CardsHeaders
+        isDeckEmpty={isDeckEmpty}
+        isAuthorDeck={isAuthorDeck}
+        cardsPageTitle={deckTitle}
+        disabled={isFetching}
+        onClickAddCard={onClickAddCard}
+        onShowDeleteModal={onShowDeleteModal}
+      />
+      {!isDeckEmpty && (
         <>
-          <EmptyDeckPage
-            deckTitle={deckTitle}
-            isAuthorDeck={isAuthorDeck}
-            onClickAddCard={onClickAddCard}
-          />
-        </>
-      ) : (
-        <>
-          <CardsHeaders
-            isAuthorDeck={isAuthorDeck}
-            cardsPageTitle={deckTitle}
-            disabled={isFetching}
-            onClickAddCard={onClickAddCard}
-          />
           <Table variant={isAuthorDeck ? 'myCards' : 'cards'}>
             <THead
               columns={isAuthorDeck ? myColumnsTitles : friendsColumnsTitles}

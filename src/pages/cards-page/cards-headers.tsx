@@ -1,14 +1,14 @@
 import { ChangeEvent, FC, memo, useCallback, useState } from 'react'
 
-import { ReactComponent as EditPen } from '../../assets/icons/editPen.svg'
-import { ReactComponent as PlayIcon } from '../../assets/icons/playIcon.svg'
-import { ReactComponent as TrashIcon } from '../../assets/icons/trashIcon.svg'
-
 import s from './cards.module.scss'
 
+import { ReactComponent as EditPen } from '@/assets/icons/editPen.svg'
+import { ReactComponent as PlayIcon } from '@/assets/icons/playIcon.svg'
+import { ReactComponent as TrashIcon } from '@/assets/icons/trashIcon.svg'
 import { debounce } from '@/common/utils/debounce.ts'
 import { Button, TextField, ToolbarItemWithIcon, Typography } from '@/components'
 import { useAppDispatch } from '@/hooks/hooks.ts'
+import { EmptyDeckPage } from '@/pages/cards-page/empty-deck-page/empty-deck-page.tsx'
 import { MyPackDropDown } from '@/pages/cards-page/my-pack-drop-down'
 import { changeSearchName } from '@/store/cards.slice.ts'
 
@@ -18,9 +18,20 @@ type Props = {
   disabled: boolean
   cardsPageTitle: string | undefined
   onClickAddCard: () => void
+  onShowDeleteModal: () => void
+  onEditDeck?: () => void
+  isDeckEmpty: boolean
 }
 export const CardsHeaders: FC<Props> = memo(
-  ({ disabled, cardsPageTitle, isAuthorDeck, onClickAddCard }) => {
+  ({
+    disabled,
+    cardsPageTitle,
+    isAuthorDeck,
+    onClickAddCard,
+    onShowDeleteModal,
+    isDeckEmpty,
+    onEditDeck,
+  }) => {
     const dispatch = useAppDispatch()
     const onChangeSearchInput = useCallback(
       debounce((searchValue: string) => {
@@ -53,7 +64,7 @@ export const CardsHeaders: FC<Props> = memo(
           <ToolbarItemWithIcon
             icon={<TrashIcon />}
             text={'Delete'}
-            onSelect={() => {}}
+            onSelect={onShowDeleteModal}
           ></ToolbarItemWithIcon>
         </MyPackDropDown>
       )
@@ -66,25 +77,31 @@ export const CardsHeaders: FC<Props> = memo(
             <Typography variant={'large'}>{cardsPageTitle}</Typography>
             {isAuthorDeck ? <MyPackDropDownHandler /> : null}
           </div>
-          {isAuthorDeck ? (
-            <Button variant={'primary'} disabled={disabled} onClick={onClickAddCard}>
-              <Typography variant={'subtitle2'}>Add Card</Typography>
-            </Button>
-          ) : (
-            <Button variant={'primary'} disabled={disabled} onClick={() => {}}>
-              <Typography variant={'subtitle2'}>Learn Pack</Typography>
-            </Button>
+          {isDeckEmpty && (
+            <EmptyDeckPage isAuthorDeck={isAuthorDeck} onClickAddCard={onClickAddCard} />
           )}
+          {!isDeckEmpty &&
+            (isAuthorDeck ? (
+              <Button variant={'primary'} disabled={disabled} onClick={onClickAddCard}>
+                <Typography variant={'subtitle2'}>Add Card</Typography>
+              </Button>
+            ) : (
+              <Button variant={'primary'} disabled={disabled} onClick={() => {}}>
+                <Typography variant={'subtitle2'}>Learn Pack</Typography>
+              </Button>
+            ))}
         </div>
-        <div className={s.filtersWrapper}>
-          <TextField
-            disabled={disabled}
-            type={'search'}
-            className={s.searchInput}
-            value={searchInputValue}
-            onChange={changeSearchInputHandler}
-          />
-        </div>
+        {!isDeckEmpty && (
+          <div className={s.filtersWrapper}>
+            <TextField
+              disabled={disabled}
+              type={'search'}
+              className={s.searchInput}
+              value={searchInputValue}
+              onChange={changeSearchInputHandler}
+            />
+          </div>
+        )}
       </div>
     )
   }

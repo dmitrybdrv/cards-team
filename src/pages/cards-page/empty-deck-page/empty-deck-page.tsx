@@ -4,7 +4,7 @@ import { Button, Typography } from '@/components'
 import s from '@/pages/cards-page/empty-deck-page/empty-deck-page.module.scss'
 
 type Props = {
-  deckTitle: string | undefined
+  deckTitle?: string | undefined
   isAuthorDeck: boolean
   onClickAddCard: () => void
 }
@@ -12,7 +12,7 @@ type Props = {
 export const EmptyDeckPage: FC<Props> = ({ deckTitle, isAuthorDeck, onClickAddCard }) => {
   return (
     <div className={s.pageWrapper}>
-      <Typography variant={'large'}>{deckTitle}</Typography>
+      {/*<Typography variant={'large'}>{deckTitle}</Typography>*/}
       {isAuthorDeck ? (
         <>
           <div className={s.textWrapper}>
