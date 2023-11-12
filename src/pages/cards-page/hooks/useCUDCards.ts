@@ -10,6 +10,7 @@ import { CreateCardArgs, CurrentCardData } from '@/services/cards/cards.types.ts
 export const useCUDCards = (
   currentCardData: CurrentCardData,
   setIsOpenModal: (isOpen: boolean) => void,
+  setFieldsVariant: (variant: string) => void,
   reset: UseFormReset<CreateCardArgs>,
   packId: string
 ) => {
@@ -25,7 +26,7 @@ export const useCUDCards = (
   const error = errorCreate || errorDelete || errorUpdate
 
   //Call backs
-  const createCard = (data: any) => {
+  const createCard = (data: CurrentCardData) => {
     createCardQuery({ id: packId, ...data })
       .unwrap()
       .then(_res => {
@@ -37,13 +38,21 @@ export const useCUDCards = (
           questionImg: '',
         })
       })
+      .finally(() => setFieldsVariant('Text'))
   }
-  const updateCard = (data: any) => {
+  const updateCard = (data: CurrentCardData) => {
     updateCardQuery({ id: currentCardData.id, ...data })
       .unwrap()
       .then(_res => {
         setIsOpenModal(false)
+        reset({
+          question: '',
+          answer: '',
+          answerImg: '',
+          questionImg: '',
+        })
       })
+      .finally(() => setFieldsVariant('Text'))
   }
   const deleteCard = () => {
     const id =
