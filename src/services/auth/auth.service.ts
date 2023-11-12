@@ -12,6 +12,7 @@ import {
 } from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
+import { changeUserId } from '@/store/decks.slice.ts'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -32,6 +33,15 @@ export const authService = baseApi.injectEndpoints({
         maxRetries: 0,
       },
       providesTags: ['Me'],
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const result = await queryFulfilled
+
+          dispatch(changeUserId(result.data.id))
+        } catch (e) {
+          /* empty */
+        }
+      },
     }),
     login: builder.mutation<LoginResponse, LoginArgs>({
       query: data => ({

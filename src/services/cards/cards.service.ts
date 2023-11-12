@@ -5,6 +5,7 @@ import {
   CardsResponse,
   CardsResponseItems,
   CurrentCardData,
+  UpdateGradeCardArgs,
 } from '@/services/cards/cards.types.ts'
 import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
@@ -52,6 +53,30 @@ export const cardsService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Cards'],
     }),
+    updateGradeCard: builder.mutation<CardResponse, UpdateGradeCardArgs>({
+      query: arg => {
+        const { id, ...body } = arg
+
+        return {
+          url: `v1/decks/${id}/learn`,
+          method: 'POST',
+          body,
+        }
+      },
+      onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
+        try {
+          const result = await queryFulfilled
+
+          dispatch(
+            cardsService.util.updateQueryData('getCard', arg.id, _draft => {
+              return result.data
+            })
+          )
+        } catch (e) {
+          /* empty */
+        }
+      },
+    }),
   }),
 })
 
@@ -62,4 +87,5 @@ export const {
   useGetUserCardsQuery,
   useDeleteCardMutation,
   useUpdateCardMutation,
+  useUpdateGradeCardMutation,
 } = cardsService

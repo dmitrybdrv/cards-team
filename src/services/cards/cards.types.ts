@@ -69,3 +69,9 @@ export type CreateCardArgs = {
 }
 
 export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'
+
+export type UpdateGradeCardArgs = {
+  id: string
+  cardId: string
+  grade: number
+}

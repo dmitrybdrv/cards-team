@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
+
+import { useDebounce } from '@uidotdev/usehooks'
 
 import { getDeckParams } from '@/common/utils/getDeckParams.ts'
 import { Sort } from '@/components'
@@ -6,11 +8,8 @@ import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
 import { initialDecksData } from '@/pages/decks-page'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
-import {
-  changeCurrentPage,
-  changeItemsPerPage,
-  changeOrderBy,
-} from '@/services/decks/decks.slice.ts'
+import { changeCurrentPage, changeItemsPerPage, changeOrderBy } from '@/store/decks.slice.ts'
+import { decksDebounceFilterSelector, decksFilterSelector } from '@/store/decksFilter.selector.ts'
 
 export const useGetDecks = () => {
   const dispatch = useAppDispatch()
@@ -24,19 +23,21 @@ export const useGetDecks = () => {
     []
   )
   //------for sort------------
-  const [sort, setSort] = useState<Sort>({ orderName: null, direction: null })
+  const sort = useAppSelector(state => state.decks.orderBy)
   const setSortMemo = useCallback((sort: Sort) => {
-    setSort(sort)
-    const sortData = sort.direction ? `${sort.orderName}-${sort.direction}` : null
-
-    dispatch(changeOrderBy(sortData))
+    dispatch(changeOrderBy(sort))
   }, [])
 
+  //-----GetMe-----
   const { data: profileData } = useGetMeQuery()
 
-  const decksState = useAppSelector(state => state.decks)
+  //-----selector decks filter data-----
+  const decksFilterState = useAppSelector(decksFilterSelector)
+  //input value, sliders value get with debounce
+  const decksDebounceFilterState = useDebounce(useAppSelector(decksDebounceFilterSelector), 1000)
+
   const { data, currentData, isLoading, isSuccess, isError, isFetching } = useGetDecksQuery(
-    getDeckParams(decksState)
+    getDeckParams({ ...decksFilterState, ...decksDebounceFilterState })
   )
 
   return {
