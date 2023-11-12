@@ -53,6 +53,7 @@
   th:first-child,
   th:nth-child(2) {
     min-width: 300px;
+    max-width: 300px;
   }
 }
 
@@ -112,9 +113,11 @@
 
   .tdCellTitle {
     overflow: hidden;
-    width: auto;
+    max-width: 300px;
     max-height: 48px;
     word-break: break-all;
+    //white-space: nowrap;
+    text-overflow: ellipsis;
   }
   //if cell has cover image
   .tdCellTitle:nth-child(2) {

@@ -1,80 +1,78 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent } from 'react'
 
-import { debounce } from '@/common/utils/debounce.ts'
-import { useAppDispatch } from '@/hooks/hooks.ts'
-import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks.ts'
+// import { tabSwitcherValue } from '@/pages/decks-page'
+// import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { TabSwitcher } from '@/services/decks/decks.types.ts'
 import {
-  changeAuthorId,
-  changeCardsCount,
+  changeSwitcherValue,
   changeSearchName,
   resetState,
-} from '@/services/decks/decks.slice.ts'
+  changeMinCardsCount,
+  changeMaxCardsCount,
+} from '@/store/decks.slice.ts'
 
 export const useFilterState = () => {
   const dispatch = useAppDispatch()
 
   //----------input----------
-  const setSearchNameForFetch = useCallback(
-    debounce((searchValue: string) => dispatch(changeSearchName(searchValue)), 1000),
-    []
-  )
-  const [searchInputValue, setSearchInputValue] = useState('')
-  const changeSearchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //for UI
-    setSearchInputValue(e.currentTarget.value)
-    //for fetch with debounce
-    setSearchNameForFetch(e.currentTarget.value)
+  const searchInputValue = useAppSelector(state => state.decks.name)
+  const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(changeSearchName(e.currentTarget.value))
   }
 
   //---------switcher-------------
-  const { data: profileData } = useGetMeQuery()
-  const [switcherValue, setSwitcherValue] = useState('All Cards')
-
-  const onChangeTabSwitcher = (value: string) => {
+  // const { data: profileData } = useGetMeQuery()
+  // const [switcherValue, setSwitcherValue] = useState(tabSwitcherValue[1].value)
+  const switcherValue = useAppSelector(state => state.decks.switcherValue)
+  const onChangeTabSwitcher = (value: '' | TabSwitcher) => {
     // switcher can return empty string if second click same button
     if (value !== '') {
       //for UI
-      setSwitcherValue(value)
+      // setSwitcherValue(value)
       //for fetch
-      dispatch(changeAuthorId(value === 'My Cards' ? profileData.id : null))
+      dispatch(changeSwitcherValue(value))
     }
   }
 
   //-------Slider--------------
-  const [isResetSlider, setIsResetSlider] = useState(false)
-  const onChangeSlider = useCallback(
-    debounce((minValue: number, maxValue: number) => {
-      setIsResetSlider(false)
-      const minCardsCount = minValue.toString()
-      const maxCardsCount = maxValue.toString()
-
-      dispatch(changeCardsCount({ minCardsCount, maxCardsCount }))
-    }, 1000),
-    []
-  )
+  const minCardsCount = useAppSelector(state => state.decks.minCardsCount)
+  const maxCardsCount = useAppSelector(state => state.decks.maxCardsCount)
+  const currentSliderValue = [Number(minCardsCount), Number(maxCardsCount)] as [number, number]
+  const onChangeMinCardsCount = (minValue: string) => {
+    dispatch(changeMinCardsCount(minValue))
+  }
+  const onChangeMaxCardsCount = (maxValue: string) => {
+    dispatch(changeMaxCardsCount(maxValue))
+  }
+  // const [isResetSlider, setIsResetSlider] = useState(false)
+  // const onChangeSlider = (minValue: number, maxValue: number) => {
+  //   setIsResetSlider(false)
+  //   const minCardsCount = minValue.toString()
+  //   const maxCardsCount = maxValue.toString()
+  //
+  //   dispatch(changeMinCardsCount(minCardsCount))
+  //   dispatch(changeMaxCardsCount(maxCardsCount))
+  // }
 
   //-------clear filter button------
   const onClickClearFilter = () => {
-    setSearchInputValue('')
-    setIsResetSlider(true)
-    setSwitcherValue('All Cards')
+    // setSearchInputValue('')
+    // setIsResetSlider(true)
+    // setSwitcherValue(tabSwitcherValue[1].value)
     dispatch(resetState())
   }
 
-  // reset redux state if user leave from page
-  useEffect(() => {
-    return () => {
-      dispatch(resetState())
-    }
-  }, [])
-
   return {
     searchInputValue,
-    changeSearchInputHandler,
+    onChangeSearchInput,
     switcherValue,
     onChangeTabSwitcher,
-    isResetSlider,
-    onChangeSlider,
+    currentSliderValue,
+    // isResetSlider,
+    // onChangeSlider,
+    onChangeMinCardsCount,
+    onChangeMaxCardsCount,
     onClickClearFilter,
   }
 }

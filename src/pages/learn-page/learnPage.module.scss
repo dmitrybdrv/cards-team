@@ -1,6 +1,7 @@
 .pageWrapper {
   width: 75%;
   margin: 0 auto;
+  position: relative;
 }
 
 .linkBackWrapper {
@@ -19,6 +20,12 @@
 .question {
 }
 
+.questionImg {
+  display: block;
+  height: 120px;
+  margin: 20px 0;
+}
+
 .shots {
   color: var(--color-dark-100);
   margin-bottom: 40px;
@@ -26,4 +33,24 @@
 
 .shotsCount {
   font-weight: 700;
+}
+
+.answer {
+  margin-top: -5px;
+  margin-bottom: 12px;
+}
+
+.rateYouself {
+  margin-bottom: 5px;
+  align-self: flex-start;
+}
+
+.radio {
+  margin: 10px 0 30px;
+  align-self: flex-start;
+}
+
+.skeleton {
+  width: 420px;
+  left: calc(50% - 210px);
 }

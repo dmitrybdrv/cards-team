@@ -56,3 +56,9 @@ export type CardResponse = {
   created: Date
   updated: Date
 }
+
+export type UpdateGradeCardArgs = {
+  id: string
+  cardId: string
+  grade: number
+}
