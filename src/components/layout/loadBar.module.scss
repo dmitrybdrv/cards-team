@@ -1,0 +1,29 @@
+.loadWrapper {
+  width: 100%;
+  height: 4px;
+  overflow: hidden;
+  margin-bottom: -4px;
+}
+
+.loadLine {
+  position: relative;
+  width: 30%;
+  height: 5px;
+
+  background-color: var(--color-warning-500);
+
+  animation-name: skeleton;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes skeleton {
+  from {
+    left: -10%;
+  }
+
+  to {
+    left: 120%;
+  }
+}

@@ -36,11 +36,11 @@ const publicRoutes: RouteObject[] = [
       },
       {
         path: '/auth/reset-password',
-        element: <ForgotPassword onSubmit={() => {}} />,
+        element: <ForgotPassword />,
       },
       {
         path: '/auth/create-password/:token',
-        element: <CreateNewPassword onSubmit={() => {}} />,
+        element: <CreateNewPassword />,
       },
       {
         path: '/auth/check-email',

@@ -45,5 +45,5 @@ export type DecksParams = {
 export type CreateDeckArgs = {
   name: string
   isPrivate: boolean
-  cover?: string | Blob
+  cover?: File
 }

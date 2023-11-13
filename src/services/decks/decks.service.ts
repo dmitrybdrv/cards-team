@@ -1,5 +1,6 @@
 import { getDeckParams } from '@/common/utils/getDeckParams.ts'
 import { toDeckFormData } from '@/common/utils/toDeckFormData.ts'
+import { toImage64 } from '@/common/utils/toImage64.ts'
 import { RootState } from '@/hooks/hooks.ts'
 import { baseApi } from '@/services/base-api.ts'
 import {
@@ -47,7 +48,12 @@ export const decksService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
-    deleteDecks: builder.mutation<DecksResponseItem, { id: string }>({
+    deleteDecks: builder.mutation<
+      DecksResponseItem,
+      {
+        id: string
+      }
+    >({
       query: data => ({
         url: `v1/decks/${data.id}`,
         method: 'DELETE',
@@ -72,7 +78,12 @@ export const decksService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks', 'Cards'],
     }),
-    updateDecks: builder.mutation<DecksResponseItem, CreateDeckArgs & { id: string }>({
+    updateDecks: builder.mutation<
+      DecksResponseItem,
+      CreateDeckArgs & {
+        id: string
+      }
+    >({
       query: data => {
         const { id, ...body } = data
 
@@ -85,14 +96,28 @@ export const decksService = baseApi.injectEndpoints({
         }
       },
       onQueryStarted: async ({ id, cover, ...body }, { getState, dispatch, queryFulfilled }) => {
-        // TODO  add cover (file64) to optimistic update
+        // optimistic update
+        let cover64 = ''
+
+        if (cover) {
+          await toImage64(cover).then(image64 => {
+            cover64 = image64
+          })
+        }
+
         const state = getState() as RootState
         const decksParams = getDeckParams(state.decks)
+
         const patchResult = dispatch(
           decksService.util.updateQueryData('getDecks', decksParams, draft => {
             const index = draft.items.findIndex(item => item.id === id)
 
-            if (index !== -1) draft.items[index] = { ...draft.items[index], ...body }
+            if (index !== -1) {
+              draft.items[index] = { ...draft.items[index], ...body }
+              if (cover64) {
+                draft.items[index].cover = cover64
+              }
+            }
           })
         )
 
