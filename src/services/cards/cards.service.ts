@@ -1,4 +1,6 @@
+import { getDeckParams } from '@/common/utils/getDeckParams.ts'
 import { toCardFormData } from '@/common/utils/toCardFormData.ts'
+import { RootState } from '@/hooks/hooks.ts'
 import { baseApi } from '@/services/base-api.ts'
 import {
   CardResponse,
@@ -8,6 +10,7 @@ import {
   CurrentCardData,
   UpdateGradeCardArgs,
 } from '@/services/cards/cards.types.ts'
+import { decksService } from '@/services/decks/decks.service.ts'
 import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
 export const cardsService = baseApi.injectEndpoints({
@@ -37,6 +40,26 @@ export const cardsService = baseApi.injectEndpoints({
         }
 
         return { url: `v1/decks/${id}/cards`, method: 'POST', body: rest }
+      },
+      onQueryStarted: async ({ id }, { getState, dispatch, queryFulfilled }) => {
+        //optimistic decks update: update cardCount (+1)
+        const state = getState() as RootState
+        const decksParams = getDeckParams(state.decks)
+
+        const patchResult = dispatch(
+          decksService.util.updateQueryData('getDecks', decksParams, draft => {
+            const index = draft.items.findIndex(deck => deck.id === id)
+
+            if (index > -1) draft.items[index].cardsCount += 1
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch (e) {
+          patchResult.undo()
+          /* empty */
+        }
       },
       invalidatesTags: ['Cards'],
     }),

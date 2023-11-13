@@ -107,6 +107,7 @@ export const decksService = baseApi.injectEndpoints({
 
         const state = getState() as RootState
         const decksParams = getDeckParams(state.decks)
+
         const patchResult = dispatch(
           decksService.util.updateQueryData('getDecks', decksParams, draft => {
             const index = draft.items.findIndex(item => item.id === id)
