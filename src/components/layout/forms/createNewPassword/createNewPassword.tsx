@@ -4,17 +4,16 @@ import { useForm } from 'react-hook-form'
 import { Link, useParams } from 'react-router-dom'
 
 import { createNewPasswordSchema } from '@/common/utils'
-import { CreatePasswordType, FormPropsType } from '@/components/layout/forms'
+import { CreatePasswordType } from '@/components/layout/forms'
 import s from '@/components/layout/forms/forms.module.scss'
 import { Button, Card, TextField, Typography } from '@/components/ui'
 import { useResetPasswordMutation } from '@/services/auth/auth.service.ts'
 
-export const CreateNewPassword = ({ onSubmit }: FormPropsType<CreatePasswordType>) => {
+export const CreateNewPassword = () => {
   const { token } = useParams()
 
   const [resetPassword] = useResetPasswordMutation()
   const {
-    watch,
     register,
     handleSubmit,
     formState: { errors },
@@ -28,17 +27,11 @@ export const CreateNewPassword = ({ onSubmit }: FormPropsType<CreatePasswordType
 
   const typographyStyle = clsx(s.footnote, s.footnoteExtra)
 
-  const resetPasswordHandle = async () => {
-    try {
-      const passwordValue = watch('password')
-
-      await resetPassword({
-        password: passwordValue,
-        token: token,
-      })
-    } catch (e) {
-      //empty
-    }
+  const onSubmit = (data: CreatePasswordType) => {
+    resetPassword({
+      password: data.password,
+      token: token,
+    })
   }
 
   return (
@@ -63,7 +56,7 @@ export const CreateNewPassword = ({ onSubmit }: FormPropsType<CreatePasswordType
         </Typography>
 
         <Link to={'/auth/success-reset-password'}>
-          <Button onClick={resetPasswordHandle} fullWidth={true} className={s.btn}>
+          <Button type={'submit'} fullWidth={true} className={s.btn}>
             <Typography variant={'subtitle2'}>Create New Password</Typography>
           </Button>
         </Link>

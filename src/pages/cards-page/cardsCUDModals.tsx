@@ -65,6 +65,11 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
       setIsOpenCardModal(false)
     }
 
+    const onChangeOpenModal = (isOpen: boolean) => {
+      setFieldsVariant('Text')
+      setIsOpenCardModal(isOpen)
+    }
+
     const formVariant =
       fieldsVariant === 'Picture' ? (
         <>
@@ -140,7 +145,7 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
     const mainContent = variant === 'deleteCard' ? deletingContent : formCardCreateOrUpdate
 
     return (
-      <Modal isOpen={isOpenCardModal} onOpenChange={setIsOpenCardModal}>
+      <Modal isOpen={isOpenCardModal} onOpenChange={onChangeOpenModal}>
         <ModalContent>
           <ModalTitle>{titleData.title}</ModalTitle>
           <ModalClose onClick={onCloseBtn}>X</ModalClose>

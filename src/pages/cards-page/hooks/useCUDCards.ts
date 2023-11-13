@@ -45,12 +45,6 @@ export const useCUDCards = (
       .unwrap()
       .then(_res => {
         setIsOpenModal(false)
-        reset({
-          question: '',
-          answer: '',
-          answerImg: '',
-          questionImg: '',
-        })
       })
       .finally(() => setFieldsVariant('Text'))
   }

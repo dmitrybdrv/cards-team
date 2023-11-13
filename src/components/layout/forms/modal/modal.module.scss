@@ -33,12 +33,13 @@
 
 .dialogContent {
   position: fixed;
-  top: 200px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 
   min-width: 542px;
-
+  overflow-y: auto;
+  max-height: 720px;
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-500);
   border-radius: 2px;
@@ -92,13 +93,13 @@
 @keyframes contentShow {
   from {
     //transform: translate(-50%, -50%) scale(0.6);
-    transform: translateX(-50%) scale(0.6);
+    transform: translate(-50%, -50%) scale(0.6);
     opacity: 0;
   }
 
   to {
     //transform: translate(-50%, -50%) scale(1);
-    transform: translateX(-50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
 }
