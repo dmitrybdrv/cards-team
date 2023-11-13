@@ -1,20 +1,23 @@
 .pageWrapper {
+  position: relative;
   width: 75%;
   margin: 0 auto;
-  position: relative;
 }
 
 .linkBackWrapper {
+  cursor: pointer;
+
   display: flex;
   gap: 6px;
+
   margin-top: 24px;
+
   text-decoration: none;
-  cursor: pointer;
 }
 
 .title {
-  text-align: center;
   margin-bottom: 45px;
+  text-align: center;
 }
 
 .question {
@@ -22,13 +25,14 @@
 
 .questionImg {
   display: block;
-  height: 120px;
+  width: 350px;
   margin: 20px 0;
+  object-fit: cover;
 }
 
 .shots {
-  color: var(--color-dark-100);
   margin-bottom: 40px;
+  color: var(--color-dark-100);
 }
 
 .shotsCount {
@@ -41,16 +45,16 @@
 }
 
 .rateYouself {
-  margin-bottom: 5px;
   align-self: flex-start;
+  margin-bottom: 5px;
 }
 
 .radio {
-  margin: 10px 0 30px;
   align-self: flex-start;
+  margin: 10px 0 30px;
 }
 
 .skeleton {
-  width: 420px;
   left: calc(50% - 210px);
+  width: 420px;
 }

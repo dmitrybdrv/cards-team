@@ -1,6 +1,6 @@
 .pageWrapper {
   position: static;
-  width: fit-content;
+  width: 1000px;
   margin: 0 auto;
   padding-top: 20px;
 }
@@ -23,7 +23,8 @@
 .titleWrapper {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  height: 36px;
+  margin-bottom: 25px;
 }
 
 .dotsWrapper {
@@ -62,4 +63,12 @@
 .deleteText {
   display: block;
   margin-bottom: 28px;
+}
+
+.deleteTextName {
+  color: var(--color-accent-700);
+}
+
+.formCard > div {
+  margin-bottom: 24px;
 }

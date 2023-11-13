@@ -43,6 +43,7 @@ export const DecksTableBody: FC<Props> = memo(
             onClick={() => navigate(`/deck/${item.id}`)}
             img={item.cover ?? null}
             isPrivate={item.isPrivate}
+            className={s.titleCell}
           >
             {item.name}
           </TdCell>

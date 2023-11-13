@@ -37,7 +37,6 @@ export const useCUDDecks = (
     currentDeckData.id && updateDeckQuery({ id: currentDeckData.id, ...data })
     setIsOpenModal(false)
   }
-
   const deleteDeck = () => {
     setIsOpenModal(false)
     currentDeckData.id && deleteDeckQuery({ id: currentDeckData.id })
