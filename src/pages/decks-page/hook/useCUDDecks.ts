@@ -29,17 +29,13 @@ export const useCUDDecks = (
     createDeckQuery(data)
       .unwrap()
       .then(_res => {
-        setIsOpenModal(false)
         reset({ name: '' })
       })
+    setIsOpenModal(false)
   }
   const updateDeck = (data: CreateDeckArgs) => {
-    currentDeckData.id &&
-      updateDeckQuery({ id: currentDeckData.id, ...data })
-        .unwrap()
-        .then(_res => {
-          setIsOpenModal(false)
-        })
+    currentDeckData.id && updateDeckQuery({ id: currentDeckData.id, ...data })
+    setIsOpenModal(false)
   }
 
   const deleteDeck = () => {

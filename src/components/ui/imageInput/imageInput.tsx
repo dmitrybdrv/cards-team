@@ -34,24 +34,12 @@ export const ImageInput = <TFieldValues extends FieldValues>({
     if (e.currentTarget.files) {
       const file = e.currentTarget.files[0]
 
-      // const reader = new FileReader()
-      //
-      // reader.readAsDataURL(file)
-      //
-      // reader.onload = function () {
-      //   const image64 = reader.result as string
-      //
-      //   //for UI
-      //   setImage(image64)
-      //   //TODO need save image64 in redux for optimistic update when start fetching updateDeck
-      // }
-      //for UI
-      toImage64(file).then(image64 => setImage(image64))
-
-      // console.log(image64)
-      // setImage(image64)
-      //for fetch
-      onChange(file)
+      toImage64(file).then(image64 => {
+        //for UI
+        setImage(image64)
+        //for fetch
+        onChange(file)
+      })
     }
   }
   const iconForBtn = (

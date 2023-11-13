@@ -96,15 +96,13 @@ export const decksService = baseApi.injectEndpoints({
         }
       },
       onQueryStarted: async ({ id, cover, ...body }, { getState, dispatch, queryFulfilled }) => {
-        // TODO  add cover (file64) to optimistic update
-        // console.log(cover)
-        if (cover) {
-          let cover64 = ''
+        // optimistic update
+        let cover64 = ''
 
+        if (cover) {
           await toImage64(cover).then(image64 => {
             cover64 = image64
           })
-          console.log(cover64)
         }
 
         const state = getState() as RootState
@@ -113,7 +111,12 @@ export const decksService = baseApi.injectEndpoints({
           decksService.util.updateQueryData('getDecks', decksParams, draft => {
             const index = draft.items.findIndex(item => item.id === id)
 
-            if (index !== -1) draft.items[index] = { ...draft.items[index], ...body }
+            if (index !== -1) {
+              draft.items[index] = { ...draft.items[index], ...body }
+              if (cover64) {
+                draft.items[index].cover = cover64
+              }
+            }
           })
         )
 
