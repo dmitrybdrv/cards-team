@@ -77,7 +77,16 @@ export const CardsPage: FC = () => {
     useDeckModalState()
 
   const onShowDeleteModal = () => {
-    if (data) onClickEditOrDeleteDeck(packId, data?.name, data.isPrivate, 'deleteDeck')
+    if (data)
+      onClickEditOrDeleteDeck(
+        {
+          id: packId,
+          name: data.name,
+          isPrivate: data.isPrivate,
+          cover: data.cover,
+        },
+        'deleteDeck'
+      )
   }
 
   if (isError) return <Navigate to={'/'} />

@@ -5,19 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import s from './decks.module.scss'
 
 import { TdCell, TdIcons, TRow } from '@/components'
-import { ModalVariant } from '@/pages/decks-page/hook/useDeckModalState.ts'
+import { CurrentDeckData, ModalVariant } from '@/pages/decks-page/hook/useDeckModalState.ts'
 import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
 type Props = {
   items: DecksResponseItem[]
   authorId: string
   onChangeHeight: (value: number) => void
-  onClickEditOrDeleteIcons: (
-    id: string,
-    name: string,
-    isPrivate: boolean,
-    variant: ModalVariant
-  ) => void
+  onClickEditOrDeleteIcons: (deckData: CurrentDeckData, variant: ModalVariant) => void
 } & ComponentProps<'tbody'>
 
 export const DecksTableBody: FC<Props> = memo(
@@ -27,11 +22,17 @@ export const DecksTableBody: FC<Props> = memo(
       const updateData = new Date(Date.parse(item.updated)).toLocaleString('ru', {
         dateStyle: 'short',
       })
+
+      const deckData: CurrentDeckData = {
+        id: item.id,
+        name: item.name,
+        isPrivate: item.isPrivate,
+        cover: item.cover ?? null,
+      }
+
       const playDeckHandler = () => navigate(`/learn/${item.id}`)
-      const editDeckHandler = () =>
-        onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'updateDeck')
-      const deleteDeckHandler = () =>
-        onClickEditOrDeleteIcons(item.id, item.name, item.isPrivate, 'deleteDeck')
+      const editDeckHandler = () => onClickEditOrDeleteIcons(deckData, 'updateDeck')
+      const deleteDeckHandler = () => onClickEditOrDeleteIcons(deckData, 'deleteDeck')
 
       const isAuthor = authorId === item.author.id
       const onEdit = isAuthor ? editDeckHandler : null
