@@ -5,13 +5,13 @@ import {
   useDeleteCardMutation,
   useUpdateCardMutation,
 } from '@/services/cards/cards.service.ts'
-import { CreateCardArgs, CurrentCardData } from '@/services/cards/cards.types.ts'
+import { CardFormData, CurrentCardData } from '@/services/cards/cards.types.ts'
 
 export const useCUDCards = (
   currentCardData: CurrentCardData,
   setIsOpenModal: (isOpen: boolean) => void,
   setFieldsVariant: (variant: string) => void,
-  reset: UseFormReset<CreateCardArgs>,
+  reset: UseFormReset<CardFormData>,
   packId: string
 ) => {
   const [createCardQuery, { isLoading: isLoadingCreate, error: errorCreate }] =
@@ -26,8 +26,8 @@ export const useCUDCards = (
   const error = errorCreate || errorDelete || errorUpdate
 
   //Call backs
-  const createCard = (data: CurrentCardData) => {
-    createCardQuery({ id: packId, ...data })
+  const createCard = (data: CardFormData) => {
+    createCardQuery({ ...data, id: packId })
       .unwrap()
       .then(_res => {
         setIsOpenModal(false)
@@ -40,8 +40,8 @@ export const useCUDCards = (
       })
       .finally(() => setFieldsVariant('Text'))
   }
-  const updateCard = (data: CurrentCardData) => {
-    updateCardQuery({ id: currentCardData.id, ...data })
+  const updateCard = (data: CardFormData) => {
+    updateCardQuery({ ...data, id: currentCardData.id })
       .unwrap()
       .then(_res => {
         setIsOpenModal(false)

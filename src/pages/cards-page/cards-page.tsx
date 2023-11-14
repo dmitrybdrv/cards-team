@@ -60,7 +60,7 @@ export const CardsPage: FC = () => {
 
   const isAuthorDeck = data?.userId === userData.id
   const deckTitle = data?.name
-  const isDeckEmpty = !data?.cardsCount
+  const isDeckEmpty = data?.cardsCount === 0
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
@@ -76,7 +76,7 @@ export const CardsPage: FC = () => {
   const { isOpenModal, setIsOpenModal, modalVariant, currentDeckData, onClickEditOrDeleteDeck } =
     useDeckModalState()
 
-  const onShowDeleteModal = () => {
+  const onShowDeleteDeckModal = () => {
     if (data)
       onClickEditOrDeleteDeck(
         {
@@ -86,6 +86,19 @@ export const CardsPage: FC = () => {
           cover: data.cover,
         },
         'deleteDeck'
+      )
+  }
+
+  const onShowEditDeckModal = () => {
+    if (data)
+      onClickEditOrDeleteDeck(
+        {
+          id: packId,
+          name: data.name,
+          isPrivate: data.isPrivate,
+          cover: data.cover,
+        },
+        'updateDeck'
       )
   }
 
@@ -118,7 +131,8 @@ export const CardsPage: FC = () => {
         cardsPageTitle={deckTitle}
         disabled={isFetching}
         onClickAddCard={onClickAddCard}
-        onShowDeleteModal={onShowDeleteModal}
+        onShowDeleteModal={onShowDeleteDeckModal}
+        onShowEditModal={onShowEditDeckModal}
       />
       {!isDeckEmpty && (
         <>

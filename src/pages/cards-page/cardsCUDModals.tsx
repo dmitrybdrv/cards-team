@@ -15,7 +15,7 @@ import { ImageInput } from '@/components/ui/imageInput/imageInput.tsx'
 import s from '@/pages/cards-page/cards.module.scss'
 import { useCUDCards } from '@/pages/cards-page/hooks/useCUDCards.ts'
 import { cardsGetModalTitles } from '@/pages/cards-page/utils/CardsGetModalTitles.ts'
-import { CardModalVariant, CurrentCardData } from '@/services/cards/cards.types.ts'
+import { CardFormData, CardModalVariant, CurrentCardData } from '@/services/cards/cards.types.ts'
 
 export type CardsModalsProps = {
   isOpenCardModal: boolean
@@ -35,9 +35,9 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
       handleSubmit,
       control,
       reset,
-    } = useForm<CurrentCardData>({
+    } = useForm<CardFormData>({
       defaultValues: {
-        id: currentCardData.id,
+        // id: currentCardData.id,
         question: currentCardData.question,
         answer: currentCardData.answer,
       },
@@ -75,11 +75,19 @@ export const CardsCUDModals: FC<CardsModalsProps> = memo(
         <>
           <label>
             <Typography variant={'subtitle2'}>Question:</Typography>
-            <ImageInput name={'questionImg'} control={control} />
+            <ImageInput
+              name={'questionImg'}
+              control={control}
+              image={currentCardData.questionImg ?? null}
+            />
           </label>
           <label>
             <Typography variant={'subtitle2'}>Answer:</Typography>
-            <ImageInput name={'answerImg'} control={control} />
+            <ImageInput
+              name={'answerImg'}
+              control={control}
+              image={currentCardData.answerImg ?? null}
+            />
           </label>
         </>
       ) : (

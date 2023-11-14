@@ -1,6 +1,6 @@
-import { CurrentCardData } from '@/services/cards/cards.types.ts'
+import { CreateCardArgs } from '@/services/cards/cards.types.ts'
 
-export const toCardFormData = (body: CurrentCardData) => {
+export const toCardFormData = (body: CreateCardArgs) => {
   const formData = new FormData()
 
   if (body.questionImg) formData.append('questionImg', body.questionImg)
