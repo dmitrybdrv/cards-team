@@ -127,7 +127,7 @@ export const decksService = baseApi.injectEndpoints({
           patchResult.undo()
         }
       },
-      invalidatesTags: ['Decks'],
+      invalidatesTags: ['Decks', 'Cards'],
     }),
   }),
 })

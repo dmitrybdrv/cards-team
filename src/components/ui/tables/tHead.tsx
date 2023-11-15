@@ -7,8 +7,7 @@ import s from './table.module.scss'
 import { showDirection, getNewSortDirection } from '@/common/utils'
 
 type Props = ComponentPropsWithoutRef<'thead'> & {
-  //TODO пофиксить any
-  columns: TableColumns<any>
+  columns: TableColumns<string>
   onSort: Dispatch<Sort>
   currentSort: Sort
   disabled?: boolean
