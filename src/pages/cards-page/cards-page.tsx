@@ -19,7 +19,7 @@ import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDeckQuery } from '@/services/cards/cards.service.ts'
 import { friendsOrderName } from '@/services/cards/cards.types.ts'
 
-const myColumnsTitles: TableColumns<friendsOrderName> = [
+export const myColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Question', orderName: 'question' },
   { title: 'Answer', orderName: 'answer' },
   { title: 'LastUpdate', orderName: 'updated' },
@@ -27,7 +27,7 @@ const myColumnsTitles: TableColumns<friendsOrderName> = [
   { title: '' },
 ]
 
-const friendsColumnsTitles: TableColumns<friendsOrderName> = [...myColumnsTitles]
+export const friendsColumnsTitles: TableColumns<friendsOrderName> = [...myColumnsTitles]
 
 friendsColumnsTitles.pop()
 

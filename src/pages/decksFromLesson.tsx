@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Button } from '@/components'
 import {
-  useCreateDeckMutation,
+  // useCreateDeckMutation,
   useDeleteDecksMutation,
   useGetDecksQuery,
 } from '@/services/decks/decks.service.ts'
@@ -12,7 +12,7 @@ export const DecksFromLesson = () => {
   const decks = useGetDecksQuery({
     itemsPerPage,
   })
-  const [createDeck, { isLoading }] = useCreateDeckMutation()
+  // const [{ isLoading }] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDecksMutation()
 
   if (decks.isLoading) return <div>Loading...</div>
@@ -24,7 +24,7 @@ export const DecksFromLesson = () => {
         onClick={() => {
           setItemPerPage(20)
         }}
-        disabled={isLoading}
+        // disabled={isLoading}
       >
         Item per page 20
       </Button>
@@ -36,12 +36,7 @@ export const DecksFromLesson = () => {
         Item per page 10
       </Button>
       {/*{JSON.stringify(decks || '')}*/}
-      <Button
-        onClick={() => {
-          createDeck({ name: '123' })
-        }}
-        variant={'primary'}
-      >
+      <Button onClick={() => {}} variant={'primary'}>
         Create deck
       </Button>
       <table>
