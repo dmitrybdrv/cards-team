@@ -6,21 +6,23 @@ import { Header } from '@/components'
 import { useAppSelector } from '@/hooks/hooks.ts'
 
 export const Layout = () => {
-  const isLoading = useAppSelector(state => state.app.isLoading === 'loading')
-
   return (
     <>
       <Header />
-      {isLoading && <LoadBar />}
+      <LoadBar />
       <Outlet />
     </>
   )
 }
 
 const LoadBar = () => {
-  return (
+  const isLoading = useAppSelector(state => state.app.isLoading === 'loading')
+
+  return isLoading ? (
     <div className={s.loadWrapper}>
       <div className={s.loadLine}></div>
     </div>
+  ) : (
+    <></>
   )
 }
