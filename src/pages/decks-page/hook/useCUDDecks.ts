@@ -1,4 +1,5 @@
 import { UseFormReset } from 'react-hook-form'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { CurrentDeckData } from '@/pages/decks-page/hook/useDeckModalState.ts'
 import {
@@ -24,6 +25,10 @@ export const useCUDDecks = (
   const isLoading = isLoadingCreate || isLoadingDelete || isLoadingUpdate
   const error = errorCreate || errorDelete || errorUpdate
 
+  const location = useLocation()
+  const navigate = useNavigate()
+  const isCardsPage = location.pathname.includes('deck')
+
   //Call backs
   const createDeck = (data: CreateDeckArgs) => {
     createDeckQuery(data)
@@ -40,6 +45,9 @@ export const useCUDDecks = (
   const deleteDeck = () => {
     setIsOpenModal(false)
     currentDeckData.id && deleteDeckQuery({ id: currentDeckData.id })
+    if (isCardsPage) {
+      navigate('/')
+    }
   }
 
   return {
