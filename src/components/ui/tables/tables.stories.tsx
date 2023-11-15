@@ -1,7 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react'
 
 import testImg from '@/assets/img/avatarPlaceholder.png'
-import { Table, TdCell, TdIcons, TdRating, THead, TRow } from '@/components/ui'
+import { Sort, Table, TdCell, TdIcons, TdRating, THead, TRow } from '@/components/ui'
+import { friendsColumnsTitles, myColumnsTitles } from '@/pages/cards-page/cards-page.tsx'
+import { decksColumnsTitles } from '@/pages/decks-page'
 
 const meta = {
   title: 'Components/UI/Tables/Table',
@@ -40,9 +42,14 @@ export const PacksTable: Story = {
       )
     })
 
+    const currentSort: Sort = {
+      orderName: null,
+      direction: null,
+    }
+
     return (
       <Table variant={args.variant}>
-        <THead columns={['Name', 'Cards', 'LastUpdate', 'Created by', '']} />
+        <THead columns={decksColumnsTitles} onSort={() => {}} currentSort={currentSort} />
         <tbody>{mappedRow}</tbody>
       </Table>
     )
@@ -66,9 +73,14 @@ export const MyCardsTable: Story = {
       )
     })
 
+    const currentSort: Sort = {
+      orderName: null,
+      direction: null,
+    }
+
     return (
       <Table variant={args.variant}>
-        <THead columns={['Question', 'Answer', 'LastUpdate', 'Grade', '']} />
+        <THead columns={myColumnsTitles} onSort={() => {}} currentSort={currentSort} />
         <tbody>{mappedRow}</tbody>
       </Table>
     )
@@ -91,9 +103,14 @@ export const CardsTable: Story = {
       )
     })
 
+    const currentSort: Sort = {
+      orderName: null,
+      direction: null,
+    }
+
     return (
       <Table variant={args.variant}>
-        <THead columns={['Question', 'Answer', 'LastUpdate', 'Grade']} />
+        <THead columns={friendsColumnsTitles} onSort={() => {}} currentSort={currentSort} />
         <tbody>{mappedRow}</tbody>
       </Table>
     )

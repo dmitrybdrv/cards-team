@@ -5,6 +5,7 @@ export type CurrentDeckData = {
   id: string | null
   name: string | null
   isPrivate: boolean
+  cover: string | null
 }
 
 // test-conflicts
@@ -16,6 +17,7 @@ export const useDeckModalState = () => {
     id: null,
     name: null,
     isPrivate: false,
+    cover: null,
   })
   const [isOpenModal, setIsOpenModal] = useState(false)
   const onClickAddDeck = useCallback(() => {
@@ -23,9 +25,9 @@ export const useDeckModalState = () => {
     setModalVariant('createDeck')
   }, [])
   const onClickEditOrDeleteDeck = useCallback(
-    (id: string, name: string, isPrivate: boolean, variant: ModalVariant) => {
+    (deckData: CurrentDeckData, variant: ModalVariant) => {
       setIsOpenModal(true)
-      setCurrentDeckData({ id, name, isPrivate })
+      setCurrentDeckData(deckData)
       setModalVariant(variant)
     },
     []

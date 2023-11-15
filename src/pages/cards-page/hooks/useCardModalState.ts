@@ -10,8 +10,8 @@ export const useCardModalState = () => {
     answer: '',
     questionImg: '',
     answerImg: '',
-    questionVideo: '',
-    answerVideo: '',
+    // questionVideo: '',
+    // answerVideo: '',
   })
   const [isOpenCardModal, setIsOpenCardModal] = useState(false)
 

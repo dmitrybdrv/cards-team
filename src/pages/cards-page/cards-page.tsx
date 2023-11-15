@@ -19,7 +19,7 @@ import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDeckQuery } from '@/services/cards/cards.service.ts'
 import { friendsOrderName } from '@/services/cards/cards.types.ts'
 
-const myColumnsTitles: TableColumns<friendsOrderName> = [
+export const myColumnsTitles: TableColumns<friendsOrderName> = [
   { title: 'Question', orderName: 'question' },
   { title: 'Answer', orderName: 'answer' },
   { title: 'LastUpdate', orderName: 'updated' },
@@ -27,7 +27,7 @@ const myColumnsTitles: TableColumns<friendsOrderName> = [
   { title: '' },
 ]
 
-const friendsColumnsTitles: TableColumns<friendsOrderName> = [...myColumnsTitles]
+export const friendsColumnsTitles: TableColumns<friendsOrderName> = [...myColumnsTitles]
 
 friendsColumnsTitles.pop()
 
@@ -60,7 +60,7 @@ export const CardsPage: FC = () => {
 
   const isAuthorDeck = data?.userId === userData.id
   const deckTitle = data?.name
-  const isDeckEmpty = !data?.cardsCount
+  const isDeckEmpty = data?.cardsCount === 0
 
   let [skeletonHeight, setSkeletonHeight] = useSkeletonHeightState(initialSkeletonHeight)
 
@@ -76,8 +76,30 @@ export const CardsPage: FC = () => {
   const { isOpenModal, setIsOpenModal, modalVariant, currentDeckData, onClickEditOrDeleteDeck } =
     useDeckModalState()
 
-  const onShowDeleteModal = () => {
-    if (data) onClickEditOrDeleteDeck(packId, data?.name, data.isPrivate, 'deleteDeck')
+  const onShowDeleteDeckModal = () => {
+    if (data)
+      onClickEditOrDeleteDeck(
+        {
+          id: packId,
+          name: data.name,
+          isPrivate: data.isPrivate,
+          cover: data.cover,
+        },
+        'deleteDeck'
+      )
+  }
+
+  const onShowEditDeckModal = () => {
+    if (data)
+      onClickEditOrDeleteDeck(
+        {
+          id: packId,
+          name: data.name,
+          isPrivate: data.isPrivate,
+          cover: data.cover,
+        },
+        'updateDeck'
+      )
   }
 
   if (isError) return <Navigate to={'/'} />
@@ -109,7 +131,8 @@ export const CardsPage: FC = () => {
         cardsPageTitle={deckTitle}
         disabled={isFetching}
         onClickAddCard={onClickAddCard}
-        onShowDeleteModal={onShowDeleteModal}
+        onShowDeleteModal={onShowDeleteDeckModal}
+        onShowEditModal={onShowEditDeckModal}
       />
       {!isDeckEmpty && (
         <>

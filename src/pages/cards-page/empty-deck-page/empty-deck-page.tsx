@@ -9,7 +9,7 @@ type Props = {
   onClickAddCard: () => void
 }
 
-export const EmptyDeckPage: FC<Props> = ({ deckTitle, isAuthorDeck, onClickAddCard }) => {
+export const EmptyDeckPage: FC<Props> = ({ isAuthorDeck, onClickAddCard }) => {
   return (
     <div className={s.pageWrapper}>
       {/*<Typography variant={'large'}>{deckTitle}</Typography>*/}

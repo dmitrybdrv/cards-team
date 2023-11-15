@@ -7,7 +7,7 @@ import {
   CardsParams,
   CardsResponse,
   CardsResponseItems,
-  CurrentCardData,
+  CreateCardArgs,
   UpdateGradeCardArgs,
 } from '@/services/cards/cards.types.ts'
 import { decksService } from '@/services/decks/decks.service.ts'
@@ -29,12 +29,12 @@ export const cardsService = baseApi.injectEndpoints({
       },
       providesTags: ['Cards'],
     }),
-    createCard: builder.mutation<CardsResponseItems, CurrentCardData>({
+    createCard: builder.mutation<CardsResponseItems, CreateCardArgs>({
       query: params => {
         const { id, ...rest } = params
 
         if (params.questionImg || params.answerImg) {
-          const body = toCardFormData(rest)
+          const body = toCardFormData(params)
 
           return { url: `v1/decks/${id}/cards`, method: 'POST', body }
         }
@@ -75,12 +75,12 @@ export const cardsService = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Cards'],
     }),
-    updateCard: builder.mutation<CardResponse, CurrentCardData>({
+    updateCard: builder.mutation<CardResponse, CreateCardArgs>({
       query: params => {
         const { id, ...rest } = params
 
         if (params.questionImg || params.answerImg) {
-          const body = toCardFormData(rest)
+          const body = toCardFormData(params)
 
           return { url: `v1/cards/${id}`, method: 'PATCH', body }
         }

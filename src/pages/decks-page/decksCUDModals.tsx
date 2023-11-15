@@ -64,7 +64,7 @@ export const DecksCUDModals: FC<ModalsProps> = memo(
     //  Create Deck or Update Deck
     const formForCreateOrUpdate = (
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ImageInput name={'cover'} control={control} />
+        <ImageInput name={'cover'} control={control} image={currentDeckData.cover} />
         <TextField
           autoFocus
           {...register('name')}

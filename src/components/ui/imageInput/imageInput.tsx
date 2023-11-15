@@ -8,7 +8,9 @@ import coverIcon from '@/assets/icons/cover.svg'
 import { toImage64 } from '@/common/utils/toImage64.ts'
 import { Button } from '@/components'
 
-type Props<TFieldValues extends FieldValues> = UseControllerProps<TFieldValues>
+type Props<TFieldValues extends FieldValues> = UseControllerProps<TFieldValues> & {
+  image: string | null
+}
 
 export const ImageInput = <TFieldValues extends FieldValues>({
   control,
@@ -28,7 +30,7 @@ export const ImageInput = <TFieldValues extends FieldValues>({
     shouldUnregister,
   })
 
-  const [image, setImage] = useState<string | null>(null)
+  const [image, setImage] = useState<string | null>(rest.image)
 
   const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.files) {

@@ -38,11 +38,11 @@ export type CardsParams = {
 export type CardModalVariant = 'createCard' | 'updateCard' | 'deleteCard' | null
 
 export type CurrentCardData = {
-  id?: string | null
+  id: string
   question: string
   answer: string
-  questionImg?: string | Blob
-  answerImg?: string | Blob
+  questionImg?: string
+  answerImg?: string
 }
 
 export type CardResponse = {
@@ -61,11 +61,15 @@ export type CardResponse = {
   updated: Date
 }
 
-export type CreateCardArgs = {
+export type CardFormData = {
   question: string
   answer: string
-  questionImg?: string | Blob
-  answerImg?: string | Blob
+  questionImg?: string | File
+  answerImg?: string | File
+}
+
+export type CreateCardArgs = CardFormData & {
+  id: string
 }
 
 export type friendsOrderName = 'question' | 'answer' | 'updated' | 'grade'

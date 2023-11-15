@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Slider } from './'
@@ -7,10 +9,15 @@ const meta = {
   component: Slider,
   tags: ['autodocs'],
   argTypes: {
-    onChange: {
-      action: 'Change slider',
+    changeMinCardsCount: {
+      action: 'onChange min value slider',
       type: 'function',
-      description: 'Функция обработки изменения выбранного диапазона',
+      description: 'Функция обработки изменения минимального диапазона',
+    },
+    changeMaxCardsCount: {
+      action: 'onChange max value slider',
+      type: 'function',
+      description: 'Функция обработки изменения максимального диапазона',
     },
     boundaryMinValue: {
       type: 'number',
@@ -60,7 +67,30 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const DefaultRanges: Story = {}
+export const DefaultRanges: Story = {
+  args: {
+    currentValue: [20, 40],
+  },
+  render: args => {
+    const [currentValue, setValue] = useState<[number, number]>([20, 40])
+    const changeMinCardsCount = (minValue: string) => {
+      setValue(prevState => [+minValue, prevState[1]])
+    }
+
+    const changeMaxCardsCount = (maxValue: string) => {
+      setValue(prevState => [prevState[0], +maxValue])
+    }
+
+    return (
+      <Slider
+        {...args}
+        currentValue={currentValue}
+        changeMinCardsCount={changeMinCardsCount}
+        changeMaxCardsCount={changeMaxCardsCount}
+      />
+    )
+  },
+}
 export const SetRanges: Story = {
   args: {
     boundaryMinValue: 10,
@@ -68,5 +98,7 @@ export const SetRanges: Story = {
     defaultMaxValue: 40,
     defaultMinValue: 20,
     step: 2,
+    currentValue: [20, 40],
   },
+  render: DefaultRanges.render,
 }

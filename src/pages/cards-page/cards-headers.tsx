@@ -19,7 +19,7 @@ type Props = {
   cardsPageTitle: string | undefined
   onClickAddCard: () => void
   onShowDeleteModal: () => void
-  onEditDeck?: () => void
+  onShowEditModal: () => void
   isDeckEmpty: boolean
 }
 export const CardsHeaders: FC<Props> = memo(
@@ -28,9 +28,9 @@ export const CardsHeaders: FC<Props> = memo(
     cardsPageTitle,
     isAuthorDeck,
     onClickAddCard,
-    onShowDeleteModal,
     isDeckEmpty,
-    onEditDeck,
+    onShowDeleteModal,
+    onShowEditModal,
   }) => {
     const dispatch = useAppDispatch()
     const onChangeSearchInput = useCallback(
@@ -59,7 +59,7 @@ export const CardsHeaders: FC<Props> = memo(
           <ToolbarItemWithIcon
             icon={<EditPen />}
             text={'Edit'}
-            onSelect={() => {}}
+            onSelect={onShowEditModal}
           ></ToolbarItemWithIcon>
           <ToolbarItemWithIcon
             icon={<TrashIcon />}
