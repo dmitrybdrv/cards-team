@@ -7,6 +7,7 @@ import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outli
 import s from './learnPage.module.scss'
 
 import { Button, Card, Skeleton, Typography } from '@/components'
+import { Preloader } from '@/components/layout/preloader/preloader.tsx'
 import { CardAnswer } from '@/pages/learn-page/cardAnswer.tsx'
 import { CardHeader } from '@/pages/learn-page/cardHeader.tsx'
 import {
@@ -14,26 +15,39 @@ import {
   useGetDeckQuery,
   useUpdateGradeCardMutation,
 } from '@/services/cards/cards.service.ts'
+import { DecksResponseItem } from '@/services/decks/decks.types.ts'
 
-export const LearnPage: FC = () => {
+type Props = {
+  deckData: DecksResponseItem
+}
+
+export const LearnPageWrapper: FC = () => {
   const { deckId } = useParams()
-  const navigate = useNavigate()
 
   if (!deckId) return <h1>Deck not found</h1>
 
-  const {
-    data: deckData,
-    isSuccess: isSuccessGetDeck,
-    isLoading: isLoadingGetDeck,
-  } = useGetDeckQuery(deckId)
+  const { data, isLoading, isSuccess } = useGetDeckQuery(deckId)
 
-  //Wait deckData
-  if (isLoadingGetDeck) return <h1>Loading...</h1>
-  //redirect if the deck has not cards
-  if (deckData?.cardsCount === 0) return <Navigate to={`/deck/${deckId}`} />
-  //get card and update
-  const { data: cardData, isSuccess: isSuccessGetCard } = useGetCardQuery(deckId)
-  const [updateGradeCard, { isLoading: isLoadingUpdateCard }] = useUpdateGradeCardMutation()
+  if (isLoading)
+    return (
+      <div style={{ position: 'fixed', left: 'calc(50% - 50px)', top: '40%' }}>
+        <Preloader />
+      </div>
+    )
+  if (isSuccess) {
+    return data.cardsCount === 0 ? (
+      <Navigate to={`/deck/${deckId}`} />
+    ) : (
+      <LearnPage deckData={data} />
+    )
+  }
+
+  return <h1>Something wrong</h1>
+}
+
+export const LearnPage: FC<Props> = ({ deckData }) => {
+  const deckId = deckData.id
+  const navigate = useNavigate()
 
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const [gradeValue, setGradeValue] = useState(1)
@@ -46,6 +60,10 @@ export const LearnPage: FC = () => {
       setSkeletonHeight(cardRef.current?.offsetHeight)
     }
   }, [isShowAnswer])
+
+  //get card and update
+  const { data: cardData, isSuccess: isSuccessGetCard } = useGetCardQuery(deckId)
+  const [updateGradeCard, { isLoading: isLoadingUpdateCard }] = useUpdateGradeCardMutation()
 
   //callbacks
   const onShowAnswer = () => setIsShowAnswer(true)
@@ -68,9 +86,8 @@ export const LearnPage: FC = () => {
         <Typography variant={'body2'}>Back</Typography>
       </div>
       {/*Check success data*/}
-      {isSuccessGetDeck && isSuccessGetCard && (
+      {isSuccessGetCard && (
         <Card ref={cardRef}>
-          {/*TODO show images*/}
           <CardHeader deckName={deckData?.name} cardData={cardData} />
           {/*-----answer*/}
           {isShowAnswer && (
@@ -84,7 +101,7 @@ export const LearnPage: FC = () => {
       )}
       <Skeleton
         className={s.skeleton}
-        isLoading={isLoadingGetDeck}
+        isLoading={false}
         isFetching={isLoadingUpdateCard}
         currentHeight={skeletonHeight}
       />
