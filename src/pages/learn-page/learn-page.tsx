@@ -1,6 +1,6 @@
 import { FC, useLayoutEffect, useRef, useState } from 'react'
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 import { ReactComponent as ArrowBack } from '../../assets/icons/arrow-back-outline.svg'
 
@@ -27,8 +27,10 @@ export const LearnPage: FC = () => {
     isLoading: isLoadingGetDeck,
   } = useGetDeckQuery(deckId)
 
+  //Wait deckData
+  if (isLoadingGetDeck) return <h1>Loading...</h1>
   //redirect if the deck has not cards
-  if (deckData?.cardsCount === 0) return <>{navigate(`/deck/${deckId}`)}</>
+  if (deckData?.cardsCount === 0) return <Navigate to={`/deck/${deckId}`} />
   //get card and update
   const { data: cardData, isSuccess: isSuccessGetCard } = useGetCardQuery(deckId)
   const [updateGradeCard, { isLoading: isLoadingUpdateCard }] = useUpdateGradeCardMutation()

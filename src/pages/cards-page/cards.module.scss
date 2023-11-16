@@ -30,6 +30,10 @@
 .dotsWrapper {
   display: flex;
   gap: 16px;
+
+  h1 {
+    width: max-content;
+  }
 }
 
 .dots {
