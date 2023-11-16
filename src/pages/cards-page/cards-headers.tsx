@@ -14,12 +14,12 @@ import { changeSearchName } from '@/store/cards.slice.ts'
 
 type Props = {
   isAuthorDeck: boolean
-  // onChangeSearchInput: (searchValue: string) => void
   disabled: boolean
   cardsPageTitle: string | undefined
   onClickAddCard: () => void
   onShowDeleteModal: () => void
   onShowEditModal: () => void
+  toLearnCards: () => void
   isDeckEmpty: boolean
 }
 export const CardsHeaders: FC<Props> = memo(
@@ -31,6 +31,7 @@ export const CardsHeaders: FC<Props> = memo(
     isDeckEmpty,
     onShowDeleteModal,
     onShowEditModal,
+    toLearnCards,
   }) => {
     const dispatch = useAppDispatch()
     const onChangeSearchInput = useCallback(
@@ -54,7 +55,7 @@ export const CardsHeaders: FC<Props> = memo(
           <ToolbarItemWithIcon
             icon={<PlayIcon />}
             text={'Learn'}
-            onSelect={() => {}}
+            onSelect={toLearnCards}
           ></ToolbarItemWithIcon>
           <ToolbarItemWithIcon
             icon={<EditPen />}
@@ -86,7 +87,7 @@ export const CardsHeaders: FC<Props> = memo(
                 <Typography variant={'subtitle2'}>Add Card</Typography>
               </Button>
             ) : (
-              <Button variant={'primary'} disabled={disabled} onClick={() => {}}>
+              <Button variant={'primary'} disabled={disabled} onClick={toLearnCards}>
                 <Typography variant={'subtitle2'}>Learn Pack</Typography>
               </Button>
             ))}

@@ -25,6 +25,7 @@ export const useCUDDecks = (
   const isLoading = isLoadingCreate || isLoadingDelete || isLoadingUpdate
   const error = errorCreate || errorDelete || errorUpdate
 
+  // prepare for redirect if deck remove from cardsPage
   const location = useLocation()
   const navigate = useNavigate()
   const isCardsPage = location.pathname.includes('deck')

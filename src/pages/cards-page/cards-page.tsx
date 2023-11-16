@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
@@ -102,6 +102,9 @@ export const CardsPage: FC = () => {
       )
   }
 
+  const navigate = useNavigate()
+  const toLearnCards = () => navigate(`/learn/${packId}`)
+
   if (isError) return <Navigate to={'/'} />
 
   return (
@@ -133,6 +136,7 @@ export const CardsPage: FC = () => {
         onClickAddCard={onClickAddCard}
         onShowDeleteModal={onShowDeleteDeckModal}
         onShowEditModal={onShowEditDeckModal}
+        toLearnCards={toLearnCards}
       />
       {!isDeckEmpty && (
         <>
