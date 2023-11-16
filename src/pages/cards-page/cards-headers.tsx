@@ -52,11 +52,13 @@ export const CardsHeaders: FC<Props> = memo(
     const MyPackDropDownHandler = () => {
       return (
         <MyPackDropDown>
-          <ToolbarItemWithIcon
-            icon={<PlayIcon />}
-            text={'Learn'}
-            onSelect={toLearnCards}
-          ></ToolbarItemWithIcon>
+          {!isDeckEmpty && (
+            <ToolbarItemWithIcon
+              icon={<PlayIcon />}
+              text={'Learn'}
+              onSelect={toLearnCards}
+            ></ToolbarItemWithIcon>
+          )}
           <ToolbarItemWithIcon
             icon={<EditPen />}
             text={'Edit'}
@@ -76,7 +78,7 @@ export const CardsHeaders: FC<Props> = memo(
         <div className={s.titleWrapper}>
           <div className={s.dotsWrapper}>
             <Typography variant={'large'}>{cardsPageTitle}</Typography>
-            {isAuthorDeck ? <MyPackDropDownHandler /> : null}
+            {isAuthorDeck && <MyPackDropDownHandler />}
           </div>
           {isDeckEmpty && (
             <EmptyDeckPage isAuthorDeck={isAuthorDeck} onClickAddCard={onClickAddCard} />
