@@ -1,7 +1,9 @@
+export type TabSwitcher = 'My Decks' | 'All Decks'
+
 export type DecksResponse = {
   maxCardsCount: number
   pagination: DecksResponsePagination
-  items: DecksResponseItems[]
+  items: DecksResponseItem[]
 }
 export type DecksResponsePagination = {
   totalPages: number
@@ -13,7 +15,7 @@ export type DecksResponseItemsAuthor = {
   id: string
   name: string
 }
-export type DecksResponseItems = {
+export type DecksResponseItem = {
   id: string
   userId: string
   name: string
@@ -28,12 +30,20 @@ export type DecksResponseItems = {
   cardsCount: number
   author: DecksResponseItemsAuthor
 }
+export type DecksOrderName = 'updated' | 'created' | 'name' | 'cardsCount'
+
 export type DecksParams = {
-  minCardsCount?: number
-  maxCardsCount?: number
+  minCardsCount?: string
+  maxCardsCount?: string
   name?: string
   authorId?: string
   orderBy?: string
   currentPage?: number
   itemsPerPage?: number
-} | void
+}
+
+export type CreateDeckArgs = {
+  name: string
+  isPrivate: boolean
+  cover?: File
+}

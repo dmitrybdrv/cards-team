@@ -7,7 +7,7 @@ import s from './tabSwitcher.module.scss'
 import { Props } from './tabSwitcher.types.ts'
 
 export const TabSwitcher: FC<Props> = props => {
-  const { onChange, values, disabled = false, defaultValue, className } = props
+  const { currentValue, onChange, values, disabled = false, defaultValue, className } = props
   const mappedItems = values.map((value, index) => {
     return (
       <ToggleGroup.Item
@@ -25,6 +25,7 @@ export const TabSwitcher: FC<Props> = props => {
 
   return (
     <ToggleGroup.Root
+      value={currentValue}
       disabled={disabled}
       type={'single'}
       className={toggleStyle}

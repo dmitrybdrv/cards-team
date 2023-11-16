@@ -60,16 +60,18 @@ export const SignUp = ({ onSubmit }: FormPropsType<SingUpArgs>) => {
           className={s.txf}
         />
 
-        <Button fullWidth={true} className={s.btn}>
-          <Typography variant={'subtitle2'}>Sign Up</Typography>
-        </Button>
+        <Link to={'/auth/success-sign-up'}>
+          <Button fullWidth={true} className={s.btn}>
+            <Typography variant={'subtitle2'}>Sign Up</Typography>
+          </Button>
+        </Link>
 
         <Typography variant={'body2'} className={s.footnote}>
           Already have an account?
         </Typography>
 
         <Typography variant={'link1'}>
-          <Link className={s.linkWrapper} to={'/login'}>
+          <Link className={s.linkWrapper} to={'/auth/login'}>
             Sign In
           </Link>
         </Typography>

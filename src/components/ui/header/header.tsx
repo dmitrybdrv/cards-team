@@ -1,32 +1,64 @@
-import { FC } from 'react'
-
-import ava from '../../../assets/img/ava.jpg'
+import { Link, useNavigate } from 'react-router-dom'
 
 import s from './header.module.scss'
 
+import { ReactComponent as SignOut } from '@/assets/icons/logout.svg'
+import { ReactComponent as UserIcon } from '@/assets/icons/person-outline-icon.svg'
+import ava from '@/assets/img/avatarPlaceholder.png'
 import { ReactComponent as Logo } from '@/assets/img/logo.svg'
-import { Typography } from '@/components'
+import { Dropdown, ToolbarItemWithIcon, Typography } from '@/components'
 import { Button } from '@/components/ui'
+import { useGetMeQuery, useLogoutMutation } from '@/services/auth/auth.service'
 
-type Props = {
-  isLoggedIn: boolean
-}
+export const Header = ({}) => {
+  const { data } = useGetMeQuery()
+  const [logout] = useLogoutMutation()
+  const navigate = useNavigate()
 
-export const Header: FC<Props> = ({ isLoggedIn }) => {
   return (
     <header className={s.headerContainer}>
-      <Logo className={s.headerLogo} />
+      <Link to={'/'}>
+        <Logo className={s.headerLogo} />
+      </Link>
       <div className={s.headerAvatar}>
-        {isLoggedIn ? (
-          <>
-            <Button variant={'link'} className={s.captionLink}>
-              <Typography variant={'subtitle1'}>Ivan</Typography>
-            </Button>
-            <img src={ava} alt="ava" className={s.layoutAvatar} />
-          </>
+        {data?.name ? (
+          <Dropdown data={data} className={s.captionLink}>
+            <ToolbarItemWithIcon
+              icon={
+                <img
+                  src={data.avatar ? data.avatar : ava}
+                  alt="ava"
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              }
+              text={data.email && <Typography variant={'caption'}>{data.email}</Typography>}
+              onSelect={() => {}}
+            ></ToolbarItemWithIcon>
+
+            <ToolbarItemWithIcon
+              icon={<UserIcon />}
+              text={'My Profile'}
+              onSelect={() => {
+                navigate('/profile-page')
+              }}
+            ></ToolbarItemWithIcon>
+
+            <ToolbarItemWithIcon
+              icon={<SignOut />}
+              text={'Sign Out'}
+              onSelect={() => logout()}
+            ></ToolbarItemWithIcon>
+          </Dropdown>
         ) : (
-          <Button variant={'primary'} href={'#'} as={'a'} style={{ textDecoration: 'none' }}>
-            Sign in
+          <Button variant={'primary'}>
+            <Link to={'/auth/login'} style={{ textDecoration: 'none' }}>
+              Log in
+            </Link>
           </Button>
         )}
       </div>

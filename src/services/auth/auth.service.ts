@@ -1,6 +1,18 @@
-import { LoginArgs, LoginResponse, SingUpArgs, SingUpResponse } from './auth.types.ts'
+import {
+  LoginArgs,
+  LoginResponse,
+  SingUpResponse,
+  UpdateProfile,
+  RecoverPassword,
+  ResendVerifyEmail,
+  ResetPassword,
+  SingUpArgs,
+  VerifyEmail,
+  MeResponse,
+} from './auth.types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
+import { changeUserId } from '@/store/decks.slice.ts'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -21,13 +33,28 @@ export const authService = baseApi.injectEndpoints({
         maxRetries: 0,
       },
       providesTags: ['Me'],
-    }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const result = await queryFulfilled
 
+          dispatch(changeUserId(result.data.id))
+        } catch (e) {
+          /* empty */
+        }
+      },
+    }),
     login: builder.mutation<LoginResponse, LoginArgs>({
       query: data => ({
         url: 'v1/auth/login',
         method: 'POST',
         body: data,
+      }),
+      invalidatesTags: ['Me'],
+    }),
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: 'v1/auth/logout',
+        method: 'POST',
       }),
       invalidatesTags: ['Me'],
     }),
@@ -38,7 +65,53 @@ export const authService = baseApi.injectEndpoints({
         body: params,
       }),
     }),
+    updateProfile: builder.mutation<MeResponse, UpdateProfile>({
+      query: data => ({
+        url: 'v1/auth/me',
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Me'],
+    }),
+    verifyEmail: builder.mutation<void, VerifyEmail>({
+      query: body => ({
+        url: 'v1/auth/verify-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    recoverPassword: builder.mutation<void, RecoverPassword>({
+      query: body => ({
+        url: 'v1/auth/recover-password',
+        method: 'POST',
+        body,
+      }),
+    }),
+    resendVerifyEmail: builder.mutation<void, ResendVerifyEmail>({
+      query: body => ({
+        url: 'v1/auth/resend-verification-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    resetPassword: builder.mutation<void, ResetPassword>({
+      query: body => ({
+        url: `v1/auth/reset-password/${body.token}`,
+        method: 'POST',
+        body: { password: body.password },
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation, useSignUpMutation, useGetMeQuery } = authService
+export const {
+  useResetPasswordMutation,
+  useResendVerifyEmailMutation,
+  useRecoverPasswordMutation,
+  useVerifyEmailMutation,
+  useLoginMutation,
+  useSignUpMutation,
+  useGetMeQuery,
+  useLogoutMutation,
+  useUpdateProfileMutation,
+} = authService

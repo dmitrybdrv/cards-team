@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { THead } from '@/components/ui'
+import { Sort, THead } from '@/components/ui'
+import { decksColumnsTitles } from '@/pages/decks-page'
 
 const meta = {
   title: 'Components/UI/Tables/THead',
@@ -20,9 +21,14 @@ export default meta
 
 export const Default: Story = {
   args: {
-    columns: ['Name', 'Cards', 'LastUpdate', 'Created by', ''],
+    columns: decksColumnsTitles,
   },
   render: args => {
-    return <THead columns={args.columns} />
+    const currentSort: Sort = {
+      orderName: null,
+      direction: null,
+    }
+
+    return <THead columns={args.columns} onSort={() => {}} currentSort={currentSort} />
   },
 }

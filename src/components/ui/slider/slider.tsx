@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 
 import * as SliderApp from '@radix-ui/react-slider'
 
@@ -10,18 +10,24 @@ type Props = {
   step?: number
   boundaryMinValue?: number
   boundaryMaxValue?: number
-  onChange?: (minValue: number, maxValue: number) => void
   width?: number
+  disabled?: boolean
+  currentValue: [number, number]
+  changeMinCardsCount: (minValue: string) => void
+  changeMaxCardsCount: (maxValue: string) => void
 }
 export const Slider = (props: Props) => {
   let {
+    disabled,
     step = 1,
     boundaryMinValue = 0,
     boundaryMaxValue = 100,
     defaultMinValue = 0,
     defaultMaxValue = boundaryMaxValue,
     width = 200,
-    onChange,
+    changeMinCardsCount,
+    changeMaxCardsCount,
+    currentValue,
   } = props
 
   //checking default values for range values
@@ -31,41 +37,51 @@ export const Slider = (props: Props) => {
   if (defaultMinValue < boundaryMinValue || defaultMinValue > boundaryMaxValue) {
     defaultMinValue = boundaryMinValue
   }
-  const [minValue, setMinValue] = useState(defaultMinValue)
-  const [maxValue, setMaxValue] = useState(defaultMaxValue)
+
+  if (!currentValue[1]) {
+    currentValue[1] = boundaryMaxValue
+  }
 
   const handlerSliderChange = (number: number[]) => {
-    setMinValue(number[0])
-    setMaxValue(number[1])
-    onChange && onChange(number[0], number[1])
+    changeMinCardsCount(number[0].toString())
+    changeMaxCardsCount(number[1].toString())
   }
-  const handlerMinInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const newMinValue = Number(e.currentTarget.value)
 
-    setMinValue(prevState => {
-      return newMinValue >= boundaryMinValue ? newMinValue : prevState
-    })
+  const handlerMinInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const newMinValue = e.currentTarget.value
+
+    if (+newMinValue >= boundaryMinValue) {
+      changeMinCardsCount(newMinValue)
+    }
   }
 
   const handlerMaxInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const newMaxValue = Number(e.currentTarget.value)
+    const newMaxValue = e.currentTarget.value
 
-    setMaxValue(prevState => {
-      return newMaxValue <= boundaryMaxValue ? newMaxValue : prevState
-    })
+    if (+newMaxValue <= boundaryMinValue) {
+      changeMinCardsCount(newMaxValue)
+    }
   }
 
   return (
     <form className={s.SliderWrapper}>
-      <input className={s.input} type={'number'} value={minValue} onChange={handlerMinInput} />
+      <input
+        className={s.input}
+        type={'number'}
+        value={currentValue[0]}
+        onChange={handlerMinInput}
+        disabled={disabled}
+      />
       <SliderApp.Root
+        disabled={disabled}
         style={{ width: width }}
         min={boundaryMinValue}
         max={boundaryMaxValue}
-        value={[minValue, maxValue]}
+        value={currentValue}
         defaultValue={[defaultMinValue, defaultMaxValue]}
         step={step}
         onValueChange={handlerSliderChange}
+        onValueCommit={handlerSliderChange}
         className={s.SliderRoot}
       >
         <SliderApp.Track className={s.SliderTrack}>
@@ -74,7 +90,13 @@ export const Slider = (props: Props) => {
         <SliderApp.Thumb className={s.SliderThumb} />
         <SliderApp.Thumb className={s.SliderThumb} />
       </SliderApp.Root>
-      <input className={s.input} type={'number'} value={maxValue} onChange={handlerMaxInput} />
+      <input
+        className={s.input}
+        type={'number'}
+        value={currentValue[1]}
+        onChange={handlerMaxInput}
+        disabled={disabled}
+      />
     </form>
   )
 }

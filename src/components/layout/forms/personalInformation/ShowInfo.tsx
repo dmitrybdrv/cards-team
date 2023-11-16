@@ -1,7 +1,8 @@
-import logoutIcon from '../../../../assets/icons/logout.svg'
-import { Button, Typography } from '../../../ui'
-
 import s from './personalInformation.module.scss'
+
+import { ReactComponent as EditPen } from '@/assets/icons/editPen.svg'
+import logoutIcon from '@/assets/icons/logout.svg'
+import { Button, Typography } from '@/components/ui'
 
 type Props = {
   userEmail: string
@@ -19,12 +20,12 @@ export const ShowInfo = ({ userEmail, userName, editNameIconHandler, logoutHandl
     <>
       <div className={s.userNameBox}>
         <Typography variant={'h1'} className={s.userName}>
-          {userName}
+          {userName ? userName : 'user name'}
         </Typography>
         <EditPen className={s.editUserNameIcon} onClick={editNameIconHandler} />
       </div>
       <Typography variant={'body2'} className={s.userMail}>
-        {userEmail}
+        {userEmail ? userEmail : 'user@mail.com'}
       </Typography>
       <Button
         className={s.logoutBtn}

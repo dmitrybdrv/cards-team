@@ -1,0 +1,74 @@
+.pageWrapper {
+  position: static;
+  width: 1000px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.linkArrowContainer {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 30px;
+  text-decoration: none;
+}
+
+.paginationWrapper {
+  margin-top: 20px;
+
+  div:first-child {
+    margin: 0 auto;
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  height: 36px;
+  margin-bottom: 25px;
+}
+
+.dotsWrapper {
+  display: flex;
+  gap: 16px;
+}
+
+.dots {
+  margin-top: 7px;
+}
+
+.filtersWrapper {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+
+.searchInput {
+  width: 100%;
+}
+
+.slider {
+  width: 250px;
+}
+
+.filterLabel {
+  margin-bottom: 5px;
+}
+
+.checkboxIsPrivate {
+  margin-bottom: 35px;
+  margin-left: -4px;
+}
+
+.deleteText {
+  display: block;
+  margin-bottom: 28px;
+}
+
+.deleteTextName {
+  color: var(--color-accent-700);
+}
+
+.formCard > div {
+  margin-bottom: 24px;
+}
