@@ -69,6 +69,7 @@ export const decksService = baseApi.injectEndpoints({
             )
           })
         )
+        // TODO delete from RTK cards and deck
 
         try {
           await queryFulfilled
@@ -76,7 +77,7 @@ export const decksService = baseApi.injectEndpoints({
           patchResult.undo()
         }
       },
-      invalidatesTags: ['Decks', 'Cards'],
+      invalidatesTags: ['Decks'],
     }),
     updateDecks: builder.mutation<
       DecksResponseItem,
