@@ -1,5 +1,7 @@
 import { UseFormReset } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
+import { useAppSelector } from '@/hooks/hooks.ts'
 import { CurrentDeckData } from '@/pages/decks-page/hook/useDeckModalState.ts'
 import {
   useCreateDeckMutation,
@@ -24,12 +26,17 @@ export const useCUDDecks = (
   const isLoading = isLoadingCreate || isLoadingDelete || isLoadingUpdate
   const error = errorCreate || errorDelete || errorUpdate
 
+  const notifications = useAppSelector(state => state.app.notifications)
+
+  const notify = () => toast.success(notifications)
+
   //Call backs
   const createDeck = (data: CreateDeckArgs) => {
     createDeckQuery(data)
       .unwrap()
       .then(_res => {
         reset({ name: '' })
+        notify()
       })
     setIsOpenModal(false)
   }
@@ -39,7 +46,10 @@ export const useCUDDecks = (
   }
   const deleteDeck = () => {
     setIsOpenModal(false)
-    currentDeckData.id && deleteDeckQuery({ id: currentDeckData.id })
+    currentDeckData.id &&
+      deleteDeckQuery({ id: currentDeckData.id })
+        .unwrap()
+        .then(() => notify())
   }
 
   return {

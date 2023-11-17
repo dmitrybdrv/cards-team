@@ -4,6 +4,7 @@ import s from './loadBar.module.scss'
 
 import { Header } from '@/components'
 import { useAppSelector } from '@/hooks/hooks.ts'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const Layout = () => {
   return (
