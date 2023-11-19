@@ -1,8 +1,7 @@
 import { UseFormReset } from 'react-hook-form'
-import { toast } from 'react-toastify'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useAppSelector } from '@/hooks/hooks.ts'
+import { useToast } from '@/common/utils/toast.ts'
 import { CurrentDeckData } from '@/pages/decks-page/hook/useDeckModalState.ts'
 import {
   useCreateDeckMutation,
@@ -27,9 +26,8 @@ export const useCUDDecks = (
   const isLoading = isLoadingCreate || isLoadingDelete || isLoadingUpdate
   const error = errorCreate || errorDelete || errorUpdate
 
-  const notifications = useAppSelector(state => state.app.notifications)
-
-  const notify = () => toast.success(notifications)
+  //notification toasts
+  const { showToast } = useToast()
 
   // prepare for redirect if deck remove from cardsPage
   const location = useLocation()
@@ -42,24 +40,44 @@ export const useCUDDecks = (
       .unwrap()
       .then(_res => {
         reset({ name: '' })
-        notify()
+        showToast(`Deck - ${_res.name} is created 😀 !!!`, 'success')
+      })
+      .catch(error => {
+        console.log(error)
+        showToast(`Some error occurred`, 'error')
       })
     setIsOpenModal(false)
   }
   const updateDeck = (data: CreateDeckArgs) => {
-    currentDeckData.id && updateDeckQuery({ id: currentDeckData.id, ...data })
+    currentDeckData.id &&
+      updateDeckQuery({ id: currentDeckData.id, ...data })
+        .unwrap()
+        .then(() => {
+          showToast(`${currentDeckData.name} has been changed 🔨`, 'success')
+        })
+        .catch(error => {
+          console.log(error)
+          showToast(`Some error occurred`, 'error')
+        })
     setIsOpenModal(false)
   }
   const deleteDeck = () => {
     setIsOpenModal(false)
-    currentDeckData.id && deleteDeckQuery({ id: currentDeckData.id })
-    if (isCardsPage) {
-      navigate('/')
-    }
-    currentDeckData.id &&
+    if (currentDeckData.id) {
+      if (isCardsPage) {
+        navigate('/')
+      }
+
       deleteDeckQuery({ id: currentDeckData.id })
         .unwrap()
-        .then(() => notify())
+        .then(res => {
+          showToast(`${res.name} deck has been deleted 💀`, 'success')
+        })
+        .catch(error => {
+          console.log(error)
+          showToast(`Some error occurred`, 'error')
+        })
+    }
   }
 
   return {
