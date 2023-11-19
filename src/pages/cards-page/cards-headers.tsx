@@ -14,12 +14,12 @@ import { changeSearchName } from '@/store/cards.slice.ts'
 
 type Props = {
   isAuthorDeck: boolean
-  // onChangeSearchInput: (searchValue: string) => void
   disabled: boolean
   cardsPageTitle: string | undefined
   onClickAddCard: () => void
   onShowDeleteModal: () => void
   onShowEditModal: () => void
+  toLearnCards: () => void
   isDeckEmpty: boolean
 }
 export const CardsHeaders: FC<Props> = memo(
@@ -31,6 +31,7 @@ export const CardsHeaders: FC<Props> = memo(
     isDeckEmpty,
     onShowDeleteModal,
     onShowEditModal,
+    toLearnCards,
   }) => {
     const dispatch = useAppDispatch()
     const onChangeSearchInput = useCallback(
@@ -51,11 +52,13 @@ export const CardsHeaders: FC<Props> = memo(
     const MyPackDropDownHandler = () => {
       return (
         <MyPackDropDown>
-          <ToolbarItemWithIcon
-            icon={<PlayIcon />}
-            text={'Learn'}
-            onSelect={() => {}}
-          ></ToolbarItemWithIcon>
+          {!isDeckEmpty && (
+            <ToolbarItemWithIcon
+              icon={<PlayIcon />}
+              text={'Learn'}
+              onSelect={toLearnCards}
+            ></ToolbarItemWithIcon>
+          )}
           <ToolbarItemWithIcon
             icon={<EditPen />}
             text={'Edit'}
@@ -75,7 +78,7 @@ export const CardsHeaders: FC<Props> = memo(
         <div className={s.titleWrapper}>
           <div className={s.dotsWrapper}>
             <Typography variant={'large'}>{cardsPageTitle}</Typography>
-            {isAuthorDeck ? <MyPackDropDownHandler /> : null}
+            {isAuthorDeck && <MyPackDropDownHandler />}
           </div>
           {isDeckEmpty && (
             <EmptyDeckPage isAuthorDeck={isAuthorDeck} onClickAddCard={onClickAddCard} />
@@ -86,7 +89,7 @@ export const CardsHeaders: FC<Props> = memo(
                 <Typography variant={'subtitle2'}>Add Card</Typography>
               </Button>
             ) : (
-              <Button variant={'primary'} disabled={disabled} onClick={() => {}}>
+              <Button variant={'primary'} disabled={disabled} onClick={toLearnCards}>
                 <Typography variant={'subtitle2'}>Learn Pack</Typography>
               </Button>
             ))}

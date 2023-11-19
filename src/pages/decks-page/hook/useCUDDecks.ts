@@ -1,5 +1,6 @@
 import { UseFormReset } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useAppSelector } from '@/hooks/hooks.ts'
 import { CurrentDeckData } from '@/pages/decks-page/hook/useDeckModalState.ts'
@@ -30,6 +31,11 @@ export const useCUDDecks = (
 
   const notify = () => toast.success(notifications)
 
+  // prepare for redirect if deck remove from cardsPage
+  const location = useLocation()
+  const navigate = useNavigate()
+  const isCardsPage = location.pathname.includes('deck')
+
   //Call backs
   const createDeck = (data: CreateDeckArgs) => {
     createDeckQuery(data)
@@ -46,6 +52,10 @@ export const useCUDDecks = (
   }
   const deleteDeck = () => {
     setIsOpenModal(false)
+    currentDeckData.id && deleteDeckQuery({ id: currentDeckData.id })
+    if (isCardsPage) {
+      navigate('/')
+    }
     currentDeckData.id &&
       deleteDeckQuery({ id: currentDeckData.id })
         .unwrap()
