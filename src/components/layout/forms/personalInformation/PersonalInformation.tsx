@@ -7,6 +7,7 @@ import s from './personalInformation.module.scss'
 import { PersonalPhoto } from './PersonalPhoto.tsx'
 import { ShowInfo } from './ShowInfo.tsx'
 
+import { useToast } from '@/common/utils/toast.ts'
 import { Card, Typography } from '@/components/ui'
 import {
   useGetMeQuery,
@@ -19,6 +20,7 @@ export const PersonalInformation = () => {
   const [logout] = useLogoutMutation()
   const { data } = useGetMeQuery()
   const [updateProfile] = useUpdateProfileMutation()
+  const { showToast } = useToast()
 
   const [isShowMode, setIsShowMode] = useState(true)
 
@@ -31,10 +33,27 @@ export const PersonalInformation = () => {
 
     formData.append('avatar', data)
     updateProfile(formData as UpdateProfile)
+      .unwrap()
+      .then(() => {
+        showToast(`Photo has been changed`, 'success')
+      })
+      .catch(error => {
+        console.log(error)
+
+        showToast(`Something goes wrong`, 'error')
+      })
   }
 
   const updateUserNameCallBack = (data: UpdateProfile) => {
     updateProfile(data)
+      .unwrap()
+      .then(() => {
+        showToast(`User name has been changed`, 'success')
+      })
+      .catch(error => {
+        console.log(error)
+        showToast(`Something goes wrong`, 'error')
+      })
     setIsShowMode(true)
   }
 

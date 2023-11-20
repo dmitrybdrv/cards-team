@@ -1,5 +1,6 @@
 import { UseFormReset } from 'react-hook-form'
 
+import { useToast } from '@/common/utils/toast.ts'
 import {
   useCreateCardMutation,
   useDeleteCardMutation,
@@ -25,6 +26,9 @@ export const useCUDCards = (
   const isLoading = isLoadingCreate || isLoadingDelete || isLoadingUpdate
   const error = errorCreate || errorDelete || errorUpdate
 
+  //notification toasts
+  const { showToast } = useToast()
+
   //Call backs
   const createCard = (data: CardFormData) => {
     createCardQuery({ ...data, id: packId })
@@ -37,15 +41,19 @@ export const useCUDCards = (
           answerImg: '',
           questionImg: '',
         })
+        showToast(`New card created 💡`, 'success')
       })
+      .catch(() => showToast('Something goes wrong', 'error'))
       .finally(() => setFieldsVariant('Text'))
   }
   const updateCard = (data: CardFormData) => {
     updateCardQuery({ ...data, id: currentCardData.id })
       .unwrap()
-      .then(_res => {
+      .then(() => {
         setIsOpenModal(false)
+        showToast(`Card has been changed 👍`, 'success')
       })
+      .catch(() => showToast(`Something goes wrong`, 'error'))
       .finally(() => setFieldsVariant('Text'))
   }
   const deleteCard = () => {
@@ -53,6 +61,11 @@ export const useCUDCards = (
       currentCardData?.id !== undefined && currentCardData?.id !== null ? currentCardData.id : ''
 
     deleteCardQuery(id)
+      .unwrap()
+      .then(() => {
+        showToast(`Card deleted 💥`, 'success')
+      })
+      .catch(res => showToast(`${res.error}`, 'error'))
     setIsOpenModal(false)
     reset({
       question: '',

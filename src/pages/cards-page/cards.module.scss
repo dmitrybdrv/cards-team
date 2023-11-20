@@ -6,9 +6,14 @@
 }
 
 .linkArrowContainer {
+  cursor: pointer;
+
   display: flex;
   gap: 6px;
+
+  width: fit-content;
   margin-bottom: 30px;
+
   text-decoration: none;
 }
 

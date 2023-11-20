@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
@@ -51,6 +51,7 @@ export const CardsPage: FC = () => {
   } = useGetCards()
 
   const { deckId } = useParams()
+  const navigate = useNavigate()
 
   const packId = deckId ? deckId : ''
 
@@ -102,7 +103,6 @@ export const CardsPage: FC = () => {
       )
   }
 
-  const navigate = useNavigate()
   const toLearnCards = () => navigate(`/learn/${packId}`)
 
   if (isError) return <Navigate to={'/'} />
@@ -122,12 +122,10 @@ export const CardsPage: FC = () => {
         variant={modalVariant}
         currentDeckData={currentDeckData}
       />
-      <Link style={{ textDecoration: 'none' }} to={'/'}>
-        <div className={s.linkArrowContainer}>
-          <ArrowBack />
-          <Typography variant={'body2'}>Back to Deck List</Typography>
-        </div>
-      </Link>
+      <div className={s.linkArrowContainer} onClick={() => navigate(-1)}>
+        <ArrowBack />
+        <Typography variant={'body2'}>Back to Deck List</Typography>
+      </div>
       <CardsHeaders
         isDeckEmpty={isDeckEmpty}
         isAuthorDeck={isAuthorDeck}
