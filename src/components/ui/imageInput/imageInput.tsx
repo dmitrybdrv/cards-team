@@ -44,6 +44,11 @@ export const ImageInput = <TFieldValues extends FieldValues>({
       })
     }
   }
+  const removeImage = () => {
+    setImage(null)
+    onChange(null)
+  }
+
   const iconForBtn = (
     <img src={coverIcon} alt="cover icon" style={{ marginRight: '10px', marginTop: '-1px' }} />
   )
@@ -70,7 +75,10 @@ export const ImageInput = <TFieldValues extends FieldValues>({
         className={s.chooseButton}
         icon={iconForBtn}
       >
-        Change Cover
+        {image ? 'Change Cover' : 'Add Cover'}
+      </Button>
+      <Button variant={'secondary'} type={'button'} onClick={removeImage}>
+        Remove cover
       </Button>
     </div>
   )
