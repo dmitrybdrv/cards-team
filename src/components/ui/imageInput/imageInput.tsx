@@ -5,6 +5,7 @@ import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 import s from './imageInput.module.scss'
 
 import coverIcon from '@/assets/icons/cover.svg'
+import { ReactComponent as TrashIcon } from '@/assets/icons/trashIcon.svg'
 import { toImage64 } from '@/common/utils/toImage64.ts'
 import { Button } from '@/components'
 
@@ -57,7 +58,14 @@ export const ImageInput = <TFieldValues extends FieldValues>({
 
   return (
     <div>
-      {image && <img src={image} alt="#" width={'auto'} height={120} className={s.imagePreview} />}
+      {image && (
+        <div className={s.imagePreviewWrapper}>
+          <img src={image} alt="#" width={'auto'} height={120} className={s.imagePreview} />
+          <button className={s.deleteImage} type={'button'} onClick={removeImage}>
+            <TrashIcon className={s.trashIcon} />
+          </button>
+        </div>
+      )}
       {/*hidden original input type=file*/}
       <input
         type="file"
@@ -76,9 +84,6 @@ export const ImageInput = <TFieldValues extends FieldValues>({
         icon={iconForBtn}
       >
         {image ? 'Change Cover' : 'Add Cover'}
-      </Button>
-      <Button variant={'secondary'} type={'button'} onClick={removeImage}>
-        Remove cover
       </Button>
     </div>
   )
