@@ -2,9 +2,9 @@
   display: inline-flex;
   align-items: center;
 
-  //button {
+  // button {
   //  all: unset;
-  //}
+  // }
 }
 
 .ToggleItem {
@@ -34,7 +34,7 @@
   }
 }
 
-//hover
+// hover
 .ToggleItem:not(.ToggleItem[data-state='on'], .ToggleItem[data-disabled], :focus):hover {
   color: var(--color-light-900);
   background-color: var(--color-dark-300);
@@ -54,7 +54,7 @@
   border-left: 1px solid var(--color-dark-100);
 }
 
-//active
+// active
 .ToggleItem[data-state='on'] {
   background-color: var(--color-accent-500);
   border-color: var(--color-accent-500);
@@ -64,7 +64,7 @@
   }
 }
 
-//focus
+// focus
 .ToggleItem:focus {
   z-index: 5;
   border-color: var(--color-info-900);

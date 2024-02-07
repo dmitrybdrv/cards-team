@@ -24,7 +24,7 @@ export const SelectC: FC<Props> = props => {
 
   const isShowArrow = (showSelect && <ArrowUp />) || (!showSelect && <ArrowDown />)
   const startSelectValue = startValue || values[0]
-  const items = values.map((item, i) => {
+  const items = values?.map((item, i) => {
     return (
       <Select.Item className={s.selectItem} key={i} value={item}>
         <Select.ItemText>{item}</Select.ItemText>
