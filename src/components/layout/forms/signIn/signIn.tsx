@@ -29,6 +29,14 @@ export const SignIn = ({ onSubmit }: FormPropsType<SignInType>) => {
           Sign In
         </Typography>
 
+        <Typography variant={'body2'} className={cs.footnote}>
+          <strong>email for testing: </strong>testor@test.te
+        </Typography>
+
+        <Typography variant={'body2'} className={cs.footnote}>
+          <strong>password for testing: </strong>123123
+        </Typography>
+
         <TextField
           {...register('email')}
           type={'email'}
