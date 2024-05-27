@@ -1,17 +1,21 @@
-# React + TypeScript + Vite
+<h1>Описание проекта <span style="color: #07bc0c">"Cards"</span></h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Проект "Cards" был разработан командой из трех фронтенд-разработчиков в рамках учебного курса по React / Redux. Приложение представляет собой веб-приложение для управления карточками.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Функциональность</br>
+Аутентификация пользователя: Безопасная регистрация и вход в систему.</br>
+Управление карточками: Создание, просмотр, редактирование и удаление карточек.</br>
+Поиск и фильтрация: Удобный поиск и фильтрация карточек.</br>
+Технологии</br>
+Проект использует следующие технологии и инструменты:
+<ul>
+<li><span style="color: #8c61ff">React:</span> Популярная библиотека для создания пользовательских интерфейсов, обеспечивающая быструю разработку и высокую производительность.</li>
+<li><span style="color: #8c61ff">Redux:</span> Платформа управления состоянием приложения, которая облегчает разработку сложных интерфейсов и поддерживает однонаправленный поток данных.</li>
+<li><span style="color: #8c61ff">React Router:</span> Библиотека для навигации в приложениях React, обеспечивающая динамическую маршрутизацию и удобное управление URL.</li>
+<li><span style="color: #8c61ff">React Hook Form:</span> Библиотека для управления формами в React, которая предоставляет простой и гибкий способ работы с формами.</li>
+<li><span style="color: #8c61ff">TypeScript:</span> Статически типизированный язык программирования, который обеспечивает улучшенную проверку типов и улучшает разработку больших проектов.</li>
+<li><span style="color: #8c61ff">ESLint и Prettier:</span> Инструменты для обеспечения качества кода и стиля, которые помогают выявлять и исправлять потенциальные проблемы и поддерживать единый стиль кодирования.</li>
+<li><span style="color: #8c61ff">Storybook:</span> Инструмент для разработки компонентов в изоляции, который упрощает тестирование и документирование компонентов интерфейса.</li>
+<li><span style="color: #8c61ff">Vite:</span> Современный инструмент для разработки, который обеспечивает быструю сборку и разработку приложений на основе современных стандартов и инструментов.</li>
+<li><span style="color: #8c61ff">GitHub Pages:</span> Сервис хостинга статических сайтов на базе GitHub, который облегчает развертывание приложений и обеспечивает доступ к ним через Интернет.</li>
+</ul>

@@ -1,10 +1,4 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  Outlet,
-  RouteObject,
-  RouterProvider,
-} from 'react-router-dom'
+import { createHashRouter, Navigate, Outlet, RouteObject, RouterProvider } from 'react-router-dom'
 
 import { CheckEmail, ForgotPassword } from '@/components'
 import { CreateNewPassword } from '@/components/layout/forms'
@@ -82,7 +76,7 @@ const privateRoutes: RouteObject[] = [
   },
 ]
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     element: <PrivateRoutes />,
     children: privateRoutes,
